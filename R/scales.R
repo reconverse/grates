@@ -195,3 +195,42 @@ scale_x_yrqtr <- function(..., n = 5) {
   ggplot2::scale_x_continuous(..., trans = yrqtr_trans(n))
 }
 
+
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+# ---------------------------------- YR ----------------------------------- #
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+
+
+scale_type.yr <- function(x) "yr"
+
+
+yr_trans <- function(n = 5) {
+
+  # breaks function
+  brks <- function(x) scales::pretty_breaks(n)(as.integer(x))
+
+  # format function
+  fmt <- function(x) format.yr(new_yr(x))
+
+  scales::trans_new(
+    "yr",
+    transform = as.numeric,
+    inverse = as.numeric,
+    breaks = brks,
+    format = fmt
+  )
+
+}
+
+
+#' @rdname grate-scales
+#' @export
+scale_x_yr <- function(..., n = 5) {
+
+  # probably a little pointless but you never know
+  check_suggests("ggplot2")
+
+  ggplot2::scale_x_continuous(..., trans = yr_trans(n))
+}

@@ -5,6 +5,7 @@
 \alias{scale_x_yrwk}
 \alias{scale_x_yrmon}
 \alias{scale_x_yrqtr}
+\alias{scale_x_yr}
 \title{Scales for ggplot2}
 \usage{
 scale_x_yrwk(..., n = 5, firstday)
@@ -12,6 +13,8 @@ scale_x_yrwk(..., n = 5, firstday)
 scale_x_yrmon(..., n = 5)
 
 scale_x_yrqtr(..., n = 5)
+
+scale_x_yr(..., n = 5)
 }
 \arguments{
 \item{...}{Other arguments passed to \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}.}

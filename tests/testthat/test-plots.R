@@ -74,3 +74,17 @@ test_that("yrqtr plotting works", {
 
   expect_snapshot_plot("yrqtr", yrqtr)
 })
+
+
+test_that("yr plotting works", {
+  dat <- load_dat()
+
+  yr <-
+    dat %>%
+    mutate(date = as_yr(date_of_infection)) %>%
+    count(date, name = "cases") %>%
+    drop_na() %>%
+    ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+
+  expect_snapshot_plot("yr", yr)
+})

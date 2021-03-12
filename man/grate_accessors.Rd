@@ -16,12 +16,14 @@
 \alias{get_year.yrwk}
 \alias{get_year.yrmon}
 \alias{get_year.yrqtr}
+\alias{get_year.yr}
 \alias{get_firstday}
 \alias{get_firstday.default}
 \alias{get_firstday.yrwk}
 \alias{get_interval.yrwk}
 \alias{get_interval.yrmon}
 \alias{get_interval.yrqtr}
+\alias{get_interval.yr}
 \title{Grouped date accessors}
 \usage{
 get_week(x, ...)
@@ -52,6 +54,8 @@ get_year(x, ...)
 
 \method{get_year}{yrqtr}(x, ...)
 
+\method{get_year}{yr}(x, ...)
+
 get_firstday(x, ...)
 
 \method{get_firstday}{default}(x, ...)
@@ -63,6 +67,8 @@ get_interval.yrwk(x, days = FALSE, ...)
 get_interval.yrmon(x, days = FALSE, ...)
 
 get_interval.yrqtr(x, days = FALSE, ...)
+
+get_interval.yr(x, days = FALSE, ...)
 }
 \arguments{
 \item{x}{A yrwk, yrmon, yrqtr or period object.}

@@ -10,13 +10,8 @@
 \alias{is_int_period}
 \title{#' @rdname grate_accessors
 #' @export
-get_interval.yr <- function(x, days = FALSE, ...) {
-res <- "1 year"
-if (days) {
-year <- unclass(x)
-res <- 365 + is_leap_year(year)
-}
-res
+get_firstdate <- function(x, ...) {
+UseMethod("get_firstdate")
 }}
 \usage{
 is_grate(x)
@@ -42,18 +37,12 @@ Logical.
 \description{
 #' @rdname grate_accessors
 #' @export
-get_firstdate <- function(x, ...) {
-UseMethod("get_firstdate")
-}
-}
-\details{
-#' @rdname grate_accessors
-#' @export
 get_firstdate.default <- function(x, ...) {
 stop(sprintf("Not implemented for class \%s",
 paste(class(x), collapse = ", ")))
 }
-
+}
+\details{
 #' @rdname grate_accessors
 #' @export
 get_firstdate.period <- function(x, ...) {

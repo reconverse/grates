@@ -135,11 +135,11 @@ get_year.yrqtr <- function(x, ...) {
   x$year + 1900L
 }
 
-# #' @rdname grate_accessors
-# #' @export
-# get_year.yr <- function(x, ...) {
-#   unclass(x)
-# }
+#' @rdname grate_accessors
+#' @export
+get_year.yr <- function(x, ...) {
+  unclass(x)
+}
 
 
 #' @rdname grate_accessors
@@ -217,17 +217,17 @@ get_interval.yrqtr <- function(x, days = FALSE, ...) {
   }
   res
 }
-#'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_interval.yr <- function(x, days = FALSE, ...) {
-#'   res <- "1 year"
-#'   if (days) {
-#'     year <- unclass(x)
-#'     res <- 365 + is_leap_year(year)
-#'   }
-#'   res
-#' }
+
+#' @rdname grate_accessors
+#' @export
+get_interval.yr <- function(x, days = FALSE, ...) {
+  res <- "1 year"
+  if (days) {
+    year <- unclass(x)
+    res <- 365 + is_leap_year(year)
+  }
+  res
+}
 #'
 #'
 #' #' @rdname grate_accessors
