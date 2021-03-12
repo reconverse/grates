@@ -81,7 +81,7 @@ dat %>%
   mutate(date = as_yr(date_of_infection)) %>% 
   count(date, name = "cases") %>% 
   drop_na() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") 
+  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") + scale_x_yr(n = 2)
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
