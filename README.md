@@ -61,3 +61,15 @@ dat %>%
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+### yrqtr
+
+``` r
+dat %>%
+  mutate(date = as_yrqtr(date_of_infection)) %>% 
+  count(date, name = "cases") %>% 
+  drop_na() %>% 
+  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") 
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />

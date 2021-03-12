@@ -10,12 +10,11 @@
 \alias{is_int_period}
 \title{#' @rdname grate_accessors
 #' @export
-get_interval.yrqtr <- function(x, days = FALSE, ...) {
-res <- "1 quarter"
+get_interval.yr <- function(x, days = FALSE, ...) {
+res <- "1 year"
 if (days) {
-year <- get_year(x)
-quarter <- get_quarter(x)
-res <- days_in_quarter(year, quarter)
+year <- unclass(x)
+res <- 365 + is_leap_year(year)
 }
 res
 }}
@@ -43,22 +42,11 @@ Logical.
 \description{
 #' @rdname grate_accessors
 #' @export
-get_interval.yr <- function(x, days = FALSE, ...) {
-res <- "1 year"
-if (days) {
-year <- unclass(x)
-res <- 365 + is_leap_year(year)
-}
-res
-}
-}
-\details{
-#' @rdname grate_accessors
-#' @export
 get_firstdate <- function(x, ...) {
 UseMethod("get_firstdate")
 }
-
+}
+\details{
 #' @rdname grate_accessors
 #' @export
 get_firstdate.default <- function(x, ...) {

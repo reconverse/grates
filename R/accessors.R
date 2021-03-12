@@ -74,27 +74,30 @@ get_month.yrmon <- function(x, style = c("numeric", "named"), ...) {
 }
 
 
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_quarter <- function(x, ...) {
-#'   UseMethod("get_quarter")
-#' }
-#'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_quarter.default <- function(x, ...) {
-#'   stop(sprintf("Not implemented for class %s",
-#'                paste(class(x), collapse = ", ")))
-#' }
-#'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_quarter.yrqtr <- function(x, ...) {
-#'   yrqtr_to_quarter(x)
-#' }
-#'
-#'
-#'
+#' @rdname grate_accessors
+#' @export
+get_quarter <- function(x, ...) {
+  UseMethod("get_quarter")
+}
+
+#' @rdname grate_accessors
+#' @export
+get_quarter.default <- function(x, ...) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @rdname grate_accessors
+#' @export
+get_quarter.yrqtr <- function(x, ...) {
+  attributes(x) <- NULL
+  days <- month_to_days(x * 3)
+  x <- as_utc_posixlt_from_int(days)
+  x$mon %/% 3L +1L
+}
+
+
+
 #' @rdname grate_accessors
 #' @export
 get_year <- function(x, ...) {
@@ -123,14 +126,14 @@ get_year.yrmon <- function(x, ...) {
   x$year + 1900L
 }
 
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_year.yrqtr <- function(x, ...) {
-#'   attributes(x) <- NULL
-#'   days <- month_to_days(x * 3)
-#'   x <- as_utc_posixlt_from_int(days)
-#'   x$year + 1900L
-#' }
+#' @rdname grate_accessors
+#' @export
+get_year.yrqtr <- function(x, ...) {
+  attributes(x) <- NULL
+  days <- month_to_days(x * 3)
+  x <- as_utc_posixlt_from_int(days)
+  x$year + 1900L
+}
 
 # #' @rdname grate_accessors
 # #' @export
@@ -202,18 +205,18 @@ get_interval.yrmon <- function(x, days = FALSE, ...) {
   res
 }
 
-#'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_interval.yrqtr <- function(x, days = FALSE, ...) {
-#'   res <- "1 quarter"
-#'   if (days) {
-#'     year <- get_year(x)
-#'     quarter <- get_quarter(x)
-#'     res <- days_in_quarter(year, quarter)
-#'   }
-#'   res
-#' }
+
+#' @rdname grate_accessors
+#' @export
+get_interval.yrqtr <- function(x, days = FALSE, ...) {
+  res <- "1 quarter"
+  if (days) {
+    year <- get_year(x)
+    quarter <- get_quarter(x)
+    res <- days_in_quarter(year, quarter)
+  }
+  res
+}
 #'
 #' #' @rdname grate_accessors
 #' #' @export
@@ -311,70 +314,62 @@ is_int_period <- function(x) {
 # ----------------------------- INTERNALS --------------------------------- #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-
-# yrqtr_to_quarter <- function(x) {
-#   attributes(x) <- NULL
-#   days <- month_to_days(x * 3)
-#   x <- as_utc_posixlt_from_int(days)
-#   x$mon %/% 3L +1L
+#
+# get_interval_number <- function(x) {
+#   if (!grepl("^\\d", x)) return(1L)
+#   as.integer(gsub("^(\\d*).+$", "\\1", x))
 # }
-
-
-get_interval_number <- function(x) {
-  if (!grepl("^\\d", x)) return(1L)
-  as.integer(gsub("^(\\d*).+$", "\\1", x))
-}
-
-
-get_interval_type <- function(x) {
-
-  if (!is.character(x)) {
-    return(typeof(x))
-  }
-
-  day <- "^\\s*days?\\s*$|\\sdays?\\s+|\\sdays?\\s*$"
-  if (grepl(day, x, ignore.case = TRUE)) {
-    return("day")
-  } else if (grepl("week", x, ignore.case = TRUE)) {
-    return("week")
-  }  else if (grepl("month", x, ignore.case = TRUE)) {
-    return("month")
-  } else if (grepl("quarter", x, ignore.case = TRUE)) {
-    return("quarter")
-  } else if (grepl("year", x, ignore.case = TRUE)) {
-    return("year")
-  }  else {
-    return("day")
-  }
-}
-
-
-get_days <- function(x, interval) {
-  tmp <- rep(NA, length(x))
-  tmp[!is.na(x)] <- vapply(
-    x[!is.na(x)],
-    function(y) seq.Date(new_date(y), by = interval, length.out = 2)[2],
-    double(1)
-  )
-  tmp
-}
-
-
-get_interval_days <- function(x, interval) {
-  if (is.integer(interval)) {
-    res <- interval
-  } else {
-    n <- get_interval_number(interval)
-    type <- get_interval_type(interval)
-    res <- switch(
-      type,
-      day = 1L * n,
-      week = 7L * n,
-      get_days(x, interval) - unclass(x)
-    )
-  }
-  res
-}
-
-
-
+#
+#
+# get_interval_type <- function(x) {
+#
+#   if (!is.character(x)) {
+#     return(typeof(x))
+#   }
+#
+#   day <- "^\\s*days?\\s*$|\\sdays?\\s+|\\sdays?\\s*$"
+#   if (grepl(day, x, ignore.case = TRUE)) {
+#     return("day")
+#   } else if (grepl("week", x, ignore.case = TRUE)) {
+#     return("week")
+#   }  else if (grepl("month", x, ignore.case = TRUE)) {
+#     return("month")
+#   } else if (grepl("quarter", x, ignore.case = TRUE)) {
+#     return("quarter")
+#   } else if (grepl("year", x, ignore.case = TRUE)) {
+#     return("year")
+#   }  else {
+#     return("day")
+#   }
+# }
+#
+#
+# get_days <- function(x, interval) {
+#   tmp <- rep(NA, length(x))
+#   tmp[!is.na(x)] <- vapply(
+#     x[!is.na(x)],
+#     function(y) seq.Date(new_date(y), by = interval, length.out = 2)[2],
+#     double(1)
+#   )
+#   tmp
+# }
+#
+#
+# get_interval_days <- function(x, interval) {
+#   if (is.integer(interval)) {
+#     res <- interval
+#   } else {
+#     n <- get_interval_number(interval)
+#     type <- get_interval_type(interval)
+#     res <- switch(
+#       type,
+#       day = 1L * n,
+#       week = 7L * n,
+#       get_days(x, interval) - unclass(x)
+#     )
+#   }
+#   res
+# }
+#
+#
+#

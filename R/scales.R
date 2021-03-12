@@ -157,3 +157,41 @@ scale_x_yrmon <- function(..., n = 5) {
   ggplot2::scale_x_continuous(..., trans = yrmon_trans(n))
 
 }
+
+
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+# --------------------------------- YRQTR --------------------------------- #
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+
+scale_type.yrqtr <- function(x) "yrqtr"
+
+yrqtr_trans <- function(n = 5) {
+
+  # breaks function
+  brks <- function(x) scales::pretty_breaks(n)(as.numeric(x))
+
+  # format function
+  fmt <- function(x) format.yrqtr(new_yrqtr(x))
+
+  scales::trans_new(
+    "yrqtr",
+    transform = as.numeric,
+    inverse = as.numeric,
+    breaks = brks,
+    format = fmt
+  )
+
+}
+
+#' @rdname grate-scales
+#' @export
+scale_x_yrqtr <- function(..., n = 5) {
+
+  # probably a little pointless but you never know
+  check_suggests("ggplot2")
+
+  ggplot2::scale_x_continuous(..., trans = yrqtr_trans(n))
+}
+

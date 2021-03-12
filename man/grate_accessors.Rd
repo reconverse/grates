@@ -8,15 +8,20 @@
 \alias{get_month}
 \alias{get_month.default}
 \alias{get_month.yrmon}
+\alias{get_quarter}
+\alias{get_quarter.default}
+\alias{get_quarter.yrqtr}
 \alias{get_year}
 \alias{get_year.default}
 \alias{get_year.yrwk}
 \alias{get_year.yrmon}
+\alias{get_year.yrqtr}
 \alias{get_firstday}
 \alias{get_firstday.default}
 \alias{get_firstday.yrwk}
 \alias{get_interval.yrwk}
 \alias{get_interval.yrmon}
+\alias{get_interval.yrqtr}
 \title{Grouped date accessors}
 \usage{
 get_week(x, ...)
@@ -31,6 +36,12 @@ get_month(x, ...)
 
 \method{get_month}{yrmon}(x, style = c("numeric", "named"), ...)
 
+get_quarter(x, ...)
+
+\method{get_quarter}{default}(x, ...)
+
+\method{get_quarter}{yrqtr}(x, ...)
+
 get_year(x, ...)
 
 \method{get_year}{default}(x, ...)
@@ -38,6 +49,8 @@ get_year(x, ...)
 \method{get_year}{yrwk}(x, ...)
 
 \method{get_year}{yrmon}(x, ...)
+
+\method{get_year}{yrqtr}(x, ...)
 
 get_firstday(x, ...)
 
@@ -48,6 +61,8 @@ get_firstday(x, ...)
 get_interval.yrwk(x, days = FALSE, ...)
 
 get_interval.yrmon(x, days = FALSE, ...)
+
+get_interval.yrqtr(x, days = FALSE, ...)
 }
 \arguments{
 \item{x}{A yrwk, yrmon, yrqtr or period object.}
@@ -70,26 +85,12 @@ Generics and methods to work with grouped date objects:
 
 #' @rdname grate_accessors
 #' @export
-get_quarter.default <- function(x, ...) {
-stop(sprintf("Not implemented for class \%s",
-paste(class(x), collapse = ", ")))
-}
-
-#' @rdname grate_accessors
-#' @export
 get_interval.int_period <- function(x, days = FALSE, ...) {
 res <- attr(x, "interval")
 if (days) {
 res <- get_interval_days(x, attr(x, "interval"))
 }
 res
-}
-}
-\details{
-#' @rdname grate_accessors
-#' @export
-get_quarter.yrqtr <- function(x, ...) {
-yrqtr_to_quarter(x)
 }
 }
 \examples{

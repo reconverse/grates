@@ -62,3 +62,15 @@ test_that("yrmon plotting works", {
 })
 
 
+test_that("yrqtr plotting works", {
+  dat <- load_dat()
+
+  yrqtr <-
+    dat %>%
+    mutate(date = as_yrqtr(date_of_infection)) %>%
+    count(date, name = "cases") %>%
+    drop_na() %>%
+    ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+
+  expect_snapshot_plot("yrqtr", yrqtr)
+})

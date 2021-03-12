@@ -68,3 +68,11 @@ dat %>%
   ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") 
 ```
 
+### yrqtr
+```{r}
+dat %>%
+  mutate(date = as_yrqtr(date_of_infection)) %>% 
+  count(date, name = "cases") %>% 
+  drop_na() %>% 
+  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") 
+```
