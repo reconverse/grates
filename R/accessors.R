@@ -39,29 +39,41 @@ get_week.yrwk <- function(x, ...) {
 }
 
 
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_month <- function(x, ...) {
-#'   UseMethod("get_month")
-#' }
+#' @rdname grate_accessors
+#' @export
+get_month <- function(x, ...) {
+  UseMethod("get_month")
+}
+
+#' @rdname grate_accessors
+#' @export
+get_month.default <- function(x, ...) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @param style Either "numeric" (default) for the integer month value or
+#'   "named" to return the abbreviated month name in the current locale.
 #'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_month.default <- function(x, ...) {
-#'   stop(sprintf("Not implemented for class %s",
-#'                paste(class(x), collapse = ", ")))
-#' }
-#'
-#' #' @param style Either "numeric" (default) for the integer month value or
-#' #'   "named" to return the abbreviated month name in the current locale.
-#' #'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_month.yrmon <- function(x, style = c("numeric", "named"), ...) {
-#'   yrmon_to_month(x, style = style)
-#' }
-#'
-#'
+#' @rdname grate_accessors
+#' @export
+get_month.yrmon <- function(x, style = c("numeric", "named"), ...) {
+  style <- match.arg(style)
+
+  attributes(x) <- NULL
+  days <- month_to_days(x)
+  x <- as_utc_posixlt_from_int(days)
+  mon <- x$mon + 1L
+
+  if (style == "named") {
+    month_lookup <- format(ISOdate(2000, 1:12, 1), "%b")
+    return(month_lookup[mon])
+  } else {
+    return(mon)
+  }
+}
+
+
 #' #' @rdname grate_accessors
 #' #' @export
 #' get_quarter <- function(x, ...) {
@@ -101,24 +113,30 @@ get_year.default <- function(x, ...) {
 get_year.yrwk <- function(x, ...) {
   yrwk_to_year(x)
 }
-#'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_year.yrmon <- function(x, ...) {
-#'   yrmon_to_year(x)
-#' }
-#'
+
+#' @rdname grate_accessors
+#' @export
+get_year.yrmon <- function(x, ...) {
+  attributes(x) <- NULL
+  days <- month_to_days(x)
+  x <- as_utc_posixlt_from_int(days)
+  x$year + 1900L
+}
+
 #' #' @rdname grate_accessors
 #' #' @export
 #' get_year.yrqtr <- function(x, ...) {
-#'   yrqtr_to_year(x)
+#'   attributes(x) <- NULL
+#'   days <- month_to_days(x * 3)
+#'   x <- as_utc_posixlt_from_int(days)
+#'   x$year + 1900L
 #' }
-#'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_year.yr <- function(x, ...) {
-#'   unclass(x)
-#' }
+
+# #' @rdname grate_accessors
+# #' @export
+# get_year.yr <- function(x, ...) {
+#   unclass(x)
+# }
 
 
 #' @rdname grate_accessors
@@ -172,18 +190,18 @@ get_interval.yrwk <- function(x, days = FALSE, ...) {
 }
 
 
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_interval.yrmon <- function(x, days = FALSE, ...) {
-#'   res <- "1 month"
-#'   if (days) {
-#'     year <- get_year(x)
-#'     month <- get_month(x)
-#'     res <- days_in_month(year, month)
-#'   }
-#'   res
-#' }
-#'
+#' @rdname grate_accessors
+#' @export
+get_interval.yrmon <- function(x, days = FALSE, ...) {
+  res <- "1 month"
+  if (days) {
+    year <- get_year(x)
+    month <- get_month(x)
+    res <- days_in_month(year, month)
+  }
+  res
+}
+
 #'
 #' #' @rdname grate_accessors
 #' #' @export
@@ -294,37 +312,6 @@ is_int_period <- function(x) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-# yrmon_to_month <- function(x, style = c("numeric", "named"), ...) {
-#   attributes(x) <- NULL
-#   days <- month_to_days(x)
-#   x <- as_utc_posixlt_from_int(days)
-#   style <- match.arg(style)
-#   mon <- x$mon + 1L
-#   if (style == "named") {
-#     month_lookup <- format(ISOdate(2000, 1:12, 1), "%b")
-#     return(month_lookup[mon]  )
-#   } else {
-#     return(mon)
-#   }
-# }
-#
-#
-# yrmon_to_year <- function(x) {
-#   attributes(x) <- NULL
-#   days <- month_to_days(x)
-#   x <- as_utc_posixlt_from_int(days)
-#   x$year + 1900L
-# }
-#
-#
-# yrqtr_to_year <- function(x) {
-#   attributes(x) <- NULL
-#   days <- month_to_days(x * 3)
-#   x <- as_utc_posixlt_from_int(days)
-#   x$year + 1900L
-# }
-#
-#
 # yrqtr_to_quarter <- function(x) {
 #   attributes(x) <- NULL
 #   days <- month_to_days(x * 3)

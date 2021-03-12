@@ -46,6 +46,10 @@ tzone <- function(x) {
   if(is.null(tz)) "" else tz
 }
 
+is_leap_year <- function(year) {
+  ((((year) %% 4) == 0 & ((year) %% 100) != 0) | ((year) %% 400) == 0)
+}
+
 # The following is based on a functions of Davis Vaughan in
 # https://github.com/DavisVaughan/datea/blob/master/R/ymon-as.R.
 # It is quicker than doing as.POSIXct.Date and will work with

@@ -28,7 +28,8 @@ scale_x_yrwk_fd_7(..., n = 5)
 \arguments{
 \item{...}{Other arguments passed to \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}.}
 
-\item{n}{Number of breaks (default 5)}
+\item{n}{Approximate number of breaks calculated using
+\code{scales::breaks_pretty} (default 5).}
 }
 \description{
 Wrappers around \code{\link[=scale_x_yrwk]{scale_x_yrwk()}} with pre-specified firstday argument.

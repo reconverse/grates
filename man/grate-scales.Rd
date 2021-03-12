@@ -3,14 +3,18 @@
 \name{grate-scales}
 \alias{grate-scales}
 \alias{scale_x_yrwk}
+\alias{scale_x_yrmon}
 \title{Scales for ggplot2}
 \usage{
 scale_x_yrwk(..., n = 5, firstday)
+
+scale_x_yrmon(..., n = 5)
 }
 \arguments{
 \item{...}{Other arguments passed to \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}.}
 
-\item{n}{Number of breaks (default 5)}
+\item{n}{Approximate number of breaks calculated using
+\code{scales::breaks_pretty} (default 5).}
 
 \item{firstday}{Integer value of the first weekday: 1 (Monday) to 7
 (Sunday).}

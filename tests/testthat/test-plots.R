@@ -26,9 +26,6 @@ load_dat <- function() {
 }
 # -------------------------------------------------------------------------
 
-
-# yrwk --------------------------------------------------------------------
-
 test_that("yrwk plotting works", {
   dat <- load_dat()
 
@@ -49,6 +46,19 @@ test_that("yrwk plotting works", {
   expect_snapshot_plot("yrwk_monday", yrwk_monday)
   expect_snapshot_plot("yrwk_thursday", yrwk_thursday)
 })
-# -------------------------------------------------------------------------
+
+
+test_that("yrmon plotting works", {
+  dat <- load_dat()
+
+  yrmon <-
+    dat %>%
+    mutate(date = as_yrmon(date_of_infection)) %>%
+    count(date, name = "cases") %>%
+    drop_na() %>%
+    ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+
+  expect_snapshot_plot("yrmon", yrmon)
+})
 
 

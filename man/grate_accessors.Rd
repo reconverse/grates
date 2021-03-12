@@ -5,13 +5,18 @@
 \alias{get_week}
 \alias{get_week.default}
 \alias{get_week.yrwk}
+\alias{get_month}
+\alias{get_month.default}
+\alias{get_month.yrmon}
 \alias{get_year}
 \alias{get_year.default}
 \alias{get_year.yrwk}
+\alias{get_year.yrmon}
 \alias{get_firstday}
 \alias{get_firstday.default}
 \alias{get_firstday.yrwk}
 \alias{get_interval.yrwk}
+\alias{get_interval.yrmon}
 \title{Grouped date accessors}
 \usage{
 get_week(x, ...)
@@ -20,11 +25,19 @@ get_week(x, ...)
 
 \method{get_week}{yrwk}(x, ...)
 
+get_month(x, ...)
+
+\method{get_month}{default}(x, ...)
+
+\method{get_month}{yrmon}(x, style = c("numeric", "named"), ...)
+
 get_year(x, ...)
 
 \method{get_year}{default}(x, ...)
 
 \method{get_year}{yrwk}(x, ...)
+
+\method{get_year}{yrmon}(x, ...)
 
 get_firstday(x, ...)
 
@@ -33,11 +46,16 @@ get_firstday(x, ...)
 \method{get_firstday}{yrwk}(x, ...)
 
 get_interval.yrwk(x, days = FALSE, ...)
+
+get_interval.yrmon(x, days = FALSE, ...)
 }
 \arguments{
 \item{x}{A yrwk, yrmon, yrqtr or period object.}
 
 \item{...}{Not used.}
+
+\item{style}{Either "numeric" (default) for the integer month value or
+"named" to return the abbreviated month name in the current locale.}
 
 \item{days}{Should periods be converted in to a number of days.}
 }
@@ -52,15 +70,9 @@ Generics and methods to work with grouped date objects:
 
 #' @rdname grate_accessors
 #' @export
-get_month.default <- function(x, ...) {
+get_quarter.default <- function(x, ...) {
 stop(sprintf("Not implemented for class \%s",
 paste(class(x), collapse = ", ")))
-}
-
-#' @rdname grate_accessors
-#' @export
-get_year.yrqtr <- function(x, ...) {
-yrqtr_to_year(x)
 }
 
 #' @rdname grate_accessors
@@ -74,38 +86,10 @@ res
 }
 }
 \details{
-#' @param style Either "numeric" (default) for the integer month value or
-#'   "named" to return the abbreviated month name in the current locale.
-#'
-#' @rdname grate_accessors
-#' @export
-get_month.yrmon <- function(x, style = c("numeric", "named"), ...) {
-yrmon_to_month(x, style = style)
-}
-
-#' @rdname grate_accessors
-#' @export
-get_quarter <- function(x, ...) {
-UseMethod("get_quarter")
-}
-
-#' @rdname grate_accessors
-#' @export
-get_quarter.default <- function(x, ...) {
-stop(sprintf("Not implemented for class \%s",
-paste(class(x), collapse = ", ")))
-}
-
 #' @rdname grate_accessors
 #' @export
 get_quarter.yrqtr <- function(x, ...) {
 yrqtr_to_quarter(x)
-}
-
-#' @rdname grate_accessors
-#' @export
-get_year.yr <- function(x, ...) {
-unclass(x)
 }
 }
 \examples{

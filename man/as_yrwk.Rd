@@ -42,6 +42,17 @@ format, i.e. "yyyy-mm-dd", or yrwk format, i.e. "yyyy-Www". On conversion
 the day component will be dropped.
 }
 }
+\note{
+Internally \code{yrwk} objects are stored as the number of weeks from the
+date of the \code{firstday} nearest the Unix Epoch (1970-01-01).  That is:\preformatted{- 1969-12-29 for `firstday` as Monday
+- 1969-12-30 for `firstday` as Tuesday
+- 1969-12-31 for `firstday` as Wednesday
+- 1970-01-01 for `firstday` as Thursday
+- 1970-01-02 for `firstday` as Friday
+- 1970-01-03 for `firstday` as Saturday
+- 1970-01-04 for `firstday` as Sunday
+}
+}
 \examples{
 as_yrwk(Sys.Date())
 as_yrwk(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))

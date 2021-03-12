@@ -2,7 +2,8 @@
 #'
 #' ggplot2 scales grouped date objects; `yrwk`, `yrmon`, `yrqtr` and `period`.
 #'
-#' @param n Number of breaks (default 5)
+#' @param n Approximate number of breaks calculated using
+#'   `scales::breaks_pretty` (default 5).
 #' @param ... Other arguments passed to [`ggplot2::scale_x_continuous()`].
 #'
 #' @name grate-scales
@@ -29,7 +30,7 @@ scale_type.yrwk <- function(x) {
 yrwk_trans <- function(n = 5, firstday) {
 
   # breaks function
-  brks <- function(x) scales::pretty_breaks(n)(as.numeric(x))
+  brks <- function(x) scales::breaks_pretty(n)(as.numeric(x))
 
   # format function
   fmt <- function(x) {
@@ -117,3 +118,42 @@ scale_x_yrwk_fd_6 <- function(..., n = 5) scale_x_yrwk(..., n = n, firstday = 6)
 #' @keywords internal
 #' @rdname hidden-scales
 scale_x_yrwk_fd_7 <- function(..., n = 5) scale_x_yrwk(..., n = n, firstday = 7)
+
+
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+# --------------------------------- YRMON --------------------------------- #
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+
+
+scale_type.yrmon <- function(x) c("yrmon")
+
+yrmon_trans <- function(n = 5) {
+
+  # breaks function
+  brks <- function(x) scales::breaks_pretty(n)(as.numeric(x))
+
+  # format function
+  fmt <- function(x) format.yrmon(new_yrmon(x))
+
+  scales::trans_new(
+    "yrmon",
+    transform = as.numeric,
+    inverse = as.numeric,
+    breaks = brks,
+    format = fmt
+  )
+}
+
+
+#' @rdname grate-scales
+#' @export
+scale_x_yrmon <- function(..., n = 5) {
+
+  # check ggplot2 is installed (this also ensures scales presence)
+  check_suggests("ggplot2")
+
+  ggplot2::scale_x_continuous(..., trans = yrmon_trans(n))
+
+}
