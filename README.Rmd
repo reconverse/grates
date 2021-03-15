@@ -85,3 +85,19 @@ dat %>%
   drop_na() %>% 
   ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") + scale_x_yr(n = 2)
 ```
+
+
+### period
+```{r}
+dat %>%
+  mutate(date = as_period(date_of_infection, interval = "2 weeks")) %>% 
+  count(date, name = "cases") %>% 
+  drop_na() %>% 
+  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+
+dat %>%
+  mutate(date = as_period(date_of_infection, interval = 28)) %>% 
+  count(date, name = "cases") %>% 
+  drop_na() %>% 
+  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+```

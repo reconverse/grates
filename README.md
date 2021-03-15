@@ -85,3 +85,26 @@ dat %>%
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+
+### period
+
+``` r
+dat %>%
+  mutate(date = as_period(date_of_infection, interval = "2 weeks")) %>% 
+  count(date, name = "cases") %>% 
+  drop_na() %>% 
+  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+
+``` r
+
+dat %>%
+  mutate(date = as_period(date_of_infection, interval = 28)) %>% 
+  count(date, name = "cases") %>% 
+  drop_na() %>% 
+  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+```
+
+<img src="man/figures/README-unnamed-chunk-7-2.png" width="100%" />
