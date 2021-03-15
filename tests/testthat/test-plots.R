@@ -88,3 +88,27 @@ test_that("yr plotting works", {
 
   expect_snapshot_plot("yr", yr)
 })
+
+test_that("period plotting works", {
+  dat <- load_dat()
+
+  two_weeks <-
+    dat %>%
+    mutate(date = as_period(date_of_infection, "2 weeks")) %>%
+    count(date, name = "cases") %>%
+    drop_na() %>%
+    ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+
+  expect_snapshot_plot("two_weeks", two_weeks)
+
+  twentyeight_days <-
+    dat %>%
+    mutate(date = as_period(date_of_infection, "28 days")) %>%
+    count(date, name = "cases") %>%
+    drop_na() %>%
+    ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+
+  expect_snapshot_plot("twentyeight_days", twentyeight_days)
+
+
+})

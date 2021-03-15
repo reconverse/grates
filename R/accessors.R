@@ -162,16 +162,29 @@ get_firstday.yrwk <- function(x, ...) {
 }
 
 
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_interval.period <- function(x, days = FALSE, ...) {
-#'   res <- attr(x, "interval")
-#'   if (days) {
-#'     res <- get_interval_days(x, attr(x, "interval"))
-#'   }
-#'   res
-#' }
-#'
+#' @rdname grate_accessors
+#' @export
+get_interval <- function(x, ...) {
+  UseMethod("get_interval")
+}
+
+#' @rdname grate_accessors
+#' @export
+get_interval.default <- function(x, ...) {
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
+}
+
+#' @rdname grate_accessors
+#' @export
+get_interval.period <- function(x, days = FALSE, ...) {
+  res <- attr(x, "interval")
+  if (days) {
+    res <- get_interval_days(x, attr(x, "interval"))
+  }
+  res
+}
+
 #' #' @rdname grate_accessors
 #' #' @export
 #' get_interval.int_period <- function(x, days = FALSE, ...) {
@@ -228,32 +241,6 @@ get_interval.yr <- function(x, days = FALSE, ...) {
   }
   res
 }
-#'
-#'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_firstdate <- function(x, ...) {
-#'   UseMethod("get_firstdate")
-#' }
-#'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_firstdate.default <- function(x, ...) {
-#'   stop(sprintf("Not implemented for class %s",
-#'                paste(class(x), collapse = ", ")))
-#' }
-#'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_firstdate.period <- function(x, ...) {
-#'   new_date(attr(x, "firstdate"))
-#' }
-#'
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_firstdate.int_period <- function(x, ...) {
-#'   attr(x, "firstdate")
-#' }
 
 
 #'  Is object a grouped date
@@ -344,32 +331,32 @@ is_int_period <- function(x) {
 # }
 #
 #
-# get_days <- function(x, interval) {
-#   tmp <- rep(NA, length(x))
-#   tmp[!is.na(x)] <- vapply(
-#     x[!is.na(x)],
-#     function(y) seq.Date(new_date(y), by = interval, length.out = 2)[2],
-#     double(1)
-#   )
-#   tmp
-# }
-#
-#
-# get_interval_days <- function(x, interval) {
-#   if (is.integer(interval)) {
-#     res <- interval
-#   } else {
-#     n <- get_interval_number(interval)
-#     type <- get_interval_type(interval)
-#     res <- switch(
-#       type,
-#       day = 1L * n,
-#       week = 7L * n,
-#       get_days(x, interval) - unclass(x)
-#     )
-#   }
-#   res
-# }
-#
-#
-#
+get_days <- function(x, interval) {
+  tmp <- rep(NA, length(x))
+  tmp[!is.na(x)] <- vapply(
+    x[!is.na(x)],
+    function(y) seq.Date(new_date(y), by = interval, length.out = 2)[2],
+    double(1)
+  )
+  tmp
+}
+
+
+get_interval_days <- function(x, interval) {
+  if (is.integer(interval)) {
+    res <- interval
+  } else {
+    n <- get_interval_number(interval)
+    type <- get_interval_type(interval)
+    res <- switch(
+      type,
+      day = 1L * n,
+      week = 7L * n,
+      get_days(x, interval) - unclass(x)
+    )
+  }
+  res
+}
+
+
+

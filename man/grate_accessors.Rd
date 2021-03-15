@@ -20,6 +20,9 @@
 \alias{get_firstday}
 \alias{get_firstday.default}
 \alias{get_firstday.yrwk}
+\alias{get_interval}
+\alias{get_interval.default}
+\alias{get_interval.period}
 \alias{get_interval.yrwk}
 \alias{get_interval.yrmon}
 \alias{get_interval.yrqtr}
@@ -62,13 +65,19 @@ get_firstday(x, ...)
 
 \method{get_firstday}{yrwk}(x, ...)
 
-get_interval.yrwk(x, days = FALSE, ...)
+get_interval(x, ...)
 
-get_interval.yrmon(x, days = FALSE, ...)
+\method{get_interval}{default}(x, ...)
 
-get_interval.yrqtr(x, days = FALSE, ...)
+\method{get_interval}{period}(x, days = FALSE, ...)
 
-get_interval.yr(x, days = FALSE, ...)
+\method{get_interval}{yrwk}(x, days = FALSE, ...)
+
+\method{get_interval}{yrmon}(x, days = FALSE, ...)
+
+\method{get_interval}{yrqtr}(x, days = FALSE, ...)
+
+\method{get_interval}{yr}(x, days = FALSE, ...)
 }
 \arguments{
 \item{x}{A yrwk, yrmon, yrqtr or period object.}
@@ -87,16 +96,6 @@ Generics and methods to work with grouped date objects:
 \item \code{get_year()} returns the year.
 \item \code{get_firstday()} returns the firstday attribute of a yrwk object.
 \item \code{get_month()} returns the month.
-}
-
-#' @rdname grate_accessors
-#' @export
-get_interval.int_period <- function(x, days = FALSE, ...) {
-res <- attr(x, "interval")
-if (days) {
-res <- get_interval_days(x, attr(x, "interval"))
-}
-res
 }
 }
 \examples{

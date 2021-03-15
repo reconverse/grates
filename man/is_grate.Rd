@@ -8,11 +8,7 @@
 \alias{is_yr}
 \alias{is_period}
 \alias{is_int_period}
-\title{#' @rdname grate_accessors
-#' @export
-get_firstdate <- function(x, ...) {
-UseMethod("get_firstdate")
-}}
+\title{Is object a grouped date}
 \usage{
 is_grate(x)
 
@@ -35,24 +31,5 @@ is_int_period(x)
 Logical.
 }
 \description{
-#' @rdname grate_accessors
-#' @export
-get_firstdate.default <- function(x, ...) {
-stop(sprintf("Not implemented for class \%s",
-paste(class(x), collapse = ", ")))
-}
-}
-\details{
-#' @rdname grate_accessors
-#' @export
-get_firstdate.period <- function(x, ...) {
-new_date(attr(x, "firstdate"))
-}
-
-#' @rdname grate_accessors
-#' @export
-get_firstdate.int_period <- function(x, ...) {
-attr(x, "firstdate")
-}
 Is object a grouped date
 }

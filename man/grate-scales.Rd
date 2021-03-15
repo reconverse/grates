@@ -6,6 +6,7 @@
 \alias{scale_x_yrmon}
 \alias{scale_x_yrqtr}
 \alias{scale_x_yr}
+\alias{scale_x_period}
 \title{Scales for ggplot2}
 \usage{
 scale_x_yrwk(..., n = 5, firstday)
@@ -15,6 +16,8 @@ scale_x_yrmon(..., n = 5)
 scale_x_yrqtr(..., n = 5)
 
 scale_x_yr(..., n = 5)
+
+scale_x_period(..., n = 5, interval, firstdate)
 }
 \arguments{
 \item{...}{Other arguments passed to \code{\link[ggplot2:scale_continuous]{ggplot2::scale_x_continuous()}}.}
@@ -24,6 +27,10 @@ scale_x_yr(..., n = 5)
 
 \item{firstday}{Integer value of the first weekday: 1 (Monday) to 7
 (Sunday).}
+
+\item{interval}{interval ga}
+
+\item{firstdate}{date the period is anchored / started from}
 }
 \description{
 ggplot2 scales grouped date objects; \code{yrwk}, \code{yrmon}, \code{yrqtr} and \code{period}.
