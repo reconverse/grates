@@ -33,11 +33,14 @@ is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
 
 # cast a vector to an integer
 int_cast <- function(x) {
+  x <- unclass(x)
   if (!all(is.wholenumber(x) | is.na(x))) {
     msg <- paste(deparse1(substitute(x)), "must be a vector of whole numbers")
     stop(msg, call. = FALSE)
   }
-  as.integer(x)
+  res <- as.integer(x)
+  names(res) <- names(x)
+  res
 }
 
 # pull out tzone (timezone) of object (returns "" if it does not exist)

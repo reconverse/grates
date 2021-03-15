@@ -185,15 +185,15 @@ get_interval.period <- function(x, days = FALSE, ...) {
   res
 }
 
-#' #' @rdname grate_accessors
-#' #' @export
-#' get_interval.int_period <- function(x, days = FALSE, ...) {
-#'   res <- attr(x, "interval")
-#'   if (days) {
-#'     res <- get_interval_days(x, attr(x, "interval"))
-#'   }
-#'   res
-#' }
+#' @rdname grate_accessors
+#' @export
+get_interval.int_period <- function(x, days = FALSE, ...) {
+  res <- attr(x, "interval")
+  if (days) {
+    res <- get_interval_days(x, attr(x, "interval"))
+  }
+  res
+}
 
 #' @rdname grate_accessors
 #' @export
@@ -301,36 +301,7 @@ is_int_period <- function(x) {
 # ----------------------------- INTERNALS --------------------------------- #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-#
-# get_interval_number <- function(x) {
-#   if (!grepl("^\\d", x)) return(1L)
-#   as.integer(gsub("^(\\d*).+$", "\\1", x))
-# }
-#
-#
-# get_interval_type <- function(x) {
-#
-#   if (!is.character(x)) {
-#     return(typeof(x))
-#   }
-#
-#   day <- "^\\s*days?\\s*$|\\sdays?\\s+|\\sdays?\\s*$"
-#   if (grepl(day, x, ignore.case = TRUE)) {
-#     return("day")
-#   } else if (grepl("week", x, ignore.case = TRUE)) {
-#     return("week")
-#   }  else if (grepl("month", x, ignore.case = TRUE)) {
-#     return("month")
-#   } else if (grepl("quarter", x, ignore.case = TRUE)) {
-#     return("quarter")
-#   } else if (grepl("year", x, ignore.case = TRUE)) {
-#     return("year")
-#   }  else {
-#     return("day")
-#   }
-# }
-#
-#
+
 get_days <- function(x, interval) {
   tmp <- rep(NA, length(x))
   tmp[!is.na(x)] <- vapply(

@@ -23,6 +23,7 @@
 \alias{get_interval}
 \alias{get_interval.default}
 \alias{get_interval.period}
+\alias{get_interval.int_period}
 \alias{get_interval.yrwk}
 \alias{get_interval.yrmon}
 \alias{get_interval.yrqtr}
@@ -70,6 +71,8 @@ get_interval(x, ...)
 \method{get_interval}{default}(x, ...)
 
 \method{get_interval}{period}(x, days = FALSE, ...)
+
+\method{get_interval}{int_period}(x, days = FALSE, ...)
 
 \method{get_interval}{yrwk}(x, days = FALSE, ...)
 

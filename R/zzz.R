@@ -5,6 +5,7 @@
   s3_register("ggplot2::scale_type", "yrqtr")
   s3_register("ggplot2::scale_type", "yr")
   s3_register("ggplot2::scale_type", "period")
+  s3_register("ggplot2::scale_type", "int_period")
   invisible()
 }
 # nocov end
