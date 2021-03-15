@@ -35,6 +35,9 @@ as_yr(x, ...)
 
 \item{...}{Not used.}
 }
+\value{
+A \code{yr} object.
+}
 \description{
 \itemize{
 \item Date, POSIXct, and POSIXlt are converted directly.  Any day, hour, minute,

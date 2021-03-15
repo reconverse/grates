@@ -32,6 +32,9 @@ as_yrqtr(x, ...)
 
 \item{...}{Not used.}
 }
+\value{
+A \code{yrqtr} object.
+}
 \description{
 \itemize{
 \item Date, POSIXct, and POSIXlt are converted directly.  Any day, hour, minute,
@@ -40,6 +43,10 @@ dates via \code{as.date()} with the timezone respected.
 \item Character input is assumed to be provided in either ISO 8601 standard
 format, i.e. "yyyy-mm-dd".
 }
+}
+\note{
+Internally \code{yrqtr} objects are stored as the number of quarters
+(starting at 0) since the Unix Epoch (1970-01-01).
 }
 \examples{
 as_yrqtr(Sys.Date())

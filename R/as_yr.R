@@ -17,6 +17,8 @@
 #' @param x `An object to coerce to yr.
 #' @param ... Not used.
 #'
+#' @return A `yr` object.
+#'
 #' @examples
 #' as_yr(Sys.Date())
 #' as_yr(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))

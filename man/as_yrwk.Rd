@@ -32,6 +32,9 @@ as_yrwk(x, firstday = 1L, ...)
 
 \item{...}{Not used.}
 }
+\value{
+A \code{yrwk} object.
+}
 \description{
 \itemize{
 \item Date, POSIXct, and POSIXlt are converted directly.  Any day, hour, minute,

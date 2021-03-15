@@ -25,15 +25,40 @@ as_period(x, interval, firstdate, ...)
 \method{as_period}{factor}(x, interval = 1L, firstdate = NULL, ...)
 }
 \arguments{
-\item{x}{`An object to coerce to period.}
+\item{x}{An object to coerce to a period.}
 
-\item{interval}{How many days to include in each period.}
+\item{interval}{An integer or character indicating the (fixed) size of the
+time interval used for computing the incidence; defaults to 1 day. This can
+also be a text string that corresponds to a valid date interval, e.g.
+* (x) day(s)
+* (x) weeks(s)
+* (x) epiweeks(s)
+* (x) isoweeks(s)
+* (x) months(s)
+* (x) quarter(s)
+* (x) years(s)
+More details can be found in the "Interval specification" below.}
 
-\item{firstdate}{The date to firstdate the intervals from.  If NULL (default) the
-earliest date in the vector will be used.}
+\item{firstdate}{The date to anchor the intervals from.  If NULL (default)
+the earliest date in the vector will be used.}
 
-\item{...}{Not used.}
+\item{...}{Not currently used.}
+}
+\value{
+A \code{period} object except when \code{interval = 1} or \code{interval = 1} in
+which case the a \code{Date} object is returned.
 }
 \description{
 Convert an object to a period
+}
+\note{
+Internally \code{period} objects are represented by the date at the beginning
+of the period and then stored as the number of days (starting at 0) since
+the Unix Epoch (1970-01-01).
+}
+\examples{
+as_period(Sys.Date(), interval = "28 days")
+as_period(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), interval = 10)
+as_period("2019-05-03", interval = "2 weeks")
+
 }

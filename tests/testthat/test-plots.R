@@ -1,7 +1,6 @@
 # setup -------------------------------------------------------------------
 library(outbreaks)
 library(dplyr)
-library(tidyr)
 library(ggplot2)
 
 save_png <- function(code, width = 400, height = 400) {
@@ -33,14 +32,14 @@ test_that("yrwk plotting works", {
     dat %>%
     mutate(date = as_yrwk(date_of_infection, firstday = 1)) %>%
     count(date, name = "cases") %>%
-    drop_na() %>%
+    na.omit() %>%
     ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 
   yrwk_thursday <-
     dat %>%
     mutate(date = as_yrwk(date_of_infection, firstday = 4)) %>%
     count(date, name = "cases") %>%
-    drop_na() %>%
+    na.omit() %>%
     ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 
   expect_snapshot_plot("yrwk_monday", yrwk_monday)
@@ -55,7 +54,7 @@ test_that("yrmon plotting works", {
     dat %>%
     mutate(date = as_yrmon(date_of_infection)) %>%
     count(date, name = "cases") %>%
-    drop_na() %>%
+    na.omit() %>%
     ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 
   expect_snapshot_plot("yrmon", yrmon)
@@ -69,7 +68,7 @@ test_that("yrqtr plotting works", {
     dat %>%
     mutate(date = as_yrqtr(date_of_infection)) %>%
     count(date, name = "cases") %>%
-    drop_na() %>%
+    na.omit() %>%
     ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 
   expect_snapshot_plot("yrqtr", yrqtr)
@@ -83,7 +82,7 @@ test_that("yr plotting works", {
     dat %>%
     mutate(date = as_yr(date_of_infection)) %>%
     count(date, name = "cases") %>%
-    drop_na() %>%
+    na.omit() %>%
     ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 
   expect_snapshot_plot("yr", yr)
@@ -96,7 +95,7 @@ test_that("period plotting works", {
     dat %>%
     mutate(date = as_period(date_of_infection, "2 weeks")) %>%
     count(date, name = "cases") %>%
-    drop_na() %>%
+    na.omit() %>%
     ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 
   expect_snapshot_plot("two_weeks", two_weeks)
@@ -105,7 +104,7 @@ test_that("period plotting works", {
     dat %>%
     mutate(date = as_period(date_of_infection, "28 days")) %>%
     count(date, name = "cases") %>%
-    drop_na() %>%
+    na.omit() %>%
     ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 
   expect_snapshot_plot("twentyeight_days", twentyeight_days)

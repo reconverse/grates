@@ -17,10 +17,15 @@
 #' @param x `An object to coerce to yrqtr.
 #' @param ... Not used.
 #'
+#' @return A `yrqtr` object.
+#'
 #' @examples
 #' as_yrqtr(Sys.Date())
 #' as_yrqtr(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 #' as_yrqtr("2019-05-03")
+#'
+#' @note Internally `yrqtr` objects are stored as the number of quarters
+#'   (starting at 0) since the Unix Epoch (1970-01-01).
 #'
 #' @export
 as_yrqtr <- function(x, ...) {

@@ -32,6 +32,9 @@ as_yrmon(x, ...)
 
 \item{...}{Not used.}
 }
+\value{
+A \code{yrmon} object.
+}
 \description{
 \itemize{
 \item Date, POSIXct, and POSIXlt are converted directly.  Any day, hour, minute,

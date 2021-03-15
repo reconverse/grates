@@ -31,6 +31,8 @@
 #'     - 1970-01-03 for `firstday` as Saturday
 #'     - 1970-01-04 for `firstday` as Sunday
 #'
+#' @return A `yrwk` object.
+#'
 #' @examples
 #' as_yrwk(Sys.Date())
 #' as_yrwk(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))

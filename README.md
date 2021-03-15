@@ -31,7 +31,6 @@ remotes::install_github("reconhub/grates")
 ``` r
 library(outbreaks)
 library(dplyr)
-library(tidyr)
 library(ggplot2)
 library(grates) 
 
@@ -44,7 +43,7 @@ dat <- ebola_sim_clean$linelist
 dat %>%
   mutate(date = as_yrwk(date_of_infection, firstday = 2)) %>% 
   count(date, name = "cases") %>% 
-  drop_na() %>% 
+  na.omit() %>% 
   ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 ```
 
@@ -56,7 +55,7 @@ dat %>%
 dat %>%
   mutate(date = as_yrmon(date_of_infection)) %>% 
   count(date, name = "cases") %>% 
-  drop_na() %>% 
+  na.omit() %>% 
   ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") 
 ```
 
@@ -68,7 +67,7 @@ dat %>%
 dat %>%
   mutate(date = as_yrqtr(date_of_infection)) %>% 
   count(date, name = "cases") %>% 
-  drop_na() %>% 
+  na.omit() %>% 
   ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") 
 ```
 
@@ -80,7 +79,7 @@ dat %>%
 dat %>%
   mutate(date = as_yr(date_of_infection)) %>% 
   count(date, name = "cases") %>% 
-  drop_na() %>% 
+  na.omit() %>% 
   ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") + scale_x_yr(n = 2)
 ```
 
@@ -92,7 +91,7 @@ dat %>%
 dat %>%
   mutate(date = as_period(date_of_infection, interval = "2 weeks")) %>% 
   count(date, name = "cases") %>% 
-  drop_na() %>% 
+  na.omit() %>% 
   ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 ```
 
@@ -103,7 +102,7 @@ dat %>%
 dat %>%
   mutate(date = as_period(date_of_infection, interval = 28)) %>% 
   count(date, name = "cases") %>% 
-  drop_na() %>% 
+  na.omit() %>% 
   ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 ```
 
