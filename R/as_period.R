@@ -10,8 +10,25 @@
 #' @param firstdate The date to anchor the intervals from.  If NULL (default)
 #'   the earliest date in the vector will be used.
 #' @param interval An integer or character indicating the (fixed) size of the
-#'   time interval used for computing the incidence; defaults to 1 day. This can
-#'   also be a text string that corresponds to a valid date interval, e.g.
+#'   time interval used for computing the incidence; defaults to 1 day.
+#'   More details can be found in the "Interval specification" below.
+#' @param ... Not currently used.
+#'
+#' @return A `period` object except when interval values 1, 1L, "day" or "days"
+#'   (both without prefix) are used.  In this situation the
+#'   returned object is of the standard "Date" class.
+#'
+#' @note Internally `period` objects are represented by the date at the beginning
+#'   of the period and then stored as the number of days (starting at 0) since
+#'   the Unix Epoch (1970-01-01).
+#'
+#' \subsection{Interval specification}{
+#'   `interval` can be specified as either an integer value or a more
+#'   standard specification such as "day", "week", "month", "quarter" or "year".
+#'   The format in this situation is similar to that used by [`seq.Date()`]
+#'   where these values can optionally be preceded by a (positive or negative)
+#'   integer and a space, or followed by "s"
+#'
 #'     * (x) day(s)
 #'     * (x) weeks(s)
 #'     * (x) epiweeks(s)
@@ -19,15 +36,16 @@
 #'     * (x) months(s)
 #'     * (x) quarter(s)
 #'     * (x) years(s)
-#'   More details can be found in the "Interval specification" below.
-#' @param ... Not currently used.
 #'
-#' @return A `period` object except when `interval = 1` or `interval = 1` in
-#'   which case the a `Date` object is returned.
+#'   Note that for the values "month", "quarter" and "year" intervals are
+#'   always chosen to start at the beginning of the calendar equivalent.
+#'   If the input is an integer value the input is treated as if it was
+#'   specified in days (i.e. 2 and 2 days) produce the same output.
 #'
-#' @note Internally `period` objects are represented by the date at the beginning
-#'   of the period and then stored as the number of days (starting at 0) since
-#'   the Unix Epoch (1970-01-01).
+#'   The only interval values that do not produce these grouped classes are 1,
+#'   1L, "day" or "days" (both without prefix) are used.  In this situation the
+#'   returned object is of the standard "Date" class.
+#' }
 #'
 #' @examples
 #' as_period(Sys.Date(), interval = "28 days")
