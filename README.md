@@ -8,6 +8,7 @@
 [![Codecov test
 coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](https://codecov.io/gh/reconverse/grates?branch=main)
 [![R-CMD-check](https://github.com/reconverse/grates/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/grates/actions)
+[![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-maturing.svg)](https://www.reconverse.org/lifecycle.html#maturing)
 <!-- badges: end -->
 
 **grates** provides a simple and coherent implementation of grouped date
