@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 *yrqtr* (year-quarter), *yr* (year), *period* and *int_period*.  These classes
 aim to be formalise the idea of a grouped date whilst also being intuitive in
 their use. They build upon ideas of Davis Vaughan and the unreleased
-[datea](https://github.com/DavisVaughan/datea/) package. 
+[**datea**](https://github.com/DavisVaughan/datea/) package. 
 
 ```{r setup, message=FALSE}
 library(grates)
@@ -37,7 +37,7 @@ library(dplyr)
 ## yrwk (year-week)
 `as_yrwk()` allows you to create `yrwk` objects. As arguments it takes, `x`, the
 date vector you wish to group and `firstday`, the day of the week you wish your
-weeks to start on; this defaults to 1 (Monday) and can go up to 7 (Sunday).
+weeks to start on; (this defaults to 1 (Monday) and can go up to 7 (Sunday)).
 The first week of the year is then defined as the first week containing 4 days
 in the new calendar year. This means that the calendar year can sometimes be
 different to that of the `yrwk` object.
@@ -148,7 +148,7 @@ indicating where you would like to start your periods from.
 
 `interval` can be specified as either an integer value or a more standard
 specification such as "day", "week", "month", "quarter" or "year". The format
-in this situation is similar to that used by [`seq.Date()`] where these values
+in for the latter is similar to that used by `seq.Date()` where these values
 can optionally be preceded by a (positive or negative) integer and a space,
 or followed by "s";
 

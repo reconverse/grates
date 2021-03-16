@@ -18,10 +18,6 @@
 #'   (both without prefix) are used.  In this situation the
 #'   returned object is of the standard "Date" class.
 #'
-#' @note Internally `period` objects are represented by the date at the beginning
-#'   of the period and then stored as the number of days (starting at 0) since
-#'   the Unix Epoch (1970-01-01).
-#'
 #' \subsection{Interval specification}{
 #'   `interval` can be specified as either an integer value or a more
 #'   standard specification such as "day", "week", "month", "quarter" or "year".
@@ -46,6 +42,10 @@
 #'   1L, "day" or "days" (both without prefix) are used.  In this situation the
 #'   returned object is of the standard "Date" class.
 #' }
+#'
+#' @note Internally `period` objects are represented by the date at the beginning
+#'   of the period and then stored as the number of days (starting at 0) since
+#'   the Unix Epoch (1970-01-01).
 #'
 #' @examples
 #' as_period(Sys.Date(), interval = "28 days")

@@ -1,6 +1,6 @@
 Package: grates
 Title: Grouped Date Classes
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R:
     c(
       person(
@@ -18,8 +18,9 @@ Authors@R:
       )
     )
 Description: Provides a coherent interface and implementation for creating
-  grouped date classes.
-URL: http://www.reconverse.org/grates, https://github.com/reconverse/grates
+  grouped date classes. This package is part of the RECON
+  (<https://www.repidemicsconsortium.org/>) toolkit for outbreak analysis.
+URL: https://www.reconverse.org/grates/, https://github.com/reconverse/grates
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

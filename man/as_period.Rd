@@ -40,14 +40,6 @@ the earliest date in the vector will be used.}
 A \code{period} object except when interval values 1, 1L, "day" or "days"
 (both without prefix) are used.  In this situation the
 returned object is of the standard "Date" class.
-}
-\description{
-Convert an object to a period
-}
-\note{
-Internally \code{period} objects are represented by the date at the beginning
-of the period and then stored as the number of days (starting at 0) since
-the Unix Epoch (1970-01-01).
 
 \subsection{Interval specification}{
 \code{interval} can be specified as either an integer value or a more
@@ -72,6 +64,14 @@ The only interval values that do not produce these grouped classes are 1,
 1L, "day" or "days" (both without prefix) are used.  In this situation the
 returned object is of the standard "Date" class.
 }
+}
+\description{
+Convert an object to a period
+}
+\note{
+Internally \code{period} objects are represented by the date at the beginning
+of the period and then stored as the number of days (starting at 0) since
+the Unix Epoch (1970-01-01).
 }
 \examples{
 as_period(Sys.Date(), interval = "28 days")
