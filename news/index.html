@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert an object to a yrqtr — as_yrqtr • grates</title>
+<title>Changelog • grates</title>
 
 
 <!-- jquery -->
@@ -39,16 +39,7 @@
 
 
 
-<meta property="og:title" content="Convert an object to a yrqtr — as_yrqtr" />
-<meta property="og:description" content="
-
-Date, POSIXct, and POSIXlt are converted directly.  Any day, hour, minute,
-or second components are dropped. POSIXct and POSIXlt are converted to
-dates via as.date() with the timezone respected.
-Character input is assumed to be provided in either ISO 8601 standard
-format, i.e. &quot;yyyy-mm-dd&quot;.
-
-" />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -67,7 +58,7 @@ format, i.e. &quot;yyyy-mm-dd&quot;.
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -131,79 +122,25 @@ format, i.e. &quot;yyyy-mm-dd&quot;.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert an object to a yrqtr</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/as_yrqtr.R'><code>R/as_yrqtr.R</code></a></small>
-    <div class="hidden name"><code>as_yrqtr.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/reconverse/grates/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    
+    <div id="grates-010" class="section level1">
+<h1 class="page-header" data-toc-text="0.1.0">
+<a href="#grates-010" class="anchor"></a>grates 0.1.0</h1>
 <ul>
-<li><p>Date, POSIXct, and POSIXlt are converted directly.  Any day, hour, minute,
-or second components are dropped. POSIXct and POSIXlt are converted to
-dates via <code>as.date()</code> with the timezone respected.</p></li>
-<li><p>Character input is assumed to be provided in either ISO 8601 standard
-format, i.e. "yyyy-mm-dd".</p></li>
+<li>Initial release</li>
 </ul>
-
-    </div>
-
-    <pre class="usage"><span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for yrqtr</span>
-<span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for yrmon</span>
-<span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for Date</span>
-<span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for POSIXt</span>
-<span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for character</span>
-<span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for factor</span>
-<span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>`An object to coerce to yrqtr.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Not used.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A <code>yrqtr</code> object.</p>
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
-
-    <p>Internally <code>yrqtr</code> objects are stored as the number of quarters
-(starting at 0) since the Unix Epoch (1970-01-01).</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2021-Q1"</div><div class='input'><span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2019-Q1"</div><div class='input'><span class='fu'>as_yrqtr</span><span class='op'>(</span><span class='st'>"2019-05-03"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2019-Q2"</div><div class='input'>
-</div></pre>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 
