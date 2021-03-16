@@ -14,7 +14,7 @@ coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](
 classes, including:
 
   - year-week (`as_yrwk()`) with arbitrary first day of the week;
-  - year-month \*`as_yrmon()`);
+  - year-month (`as_yrmon()`);
   - year-quarter (`as_yrqtr()`);
   - year (`as_yr()`);
   - periods (`as_period()`) of arbitrary length.
