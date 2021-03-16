@@ -37,8 +37,8 @@
 #'     * (x) quarter(s)
 #'     * (x) years(s)
 #'
-#'   Note that for the values "month", "quarter" and "year" intervals are
-#'   always chosen to start at the beginning of the calendar equivalent.
+#'   Note that for the values "month", "quarter" and "year", intervals are
+#'   always made to start at the beginning of the calendar equivalent.
 #'   If the input is an integer value the input is treated as if it was
 #'   specified in days (i.e. 2 and 2 days) produce the same output.
 #'

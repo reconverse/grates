@@ -19,7 +19,7 @@ Authors@R:
     )
 Description: Provides a coherent interface and implementation for creating
   grouped date classes.
-URL: https://github.com/reconverse/grates
+URL: http://www.reconverse.org/grates, https://github.com/reconverse/grates
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

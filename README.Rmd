@@ -16,16 +16,27 @@ knitr::opts_chunk$set(
 # grates
 
 <!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](https://codecov.io/gh/reconverse/grates?branch=main)
+[![R-CMD-check](https://github.com/reconverse/grates/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/grates/actions)
 <!-- badges: end -->
 
-*grates* provides a simple and coherent implementation of grouped date classes,
+**grates** provides a simple and coherent implementation of grouped date classes,
 including:
 
-* year-week (**`as_yrwk()`**) with arbitrary first day of the week;
-* year-month (**`as_yrmon()`**);
-* year-quarter (**`as_yrqtr()`**);
-* year (**`as_yr()`**);
-* periods (**`as_period()`**) of arbitrary length.
+* year-week (`as_yrwk()`) with arbitrary first day of the week;
+* year-month *`as_yrmon()`);
+* year-quarter (`as_yrqtr()`);
+* year (`as_yr()`);
+* periods (`as_period()`) of arbitrary length.
+
+These classes aim to be formalise the idea of a grouped date whilst also being
+intuitive in their use. They build upon ideas of Davis Vaughan and the
+unreleased [datea](https://github.com/DavisVaughan/datea/) package.
+
+For each of the grouped date classes, **grates** also provides *scales* to use
+with [ggplot2](https://cran.r-project.org/package=ggplot2). At the same time
+**grates** has no strong dependencies so is also well suited to more minimal
+analytical pipelines.
 
 
 ## Installation
@@ -38,65 +49,67 @@ remotes::install_github("reconhub/grates")
 ```
 
 
-## Examples
+## Vignette
+
+A short illustration of *grates* functionality is provided in the worked example
+below. A more detailed introduction is available in the vignette included with
+the package:
+
+* `vignette("introduction", package = "grates")`
+
+## Example
 ```{r, message=FALSE}
-library(outbreaks)
-library(dplyr)
-library(ggplot2)
+library(outbreaks)  # for data
+library(dplyr)      # for data manipulation
+library(ggplot2)    # for plotting
 library(grates) 
 
+# load some simulated linelist data
 dat <- ebola_sim_clean$linelist
-```
 
-
-### yrwk
-```{r}
-dat %>%
+# group by week
+weekly_dat <- 
+  dat %>%
   mutate(date = as_yrwk(date_of_infection, firstday = 2)) %>% 
   count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+  na.omit()
+
+head(weekly_dat, 8)
+
+# plot
+ggplot(weekly_dat, aes(date, cases)) + geom_col() + theme_bw() + xlab("")
 ```
 
-### yrmon
-```{r}
-dat %>%
-  mutate(date = as_yrmon(date_of_infection)) %>% 
-  count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") 
-```
+We make working with `yrwk` and other grouped date objects easier by adopting
+logical conventions:
 
-### yrqtr
-```{r}
-dat %>%
-  mutate(date = as_yrqtr(date_of_infection)) %>% 
-  count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") 
-```
+```{r yrwkconventions, error=TRUE}
+dates <- as.Date("2021-01-01") + 0:30
+weeks <- as_yrwk(dates, firstday = 5) # firstday = 5 to match first day of year
+head(weeks, 8)
+str(weeks)
+dat <- tibble(dates, weeks)
 
-### yr
-```{r}
-dat %>%
-  mutate(date = as_yr(date_of_infection)) %>% 
-  count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") + scale_x_yr(n = 2)
-```
+# addition of wholenumbers will add the corresponding number of weeks to the object
+dat %>% 
+  mutate(plus4 = weeks + 4)
 
+# addition of two yrwk objects will error as it is unclear what the intention is
+dat %>% 
+  mutate(plus4 = weeks + weeks)
 
-### period
-```{r}
-dat %>%
-  mutate(date = as_period(date_of_infection, interval = "2 weeks")) %>% 
-  count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+# Subtraction of wholenumbers works similarly to addition
+dat %>% 
+  mutate(minus4 = weeks - 4)
 
-dat %>%
-  mutate(date = as_period(date_of_infection, interval = 28)) %>% 
-  count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+# Subtraction of two yrwk objects gives the difference in weeks between them
+dat %>% 
+  mutate(plus4 = weeks + 4, difference = plus4 - weeks)
+
+# weeks can be combined if they have the same firstday but not otherwise
+wk1 <- as_yrwk("2020-01-01")
+wk2 <- as_yrwk("2021-01-01")
+c(wk1, wk2)
+wk3 <- as_yrwk("2020-01-01", firstday = 2)
+c(wk1, wk3)
 ```
