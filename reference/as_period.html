@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grates</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -212,7 +212,7 @@ the Unix Epoch (1970-01-01).</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>as_period</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span>, interval <span class='op'>=</span> <span class='st'>"28 days"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;period&gt; interval = 28 days
-#&gt; [1] "2021-03-16 to 2021-04-12"</div><div class='input'><span class='fu'>as_period</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>, interval <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+#&gt; [1] "2021-03-18 to 2021-04-14"</div><div class='input'><span class='fu'>as_period</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>, interval <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;period&gt; interval = 10 days
 #&gt; [1] "2019-03-04 to 2019-03-13"</div><div class='input'><span class='fu'>as_period</span><span class='op'>(</span><span class='st'>"2019-05-03"</span>, interval <span class='op'>=</span> <span class='st'>"2 weeks"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;period&gt; interval = 2 weeks

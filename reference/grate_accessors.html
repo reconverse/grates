@@ -40,13 +40,7 @@
 
 
 <meta property="og:title" content="Grouped date accessors — grate_accessors" />
-<meta property="og:description" content="Generics and methods to work with grouped date objects:
-get_week() returns the corresponding week values for a yrwk vector.
-get_year() returns the year.
-get_firstday() returns the firstday attribute of a yrwk object.
-get_month() returns the month.
-
-" />
+<meta property="og:description" content="Generics and methods to work with grouped date objects" />
 
 
 
@@ -78,7 +72,7 @@ get_month() returns the month.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grates</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -135,13 +129,7 @@ get_month() returns the month.
     </div>
 
     <div class="ref-description">
-    <p>Generics and methods to work with grouped date objects:</p><ul>
-<li><p><code>get_week()</code> returns the corresponding week values for a yrwk vector.</p></li>
-<li><p><code>get_year()</code> returns the year.</p></li>
-<li><p><code>get_firstday()</code> returns the firstday attribute of a yrwk object.</p></li>
-<li><p><code>get_month()</code> returns the month.</p></li>
-</ul>
-
+    <p>Generics and methods to work with grouped date objects</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_week</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -237,6 +225,18 @@ get_month() returns the month.
       <td><p>Should periods be converted in to a number of days.</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+<ul>
+<li><p><code>get_week()</code>: The corresponding week values for a yrwk vector.</p></li>
+<li><p><code>get_month()</code>: The month.</p></li>
+<li><p><code>get_quarter()</code>: The quarter.</p></li>
+<li><p><code>get_year()</code>: The year.</p></li>
+<li><p><code>get_firstday()</code>: The corresponding <code>firstday</code> of a <code>yrwk</code> vector.</p></li>
+<li><p><code>get_interval()</code>: The interval of the object.</p></li>
+</ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
