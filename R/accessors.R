@@ -1,14 +1,19 @@
 #' Grouped date accessors
 #'
-#' Generics and methods to work with grouped date objects:
-#' - `get_week()` returns the corresponding week values for a yrwk vector.
-#' - `get_year()` returns the year.
-#' - `get_firstday()` returns the firstday attribute of a yrwk object.
-#' - `get_month()` returns the month.
+#' Generics and methods to work with grouped date objects
 #'
 #' @param x A yrwk, yrmon, yrqtr or period object.
 #' @param ... Not used.
 #' @param days Should periods be converted in to a number of days.
+#' @return
+#'
+#'   - `get_week()`: The corresponding week values for a yrwk vector.
+#'   - `get_month()`: The month.
+#'   - `get_quarter()`: The quarter.
+#'   - `get_year()`: The year.
+#'   - `get_firstday()`: The corresponding `firstday` of a `yrwk` vector.
+#'   - `get_interval()`: The interval of the object.
+#'
 #'
 #' @name grate_accessors
 #'
@@ -95,7 +100,6 @@ get_quarter.yrqtr <- function(x, ...) {
   x <- as_utc_posixlt_from_int(days)
   x$mon %/% 3L +1L
 }
-
 
 
 #' @rdname grate_accessors

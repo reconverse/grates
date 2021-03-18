@@ -35,6 +35,9 @@ scale_x_int_period(..., n = 5, interval, firstdate)
 
 \item{firstdate}{date the period is anchored / started from}
 }
+\value{
+A scale for use with ggplot2.
+}
 \description{
 ggplot2 scales grouped date objects; \code{yrwk}, \code{yrmon}, \code{yrqtr} and \code{period}.
 }

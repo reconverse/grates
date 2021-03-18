@@ -92,14 +92,18 @@ get_interval(x, ...)
 
 \item{days}{Should periods be converted in to a number of days.}
 }
-\description{
-Generics and methods to work with grouped date objects:
+\value{
 \itemize{
-\item \code{get_week()} returns the corresponding week values for a yrwk vector.
-\item \code{get_year()} returns the year.
-\item \code{get_firstday()} returns the firstday attribute of a yrwk object.
-\item \code{get_month()} returns the month.
+\item \code{get_week()}: The corresponding week values for a yrwk vector.
+\item \code{get_month()}: The month.
+\item \code{get_quarter()}: The quarter.
+\item \code{get_year()}: The year.
+\item \code{get_firstday()}: The corresponding \code{firstday} of a \code{yrwk} vector.
+\item \code{get_interval()}: The interval of the object.
 }
+}
+\description{
+Generics and methods to work with grouped date objects
 }
 \examples{
 x <- as_yrwk(Sys.Date())

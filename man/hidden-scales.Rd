@@ -31,6 +31,9 @@ scale_x_yrwk_fd_7(..., n = 5)
 \item{n}{Approximate number of breaks calculated using
 \code{scales::breaks_pretty} (default 5).}
 }
+\value{
+A scale for use with ggplot2.
+}
 \description{
 Wrappers around \code{\link[=scale_x_yrwk]{scale_x_yrwk()}} with pre-specified firstday argument.
 }

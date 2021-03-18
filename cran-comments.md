@@ -1,6 +1,9 @@
+## Resubmission
+This submissions fixes the missing value tags in the documentation
+(ref: email from Gregor Seyer on first submission)
+
 ## Test environments
-* Fedora 33, R Under development (unstable) (2021-03-14 r80087)
-* win-builder, R Under development (unstable) (2021-03-14 r80087)
+* Fedora 33, R Under development (unstable) (2021-03-18 r80099)
 
 ## R CMD check results
 

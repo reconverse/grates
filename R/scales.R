@@ -6,6 +6,8 @@
 #'   `scales::breaks_pretty` (default 5).
 #' @param ... Other arguments passed to [`ggplot2::scale_x_continuous()`].
 #'
+#' @return A scale for use with ggplot2.
+#'
 #' @name grate-scales
 NULL
 
@@ -80,6 +82,8 @@ scale_x_yrwk <- function(..., n = 5, firstday) {
 #' Wrappers around [scale_x_yrwk()] with pre-specified firstday argument.
 #'
 #' @inheritParams grate-scales
+#'
+#' @return A scale for use with ggplot2.
 #'
 #' @name hidden-scales
 NULL

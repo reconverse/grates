@@ -22,8 +22,7 @@ classes, including:
 
 These classes aim to be formalise the idea of a grouped date whilst also
 being intuitive in their use. They build upon ideas of Davis Vaughan and
-the unreleased [**datea**](https://github.com/DavisVaughan/datea/)
-package.
+the unreleased [datea](https://github.com/DavisVaughan/datea/) package.
 
 For each of the grouped date classes, **grates** also provides
 **scales** to use with
