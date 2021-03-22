@@ -37,7 +37,7 @@ You can install the development version from
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("reconhub/grates")
+remotes::install_github("reconverse/grates")
 ```
 
 ## Vignette
