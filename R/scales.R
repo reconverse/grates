@@ -280,9 +280,9 @@ period_trans_integer <- function(n = 5, interval, firstdate) {
   # breaks function
   brks <- function(x) {
     dat <- trunc(scales::pretty_breaks(n)(new_date(x)))
-    m <- min(dat, na.rm = TRUE)
+    m <- as.numeric(min(dat, na.rm = TRUE))
     if (m < firstdate) {
-      firstdate <- m - (interval - ((as.numeric(firstdate) - as.numeric(m)) %% interval))
+      firstdate <- m - (interval - ((as.numeric(firstdate) - m) %% interval))
     }
     tmp <- as_period(dat, interval = interval, firstdate = new_date(firstdate))
     as.Date(tmp) - interval / 2
