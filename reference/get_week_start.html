@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scales for ggplot2 — grate-scales • grates</title>
+<title>Translate user input to the start date of the week — get_week_start • grates</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Scales for ggplot2 — grate-scales" />
-<meta property="og:description" content="ggplot2 scales grouped date objects; yrwk, yrmon, yrqtr and period." />
+<meta property="og:title" content="Translate user input to the start date of the week — get_week_start" />
+<meta property="og:description" content="Translate user input to the start date of the week" />
 
 
 
@@ -123,58 +123,42 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scales for ggplot2</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/scales.R'><code>R/scales.R</code></a></small>
-    <div class="hidden name"><code>grate-scales.Rd</code></div>
+    <h1>Translate user input to the start date of the week</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/as_yrwk.R'><code>R/as_yrwk.R</code></a></small>
+    <div class="hidden name"><code>get_week_start.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>ggplot2 scales grouped date objects; <code>yrwk</code>, <code>yrmon</code>, <code>yrqtr</code> and <code>period</code>.</p>
+    <p>Translate user input to the start date of the week</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_x_yrwk</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span>, <span class='va'>firstday</span><span class='op'>)</span>
-
-<span class='fu'>scale_x_yrmon</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
-
-<span class='fu'>scale_x_yrqtr</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
-
-<span class='fu'>scale_x_yr</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
-
-<span class='fu'>scale_x_period</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span>, <span class='va'>interval</span>, <span class='va'>firstdate</span><span class='op'>)</span>
-
-<span class='fu'>scale_x_int_period</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span>, <span class='va'>interval</span>, <span class='va'>firstdate</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_week_start</span><span class='op'>(</span><span class='va'>weekday</span>, numeric <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Other arguments passed to <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>ggplot2::scale_x_continuous()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>Approximate number of breaks calculated using
-<code><a href='https://scales.r-lib.org//reference/breaks_pretty.html'>scales::breaks_pretty</a></code> (default 5).</p></td>
-    </tr>
-    <tr>
-      <th>firstday</th>
-      <td><p>Integer value of the first weekday: 1 (Monday) to 7
-(Sunday).</p></td>
-    </tr>
-    <tr>
-      <th>interval</th>
-      <td><p>interval ga</p></td>
-    </tr>
-    <tr>
-      <th>firstdate</th>
-      <td><p>date the period is anchored / started from</p></td>
+      <th>a</th>
+      <td><p>Weekday specification: E.g. "ISOweek", "MMWRweek", "EPIweek",
+"Mon-week", "Tue-week", etc.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A scale for use with ggplot2.</p>
+    <p>the corresponding weekday</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>get_week_start</span><span class='op'>(</span><span class='st'>"ISOweek"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>get_week_start</span><span class='op'>(</span><span class='st'>"MMWRweek"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 7</div><div class='input'><span class='fu'>get_week_start</span><span class='op'>(</span><span class='st'>"EPIweek"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 7</div><div class='input'>
+<span class='co'># weeks that start on saturday</span>
+<span class='fu'>get_week_start</span><span class='op'>(</span><span class='st'>"Sat-week"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='fu'>get_week_start</span><span class='op'>(</span><span class='st'>"week: Saturday"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='fu'>get_week_start</span><span class='op'>(</span><span class='st'>"2 weeks: Saturday"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 6</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
