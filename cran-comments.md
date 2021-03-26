@@ -1,12 +1,11 @@
-## Resubmission
-This submissions fixes the missing value tags in the documentation
-(ref: email from Gregor Seyer on first submission)
+## Reason for submission
+* Bug fix
 
-## Test environments
-* Fedora 33, R Under development (unstable) (2021-03-18 r80099)
+## Tested on the following environments
+* Fedora 33, R Under development (unstable) (2021-03-26 r80122)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 note
 
-* New submission
+
