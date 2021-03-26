@@ -1,4 +1,4 @@
-# grates (development version)
+# grates 0.1.2
 
 ## bug fixes
 

@@ -619,8 +619,8 @@ numeric_yrwk_to_date <- function(year = integer(), week = integer(), firstday = 
 
 #' Translate user input to the start date of the week
 #'
-#' @param a Weekday specification: ISOweek, MMWRweek, EPIweek, Mon-week,
-#'   Tue-week, etc.
+#' @param a Weekday specification: E.g. "ISOweek", "MMWRweek", "EPIweek",
+#'   "Mon-week", "Tue-week", etc.
 #'
 #' @return the corresponding weekday
 #'
@@ -633,9 +633,9 @@ numeric_yrwk_to_date <- function(year = integer(), week = integer(), firstday = 
 #' get_week_start("Sat-week")
 #' get_week_start("week: Saturday")
 #' get_week_start("2 weeks: Saturday")
-#' get_week_start("epiweek: Saturday")
 #'
-#' @noRd
+#' @keywords internal
+#' @export
 get_week_start <- function(weekday, numeric = TRUE) {
   wkdy <- gsub("weeks?", "", tolower(weekday))
   wkdy <- gsub("[[:punct:][:blank:][:digit:]]*", "", wkdy)
