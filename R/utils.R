@@ -16,15 +16,13 @@ new_posixct <- function(x = double(), tzone = "") {
   x
 }
 
-
-# check for suggested packages --------------------------------------------
+# check for suggested packages
 check_suggests <- function(package) {
   if (!requireNamespace(package, quietly = TRUE)) {
     msg <- sprintf("Suggested package '%s' not present.", package)
     stop(msg, call. = FALSE)
   }
 }
-
 
 # check if entries of a vector are whole numbers
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5) {
@@ -53,27 +51,8 @@ is_leap_year <- function(year) {
   ((((year) %% 4) == 0 & ((year) %% 100) != 0) | ((year) %% 400) == 0)
 }
 
-# check if vector is Date
-is.Date <- function(x) inherits(x, "Date")
 
-
-# The following is based on a functions of Davis Vaughan in
-# https://github.com/DavisVaughan/datea/blob/master/R/ymon-as.R.
-# It is quicker than doing as.POSIXct.Date and will work with
-# all date and grate objects.
-as_utc_posixct_from_int <- function(x) {
-  attributes(x) <- NULL
-  x <- x * 86400 # multiply by seconds in day (24 * 60 * 60)
-  structure(x, tzone = "UTC", class = c("POSIXct", "POSIXt"))
-}
-
-as_zoned_posixct_from_int <- function(x, tz) {
-  attributes(x) <- NULL
-  x <- as.character(new_date(x))
-  as.POSIXct(x, tz = tz)
-}
-
-# The following is based on a functions of Davis Vaughan in
+# The following is based on functions of Davis Vaughan in
 # https://github.com/DavisVaughan/datea/blob/master/R/ymon-as.R.
 # It is quicker than doing as.POSIXlt.Date and will work with
 # all date and grate objects.
@@ -83,8 +62,3 @@ as_utc_posixlt_from_int <- function(x) {
   as.POSIXlt(x, tz = "UTC", origin = new_posixct(x = 0, tzone = "UTC"))
 }
 
-as_zoned_posixlt_from_int <- function(x, tz) {
-  attributes(x) <- NULL
-  x <- as.character(new_date(x))
-  as.POSIXlt(x, tz = tz)
-}

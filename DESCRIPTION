@@ -1,6 +1,6 @@
 Package: grates
 Title: Grouped Date Classes
-Version: 0.1.2
+Version: 0.1.2.9000
 Authors@R:
     c(
       person(
@@ -9,12 +9,6 @@ Authors@R:
         role = c("aut", "cre"),
         email = "tim.taylor@hiddenelephants.co.uk", 
         comment = c(ORCID = "0000-0002-8587-7113")
-      ),
-      person(
-        given = "Zhian N.",
-        family = "Kamvar",
-        role = "ctb",
-        comment = c(ORCID = "0000-0003-1458-7108")
       )
     )
 Description: Provides a coherent interface and implementation for creating
@@ -25,14 +19,15 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Imports: 
+    clock
 Suggests: 
-    testthat (>= 3.0.0),
-    covr,
-    scales,
-    ggplot2,
     knitr,
+    ggplot2,
+    scales,
+    testthat (>= 3.0.0),
     rmarkdown,
-    outbreaks,
-    dplyr
+    dplyr,
+    outbreaks
 Config/testthat/edition: 3
 VignetteBuilder: knitr
