@@ -20,11 +20,11 @@ knitr::opts_chunk$set(
 # Overview
 
 **grates** makes it easy to perform common date grouping operations and provides
-6 new classes for users to work with: *yrwk* (year-week), *yrmon* (year-month),
-*yrqtr* (year-quarter), *yr* (year), *period* and *int_period*.  These classes
-aim to be formalise the idea of a grouped date whilst also being intuitive in
-their use. They build upon ideas of Davis Vaughan and the unreleased
-[**datea**](https://github.com/DavisVaughan/datea/) package. 
+multiple grouped date classes for users to work with including *grate_yearweek*,
+*grate_month*, *grate_quarter*, *grate_year*, *grate_period* and
+*grate_int_period*.  These classes aim to formalise the idea of a grouped date
+whilst also being intuitive in their use. They build upon ideas of Davis Vaughan
+and the unreleased [**datea**](https://github.com/DavisVaughan/datea/) package. 
 
 ```{r setup, message=FALSE}
 library(grates)
@@ -34,31 +34,31 @@ library(dplyr)
 ```
 
 
-## yrwk (year-week)
-`as_yrwk()` allows you to create `yrwk` objects. As arguments it takes, `x`, the
-date vector you wish to group and `firstday`, the day of the week you wish your
-weeks to start on; (this defaults to 1 (Monday) and can go up to 7 (Sunday)).
-The first week of the year is then defined as the first week containing 4 days
-in the new calendar year. This means that the calendar year can sometimes be
-different to that of the `yrwk` object.
+## grate_yearweek
+`as_yearweek()` allows you to create <grate_yearweek> objects. As arguments it
+takes, `x`, the date vector you wish to group and `firstday`, the day of the
+week you wish your weeks to start on; (this defaults to 1 (Monday) and can go up
+to 7 (Sunday)). The first week of the year is then defined as the first week
+containing 4 days in the new calendar year. This means that the calendar year
+can sometimes be different to that of the `yearweek` object.
 
-```{r yrwkdemo}
+```{r yearweekdemo}
 # create weekday names
-wdays <- weekdays(as.Date(as_yrwk(as.Date("2020-01-01"), firstday = 1L)) + 0:6)
+wdays <- weekdays(as.Date(as_yearweek(as.Date("2020-01-01"), firstday = 1L)) + 0:6)
 wdays <- setNames(1:7, wdays)
 
 # example of how weeks vary by firstday over December and January
 dates <- as.Date("2020-12-29") + 0:5
-dat <- lapply(wdays, function(x) as_yrwk(dates, x))
+dat <- lapply(wdays, function(x) as_yearweek(dates, x))
 bind_cols(dates = dates, dat)
 ```
 
-We make working with `yrwk` and other grouped date objects easier by adopting
+We make working with `yearweek` and other grouped date objects easier by adopting
 logical conventions:
 
-```{r yrwkconventions, error=TRUE}
+```{r yearweekconventions, error=TRUE}
 dates <- as.Date("2021-01-01") + 0:30
-weeks <- as_yrwk(dates, firstday = 5) # firstday = 5 to match first day of year
+weeks <- as_yearweek(dates, firstday = 5) # firstday = 5 to match first day of year
 head(weeks, 8)
 str(weeks)
 dat <- tibble(dates, weeks)
@@ -67,7 +67,7 @@ dat <- tibble(dates, weeks)
 dat %>% 
   mutate(plus4 = weeks + 4)
 
-# addition of two yrwk objects will error as it is unclear what the intention is
+# addition of two yearweek objects will error as it is unclear what the intention is
 dat %>% 
   mutate(plus4 = weeks + weeks)
 
@@ -75,106 +75,125 @@ dat %>%
 dat %>% 
   mutate(minus4 = weeks - 4)
 
-# Subtraction of two yrwk objects gives the difference in weeks between them
+# Subtraction of two yearweek objects gives the difference in weeks between them
 dat %>% 
   mutate(plus4 = weeks + 4, difference = plus4 - weeks)
 
 # weeks can be combined if they have the same firstday but not otherwise
-wk1 <- as_yrwk("2020-01-01")
-wk2 <- as_yrwk("2021-01-01")
+wk1 <- as_yearweek("2020-01-01")
+wk2 <- as_yearweek("2021-01-01")
 c(wk1, wk2)
-wk3 <- as_yrwk("2020-01-01", firstday = 2)
+wk3 <- as_yearweek("2020-01-01", firstday = 2)
 c(wk1, wk3)
 ```
 
 For each date group we also provide associated
 [ggplot2](https://cran.r-project.org/package=ggplot2) scales for the x-axis:
 
-```{r yrwkplots}
+```{r yearweekplots}
 dat <- ebola_sim_clean$linelist
 
-dat %>%
-  mutate(date = as_yrwk(date_of_infection)) %>% 
-  count(date, name = "cases") %>% 
+week_plot <- 
+  dat %>%
+  mutate(week = as_yearweek(date_of_infection), firstday = 7) %>% 
+  count(week, name = "cases") %>% 
   na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+  ggplot(aes(week, cases)) + geom_col(width = 1, colour = "white") + theme_bw()
+
+week_plot
 ```
 
+We can have date labels on the x_axis by utilising `scale_x_grate_yearweek`:
 
-## yrmon, yrqtr and yr
-`as_yrmon()`, `as_yrqtr()` and `as_yr()` behave similarly to `as_yrwk()` with
-the difference being that they have no need for a `firstday` argument:
+```{r yearweekplots2}
+week_plot + scale_x_grate_yearweek(format = "%Y-%m-%d", firstday = 7)
+```
 
-```{r yrothers}
+## grate_month
+`as_month` allows users to group by a fixed number of months. As arguments it
+takes, `x`, the date vector you wish to group, `interval`, the number of months
+you wish to group by (defaulting to 1) and, finally, `origin`, an optional value
+indicating where you would like to start your periods from (this defaults to the
+earliest month in `x`). By default the provided scale creates a histogram-like
+plot (unlike a histogram the widths of the intervals in the plot are identical
+across months) but can be changed to have centralised labelling.
+
+```{r month}
+month_dat <- 
+  dat %>%
+  mutate(date = as_month(date_of_infection, interval = 2)) %>% 
+  count(date, name = "cases") %>% 
+  na.omit()
+
+month_plot <- 
+  ggplot(month_dat, aes(date, cases)) + 
+    geom_col(width = 2, colour = "white") +
+    theme_bw() + 
+    theme(axis.text.x = element_text(angle = 45, hjust=1)) + 
+    xlab("")
+
+month_plot
+
+month_plot + 
+  scale_x_grate_month(
+    date_format = NULL,
+    interval = 2,
+    origin = min(dat$date_of_infection, na.rm = TRUE)
+  )
+```
+
+## grate_quarter and grate_year
+`as_quarter()` and `as_year()` behave similarly to `as_yearweek()` with the main
+difference main being that they have no need for a `firstday` argument:
+
+```{r yearothers}
 # create weekday names
 dates <- seq(from = as.Date("2020-01-01"), to = as.Date("2021-12-01"), by = "1 month")
 
-as_yrmon(dates)
-as_yrqtr(dates)
-as_yr(dates)
-as_yrmon(dates[1]) + 0:1
-as_yrqtr(dates[1]) + 0:1
-as_yr(dates[1]) + 0:1
+as_quarter(dates)
+as_year(dates)
+as_quarter(dates[1]) + 0:1
+as_year(dates[1]) + 0:1
 ```
 
 Again we provide [ggplot2](https://cran.r-project.org/package=ggplot2) scales 
 for the x-axis:
 
-```{r yrothersplots}
+```{r yearothersplots}
 dat %>%
-  mutate(date = as_yrmon(date_of_infection)) %>% 
+  mutate(date = as_quarter(date_of_infection)) %>% 
   count(date, name = "cases") %>% 
   na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+  ggplot(aes(date, cases)) + 
+    geom_col(width = 3, colour = "white") + 
+    scale_x_grate_quarter(n.breaks = 10) +
+    theme_bw() + 
+    xlab("")
 
 dat %>%
-  mutate(date = as_yrqtr(date_of_infection)) %>% 
+  mutate(date = as_year(date_of_infection)) %>% 
   count(date, name = "cases") %>% 
   na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
-
-dat %>%
-  mutate(date = as_yr(date_of_infection)) %>% 
-  count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("") + scale_x_yr(n = 2)
+  ggplot(aes(date, cases)) + geom_col(width = 1, colour = "white") + theme_bw() + xlab("") + scale_x_grate_year(n.breaks = 2)
 ```
 
+
+
 ## period
-`as_period` is more flexible, allowing users to group by periods of any length.
-As arguments it takes, `x`, the date vector you wish to group, `interval`, the
-length of period to group by and, finally, `firstdate`, an optional value
-indicating where you would like to start your periods from.
-
-`interval` can be specified as either an integer value or a more standard
-specification such as "day", "week", "month", "quarter" or "year". The format
-in for the latter is similar to that used by `seq.Date()` where these values
-can optionally be preceded by a (positive or negative) integer and a space,
-or followed by "s";
-
-* (x) day(s)
-* (x) weeks(s)
-* (x) epiweeks(s)
-* (x) isoweeks(s)
-* (x) months(s)
-* (x) quarter(s)
-* (x) years(s)
-
-For the values "month", "quarter" and "year", intervals are always made to start
-at the beginning of the calendar equivalent.  If the input is an integer value
-the input is treated as if it was specified in days (i.e. 2 and 2 days) produce
-the same output.
+`as_period` is similar to `as_month` and allows users to group by periods of a
+fixed length. As arguments it takes, `x`, the date or integer vector you wish to
+group, `interval` and `origin`.
 
 ```{r period}
 dat %>%
-  mutate(date = as_period(date_of_infection, interval = "2 weeks")) %>% 
+  mutate(date = as_period(date_of_infection, interval = 14)) %>% 
   count(date, name = "cases") %>% 
   na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+  ggplot(aes(date, cases)) + geom_col(width = 14, colour = "white") + theme_bw() + xlab("")
 
 dat %>%
   mutate(date = as_period(date_of_infection, interval = 28)) %>% 
   count(date, name = "cases") %>% 
   na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col() + theme_bw() + xlab("")
+  ggplot(aes(date, cases)) + geom_col(width = 28, colour = "white") + theme_bw() + xlab("")
 ```

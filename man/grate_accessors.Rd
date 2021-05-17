@@ -2,112 +2,101 @@
 % Please edit documentation in R/accessors.R
 \name{grate_accessors}
 \alias{grate_accessors}
+\alias{get_date_bounds}
+\alias{get_date_bounds.default}
+\alias{get_date_bounds.grate_month}
+\alias{get_date_bounds.grate_yearweek}
 \alias{get_week}
 \alias{get_week.default}
-\alias{get_week.yrwk}
+\alias{get_week.grate_yearweek}
 \alias{get_month}
 \alias{get_month.default}
-\alias{get_month.yrmon}
+\alias{get_month.grate_month}
 \alias{get_quarter}
 \alias{get_quarter.default}
-\alias{get_quarter.yrqtr}
+\alias{get_quarter.grate_quarter}
 \alias{get_year}
 \alias{get_year.default}
-\alias{get_year.yrwk}
-\alias{get_year.yrmon}
-\alias{get_year.yrqtr}
-\alias{get_year.yr}
+\alias{get_year.grate_yearweek}
+\alias{get_year.grate_month}
+\alias{get_year.grate_quater}
+\alias{get_year.grate_year}
 \alias{get_firstday}
 \alias{get_firstday.default}
-\alias{get_firstday.yrwk}
+\alias{get_firstday.grate_yearweek}
 \alias{get_interval}
 \alias{get_interval.default}
-\alias{get_interval.period}
-\alias{get_interval.int_period}
-\alias{get_interval.yrwk}
-\alias{get_interval.yrmon}
-\alias{get_interval.yrqtr}
-\alias{get_interval.yr}
+\alias{get_interval.grate_month}
+\alias{get_interval.grate_period}
 \title{Grouped date accessors}
 \usage{
+get_date_bounds(x, ...)
+
+\method{get_date_bounds}{default}(x, ...)
+
+\method{get_date_bounds}{grate_month}(x, ...)
+
+\method{get_date_bounds}{grate_yearweek}(x, ...)
+
 get_week(x, ...)
 
 \method{get_week}{default}(x, ...)
 
-\method{get_week}{yrwk}(x, ...)
+\method{get_week}{grate_yearweek}(x, ...)
 
 get_month(x, ...)
 
 \method{get_month}{default}(x, ...)
 
-\method{get_month}{yrmon}(x, style = c("numeric", "named"), ...)
+\method{get_month}{grate_month}(x, style = c("numeric", "named"), ...)
 
 get_quarter(x, ...)
 
 \method{get_quarter}{default}(x, ...)
 
-\method{get_quarter}{yrqtr}(x, ...)
+\method{get_quarter}{grate_quarter}(x, ...)
 
 get_year(x, ...)
 
 \method{get_year}{default}(x, ...)
 
-\method{get_year}{yrwk}(x, ...)
+\method{get_year}{grate_yearweek}(x, ...)
 
-\method{get_year}{yrmon}(x, ...)
+\method{get_year}{grate_month}(x, ...)
 
-\method{get_year}{yrqtr}(x, ...)
+\method{get_year}{grate_quater}(x, ...)
 
-\method{get_year}{yr}(x, ...)
+\method{get_year}{grate_year}(x, ...)
 
 get_firstday(x, ...)
 
 \method{get_firstday}{default}(x, ...)
 
-\method{get_firstday}{yrwk}(x, ...)
+\method{get_firstday}{grate_yearweek}(x, ...)
 
 get_interval(x, ...)
 
 \method{get_interval}{default}(x, ...)
 
-\method{get_interval}{period}(x, days = FALSE, ...)
+\method{get_interval}{grate_month}(x, ...)
 
-\method{get_interval}{int_period}(x, days = FALSE, ...)
-
-\method{get_interval}{yrwk}(x, days = FALSE, ...)
-
-\method{get_interval}{yrmon}(x, days = FALSE, ...)
-
-\method{get_interval}{yrqtr}(x, days = FALSE, ...)
-
-\method{get_interval}{yr}(x, days = FALSE, ...)
+\method{get_interval}{grate_period}(x, ...)
 }
 \arguments{
-\item{x}{A yrwk, yrmon, yrqtr or period object.}
+\item{x}{A grate object.}
 
 \item{...}{Not used.}
 
 \item{style}{Either "numeric" (default) for the integer month value or
 "named" to return the abbreviated month name in the current locale.}
-
-\item{days}{Should periods be converted in to a number of days.}
 }
 \value{
 \itemize{
-\item \code{get_week()}: The corresponding week values for a yrwk vector.
-\item \code{get_month()}: The month.
-\item \code{get_quarter()}: The quarter.
-\item \code{get_year()}: The year.
-\item \code{get_firstday()}: The corresponding \code{firstday} of a \code{yrwk} vector.
-\item \code{get_interval()}: The interval of the object.
+\item \code{get_date_bounds()}: A data.frame containing the upper and lower date
+bounds for each of the grouped date values.
+\item \code{get_week()}: The corresponding week values for a <grate_yearweek> vector.
 }
 }
 \description{
 Generics and methods to work with grouped date objects
-}
-\examples{
-x <- as_yrwk(Sys.Date())
-get_year(x)
-get_week(x)
-get_firstday(x)
 }

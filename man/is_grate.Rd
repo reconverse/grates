@@ -2,23 +2,23 @@
 % Please edit documentation in R/accessors.R
 \name{is_grate}
 \alias{is_grate}
-\alias{is_yrwk}
-\alias{is_yrmon}
-\alias{is_yrqtr}
-\alias{is_yr}
+\alias{is_yearweek}
+\alias{is_month}
+\alias{is_quarter}
+\alias{is_year}
 \alias{is_period}
 \alias{is_int_period}
 \title{Is object a grouped date}
 \usage{
 is_grate(x)
 
-is_yrwk(x)
+is_yearweek(x)
 
-is_yrmon(x)
+is_month(x)
 
-is_yrqtr(x)
+is_quarter(x)
 
-is_yr(x)
+is_year(x)
 
 is_period(x)
 
