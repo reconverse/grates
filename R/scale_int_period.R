@@ -16,14 +16,14 @@ scale_x_grate_int_period <- function(n.breaks = 6, interval, origin) {
   if (missing(interval)) {
     interval <- grate_int_period_env$interval
     if (is.null(interval)) {
-      stop("Please specify the `interval` of the grate_int_period input", call. = FALSE)
+      abort("Please specify the `interval` of the grate_int_period input")
     }
   }
 
   if (missing(origin)) {
     origin <- grate_int_period_env$origin
     if (is.null(origin)) {
-      stop("Please specify the `origin` of the grate_int_period input", call. = FALSE)
+      abort("Please specify the `origin` of the grate_int_period input")
     }
   }
 
@@ -40,7 +40,7 @@ scale_x_grate_int_period <- function(n.breaks = 6, interval, origin) {
 scale_type.grate_int_period <- function(x) {
   grate_int_period_env$interval <- attr(x, "interval")
   grate_int_period_env$origin <- min(x, na.rm = TRUE)
-  c("grate_int_period")
+  "grate_int_period"
 }
 
 

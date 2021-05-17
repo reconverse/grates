@@ -6,7 +6,7 @@
 \usage{
 scale_x_grate_month(
   n.breaks = 6,
-  date_format = NULL,
+  date_format = "\%Y-\%m-\%d",
   bounds_format = "\%Y-\%b",
   sep = "to",
   interval,
@@ -17,21 +17,20 @@ scale_x_grate_month(
 \item{n.breaks}{Approximate number of breaks calculated using
 \code{scales::breaks_pretty} (default 6).}
 
-\item{date_format}{Format to use if "Date" scales are required. If NULL
-(default) then labels are centralised and of the form "lower category bound
-to upper category bound". If not NULL then the value is used by
-\code{format.Date()} and can be any input acceptable by that function.}
+\item{date_format}{Format to use if "Date" scales are required. If NULL then
+labels are centralised and of the form "lower category bound to upper
+category bound". If not NULL then the value is used by \code{format.Date()} and
+can be any input acceptable by that function (defaults to "\%Y-\%m-\%d).}
 
 \item{bounds_format}{Format to use for grouped date labels. Only used if
 \code{date_format} is NULL.}
 
-\item{sep}{Seperator to use for grouped date labels.}
+\item{sep}{Separator to use for grouped date labels.}
 
 \item{interval}{An integer indicating the (fixed) number of months used for
-grouping; defaults to 1.}
+the original grouping.}
 
-\item{origin}{The date to anchor the intervals from. If NULL (default) the
-earliest date in the vector will be used.}
+\item{origin}{The date used to anchor the grouping.}
 }
 \value{
 A scale for use with ggplot2.

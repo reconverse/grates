@@ -9,9 +9,9 @@
 \alias{as_month.factor}
 \title{Convert an object to a monthly grates object}
 \usage{
-as_month(x, interval = 1, origin = NULL, ...)
+as_month(x, ...)
 
-\method{as_month}{default}(x, interval = 1, origin = NULL, ...)
+\method{as_month}{default}(x, ...)
 
 \method{as_month}{Date}(x, interval = 1, origin = NULL, ...)
 
@@ -38,14 +38,15 @@ as_month(x, interval = 1, origin = NULL, ...)
 \arguments{
 \item{x}{An object to coerce to monthly.}
 
+\item{...}{Not currently used.}
+
 \item{interval}{An integer indicating the (fixed) number of months used for
 grouping; defaults to 1 month.}
 
-\item{origin}{The date to anchor the intervals from.  If NULL (default)
-the earliest date in the vector will be used. If specified, \code{origin} must
-have the same class as x.}
-
-\item{...}{Not currently used.}
+\item{origin}{The date to anchor the intervals from. All values prior to the
+given \code{origin} will be discarded. If NULL (default) the earliest date in
+the vector will be used. If specified, \code{origin} must have the same class
+as x.}
 
 \item{format}{\verb{[character / NULL]}
 
@@ -222,11 +223,13 @@ using \code{\link[clock:as_date]{clock::as_date()}}.
 }
 \note{
 Internally \code{grate_month} objects are stored as the number of months
-(starting at 0) since the Unix Epoch (1970-01-01).
+(starting at 0) since the Unix Epoch (1970-01-01) to the earliest month in
+the grouping. Precision is only to the month level (i.e. the day of the
+month is always dropped).
 }
 \examples{
 as_month(Sys.Date())
-as_month(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 2)
+as_month(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), interval = 2)
 as_month("2019-05-03")
 
 }

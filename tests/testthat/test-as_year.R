@@ -30,7 +30,7 @@ test_that("as_year.POSIXct works as expected", {
   nz <- as.POSIXct(as.POSIXlt("2021-01-04", tz = "NZ"), tz = "NZ")
   result <- as.POSIXct(as_year(nz), tz = "NZ")
   expect_equal(result, as.POSIXct(as.POSIXlt("2021-01-01", tz = "NZ"), tz = "NZ"))
-  expect_equal(as.Date(result, tz = tzone(result)), as.Date("2021-01-01"))
+  expect_equal(as.Date(result, tz = attr(result, "tzone")), as.Date("2021-01-01"))
 })
 
 
@@ -141,7 +141,7 @@ test_that("combine works", {
   x <- as.Date("2020-05-26")
   dat <- as_year(x)
   expect_equal(c(dat, dat), as_year(c(x, x)))
-  dat2 <- as_yearquarter(x)
+  dat2 <- as_quarter(x)
   expect_equal(c(dat, dat2), as_year(c(x, x)))
 })
 

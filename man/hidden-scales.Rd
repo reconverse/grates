@@ -2,28 +2,28 @@
 % Please edit documentation in R/scale_yearweek.R
 \name{hidden-scales}
 \alias{hidden-scales}
-\alias{scale_x_yearweek_fd_1}
-\alias{scale_x_yearweek_fd_2}
-\alias{scale_x_yearweek_fd_3}
-\alias{scale_x_yearweek_fd_4}
-\alias{scale_x_yearweek_fd_5}
-\alias{scale_x_yearweek_fd_6}
-\alias{scale_x_yearweek_fd_7}
+\alias{scale_x_yearweek_1}
+\alias{scale_x_yearweek_2}
+\alias{scale_x_yearweek_3}
+\alias{scale_x_yearweek_4}
+\alias{scale_x_yearweek_5}
+\alias{scale_x_yearweek_6}
+\alias{scale_x_yearweek_7}
 \title{Hidden scales}
 \usage{
-scale_x_yearweek_fd_1(..., n.breaks = 6)
+scale_x_yearweek_1(..., n.breaks = 6)
 
-scale_x_yearweek_fd_2(..., n.breaks = 6)
+scale_x_yearweek_2(..., n.breaks = 6)
 
-scale_x_yearweek_fd_3(..., n.breaks = 6)
+scale_x_yearweek_3(..., n.breaks = 6)
 
-scale_x_yearweek_fd_4(..., n.breaks = 6)
+scale_x_yearweek_4(..., n.breaks = 6)
 
-scale_x_yearweek_fd_5(..., n.breaks = 6)
+scale_x_yearweek_5(..., n.breaks = 6)
 
-scale_x_yearweek_fd_6(..., n.breaks = 6)
+scale_x_yearweek_6(..., n.breaks = 6)
 
-scale_x_yearweek_fd_7(..., n.breaks = 6)
+scale_x_yearweek_7(..., n.breaks = 6)
 }
 \arguments{
 \item{...}{Not currently used.}

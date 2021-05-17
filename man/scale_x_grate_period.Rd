@@ -15,9 +15,10 @@ scale_x_grate_period(n.breaks = 6, format = "\%Y-\%m-\%d", interval, origin)
 \item{interval}{An integer indicating the (fixed) number of days used for
 grouping; defaults to 1.}
 
-\item{origin}{The date to anchor the periods from.  If NULL (default) the
-earliest date in the vector will be used. If specified, \code{origin} must have
-the same class as x.}
+\item{origin}{The date to anchor the intervals from. All values prior to the
+given \code{origin} will be discarded. If NULL (default) the earliest value in
+the vector will be used. If specified, \code{origin} must have the same class
+as x.}
 }
 \value{
 A scale for use with ggplot2.

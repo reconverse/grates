@@ -15,7 +15,8 @@
 #'   format, i.e. "yyyy-mm-dd".
 #'
 #' @param x `An object to coerce to year.
-#' @param ... Not used.
+#' @inheritParams clock::date_parse
+#' @param ... Not currently used.
 #'
 #' @return A `year` object.
 #'
@@ -33,25 +34,32 @@ as_year <- function(x, ...) {
 #' @rdname as_year
 #' @export
 as_year.default <- function(x, ...) {
-  stop(sprintf("Can't convert a <%s> to a <grate_year>" , class(x)[1]), call. = FALSE)
+  abort(sprintf("Can't convert a <%s> to a <grate_year>" , class(x)[1]))
 }
 
 
 #' @rdname as_year
 #' @export
 as_year.grate_year <- function(x, ...) {
+  check_dots_empty()
   x
 }
 
 #' @rdname as_year
 #' @export
-as_year.grate_yearmon <- function(x, ...) {
+as_year.grate_month <- function(x, ...) {
+  check_dots_empty()
+  interval <- attr(x, "interval")
+  if (interval > 1) {
+    abort("Can only convert <grate_month> objects to <year> if interval = 1")
+  }
   as_year(as.Date(x))
 }
 
 #' @rdname as_year
 #' @export
-as_year.grate_yearquarter <- function(x, ...) {
+as_year.grate_quarter <- function(x, ...) {#
+  check_dots_empty()
   as_year(as.Date(x))
 }
 
@@ -60,20 +68,23 @@ as_year.grate_yearquarter <- function(x, ...) {
 #' @export
 as_year.Date <- function(x, ...) {
 
+  check_dots_empty()
+
   # convert to posixlt and floor date to start of quarter
   year <- as_utc_posixlt_from_int(x)$year + 1900L
   year <- new_grate_year(as.numeric(year))
 
   # finishing touches
   year[is.na(x)] <- NA_real_
-  names(year) <- names(x)
-  year
+  setNames(year, names(x))
 }
 
 
 #' @rdname as_year
 #' @export
 as_year.POSIXt <- function(x, ...) {
+
+  check_dots_empty()
 
   x <- as.POSIXlt(x)
   year <- x$year + 1900L
@@ -86,12 +97,13 @@ as_year.POSIXt <- function(x, ...) {
 }
 
 
-#' @inheritParams clock::date_parse
+
 #' @rdname as_year
 #' @export
 as_year.character <- function(x, format = NULL, locale = clock_locale(),...) {
+  check_dots_empty()
   x <- date_parse(x, format = format, locale = locale)
-  if (all(is.na(x))) stop("Unable to parse any entries of x as Dates")
+  if (all(is.na(x))) abort("Unable to parse any entries of x as Dates")
   as_year.Date(x)
 }
 
@@ -99,6 +111,7 @@ as_year.character <- function(x, format = NULL, locale = clock_locale(),...) {
 #' @rdname as_year
 #' @export
 as_year.factor <- function(x, format = NULL, locale = clock_locale(),...) {
+  check_dots_empty()
   as_year.character(as.character(x), format = NULL, locale = clock_locale())
 }
 
@@ -128,7 +141,6 @@ print.grate_year <- function(x, ...) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-#' @importFrom clock date_time_build
 #' @export
 as.POSIXct.grate_year <- function(x, tz = "UTC", ...) {
   date_time_build(
@@ -140,7 +152,7 @@ as.POSIXct.grate_year <- function(x, tz = "UTC", ...) {
   )
 }
 
-#' @importFrom clock date_time_build
+
 #' @export
 as.POSIXlt.grate_year <- function(x, tz = "UTC", ...) {
   tmp <- date_time_build(
@@ -153,7 +165,7 @@ as.POSIXlt.grate_year <- function(x, tz = "UTC", ...) {
   as.POSIXlt(tmp)
 }
 
-#' @importFrom clock date_build
+
 #' @export
 as.Date.grate_year <- function(x, ...) {
   date_build(year = unclass(x), invalid = "error" )
@@ -206,7 +218,7 @@ is.numeric.grate_year <- function(x) TRUE
 `[<-.grate_year` <- function(x, i, value) {
   cl <- oldClass(x)
   if (!all(inherits(value, "grate_year") | is.na(value))) {
-    stop("Can only assign year objects in to a year object", call. = FALSE)
+    abort("Can only assign year objects in to a year object")
   }
   val <- NextMethod("[<-")
   class(val) <- cl
@@ -236,17 +248,25 @@ unique.grate_year <- function (x, incomparables = FALSE, ...) {
 #' @export
 c.grate_year <- function(..., recursive = FALSE, use.names = TRUE) {
   dots <- list(...)
-  is_mon <- vapply(dots, inherits, logical(1), what = "grate_month")
+  is_mon <- vapply(
+    dots,
+    function(x) {
+      inherits(x, "grate_month") && (attr(x, "interval") == 1)
+    },
+    logical(1)
+  )
   is_year <- vapply(dots, inherits, logical(1), what = "grate_year")
+  is_qtr <- vapply(dots, inherits, logical(1), what = "grate_quarter")
   is_na <- is.na(dots)
 
-  if (!all(is_mon | is_na | is_year)) {
-    stop(
-      "To combine <grate_year> objects with different objects first convert to a common class",
-      call. = FALSE
-    )
+  if (!all(is_mon | is_na | is_year | is_qtr)) {
+    abort(c(
+      "Unable to combine with <grate_year> object with other classes.",
+      i = "Covert to a common class prior to combining"
+    ))
   }
   dots[is_mon] <- lapply(dots[is_mon], as_year)
+  dots[is_qtr] <- lapply(dots[is_qtr], as_year)
   res <- unlist(dots)
   class(res) <- "grate_year"
   res
@@ -255,13 +275,10 @@ c.grate_year <- function(..., recursive = FALSE, use.names = TRUE) {
 
 #' @export
 seq.grate_year <- function(from, to, by = 1L, ...) {
-  by <- int_cast(by)
+  by <- vec_cast(by, integer(), x_arg = "by")
 
   if (!(inherits(to, "grate_year") || inherits(to, "integer"))) {
-    stop(
-      "Can only create a sequence between two `grate_year` objects or an integer",
-      call. = FALSE
-    )
+    abort("Can only create a sequence between two `grate_year` objects or an integer")
   }
 
   end <- to - from
@@ -285,7 +302,7 @@ Math.grate_year <- function(x, ...) {
     is.nan = is.nan.grate_year(x),
     is.finite = is.finite.grate_year(x),
     is.infinite = is.infinite.grate_year(x),
-    stop(sprintf("`%s()` is not supported for <grate_year>", .fn), call. = FALSE)
+    abort(sprintf("`%s()` is not supported for <grate_year>", .fn))
   )
 }
 
@@ -311,10 +328,7 @@ Ops.grate_year <- function(e1, e2) {
     if (inherits(e2, "grate_year") || inherits(e2, "integer")) {
       return(NextMethod())
     } else {
-      stop(
-        "Can only compare <grate_year> objects with <grate_year> objects or integers",
-        call. = FALSE
-      )
+      abort("Can only compare <grate_year> objects with <grate_year> objects or integers")
     }
   }
 
@@ -324,31 +338,31 @@ Ops.grate_year <- function(e1, e2) {
       if (missing(e2)) {
         return(e1)
       } else if (inherits(e1, "grate_year") && inherits(e2, "grate_year")) {
-        stop("Cannot add <grate_year> objects to each other", call. = FALSE)
+        abort("Cannot add <grate_year> objects to each other")
       } else if (inherits(e1, "grate_year") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
         new_grate_year(unclass(e1) + e2)
       } else if (inherits(e2, "grate_year") && (all(is.wholenumber(unclass(e1)),  na.rm = TRUE))) {
         new_grate_year(e1 + unclass(e2))
       } else {
-        stop("Can only add whole numbers to <grate_year> objects", call. = FALSE)
+        abort("Can only add whole numbers to <grate_year> objects")
       }
     },
     "-" = {
       if (missing(e2)) {
-        stop("Cannot negate a <grate_year> object", call. = FALSE)
+        abort("Cannot negate a <grate_year> object")
       } else if (inherits(e2, "grate_year")) {
         if (inherits(e1, "grate_year")) {
           unclass(e1) - unclass(e2)
         } else if (all(is.wholenumber(unclass(e1)),  na.rm = TRUE)) {
-          stop("Can only subtract from a <grate_year> object not vice-versa", call. = FALSE)
+          abort("Can only subtract from a <grate_year> object not vice-versa")
         }
       } else if (inherits(e1, "grate_year") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
         new_grate_year(unclass(e1) - e2)
       } else {
-        stop("Can only subtract whole numbers and other <grate_year> objects from <grate_year> objects", call. = FALSE)
+        abort("Can only subtract whole numbers and other <grate_year> objects from <grate_year> objects")
       }
     },
-    stop(sprintf("%s is not compatible with <grate_year> objects", op), call. = FALSE)
+    abort(sprintf("%s is not compatible with <grate_year> objects", op))
   )
 }
 
@@ -365,7 +379,7 @@ Ops.grate_year <- function(e1, e2) {
 Summary.grate_year <- function (..., na.rm)
 {
   ok <- switch(.Generic, max = TRUE, min = TRUE, range = TRUE, FALSE)
-  if (!ok) stop(.Generic, " not defined for <grate_year> objects")
+  if (!ok) abort(.Generic, " not defined for <grate_year> objects")
   val <- NextMethod(.Generic)
   class(val) <- oldClass(list(...)[[1]])
   val

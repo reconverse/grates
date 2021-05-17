@@ -6,8 +6,42 @@ test_that("as_month errors correctly", {
   expect_error(as_month("2021-W53"))
 })
 
+test_that("as_month.Date works correctly - interval = 1", {
+  start <- as.Date("2020-01-01")
+  dat <- seq.Date(from = start, to = start + 365, by = 1)
+  res <- aggregate(dat, list(as_month(dat)), length)
 
-test_that("as_month.Date works correctly", {
+  expect_equal(res$x, c(31,29,31,30,31,30,31,31,30,31,30,31))
+  expect_equal(
+    as.Date(res[[1]]),
+    seq.Date(from = start, to = start + 365, by = "month")
+  )
+
+  expect_snapshot_output(print(res))
+  # This should look like:
+  # Group.1  x
+  # 1  2020-Jan 31
+  # 2  2020-Feb 29
+  # 3  2020-Mar 31
+  # 4  2020-Apr 30
+  # 5  2020-May 31
+  # 6  2020-Jun 30
+  # 7  2020-Jul 31
+  # 8  2020-Aug 31
+  # 9  2020-Sep 30
+  # 10 2020-Oct 31
+  # 11 2020-Nov 30
+  # 12 2020-Dec 31
+
+  expect_snapshot_output(print(unique(res$Group.1), format = "%Y-%m"))
+  # This should look like:
+  # <grate_month>: interval = 1 month
+  #  [1] "2020-01" "2020-02" "2020-03" "2020-04" "2020-05" "2020-06" "2020-07"
+  #  [8] "2020-08" "2020-09" "2020-10" "2020-11" "2020-12"
+})
+
+
+test_that("as_month.Date works correctly - interval > 1", {
   yrs <- rep(2021:2022, each = 12)
   months <- rep.int(1:12, times = 2)
   dates <- as.Date(ISOdate(yrs, months, 5L))
@@ -18,7 +52,7 @@ test_that("as_month.Date works correctly", {
 
   expect_snapshot_output(print(as_month(dates, interval = 2)))
   # This should look like:
-  # <grate_month: interval = 2>
+  # <grate_month: interval = 2 months>
   #   [1] "2021-Jan to 2021-Feb" "2021-Jan to 2021-Feb" "2021-Mar to 2021-Apr"
   #   [4] "2021-Mar to 2021-Apr" "2021-May to 2021-Jun" "2021-May to 2021-Jun"
   #   [7] "2021-Jul to 2021-Aug" "2021-Jul to 2021-Aug" "2021-Sep to 2021-Oct"
@@ -27,12 +61,6 @@ test_that("as_month.Date works correctly", {
   #  [16] "2022-Mar to 2022-Apr" "2022-May to 2022-Jun" "2022-May to 2022-Jun"
   #  [19] "2022-Jul to 2022-Aug" "2022-Jul to 2022-Aug" "2022-Sep to 2022-Oct"
   #  [22] "2022-Sep to 2022-Oct" "2022-Nov to 2022-Dec" "2022-Nov to 2022-Dec"
-
-  expect_snapshot_output(as.character(as_month(dates), format = "%Y-%m"))
-  # This should look like:
-  #  [1] "2021-01" "2021-02" "2021-03" "2021-04" "2021-05" "2021-06" "2021-07" "2021-08"
-  #  [9] "2021-09" "2021-10" "2021-11" "2021-12" "2022-01" "2022-02" "2022-03" "2022-04"
-  # [17] "2022-05" "2022-06" "2022-07" "2022-08" "2022-09" "2022-10" "2022-11" "2022-12"
 })
 
 
@@ -56,7 +84,7 @@ test_that("as_month.POSIXct works as expected", {
   nz <- as.POSIXct(as.POSIXlt("2021-01-04", tz = "NZ"), tz = "NZ")
   result <- as.POSIXct(as_month(nz, 2), tz = "NZ")
   expect_equal(result, as.POSIXct(as.POSIXlt("2021-01-01", tz = "NZ"), tz = "NZ"))
-  expect_equal(as.Date(result, tz = tzone(result)), as.Date("2021-01-01"))
+  expect_equal(as.Date(result, tz = attr(result, "tzone")), as.Date("2021-01-01"))
 })
 
 

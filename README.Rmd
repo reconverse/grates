@@ -24,12 +24,11 @@ knitr::opts_chunk$set(
 **grates** provides a simple and coherent implementation of grouped date classes,
 including:
 
-* year-week (`as_yearweek()`) with arbitrary first day of the week;
-* year-month (`as_yearmonth()`);
-* year-quarter (`as_yearrquater()`);
-* year (`as_year()`);
-* month (`as_month()`);
-* periods (`as_period()`) of arbitrary length.
+* <grate_yearweek> (`as_yearweek()`) with arbitrary first day of the week;
+* <grate_month> (`as_month()`);
+* <grate_quarter> (`as_quarter()`);
+* <grate_year> (`as_year()`);
+* <grate_period> and <grate_int_period> (`as_period()`) of arbitrary length.
 
 These classes aim to be formalise the idea of a grouped date whilst also being
 intuitive in their use. They build upon ideas of Davis Vaughan and the
@@ -74,7 +73,6 @@ library(grates)
 library(outbreaks)  # for data
 library(dplyr)      # for data manipulation
 library(ggplot2)    # for plotting
-
 
 # load some simulated linelist data
 dat <- ebola_sim_clean$linelist

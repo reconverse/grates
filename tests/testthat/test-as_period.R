@@ -122,7 +122,7 @@ test_that("as_period.POSIXct works as expected", {
   )
   expected <- as.POSIXct(as.POSIXlt("2021-02-03", tz = "NZ"), tz = "NZ")
   expect_equal(result, expected)
-  expect_equal(as.Date(result, tz = tzone(result)), as.Date("2021-02-03"))
+  expect_equal(as.Date(result, attr(result, "tzone")), as.Date("2021-02-03"))
 })
 
 
@@ -184,7 +184,7 @@ test_that("accessors error when they should", {
 test_that("accessors work", {
   dat <- as_period(
     as.Date("2020-12-28"),
-    firstdate = as.Date("2020-12-26"),
+    origin = as.Date("2020-12-26"),
     interval = 55
   )
   expect_equal(get_interval(dat), 55)
@@ -217,10 +217,10 @@ test_that("subsetting works", {
   x <- as.Date("2021-01-15")
   dat <- as_period(x, interval = 31) + 0:1
   expect_equal(dat[1], as_period(x, interval = 31))
-  expect_equal(dat[[2]], as_period(x + 31, interval = 31, firstdate = as.Date("2021-01-15")))
+  expect_equal(dat[[2]], as_period(x + 31, interval = 31, origin = as.Date("2021-01-15")))
 
   dat[1] <- dat[2]
-  expect_equal(dat[1], as_period(x + 31, interval = 31, firstdate = as.Date("2021-01-15")))
+  expect_equal(dat[1], as_period(x + 31, interval = 31, origin = as.Date("2021-01-15")))
 
   expect_error(dat[1] <- "bob")
   expect_error(dat[1] <- as_yrwk(x))

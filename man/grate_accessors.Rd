@@ -14,12 +14,12 @@
 \alias{get_month.grate_month}
 \alias{get_quarter}
 \alias{get_quarter.default}
-\alias{get_quarter.grate_yearquarter}
+\alias{get_quarter.grate_quarter}
 \alias{get_year}
 \alias{get_year.default}
 \alias{get_year.grate_yearweek}
 \alias{get_year.grate_month}
-\alias{get_year.grate_yearquater}
+\alias{get_year.grate_quater}
 \alias{get_year.grate_year}
 \alias{get_firstday}
 \alias{get_firstday.default}
@@ -54,7 +54,7 @@ get_quarter(x, ...)
 
 \method{get_quarter}{default}(x, ...)
 
-\method{get_quarter}{grate_yearquarter}(x, ...)
+\method{get_quarter}{grate_quarter}(x, ...)
 
 get_year(x, ...)
 
@@ -64,7 +64,7 @@ get_year(x, ...)
 
 \method{get_year}{grate_month}(x, ...)
 
-\method{get_year}{grate_yearquater}(x, ...)
+\method{get_year}{grate_quater}(x, ...)
 
 \method{get_year}{grate_year}(x, ...)
 

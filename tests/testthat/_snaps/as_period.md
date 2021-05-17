@@ -1,6 +1,6 @@
 # period output looks correct
 
-    <grate_period: interval = 2>
+    <grate_period: interval = 2 days>
      [1] "2020-01-01 to 2020-01-02" "2020-01-01 to 2020-01-02"
      [3] "2020-01-03 to 2020-01-04" "2020-01-03 to 2020-01-04"
      [5] "2020-01-05 to 2020-01-06" "2020-01-05 to 2020-01-06"

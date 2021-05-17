@@ -4,8 +4,8 @@
 \alias{as_year}
 \alias{as_year.default}
 \alias{as_year.grate_year}
-\alias{as_year.grate_yearmon}
-\alias{as_year.grate_yearquarter}
+\alias{as_year.grate_month}
+\alias{as_year.grate_quarter}
 \alias{as_year.Date}
 \alias{as_year.POSIXt}
 \alias{as_year.character}
@@ -18,9 +18,9 @@ as_year(x, ...)
 
 \method{as_year}{grate_year}(x, ...)
 
-\method{as_year}{grate_yearmon}(x, ...)
+\method{as_year}{grate_month}(x, ...)
 
-\method{as_year}{grate_yearquarter}(x, ...)
+\method{as_year}{grate_quarter}(x, ...)
 
 \method{as_year}{Date}(x, ...)
 
@@ -33,7 +33,7 @@ as_year(x, ...)
 \arguments{
 \item{x}{`An object to coerce to year.}
 
-\item{...}{Not used.}
+\item{...}{Not currently used.}
 
 \item{format}{\verb{[character / NULL]}
 

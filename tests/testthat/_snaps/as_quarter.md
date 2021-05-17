@@ -1,4 +1,4 @@
-# as_yearmonth.Date works correctly
+# as_quarter.Date works correctly
 
       Group.1  x
     1 2020-Q1 91

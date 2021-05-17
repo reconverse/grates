@@ -16,9 +16,11 @@
 #' @param x An object to coerce to a period.
 #' @param interval An integer indicating the (fixed) number of days used for
 #'   grouping; defaults to 1.
-#' @param origin The date to anchor the periods from.  If NULL (default) the
-#'   earliest date in the vector will be used. If specified, `origin` must have
-#'   the same class as x.
+#' @param origin The date to anchor the intervals from. All values prior to the
+#'   given `origin` will be discarded. If NULL (default) the earliest value in
+#'   the vector will be used. If specified, `origin` must have the same class
+#'   as x.
+#' @inheritParams clock::date_parse
 #' @param ... Not currently used.
 #'
 #' @return
@@ -37,20 +39,16 @@
 #'   beginning of the period and then stored as the number of days (starting at
 #'   0) since the Unix Epoch (1970-01-01).
 #'
-#' @importFrom clock date_parse date_group as_date
 #' @export
-as_period <- function(x, interval = 1, origin = NULL, ...) {
+as_period <- function(x, ...) {
   UseMethod("as_period")
 }
 
 
 #' @rdname as_period
 #' @export
-as_period.default <- function(x, interval = 1, origin = NULL, ...) {
-  stop(
-    sprintf("Can't convert a <%s> to a <grate_period>" , class(x)[1]),
-    call. = FALSE
-  )
+as_period.default <- function(x, ...) {
+  abort(sprintf("Can't convert a <%s> to a <grate_period>" , class(x)[1]))
 }
 
 
@@ -58,49 +56,37 @@ as_period.default <- function(x, interval = 1, origin = NULL, ...) {
 #' @export
 as_period.integer <- function(x, interval = 1, origin = NULL, ...) {
 
+  check_dots_empty()
+
   if (!is.null(origin)) {
-    if(!is.numeric(origin)) {
-      stop("`origin` must be numeric", call. = FALSE)
-    }
-    origin <- as.integer(floor(origin))
-    if (origin > min(x, na.rm = TRUE)) {
-      stop("`origin` should be at or before the minimum date in `x`", call. = FALSE)
-    }
-    if (length(origin) != 1L) {
-      stop(
-        sprintf("Exactly one value should be provided for `origin` (%d provided)", length(origin)),
-        call. = FALSE
-      )
-    }
+    origin <- vec_cast(origin, integer(), x_arg = "origin")
+    vec_assert(origin, size = 1, arg = "origin")
+    stopifnot("`origin` should be at or before the maximum date in `x`" = origin <= max(x, na.rm = TRUE))
+  } else {
+    origin <- min(x, na.rm = TRUE)
   }
-
-  # Ensure interval is numeric and a whole number
-  if (!is.numeric(interval)) {
-    stop("For numeric `x`, `interval` must also be numeric.")
-  }
-  interval <- int_cast(interval)
-  if (interval < 1L) stop("interval must be positive (>= 1)", call. = FALSE)
-
-  nms <- names(x)
-  if (is.null(origin)) origin <- min(x, na.rm = TRUE)
 
   # remove values before origin
   x <- x[x >= origin]
-  if (interval == 1L) {
-    return(x)
-  }
 
+  # Ensure interval is numeric and a whole number
+  interval <- vec_cast(interval, integer(), x_arg = "interval")
+  stopifnot("interval must be positive (>= 1)" = interval >= 1L)
+
+  # return early if interval is one
+  if (interval == 1L) return(x)
+
+  # generate groupings
   period_starts <- seq.int(from = origin, to = max(x, na.rm = TRUE), by = interval)
   idx <- cut(x, breaks = c(period_starts, Inf), labels = FALSE, right = FALSE)
-  x <- period_starts[idx]
+  out <- period_starts[idx]
 
   # create class
-  grate_period <- new_grate_int_period(x, interval)
+  grate_period <- new_grate_int_period(out, interval)
 
   # finishing touches
   grate_period[is.na(x)] <- NA_real_
-  names(grate_period) <- nms
-  grate_period
+  setNames(grate_period, names(x))
 }
 
 
@@ -116,76 +102,60 @@ as_period.numeric <- function(x, interval = 1, origin = NULL, ...) {
 #' @export
 as_period.Date <- function(x, interval = 1, origin = NULL, ...) {
 
+  check_dots_empty()
+
+  # set origin to minimum value if none specified
   if (!is.null(origin)) {
-    if(!inherits(origin, "Date")) {
-      stop("`x` and `origin` must have matching (Date) classes", call. = FALSE)
-    }
-    if (origin > min(x, na.rm = TRUE)) {
-      stop("`origin` should be at or before the minimum date in `x`", call. = FALSE)
-    }
-    if (length(origin) != 1L) {
-      stop(
-        sprintf("Exactly one value should be provided for `origin` (%d provided)", length(origin)),
-        call. = FALSE
-      )
-    }
+    vec_assert(origin, ptype = new_date(), size = 1, arg = "origin")
+    stopifnot("`origin` should be at or before the maximum value in `x`" = origin <= max(x, na.rm = TRUE))
+    x <- x[x >= origin]
+  } else {
+    origin <- min(x, na.rm = TRUE)
   }
 
-  # Ensure numeric n is a whole number
-  if (is.numeric(interval)) {
-    interval <- int_cast(interval)
-    if (interval < 1L) stop("interval must be positive (>= 1)", call. = FALSE)
-  }
+  # Ensure interval is numeric and a whole number
+  interval <- vec_cast(interval, integer(), x_arg = "interval")
+  stopifnot("interval must be positive (>= 1)" = interval >= 1L)
 
-  nms <- names(x)
-  if (is.null(origin)) origin <- min(x, na.rm = TRUE)
-
-  # remove values before origin
-  x <- x[x >= origin]
-  if (interval == 1L) {
-    return(x)
-  }
+  # return early if interval is one
+  if (interval == 1L) return(x)
 
   period_starts <- seq(from = origin, to = max(x, na.rm = TRUE), by = interval)
   idx <- cut(x, breaks = c(period_starts, Inf), labels = FALSE, right = FALSE)
-  x <- period_starts[idx]
+  out <- period_starts[idx]
 
   # create class
-  grate_period <- new_grate_period(x, interval)
+  grate_period <- new_grate_period(out, interval)
 
   # finishing touches
   grate_period[is.na(x)] <- NA_real_
-  names(grate_period) <- nms
-  grate_period
+  setNames(grate_period, names(x))
 }
 
 
-#' @importFrom clock as_date
 #' @rdname as_period
 #' @export
 as_period.POSIXt <- function(x, interval = 1, origin = NULL, ...) {
-  x <- as_date(x)
-  if (is.null(origin)) {
-    origin <- min(x, na.rm = TRUE)
-  } else {
-    origin <- as_date(origin)
-  }
+  check_dots_empty()
+  x = as_date(x)
+  if (is.null(origin)) origin <- min(x, na.rm = TRUE)
+  origin <- as_date(origin)
   as_period.Date(x = x, interval = interval, origin = origin, ...)
 }
 
 
-#' @inheritParams clock::date_parse
 #' @rdname as_period
 #' @export
 as_period.character <- function(x, interval = 1, origin = NULL, format = NULL, locale = clock_locale(), ...) {
+  check_dots_empty()
   x <- date_parse(x, format = format, locale = locale)
-  if (all(is.na(x))) stop("Unable to parse any entries of x as Dates")
+  if (all(is.na(x))) abort("Unable to parse any entries of x as Dates")
   if (is.null(origin)) {
     origin <- min(x, na.rm = TRUE)
   } else {
     origin <- date_parse(origin, format = format, locale = locale)
   }
-  as_period.Date(x, interval, origin)
+  as_period.Date(x, interval = interval, origin = origin)
 }
 
 
@@ -193,6 +163,8 @@ as_period.character <- function(x, interval = 1, origin = NULL, format = NULL, l
 #' @rdname as_period
 #' @export
 as_period.factor <- function(x, interval = 1, origin = NULL, format = NULL, locale = clock_locale(), ...) {
+
+  check_dots_empty()
   if (!is.null(origin)) origin <- as.character(origin)
 
   as_period.character(
@@ -222,7 +194,7 @@ as_period.factor <- function(x, interval = 1, origin = NULL, format = NULL, loca
 #' @export
 print.grate_period <- function(x, format = "%Y-%m-%d", sep = "to", ...) {
   interval <- attr(x, "interval")
-  cat(sprintf("<grate_period: interval = %d>\n", interval))
+  cat(sprintf("<grate_period: interval = %d days>\n", interval))
   print(format.grate_period(x, format = format, sep = sep))
   invisible(x)
 }
@@ -275,12 +247,14 @@ format.grate_int_period <- function(x, ...) {
 
 #' @export
 as.Date.grate_int_period <- function(x, ...) {
-  stop("Cannot convert object of class <grate_int_period> to Date")
+  check_dots_empty()
+  abort("Cannot convert object of class <grate_int_period> to Date")
 }
 
 
 #' @export
 as.Date.grate_period <- function(x, ...) {
+  check_dots_empty()
   attributes(x) <- NULL
   new_date(x)
 }
@@ -288,12 +262,14 @@ as.Date.grate_period <- function(x, ...) {
 
 #' @export
 as.POSIXct.grate_int_period <- function(x, ...) {
-  stop("Cannot convert object of class <grate_int_period> to POSIXct")
+  check_dots_empty()
+  abort("Cannot convert object of class <grate_int_period> to POSIXct")
 }
 
 
 #' @export
 as.POSIXct.grate_period <- function(x, tz = "UTC", ...) {
+  check_dots_empty()
   out <- as.Date(x)
   out <- as_zoned_time(out, zone = tz, nonexistent = "roll-forward", ambiguous = "latest")
   as_date_time(out)
@@ -301,12 +277,14 @@ as.POSIXct.grate_period <- function(x, tz = "UTC", ...) {
 
 
 as.POSIXlt.grate_int_period <- function(x, ...) {
-  stop("Cannot convert object of class <grate_int_period> to POSIXlt")
+  check_dots_empty()
+  abort("Cannot convert object of class <grate_int_period> to POSIXlt")
 }
 
 
 #' @export
 as.POSIXlt.grate_period <- function(x, tz = "UTC", ...) {
+  check_dots_empty()
   out <- as.Date(x)
   out <- as_zoned_time(out, zone = tz, nonexistent = "roll-forward", ambiguous = "latest")
   as.POSIXlt(out)
@@ -319,6 +297,7 @@ as.character.grate_period <- function(x, ...) format(x, ...)
 
 #' @export
 as.list.grate_int_period <- function(x, ...) {
+  check_dots_empty()
   interval <- attr(x, "interval")
   out <- lapply(unclass(x), new_grate_int_period, interval = interval)
 }
@@ -332,6 +311,7 @@ as.list.grate_period <- function(x, ...) {
 
 #' @export
 as.numeric.grate_period <- function(x, ...) {
+  check_dots_empty()
   attributes(x) <- NULL
   x
 }
@@ -379,10 +359,10 @@ is.numeric.grate_period <- function(x) FALSE
   cl <- oldClass(x)
   interval <- attr(x, "interval")
   if (!all(inherits(value, "grate_int_period") | is.na(value))) {
-    stop("Can only assign grate_int_period objects in to a grate_int_period object", call. = FALSE)
+    abort("Can only assign grate_int_period objects in to a grate_int_period object")
   }
   if (!identical(interval, attr(value, "interval")) && !is.na(value)) {
-    stop("Can only combine <grate_int_period> objects with identical values of `interval`")
+    abort("Can only combine <grate_int_period> objects with identical values of `interval`")
   }
   val <- NextMethod("[<-")
   class(val) <- cl
@@ -393,7 +373,10 @@ is.numeric.grate_period <- function(x) FALSE
     dat <- diff(as.numeric(val))
     dat <- dat[!is.na(dat)]
     if (length(unique(dat)) > 1L) {
-      stop("Incompatible <grate_int_period> objects. Are they anchored to different origins?", call. = FALSE)
+      abort(c(
+        "Incompatible <grate_int_period> objects.",
+        i = "Are they anchored to incompatible origins?"
+      ))
     }
   }
 
@@ -407,10 +390,10 @@ is.numeric.grate_period <- function(x) FALSE
   cl <- oldClass(x)
   interval <- attr(x, "interval")
   if (!all(inherits(value, "grate_period") | is.na(value))) {
-    stop("Can only assign grate_period objects in to a grate_period object", call. = FALSE)
+    abort("Can only assign grate_period objects in to a grate_period object")
   }
   if (!identical(interval, attr(value, "interval")) && !is.na(value)) {
-    stop("Can only combine <grate_period> objects with identical values of `interval`")
+    abort("Can only combine <grate_period> objects with identical values of `interval`")
   }
   val <- NextMethod("[<-")
   class(val) <- cl
@@ -421,7 +404,10 @@ is.numeric.grate_period <- function(x) FALSE
     dat <- diff(as.numeric(val))
     dat <- dat[!is.na(dat)]
     if (length(unique(dat)) > 1L) {
-      stop("Incompatible <grate_period> objects. Are they anchored to different origins?", call. = FALSE)
+      abort(c(
+        "Incompatible <grate_period> objects.",
+        i = "Are they anchored to incompatible origins?"
+      ))
     }
   }
 
@@ -462,10 +448,10 @@ c.grate_int_period <- function(..., recursive = FALSE, use.names = TRUE) {
   is_mon <- vapply(dots, inherits, logical(1), what = "grate_int_period")
   is_na <- is.na(dots)
   if (!all(is_mon | is_na)) {
-    stop(
-      "To combine <grate_int_period> objects with other objects ensure they are a common class",
-      call. = FALSE
-    )
+    abort(c(
+      "Unable to combine with <grate_int_period> object with other classes.",
+      i = "Covert to a common class prior to combining"
+    ))
   }
 
   valid <- vapply(
@@ -480,10 +466,7 @@ c.grate_int_period <- function(..., recursive = FALSE, use.names = TRUE) {
     logical(1)
   )
   if(!all(valid)) {
-    stop(
-      "Can only combine <grate_int_period> objects with identical values of `interval`",
-      call. = FALSE
-    )
+    abort("Can only combine <grate_int_period> objects with identical values of `interval`")
   }
 
   res <- new_grate_int_period(
@@ -496,7 +479,10 @@ c.grate_int_period <- function(..., recursive = FALSE, use.names = TRUE) {
     tmp <- diff(as.numeric(tmp))
     tmp <- tmp[!is.na(tmp)]
     if (length(unique(tmp)) > 1L) {
-      stop("Incompatible <grate_int_period> objects. Are they anchored to different origins?", call. = FALSE)
+      abort(c(
+        "Incompatible <grate_int_period> objects.",
+        i = "Are they anchored to incompatible origins?"
+      ))
     }
   }
 
@@ -513,10 +499,10 @@ c.grate_period <- function(..., recursive = FALSE, use.names = TRUE) {
   is_mon <- vapply(dots, inherits, logical(1), what = "grate_period")
   is_na <- is.na(dots)
   if (!all(is_mon | is_na)) {
-    stop(
-      "To combine <grate_period> objects with other objects ensure they are a common class",
-      call. = FALSE
-    )
+    abort(c(
+      "Unable to combine with <grate_period> object with other classes.",
+      i = "Covert to a common class prior to combining"
+    ))
   }
 
   valid <- vapply(
@@ -531,7 +517,7 @@ c.grate_period <- function(..., recursive = FALSE, use.names = TRUE) {
     logical(1)
   )
   if(!all(valid)) {
-    stop("Can only combine <grate_period> objects with identical values of `interval`")
+    abort("Can only combine <grate_period> objects with identical values of `interval`")
   }
 
   res <- new_grate_period(
@@ -544,7 +530,10 @@ c.grate_period <- function(..., recursive = FALSE, use.names = TRUE) {
     tmp <- diff(as.numeric(tmp))
     tmp <- tmp[!is.na(tmp)]
     if (length(unique(tmp)) > 1L) {
-      stop("Incompatible <grate_period> objects. Are they anchored to different origins?", call. = FALSE)
+      abort(c(
+        "Incompatible <grate_period> objects.",
+        i = "Are they anchored to incompatible origins?"
+      ))
     }
   }
 
@@ -554,13 +543,12 @@ c.grate_period <- function(..., recursive = FALSE, use.names = TRUE) {
 
 #' @export
 seq.grate_int_period <- function(from, to, by = 1L, ...) {
-  by <- int_cast(by)
+  by <- vec_cast(by, integer(), x_arg = "by")
 
   if (!inherits(to, "grate_int_period")) {
-    stop("Can only create a sequence between two `grate_int_period` objects", call. = FALSE)
+    abort("Can only create a sequence between two `grate_int_period` objects")
   }
 
-  # TODO - add validation check
   c(from, to) # this will trigger warning if incompatible
 
   interval <- attr(from, "interval")
@@ -573,10 +561,10 @@ seq.grate_int_period <- function(from, to, by = 1L, ...) {
 
 #' @export
 seq.grate_period <- function(from, to, by = 1L, ...) {
-  by <- int_cast(by)
+  by <- vec_cast(by, integer(), x_arg = "by")
 
   if (!inherits(to, "grate_period")) {
-    stop("Can only create a sequence between two `grate_period` objects", call. = FALSE)
+    abort("Can only create a sequence between two `grate_period` objects")
   }
 
   # TODO - add validation check
@@ -613,10 +601,7 @@ Math.grate_period <- function(x, ...) {
     is.nan = is.nan.grate_period(x),
     is.finite = is.finite.grate_period(x),
     is.infinite = is.infinite.grate_period(x),
-    stop(
-      sprintf("`%s()` is not supported for <grate_period> objects", .fn),
-      call. = FALSE
-    )
+    abort(sprintf("`%s()` is not supported for <grate_period> objects", .fn))
   )
 }
 
@@ -633,7 +618,7 @@ Math.grate_period <- function(x, ...) {
 Summary.grate_period <- function (..., na.rm)
 {
   ok <- switch(.Generic, max = TRUE, min = TRUE, range = TRUE, FALSE)
-  if (!ok) stop(.Generic, " not defined for <grate_period> objects")
+  if (!ok) abort(.Generic, " not defined for <grate_period> objects")
   val <- NextMethod(.Generic)
   class(val) <- oldClass(list(...)[[1]])
   attr(val, "interval") <- attr(list(...)[[1]], "interval")
@@ -654,7 +639,7 @@ Ops.grate_int_period <- function(e1, e2) {
     if (inherits(e2, "grate_int_period")) {
       return(NextMethod())
     } else {
-      stop("Can only compare <grate_int_period> objects with <grate_int_period> objects", call. = FALSE)
+      abort("Can only compare <grate_int_period> objects with <grate_int_period> objects")
     }
   }
 
@@ -664,34 +649,33 @@ Ops.grate_int_period <- function(e1, e2) {
       if (missing(e2)) {
         return(e1)
       } else if (inherits(e1, "grate_int_period") && inherits(e2, "grate_int_period")) {
-        stop("Cannot add <grate_month> objects to each other", call. = FALSE)
+        abort("Cannot add <grate_month> objects to each other")
       } else if (inherits(e1, "grate_int_period") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
         interval <- attr(e1, "interval")
-        new_grate_int_period(unclass(e1) + (interval * e2), interval = interval)
+        new_grate_int_period(unclass(e1) + interval*e2, interval = interval)
       } else if (inherits(e2, "grate_int_period") && (all(is.wholenumber(unclass(e1)),  na.rm = TRUE))) {
         interval <- attr(e2, "interval")
-        new_grate_int_period(unclass(e2) + (interval * e1), interval = interval)
+        new_grate_int_period(unclass(e2) + interval*e1, interval = interval)
       } else {
-        stop("Can only add whole numbers to <grate_int_period> objects", call. = FALSE)
-      }
+        abort("Can only add whole numbers to <grate_int_period> objects")      }
     },
     "-" = {
       if (missing(e2)) {
-        stop("Cannot negate a <grate_int_period> object", call. = FALSE)
+        abort("Cannot negate a <grate_int_period> object")
       } else if (inherits(e2, "grate_int_period")) {
         if (inherits(e1, "grate_int_period")) {
-          stop("Can only subtract whole numbers from <grate_int_period> objects", call. = FALSE)
+          abort("Can only subtract whole numbers from <grate_int_period> objects")
         } else if (all(is.wholenumber(unclass(e1)),  na.rm = TRUE)) {
-          stop("Can only subtract from a <grate_int_period> object not vice-versa", call. = FALSE)
+          abort("Can only subtract from a <grate_int_period> object not vice-versa")
         }
       } else if (inherits(e1, "grate_int_period") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
         interval <- attr(e1, "interval")
-        new_grate_int_period(unclass(e1) - (interval * as.numeric(e2)), interval = interval)
+        new_grate_int_period(unclass(e1) - interval*as.numeric(e2), interval = interval)
       } else {
-        stop("Can only subtract whole numbers from <grate_int_period> objects", call. = FALSE)
+        abort("Can only subtract whole numbers from <grate_int_period> objects")
       }
     },
-    stop(sprintf("%s is not compatible with <grate_int_period> objects", op), call. = FALSE)
+    abort(sprintf("%s is not compatible with <grate_int_period> objects", op))
   )
 }
 
@@ -703,7 +687,7 @@ Ops.grate_period <- function(e1, e2) {
     if (inherits(e2, "grate_period")) {
       return(NextMethod())
     } else {
-      stop("Can only compare <grate_period> objects with <grate_period> objects", call. = FALSE)
+      abort("Can only compare <grate_period> objects with <grate_period> objects")
     }
   }
 
@@ -713,34 +697,34 @@ Ops.grate_period <- function(e1, e2) {
       if (missing(e2)) {
         return(e1)
       } else if (inherits(e1, "grate_period") && inherits(e2, "grate_period")) {
-        stop("Cannot add <grate_month> objects to each other", call. = FALSE)
+        abort("Cannot add <grate_period> objects to each other")
       } else if (inherits(e1, "grate_period") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
         interval <- attr(e1, "interval")
-        new_grate_period(unclass(e1) + (interval * e2), interval = interval)
+        new_grate_period(unclass(e1) + interval*e2, interval = interval)
       } else if (inherits(e2, "grate_period") && (all(is.wholenumber(unclass(e1)),  na.rm = TRUE))) {
         interval <- attr(e2, "interval")
-        new_grate_period(unclass(e2) + (interval * e1), interval = interval)
+        new_grate_period(unclass(e2) + interval*e1, interval = interval)
       } else {
-        stop("Can only add whole numbers to <grate_period> objects", call. = FALSE)
+        abort("Can only add whole numbers to <grate_period> objects")
       }
     },
     "-" = {
       if (missing(e2)) {
-        stop("Cannot negate a <grate_period> object", call. = FALSE)
+        abort("Cannot negate a <grate_period> object")
       } else if (inherits(e2, "grate_period")) {
         if (inherits(e1, "grate_period")) {
-          stop("Can only subtract whole numbers from <grate_period> objects", call. = FALSE)
+          abort("Can only subtract whole numbers from <grate_period> objects")
         } else if (all(is.wholenumber(unclass(e1)),  na.rm = TRUE)) {
-          stop("Can only subtract from a <grate_period> object not vice-versa", call. = FALSE)
+          abort("Can only subtract from a <grate_period> object not vice-versa")
         }
       } else if (inherits(e1, "grate_period") && (all(is.wholenumber(unclass(e2)), na.rm = TRUE))) {
         interval <- attr(e1, "interval")
-        new_grate_period(unclass(e1) - (interval * as.numeric(e2)), interval = interval)
+        new_grate_period(unclass(e1) - interval*as.numeric(e2), interval = interval)
       } else {
-        stop("Can only subtract whole numbers from <grate_period> objects", call. = FALSE)
+        abort("Can only subtract whole numbers from <grate_period> objects")
       }
     },
-    stop(sprintf("%s is not compatible with <grate_period> objects", op), call. = FALSE)
+    abort(sprintf("%s is not compatible with <grate_period> objects", op))
   )
 }
 

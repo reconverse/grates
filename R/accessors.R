@@ -1,3 +1,63 @@
+#'  Is object a grouped date
+#'
+#' @param x Grouped date object.
+#'
+#' @return
+#' Logical.
+#'
+#' @name is_grate
+NULL
+
+#' @rdname is_grate
+#' @export
+is_grate <- function(x) {
+  gm <- inherits(x, "grate_month")
+  gyw <- inherits(x, "grate_yearweek")
+  gy <- inherits(x, "grate_year")
+  gp <-   inherits(x, "grate_period")
+
+  gm || gyw || gy || gp
+}
+
+#' @rdname is_grate
+#' @export
+is_yearweek <- function(x) {
+  inherits(x, "grate_yearweek")
+}
+
+
+#' @rdname is_grate
+#' @export
+is_month <- function(x) {
+  inherits(x, "grate_month")
+}
+
+
+#' @rdname is_grate
+#' @export
+is_quarter <- function(x) {
+  inherits(x, "grate_quarter")
+}
+
+#' @rdname is_grate
+#' @export
+is_year <- function(x) {
+  inherits(x, "grate_year")
+}
+
+#' @rdname is_grate
+#' @export
+is_period <- function(x) {
+  inherits(x, "grate_period")
+}
+
+#' @rdname is_grate
+#' @export
+is_int_period <- function(x) {
+  inherits(x, "grate_int_period")
+}
+
+
 #' Grouped date accessors
 #'
 #' Generics and methods to work with grouped date objects
@@ -23,7 +83,7 @@ get_date_bounds <- function(x, ...) {
 #' @rdname grate_accessors
 #' @export
 get_date_bounds.default <- function(x, ...) {
-  stop(
+  abort(
     sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
   )
 }
@@ -56,8 +116,9 @@ get_week <- function(x, ...) {
 #' @rdname grate_accessors
 #' @export
 get_week.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname grate_accessors
@@ -76,8 +137,9 @@ get_month <- function(x, ...) {
 #' @rdname grate_accessors
 #' @export
 get_month.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 
@@ -112,13 +174,14 @@ get_quarter <- function(x, ...) {
 #' @rdname grate_accessors
 #' @export
 get_quarter.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname grate_accessors
 #' @export
-get_quarter.grate_yearquarter <- function(x, ...) {
+get_quarter.grate_quarter <- function(x, ...) {
   attributes(x) <- NULL
   days <- month_to_days(x)
   x <- as_utc_posixlt_from_int(days)
@@ -135,8 +198,9 @@ get_year <- function(x, ...) {
 #' @rdname grate_accessors
 #' @export
 get_year.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname grate_accessors
@@ -156,7 +220,7 @@ get_year.grate_month <- function(x, ...) {
 
 #' @rdname grate_accessors
 #' @export
-get_year.grate_yearquater <- function(x, ...) {
+get_year.grate_quater <- function(x, ...) {
   attributes(x) <- NULL
   days <- month_to_days(x)
   x <- as_utc_posixlt_from_int(days)
@@ -179,8 +243,9 @@ get_firstday <- function(x, ...) {
 #' @rdname grate_accessors
 #' @export
 get_firstday.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname grate_accessors
@@ -198,8 +263,9 @@ get_interval <- function(x, ...) {
 #' @rdname grate_accessors
 #' @export
 get_interval.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  abort(
+    sprintf("Not implemented for class %s", paste(class(x), collapse = ", "))
+  )
 }
 
 #' @rdname grate_accessors

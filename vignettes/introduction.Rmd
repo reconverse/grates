@@ -21,11 +21,10 @@ knitr::opts_chunk$set(
 
 **grates** makes it easy to perform common date grouping operations and provides
 multiple grouped date classes for users to work with including *grate_yearweek*,
-*grate_yearmonth*, *grate_yearquarter*, *grate_year*, *grate_month*,
-*grate_period* and *grate_int_period*.  These classes aim to formalise the idea
-of a grouped date whilst also being intuitive in their use. They build upon
-ideas of Davis Vaughan and the unreleased
-[**datea**](https://github.com/DavisVaughan/datea/) package. 
+*grate_month*, *grate_quarter*, *grate_year*, *grate_period* and
+*grate_int_period*.  These classes aim to formalise the idea of a grouped date
+whilst also being intuitive in their use. They build upon ideas of Davis Vaughan
+and the unreleased [**datea**](https://github.com/DavisVaughan/datea/) package. 
 
 ```{r setup, message=FALSE}
 library(grates)
@@ -35,7 +34,7 @@ library(dplyr)
 ```
 
 
-## yearweek 
+## grate_yearweek
 `as_yearweek()` allows you to create <grate_yearweek> objects. As arguments it
 takes, `x`, the date vector you wish to group and `firstday`, the day of the
 week you wish your weeks to start on; (this defaults to 1 (Monday) and can go up
@@ -96,10 +95,10 @@ dat <- ebola_sim_clean$linelist
 
 week_plot <- 
   dat %>%
-  mutate(date = as_yearweek(date_of_infection), firstday = 7) %>% 
-  count(date, name = "cases") %>% 
+  mutate(week = as_yearweek(date_of_infection), firstday = 7) %>% 
+  count(week, name = "cases") %>% 
   na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col(width = 1, colour = "white") + theme_bw() + xlab("")
+  ggplot(aes(week, cases)) + geom_col(width = 1, colour = "white") + theme_bw()
 
 week_plot
 ```
@@ -110,57 +109,24 @@ We can have date labels on the x_axis by utilising `scale_x_grate_yearweek`:
 week_plot + scale_x_grate_yearweek(format = "%Y-%m-%d", firstday = 7)
 ```
 
-## yearmonth, yearquarter and year
-`as_yearmonth()`, `as_yearquarter()` and `as_year()` behave similarly to
-`as_yearweek()` with the difference main being that they have no need for a
-`firstday` argument:
-
-```{r yearothers}
-# create weekday names
-dates <- seq(from = as.Date("2020-01-01"), to = as.Date("2021-12-01"), by = "1 month")
-
-as_yearmonth(dates)
-as_yearquarter(dates)
-as_year(dates)
-as_yearmonth(dates[1]) + 0:1
-as_yearquarter(dates[1]) + 0:1
-as_year(dates[1]) + 0:1
-```
-
-Again we provide [ggplot2](https://cran.r-project.org/package=ggplot2) scales 
-for the x-axis:
-
-```{r yearothersplots}
-dat %>%
-  mutate(date = as_yearmonth(date_of_infection)) %>% 
-  count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col(width = 1, colour = "white") + theme_bw() + xlab("")
-
-dat %>%
-  mutate(date = as_yearquarter(date_of_infection)) %>% 
-  count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col(width = 1, colour = "white") + theme_bw() + xlab("")
-
-dat %>%
-  mutate(date = as_year(date_of_infection)) %>% 
-  count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + geom_col(width = 1, colour = "white") + theme_bw() + xlab("") + scale_x_grate_year(n.breaks = 2)
-```
-
-## month
-`as_month` let's you group by an arbitrary number of calendar months. The
-provided scale can also be used to create a more histogram-like plot:
+## grate_month
+`as_month` allows users to group by a fixed number of months. As arguments it
+takes, `x`, the date vector you wish to group, `interval`, the number of months
+you wish to group by (defaulting to 1) and, finally, `origin`, an optional value
+indicating where you would like to start your periods from (this defaults to the
+earliest month in `x`). By default the provided scale creates a histogram-like
+plot (unlike a histogram the widths of the intervals in the plot are identical
+across months) but can be changed to have centralised labelling.
 
 ```{r month}
-month_plot <- 
+month_dat <- 
   dat %>%
   mutate(date = as_month(date_of_infection, interval = 2)) %>% 
   count(date, name = "cases") %>% 
-  na.omit() %>% 
-  ggplot(aes(date, cases)) + 
+  na.omit()
+
+month_plot <- 
+  ggplot(month_dat, aes(date, cases)) + 
     geom_col(width = 2, colour = "white") +
     theme_bw() + 
     theme(axis.text.x = element_text(angle = 45, hjust=1)) + 
@@ -170,17 +136,53 @@ month_plot
 
 month_plot + 
   scale_x_grate_month(
-    date_format = "%Y-%m-%d",
+    date_format = NULL,
     interval = 2,
     origin = min(dat$date_of_infection, na.rm = TRUE)
   )
 ```
 
+## grate_quarter and grate_year
+`as_quarter()` and `as_year()` behave similarly to `as_yearweek()` with the main
+difference main being that they have no need for a `firstday` argument:
+
+```{r yearothers}
+# create weekday names
+dates <- seq(from = as.Date("2020-01-01"), to = as.Date("2021-12-01"), by = "1 month")
+
+as_quarter(dates)
+as_year(dates)
+as_quarter(dates[1]) + 0:1
+as_year(dates[1]) + 0:1
+```
+
+Again we provide [ggplot2](https://cran.r-project.org/package=ggplot2) scales 
+for the x-axis:
+
+```{r yearothersplots}
+dat %>%
+  mutate(date = as_quarter(date_of_infection)) %>% 
+  count(date, name = "cases") %>% 
+  na.omit() %>% 
+  ggplot(aes(date, cases)) + 
+    geom_col(width = 3, colour = "white") + 
+    scale_x_grate_quarter(n.breaks = 10) +
+    theme_bw() + 
+    xlab("")
+
+dat %>%
+  mutate(date = as_year(date_of_infection)) %>% 
+  count(date, name = "cases") %>% 
+  na.omit() %>% 
+  ggplot(aes(date, cases)) + geom_col(width = 1, colour = "white") + theme_bw() + xlab("") + scale_x_grate_year(n.breaks = 2)
+```
+
+
+
 ## period
-`as_period` allows users to group by periods of a fixed length.
-As arguments it takes, `x`, the date or integer vector you wish to group,
-`interval`, the length of period to group by and, finally, `origin`, an optional
-value indicating where you would like to start your periods from.
+`as_period` is similar to `as_month` and allows users to group by periods of a
+fixed length. As arguments it takes, `x`, the date or integer vector you wish to
+group, `interval` and `origin`.
 
 ```{r period}
 dat %>%

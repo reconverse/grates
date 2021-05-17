@@ -21,14 +21,11 @@ scale_x_grate_yearweek <- function(..., n.breaks = 6, firstday, format = NULL) {
   check_suggests("ggplot2")
 
   if (missing(firstday)) {
-    stop(
-      "Please provide a value of `firstday` corresponding to the week in the given data",
-      call. = FALSE
-    )
+    abort("Please provide a value of `firstday` corresponding to the given data")
   }
 
   if (!is.wholenumber(firstday) || firstday < 1 || firstday > 7) {
-    stop("`x` must be a whole number between 1 and 7 (inclusive)", call. = FALSE)
+    abort("`x` must be a whole number between 1 and 7 (inclusive)")
   }
 
   ggplot2::scale_x_continuous(
@@ -38,8 +35,6 @@ scale_x_grate_yearweek <- function(..., n.breaks = 6, firstday, format = NULL) {
       format = format
     )
   )
-
-
 }
 
 
@@ -47,11 +42,11 @@ scale_x_grate_yearweek <- function(..., n.breaks = 6, firstday, format = NULL) {
 # scale_type.  It will then dispatch based on the output of this function to
 # one of scale_x_yearweek_fd_xxx defined below.
 # I think this is a cleaner approach then the one we are forced to employ with
-# the `period` class.
+# the `period` and month classes.
 
 scale_type.grate_yearweek <- function(x) {
   fd <- attr(x, "firstday")
-  sprintf("yearweek_fd_%d", fd)
+  sprintf("yearweek_%d", fd)
 }
 
 grate_yearweek_trans <- function(n.breaks, firstday, format) {
@@ -67,7 +62,6 @@ grate_yearweek_trans <- function(n.breaks, firstday, format) {
     dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
     dat <- as.Date(new_grate_yearweek(dat, firstday = firstday))
     as.numeric(as_yearweek(dat, firstday = firstday)) - shift
-
   }
 
   # format function
@@ -106,48 +100,48 @@ NULL
 #' @export
 #' @keywords internal
 #' @rdname hidden-scales
-scale_x_yearweek_fd_1 <- function(..., n.breaks = 6) {
+scale_x_yearweek_1 <- function(..., n.breaks = 6) {
   scale_x_grate_yearweek(..., n.breaks = n.breaks, firstday = 1)
 }
 
 #' @export
 #' @keywords internal
 #' @rdname hidden-scales
-scale_x_yearweek_fd_2 <- function(..., n.breaks = 6) {
+scale_x_yearweek_2 <- function(..., n.breaks = 6) {
   scale_x_grate_yearweek(..., n.breaks = n.breaks, firstday = 2)
 }
 
 #' @export
 #' @keywords internal
 #' @rdname hidden-scales
-scale_x_yearweek_fd_3 <- function(..., n.breaks = 6) {
+scale_x_yearweek_3 <- function(..., n.breaks = 6) {
   scale_x_grate_yearweek(..., n.breaks = n.breaks, firstday = 3)
 }
 
 #' @export
 #' @keywords internal
 #' @rdname hidden-scales
-scale_x_yearweek_fd_4 <- function(..., n.breaks = 6) {
+scale_x_yearweek_4 <- function(..., n.breaks = 6) {
   scale_x_grate_yearweek(..., n.breaks = n.breaks, firstday = 4)
 }
 
 #' @export
 #' @keywords internal
 #' @rdname hidden-scales
-scale_x_yearweek_fd_5 <- function(..., n.breaks = 6) {
+scale_x_yearweek_5 <- function(..., n.breaks = 6) {
   scale_x_grate_yearweek(..., n.breaks = n.breaks, firstday = 5)
 }
 
 #' @export
 #' @keywords internal
 #' @rdname hidden-scales
-scale_x_yearweek_fd_6 <- function(..., n.breaks = 6) {
+scale_x_yearweek_6 <- function(..., n.breaks = 6) {
   scale_x_grate_yearweek(..., n.breaks = n.breaks, firstday = 6)
 }
 
 #' @export
 #' @keywords internal
 #' @rdname hidden-scales
-scale_x_yearweek_fd_7 <- function(..., n.breaks = 6) {
+scale_x_yearweek_7 <- function(..., n.breaks = 6) {
   scale_x_grate_yearweek(..., n.breaks = n.breaks, firstday = 7)
 }

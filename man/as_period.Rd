@@ -11,9 +11,9 @@
 \alias{as_period.factor}
 \title{Convert an object to a period based grates object}
 \usage{
-as_period(x, interval = 1, origin = NULL, ...)
+as_period(x, ...)
 
-\method{as_period}{default}(x, interval = 1, origin = NULL, ...)
+\method{as_period}{default}(x, ...)
 
 \method{as_period}{integer}(x, interval = 1, origin = NULL, ...)
 
@@ -44,14 +44,15 @@ as_period(x, interval = 1, origin = NULL, ...)
 \arguments{
 \item{x}{An object to coerce to a period.}
 
+\item{...}{Not currently used.}
+
 \item{interval}{An integer indicating the (fixed) number of days used for
 grouping; defaults to 1.}
 
-\item{origin}{The date to anchor the periods from.  If NULL (default) the
-earliest date in the vector will be used. If specified, \code{origin} must have
-the same class as x.}
-
-\item{...}{Not currently used.}
+\item{origin}{The date to anchor the intervals from. All values prior to the
+given \code{origin} will be discarded. If NULL (default) the earliest value in
+the vector will be used. If specified, \code{origin} must have the same class
+as x.}
 
 \item{format}{\verb{[character / NULL]}
 

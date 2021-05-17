@@ -47,7 +47,7 @@ test_that("accessors error when they should", {
 test_that("accessors work", {
   dat <- as_period(
     as.integer(as.Date("2020-12-28")),
-    firstdate = as.integer(as.Date("2020-12-26")),
+    origin = as.integer(as.Date("2020-12-26")),
     interval = 55
   )
   expect_equal(get_interval(dat), 55)
