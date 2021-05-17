@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert an object to a period based grates object — as_period • grates</title>
+<title>Convert an object to a quarter — as_quarter • grates</title>
 
 
 <!-- jquery -->
@@ -39,14 +39,12 @@
 
 
 
-<meta property="og:title" content="Convert an object to a period based grates object — as_period" />
+<meta property="og:title" content="Convert an object to a quarter — as_quarter" />
 <meta property="og:description" content="
 
 Date, POSIXct, and POSIXlt are converted, with the timezone respected,
 using clock::as_date().
 Character input is parsed using clock::date_parse().
-Integer inputs are converted as is. Numeric inputs are floored to integer
-before conversion.
 
 " />
 
@@ -131,9 +129,9 @@ before conversion.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert an object to a period based grates object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/as_period.R'><code>R/as_period.R</code></a></small>
-    <div class="hidden name"><code>as_period.Rd</code></div>
+    <h1>Convert an object to a quarter</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/as_quarter.R'><code>R/as_quarter.R</code></a></small>
+    <div class="hidden name"><code>as_quarter.Rd</code></div>
     </div>
 
     <div class="ref-description">
@@ -142,71 +140,37 @@ before conversion.
 <li><p>Date, POSIXct, and POSIXlt are converted, with the timezone respected,
 using <code><a href='https://clock.r-lib.org/reference/as_date.html'>clock::as_date()</a></code>.</p></li>
 <li><p>Character input is parsed using <code><a href='https://clock.r-lib.org/reference/date_parse.html'>clock::date_parse()</a></code>.</p></li>
-<li><p>Integer inputs are converted as is. Numeric inputs are floored to integer
-before conversion.</p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>as_period</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>as_quarter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>as_period</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for integer</span>
-<span class='fu'>as_period</span><span class='op'>(</span><span class='va'>x</span>, interval <span class='op'>=</span> <span class='fl'>1</span>, origin <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>as_period</span><span class='op'>(</span><span class='va'>x</span>, interval <span class='op'>=</span> <span class='fl'>1</span>, origin <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>as_quarter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for Date</span>
-<span class='fu'>as_period</span><span class='op'>(</span><span class='va'>x</span>, interval <span class='op'>=</span> <span class='fl'>1</span>, origin <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>as_quarter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for POSIXt</span>
-<span class='fu'>as_period</span><span class='op'>(</span><span class='va'>x</span>, interval <span class='op'>=</span> <span class='fl'>1</span>, origin <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>as_quarter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
-<span class='fu'>as_period</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  interval <span class='op'>=</span> <span class='fl'>1</span>,
-  origin <span class='op'>=</span> <span class='cn'>NULL</span>,
-  format <span class='op'>=</span> <span class='cn'>NULL</span>,
-  locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
+<span class='fu'>as_quarter</span><span class='op'>(</span><span class='va'>x</span>, format <span class='op'>=</span> <span class='cn'>NULL</span>, locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for factor</span>
-<span class='fu'>as_period</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  interval <span class='op'>=</span> <span class='fl'>1</span>,
-  origin <span class='op'>=</span> <span class='cn'>NULL</span>,
-  format <span class='op'>=</span> <span class='cn'>NULL</span>,
-  locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='fu'>as_quarter</span><span class='op'>(</span><span class='va'>x</span>, format <span class='op'>=</span> <span class='cn'>NULL</span>, locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An object to coerce to a period.</p></td>
+      <td><p>An object to coerce to quarterly.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Not currently used.</p></td>
-    </tr>
-    <tr>
-      <th>interval</th>
-      <td><p>An integer indicating the (fixed) number of days used for
-grouping; defaults to 1.</p></td>
-    </tr>
-    <tr>
-      <th>origin</th>
-      <td><p>The date to anchor the intervals from. All values prior to the
-given <code>origin</code> will be discarded. If NULL (default) the earliest value in
-the vector will be used. If specified, <code>origin</code> must have the same class
-as x.</p></td>
     </tr>
     <tr>
       <th>format</th>
@@ -364,28 +328,21 @@ three white space characters.</p></li>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-<ul>
-<li><p>If <code>x</code> is numeric, a <code>&lt;grate_int_period&gt;</code> object except when interval
-equals <code>1</code>.  In this situation the returned object is an "integer" vector.</p></li>
-<li><p>For other valid inputs, a <code>&lt;grate_period&gt;</code> object except, again, when
-interval equals 1, "day" or "days" (both without prefix).  In this
-situation the returned object is a "Date" vector.</p></li>
-</ul>
-
+    <p>A <code>grate_quarter</code> object.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Internally <code>period</code> objects are represented by the date at the
-beginning of the period and then stored as the number of days (starting at
-0) since the Unix Epoch (1970-01-01).</p>
+    <p>Internally <code>grate_quarter</code> objects are stored as the number of
+months to the lower bound of the quarter (starting at 0) since the Unix
+Epoch (1970-01-01).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>as_period</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span>, interval <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;grate_period: interval = 2 days&gt;
-#&gt; [1] "2021-05-17 to 2021-05-18"</div><div class='input'><span class='fu'>as_period</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>, interval <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;grate_period: interval = 3 days&gt;
-#&gt; [1] "2019-03-04 to 2019-03-06"</div><div class='input'><span class='fu'>as_period</span><span class='op'>(</span><span class='st'>"2019-05-03"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2019-05-03"</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>as_quarter</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grate_quarter&gt;
+#&gt; [1] "2021-Q2"</div><div class='input'><span class='fu'>as_quarter</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grate_quarter&gt;
+#&gt; [1] "2019-Q1"</div><div class='input'><span class='fu'>as_quarter</span><span class='op'>(</span><span class='st'>"2019-05-03"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grate_quarter&gt;
+#&gt; [1] "2019-Q2"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

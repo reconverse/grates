@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grates</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -148,57 +148,105 @@
       <tr>
         
         <td>
-          <p><code><a href="as_int_period.html">as_int_period()</a></code> </p>
+          <p><code><a href="as_month.html">as_month()</a></code> </p>
         </td>
-        <td><p>Convert an object to an integer period</p></td>
+        <td><p>Convert an object to a monthly grates object</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="as_period.html">as_period()</a></code> </p>
         </td>
-        <td><p>Convert an object to a period</p></td>
+        <td><p>Convert an object to a period based grates object</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="as_yr.html">as_yr()</a></code> </p>
+          <p><code><a href="as_quarter.html">as_quarter()</a></code> </p>
         </td>
-        <td><p>Convert an object to a yr</p></td>
+        <td><p>Convert an object to a quarter</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="as_yrmon.html">as_yrmon()</a></code> </p>
+          <p><code><a href="as_year.html">as_year()</a></code> </p>
         </td>
-        <td><p>Convert an object to a yrmon</p></td>
+        <td><p>Convert an object to a year</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="as_yrqtr.html">as_yrqtr()</a></code> </p>
+          <p><code><a href="as_yearweek.html">as_yearweek()</a></code> </p>
         </td>
-        <td><p>Convert an object to a yrqtr</p></td>
+        <td><p>Convert an object to yearweek</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="as_yrwk.html">as_yrwk()</a></code> </p>
+          <p><code><a href="format.grate_quarter.html">format(<i>&lt;grate_quarter&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Convert an object to a yrwk</p></td>
+        <td><p>Print a grate_quarter object</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="grate-scales.html">scale_x_yrwk()</a></code> <code><a href="grate-scales.html">scale_x_yrmon()</a></code> <code><a href="grate-scales.html">scale_x_yrqtr()</a></code> <code><a href="grate-scales.html">scale_x_yr()</a></code> <code><a href="grate-scales.html">scale_x_period()</a></code> <code><a href="grate-scales.html">scale_x_int_period()</a></code> </p>
-        </td>
-        <td><p>Scales for ggplot2</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="grate_accessors.html">get_week()</a></code> <code><a href="grate_accessors.html">get_month()</a></code> <code><a href="grate_accessors.html">get_quarter()</a></code> <code><a href="grate_accessors.html">get_year()</a></code> <code><a href="grate_accessors.html">get_firstday()</a></code> <code><a href="grate_accessors.html">get_interval()</a></code> </p>
+          <p><code><a href="grate_accessors.html">get_date_bounds()</a></code> <code><a href="grate_accessors.html">get_week()</a></code> <code><a href="grate_accessors.html">get_month()</a></code> <code><a href="grate_accessors.html">get_quarter()</a></code> <code><a href="grate_accessors.html">get_year()</a></code> <code><a href="grate_accessors.html">get_firstday()</a></code> <code><a href="grate_accessors.html">get_interval()</a></code> </p>
         </td>
         <td><p>Grouped date accessors</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="is_grate.html">is_grate()</a></code> <code><a href="is_grate.html">is_yrwk()</a></code> <code><a href="is_grate.html">is_yrmon()</a></code> <code><a href="is_grate.html">is_yrqtr()</a></code> <code><a href="is_grate.html">is_yr()</a></code> <code><a href="is_grate.html">is_period()</a></code> <code><a href="is_grate.html">is_int_period()</a></code> </p>
+          <p><code><a href="is_grate.html">is_grate()</a></code> <code><a href="is_grate.html">is_yearweek()</a></code> <code><a href="is_grate.html">is_month()</a></code> <code><a href="is_grate.html">is_quarter()</a></code> <code><a href="is_grate.html">is_year()</a></code> <code><a href="is_grate.html">is_period()</a></code> <code><a href="is_grate.html">is_int_period()</a></code> </p>
         </td>
         <td><p>Is object a grouped date</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.grate_int_period.html">print(<i>&lt;grate_int_period&gt;</i>)</a></code> <code><a href="print.grate_int_period.html">format(<i>&lt;grate_int_period&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Print a grate_int_period object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.grate_month.html">print(<i>&lt;grate_month&gt;</i>)</a></code> <code><a href="print.grate_month.html">format(<i>&lt;grate_month&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Print a grate_month object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.grate_period.html">print(<i>&lt;grate_period&gt;</i>)</a></code> <code><a href="print.grate_period.html">format(<i>&lt;grate_period&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Print a grate_period object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scale_x_grate_int_period.html">scale_x_grate_int_period()</a></code> </p>
+        </td>
+        <td><p>&lt;grate_period&gt; scale</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scale_x_grate_month.html">scale_x_grate_month()</a></code> </p>
+        </td>
+        <td><p>&lt;grate_month&gt; scale</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scale_x_grate_period.html">scale_x_grate_period()</a></code> </p>
+        </td>
+        <td><p>&lt;grate_period&gt; scale</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scale_x_grate_quarter.html">scale_x_grate_quarter()</a></code> </p>
+        </td>
+        <td><p>&lt;grate_quarter&gt; scale</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scale_x_grate_year.html">scale_x_grate_year()</a></code> </p>
+        </td>
+        <td><p>&lt;grate_year&gt; scale</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="scale_x_grate_yearweek.html">scale_x_grate_yearweek()</a></code> </p>
+        </td>
+        <td><p>&lt;grate_yearweek&gt; scale</p></td>
       </tr>
     </tbody>
     </table>

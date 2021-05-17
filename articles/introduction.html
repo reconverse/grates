@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grates</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -95,43 +95,43 @@
 <div id="overview" class="section level1">
 <h1 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h1>
-<p><strong>grates</strong> makes it easy to perform common date grouping operations and provides 6 new classes for users to work with: <em>yrwk</em> (year-week), <em>yrmon</em> (year-month), <em>yrqtr</em> (year-quarter), <em>yr</em> (year), <em>period</em> and <em>int_period</em>. These classes aim to be formalise the idea of a grouped date whilst also being intuitive in their use. They build upon ideas of Davis Vaughan and the unreleased <a href="https://github.com/DavisVaughan/datea/"><strong>datea</strong></a> package.</p>
+<p><strong>grates</strong> makes it easy to perform common date grouping operations and provides multiple grouped date classes for users to work with including <em>grate_yearweek</em>, <em>grate_month</em>, <em>grate_quarter</em>, <em>grate_year</em>, <em>grate_period</em> and <em>grate_int_period</em>. These classes aim to formalise the idea of a grouped date whilst also being intuitive in their use. They build upon ideas of Davis Vaughan and the unreleased <a href="https://github.com/DavisVaughan/datea/"><strong>datea</strong></a> package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.reconverse.org/grates/">grates</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
-<div id="yrwk-year-week" class="section level2">
+<div id="grate_yearweek" class="section level2">
 <h2 class="hasAnchor">
-<a href="#yrwk-year-week" class="anchor"></a>yrwk (year-week)</h2>
-<p><code><a href="../reference/as_yrwk.html">as_yrwk()</a></code> allows you to create <code>yrwk</code> objects. As arguments it takes, <code>x</code>, the date vector you wish to group and <code>firstday</code>, the day of the week you wish your weeks to start on; (this defaults to 1 (Monday) and can go up to 7 (Sunday)). The first week of the year is then defined as the first week containing 4 days in the new calendar year. This means that the calendar year can sometimes be different to that of the <code>yrwk</code> object.</p>
+<a href="#grate_yearweek" class="anchor"></a>grate_yearweek</h2>
+<p><code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> allows you to create <grate_yearweek> objects. As arguments it takes, <code>x</code>, the date vector you wish to group and <code>firstday</code>, the day of the week you wish your weeks to start on; (this defaults to 1 (Monday) and can go up to 7 (Sunday)). The first week of the year is then defined as the first week containing 4 days in the new calendar year. This means that the calendar year can sometimes be different to that of the <code>yearweek</code> object.</grate_yearweek></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create weekday names</span>
-<span class="va">wdays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">weekdays</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="../reference/as_yrwk.html">as_yrwk</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span>, firstday <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>
+<span class="va">wdays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">weekdays</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span>, firstday <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>
 <span class="va">wdays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">7</span>, <span class="va">wdays</span><span class="op">)</span>
 
 <span class="co"># example of how weeks vary by firstday over December and January</span>
 <span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-12-29"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">5</span>
-<span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">wdays</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/as_yrwk.html">as_yrwk</a></span><span class="op">(</span><span class="va">dates</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">wdays</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="va">dates</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>dates <span class="op">=</span> <span class="va">dates</span>, <span class="va">dat</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 6 x 8</span>
-<span class="co">#&gt;   dates      Monday   Tuesday  Wednesday Thursday Friday   Saturday Sunday  </span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;yrwk&gt;   &lt;yrwk&gt;   &lt;yrwk&gt;    &lt;yrwk&gt;   &lt;yrwk&gt;   &lt;yrwk&gt;   &lt;yrwk&gt;  </span>
-<span class="co">#&gt; 1 2020-12-29 2020-W53 2021-W01 2020-W52  2020-W52 2020-W52 2020-W52 2020-W53</span>
-<span class="co">#&gt; 2 2020-12-30 2020-W53 2021-W01 2021-W01  2020-W52 2020-W52 2020-W52 2020-W53</span>
-<span class="co">#&gt; 3 2020-12-31 2020-W53 2021-W01 2021-W01  2021-W01 2020-W52 2020-W52 2020-W53</span>
-<span class="co">#&gt; 4 2021-01-01 2020-W53 2021-W01 2021-W01  2021-W01 2021-W01 2020-W52 2020-W53</span>
-<span class="co">#&gt; 5 2021-01-02 2020-W53 2021-W01 2021-W01  2021-W01 2021-W01 2021-W01 2020-W53</span>
-<span class="co">#&gt; 6 2021-01-03 2020-W53 2021-W01 2021-W01  2021-W01 2021-W01 2021-W01 2021-W01</span></code></pre></div>
-<p>We make working with <code>yrwk</code> and other grouped date objects easier by adopting logical conventions:</p>
+<span class="co">#&gt;   dates      Monday    Tuesday   Wednesday Thursday  Friday   Saturday  Sunday  </span>
+<span class="co">#&gt;   &lt;date&gt;     &lt;grt_yrw&gt; &lt;grt_yrw&gt; &lt;grt_yrw&gt; &lt;grt_yrw&gt; &lt;grt_yr&gt; &lt;grt_yrw&gt; &lt;grt_yr&gt;</span>
+<span class="co">#&gt; 1 2020-12-29 2020-W53  2021-W01  2020-W52  2020-W52  2020-W52 2020-W52  2020-W53</span>
+<span class="co">#&gt; 2 2020-12-30 2020-W53  2021-W01  2021-W01  2020-W52  2020-W52 2020-W52  2020-W53</span>
+<span class="co">#&gt; 3 2020-12-31 2020-W53  2021-W01  2021-W01  2021-W01  2020-W52 2020-W52  2020-W53</span>
+<span class="co">#&gt; 4 2021-01-01 2020-W53  2021-W01  2021-W01  2021-W01  2021-W01 2020-W52  2020-W53</span>
+<span class="co">#&gt; 5 2021-01-02 2020-W53  2021-W01  2021-W01  2021-W01  2021-W01 2021-W01  2020-W53</span>
+<span class="co">#&gt; 6 2021-01-03 2020-W53  2021-W01  2021-W01  2021-W01  2021-W01 2021-W01  2021-W01</span></code></pre></div>
+<p>We make working with <code>yearweek</code> and other grouped date objects easier by adopting logical conventions:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2021-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">30</span>
-<span class="va">weeks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yrwk.html">as_yrwk</a></span><span class="op">(</span><span class="va">dates</span>, firstday <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="co"># firstday = 5 to match first day of year</span>
+<span class="va">weeks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="va">dates</span>, firstday <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="co"># firstday = 5 to match first day of year</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">weeks</span>, <span class="fl">8</span><span class="op">)</span>
 <span class="co">#&gt; [1] "2021-W01" "2021-W01" "2021-W01" "2021-W01" "2021-W01" "2021-W01" "2021-W01"</span>
 <span class="co">#&gt; [8] "2021-W02"</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">weeks</span><span class="op">)</span>
-<span class="co">#&gt;  'yrwk' num [1:31] 2021-W01 2021-W01 2021-W01 2021-W01 ...</span>
+<span class="co">#&gt;  'grate_yearweek' num [1:31] 2021-W01 2021-W01 2021-W01 2021-W01 ...</span>
 <span class="co">#&gt;  - attr(*, "firstday")= int 5</span>
 <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">dates</span>, <span class="va">weeks</span><span class="op">)</span>
 
@@ -139,178 +139,181 @@
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>plus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">+</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 31 x 3</span>
-<span class="co">#&gt;    dates      weeks    plus4   </span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;yrwk&gt;   &lt;yrwk&gt;  </span>
-<span class="co">#&gt;  1 2021-01-01 2021-W01 2021-W05</span>
-<span class="co">#&gt;  2 2021-01-02 2021-W01 2021-W05</span>
-<span class="co">#&gt;  3 2021-01-03 2021-W01 2021-W05</span>
-<span class="co">#&gt;  4 2021-01-04 2021-W01 2021-W05</span>
-<span class="co">#&gt;  5 2021-01-05 2021-W01 2021-W05</span>
-<span class="co">#&gt;  6 2021-01-06 2021-W01 2021-W05</span>
-<span class="co">#&gt;  7 2021-01-07 2021-W01 2021-W05</span>
-<span class="co">#&gt;  8 2021-01-08 2021-W02 2021-W06</span>
-<span class="co">#&gt;  9 2021-01-09 2021-W02 2021-W06</span>
-<span class="co">#&gt; 10 2021-01-10 2021-W02 2021-W06</span>
+<span class="co">#&gt;    dates      weeks      plus4     </span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;grt_yrwk&gt; &lt;grt_yrwk&gt;</span>
+<span class="co">#&gt;  1 2021-01-01 2021-W01   2021-W05  </span>
+<span class="co">#&gt;  2 2021-01-02 2021-W01   2021-W05  </span>
+<span class="co">#&gt;  3 2021-01-03 2021-W01   2021-W05  </span>
+<span class="co">#&gt;  4 2021-01-04 2021-W01   2021-W05  </span>
+<span class="co">#&gt;  5 2021-01-05 2021-W01   2021-W05  </span>
+<span class="co">#&gt;  6 2021-01-06 2021-W01   2021-W05  </span>
+<span class="co">#&gt;  7 2021-01-07 2021-W01   2021-W05  </span>
+<span class="co">#&gt;  8 2021-01-08 2021-W02   2021-W06  </span>
+<span class="co">#&gt;  9 2021-01-09 2021-W02   2021-W06  </span>
+<span class="co">#&gt; 10 2021-01-10 2021-W02   2021-W06  </span>
 <span class="co">#&gt; # … with 21 more rows</span>
 
-<span class="co"># addition of two yrwk objects will error as it is unclear what the intention is</span>
+<span class="co"># addition of two yearweek objects will error as it is unclear what the intention is</span>
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>plus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">+</span> <span class="va">weeks</span><span class="op">)</span>
-<span class="co">#&gt; Error: Problem with `mutate()` input `plus4`.</span>
-<span class="co">#&gt; ✖ Cannot add &lt;yrwk&gt; objects to each other</span>
-<span class="co">#&gt; ℹ Input `plus4` is `weeks + weeks`.</span>
+<span class="co">#&gt; Error: Problem with `mutate()` column `plus4`.</span>
+<span class="co">#&gt; ℹ `plus4 = weeks + weeks`.</span>
+<span class="co">#&gt; ✖ Cannot add &lt;grate_yearweek&gt; objects to each other</span>
 
 <span class="co"># Subtraction of wholenumbers works similarly to addition</span>
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>minus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">-</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 31 x 3</span>
-<span class="co">#&gt;    dates      weeks    minus4  </span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;yrwk&gt;   &lt;yrwk&gt;  </span>
-<span class="co">#&gt;  1 2021-01-01 2021-W01 2020-W49</span>
-<span class="co">#&gt;  2 2021-01-02 2021-W01 2020-W49</span>
-<span class="co">#&gt;  3 2021-01-03 2021-W01 2020-W49</span>
-<span class="co">#&gt;  4 2021-01-04 2021-W01 2020-W49</span>
-<span class="co">#&gt;  5 2021-01-05 2021-W01 2020-W49</span>
-<span class="co">#&gt;  6 2021-01-06 2021-W01 2020-W49</span>
-<span class="co">#&gt;  7 2021-01-07 2021-W01 2020-W49</span>
-<span class="co">#&gt;  8 2021-01-08 2021-W02 2020-W50</span>
-<span class="co">#&gt;  9 2021-01-09 2021-W02 2020-W50</span>
-<span class="co">#&gt; 10 2021-01-10 2021-W02 2020-W50</span>
+<span class="co">#&gt;    dates      weeks      minus4    </span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;grt_yrwk&gt; &lt;grt_yrwk&gt;</span>
+<span class="co">#&gt;  1 2021-01-01 2021-W01   2020-W49  </span>
+<span class="co">#&gt;  2 2021-01-02 2021-W01   2020-W49  </span>
+<span class="co">#&gt;  3 2021-01-03 2021-W01   2020-W49  </span>
+<span class="co">#&gt;  4 2021-01-04 2021-W01   2020-W49  </span>
+<span class="co">#&gt;  5 2021-01-05 2021-W01   2020-W49  </span>
+<span class="co">#&gt;  6 2021-01-06 2021-W01   2020-W49  </span>
+<span class="co">#&gt;  7 2021-01-07 2021-W01   2020-W49  </span>
+<span class="co">#&gt;  8 2021-01-08 2021-W02   2020-W50  </span>
+<span class="co">#&gt;  9 2021-01-09 2021-W02   2020-W50  </span>
+<span class="co">#&gt; 10 2021-01-10 2021-W02   2020-W50  </span>
 <span class="co">#&gt; # … with 21 more rows</span>
 
-<span class="co"># Subtraction of two yrwk objects gives the difference in weeks between them</span>
+<span class="co"># Subtraction of two yearweek objects gives the difference in weeks between them</span>
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>plus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">+</span> <span class="fl">4</span>, difference <span class="op">=</span> <span class="va">plus4</span> <span class="op">-</span> <span class="va">weeks</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 31 x 4</span>
-<span class="co">#&gt;    dates      weeks    plus4    difference</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;yrwk&gt;   &lt;yrwk&gt;        &lt;int&gt;</span>
-<span class="co">#&gt;  1 2021-01-01 2021-W01 2021-W05          4</span>
-<span class="co">#&gt;  2 2021-01-02 2021-W01 2021-W05          4</span>
-<span class="co">#&gt;  3 2021-01-03 2021-W01 2021-W05          4</span>
-<span class="co">#&gt;  4 2021-01-04 2021-W01 2021-W05          4</span>
-<span class="co">#&gt;  5 2021-01-05 2021-W01 2021-W05          4</span>
-<span class="co">#&gt;  6 2021-01-06 2021-W01 2021-W05          4</span>
-<span class="co">#&gt;  7 2021-01-07 2021-W01 2021-W05          4</span>
-<span class="co">#&gt;  8 2021-01-08 2021-W02 2021-W06          4</span>
-<span class="co">#&gt;  9 2021-01-09 2021-W02 2021-W06          4</span>
-<span class="co">#&gt; 10 2021-01-10 2021-W02 2021-W06          4</span>
+<span class="co">#&gt;    dates      weeks      plus4      difference</span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;grt_yrwk&gt; &lt;grt_yrwk&gt;      &lt;int&gt;</span>
+<span class="co">#&gt;  1 2021-01-01 2021-W01   2021-W05            4</span>
+<span class="co">#&gt;  2 2021-01-02 2021-W01   2021-W05            4</span>
+<span class="co">#&gt;  3 2021-01-03 2021-W01   2021-W05            4</span>
+<span class="co">#&gt;  4 2021-01-04 2021-W01   2021-W05            4</span>
+<span class="co">#&gt;  5 2021-01-05 2021-W01   2021-W05            4</span>
+<span class="co">#&gt;  6 2021-01-06 2021-W01   2021-W05            4</span>
+<span class="co">#&gt;  7 2021-01-07 2021-W01   2021-W05            4</span>
+<span class="co">#&gt;  8 2021-01-08 2021-W02   2021-W06            4</span>
+<span class="co">#&gt;  9 2021-01-09 2021-W02   2021-W06            4</span>
+<span class="co">#&gt; 10 2021-01-10 2021-W02   2021-W06            4</span>
 <span class="co">#&gt; # … with 21 more rows</span>
 
 <span class="co"># weeks can be combined if they have the same firstday but not otherwise</span>
-<span class="va">wk1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yrwk.html">as_yrwk</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span>
-<span class="va">wk2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yrwk.html">as_yrwk</a></span><span class="op">(</span><span class="st">"2021-01-01"</span><span class="op">)</span>
+<span class="va">wk1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span>
+<span class="va">wk2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="st">"2021-01-01"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">wk1</span>, <span class="va">wk2</span><span class="op">)</span>
 <span class="co">#&gt; [1] "2020-W01" "2020-W53"</span>
-<span class="va">wk3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yrwk.html">as_yrwk</a></span><span class="op">(</span><span class="st">"2020-01-01"</span>, firstday <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="va">wk3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="st">"2020-01-01"</span>, firstday <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">wk1</span>, <span class="va">wk3</span><span class="op">)</span>
-<span class="co">#&gt; Error: Unable to combine &lt;yrwk&gt; objects with different `firstday` attributes</span></code></pre></div>
+<span class="co">#&gt; Error: Unable to combine &lt;grate_yearweek&gt; objects with different `firstday` attributes</span></code></pre></div>
 <p>For each date group we also provide associated <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> scales for the x-axis:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span>
 
-<span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_yrwk.html">as_yrwk</a></span><span class="op">(</span><span class="va">date_of_infection</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date</span>, name <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<span class="va">week_plot</span> <span class="op">&lt;-</span> 
+  <span class="va">dat</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>week <span class="op">=</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="va">date_of_infection</span><span class="op">)</span>, firstday <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">week</span>, name <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/yrwkplots-1.png" width="672" style="display: block; margin: auto;"></p>
-</div>
-<div id="yrmon-yrqtr-and-yr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#yrmon-yrqtr-and-yr" class="anchor"></a>yrmon, yrqtr and yr</h2>
-<p><code><a href="../reference/as_yrmon.html">as_yrmon()</a></code>, <code><a href="../reference/as_yrqtr.html">as_yrqtr()</a></code> and <code><a href="../reference/as_yr.html">as_yr()</a></code> behave similarly to <code><a href="../reference/as_yrwk.html">as_yrwk()</a></code> with the difference being that they have no need for a <code>firstday</code> argument:</p>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">week</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">week_plot</span></code></pre></div>
+<p><img src="introduction_files/figure-html/yearweekplots-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>We can have date labels on the x_axis by utilising <code>scale_x_grate_yearweek</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">week_plot</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_x_grate_yearweek.html">scale_x_grate_yearweek</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span>, firstday <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/yearweekplots2-1.png" width="672" style="display: block; margin: auto;"></p>
+</div>
+<div id="grate_month" class="section level2">
+<h2 class="hasAnchor">
+<a href="#grate_month" class="anchor"></a>grate_month</h2>
+<p><code>as_month</code> allows users to group by a fixed number of months. As arguments it takes, <code>x</code>, the date vector you wish to group, <code>interval</code>, the number of months you wish to group by (defaulting to 1) and, finally, <code>origin</code>, an optional value indicating where you would like to start your periods from (this defaults to the earliest month in <code>x</code>). By default the provided scale creates a histogram-like plot (unlike a histogram the widths of the intervals in the plot are identical across months) but can be changed to have centralised labelling.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">month_dat</span> <span class="op">&lt;-</span> 
+  <span class="va">dat</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_month.html">as_month</a></span><span class="op">(</span><span class="va">date_of_infection</span>, interval <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date</span>, name <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span>
+
+<span class="va">month_plot</span> <span class="op">&lt;-</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">month_dat</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">2</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span>
+
+<span class="va">month_plot</span></code></pre></div>
+<p><img src="introduction_files/figure-html/month-1.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">month_plot</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/scale_x_grate_month.html">scale_x_grate_month</a></span><span class="op">(</span>
+    date_format <span class="op">=</span> <span class="cn">NULL</span>,
+    interval <span class="op">=</span> <span class="fl">2</span>,
+    origin <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">date_of_infection</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/month-2.png" width="672" style="display: block; margin: auto;"></p>
+</div>
+<div id="grate_quarter-and-grate_year" class="section level2">
+<h2 class="hasAnchor">
+<a href="#grate_quarter-and-grate_year" class="anchor"></a>grate_quarter and grate_year</h2>
+<p><code><a href="../reference/as_quarter.html">as_quarter()</a></code> and <code><a href="../reference/as_year.html">as_year()</a></code> behave similarly to <code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> with the main difference main being that they have no need for a <code>firstday</code> argument:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create weekday names</span>
 <span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span>, to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2021-12-01"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"1 month"</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/as_yrmon.html">as_yrmon</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "2020-Jan" "2020-Feb" "2020-Mar" "2020-Apr" "2020-May" "2020-Jun"</span>
-<span class="co">#&gt;  [7] "2020-Jul" "2020-Aug" "2020-Sep" "2020-Oct" "2020-Nov" "2020-Dec"</span>
-<span class="co">#&gt; [13] "2021-Jan" "2021-Feb" "2021-Mar" "2021-Apr" "2021-May" "2021-Jun"</span>
-<span class="co">#&gt; [19] "2021-Jul" "2021-Aug" "2021-Sep" "2021-Oct" "2021-Nov" "2021-Dec"</span>
-<span class="fu"><a href="../reference/as_yrqtr.html">as_yrqtr</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>
+<span class="fu"><a href="../reference/as_quarter.html">as_quarter</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>
+<span class="co">#&gt; &lt;grate_quarter&gt;</span>
 <span class="co">#&gt;  [1] "2020-Q1" "2020-Q1" "2020-Q1" "2020-Q2" "2020-Q2" "2020-Q2" "2020-Q3"</span>
 <span class="co">#&gt;  [8] "2020-Q3" "2020-Q3" "2020-Q4" "2020-Q4" "2020-Q4" "2021-Q1" "2021-Q1"</span>
 <span class="co">#&gt; [15] "2021-Q1" "2021-Q2" "2021-Q2" "2021-Q2" "2021-Q3" "2021-Q3" "2021-Q3"</span>
 <span class="co">#&gt; [22] "2021-Q4" "2021-Q4" "2021-Q4"</span>
-<span class="fu"><a href="../reference/as_yr.html">as_yr</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>
+<span class="fu"><a href="../reference/as_year.html">as_year</a></span><span class="op">(</span><span class="va">dates</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "2020" "2020" "2020" "2020" "2020" "2020" "2020" "2020" "2020" "2020"</span>
 <span class="co">#&gt; [11] "2020" "2020" "2021" "2021" "2021" "2021" "2021" "2021" "2021" "2021"</span>
 <span class="co">#&gt; [21] "2021" "2021" "2021" "2021"</span>
-<span class="fu"><a href="../reference/as_yrmon.html">as_yrmon</a></span><span class="op">(</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span>
-<span class="co">#&gt; [1] "2020-Jan" "2020-Feb"</span>
-<span class="fu"><a href="../reference/as_yrqtr.html">as_yrqtr</a></span><span class="op">(</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span>
-<span class="co">#&gt; [1] "2020-Q1" "2020-Q2"</span>
-<span class="fu"><a href="../reference/as_yr.html">as_yr</a></span><span class="op">(</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span>
+<span class="fu"><a href="../reference/as_quarter.html">as_quarter</a></span><span class="op">(</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span>
+<span class="co">#&gt; &lt;grate_month&gt;: interval = 3 months</span>
+<span class="co">#&gt; [1] "2020-Jan to 2020-Mar" "2020-Apr to 2020-Jun"</span>
+<span class="fu"><a href="../reference/as_year.html">as_year</a></span><span class="op">(</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span>
 <span class="co">#&gt; [1] "2020" "2021"</span></code></pre></div>
 <p>Again we provide <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> scales for the x-axis:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_yrmon.html">as_yrmon</a></span><span class="op">(</span><span class="va">date_of_infection</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_quarter.html">as_quarter</a></span><span class="op">(</span><span class="va">date_of_infection</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date</span>, name <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/yrothersplots-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">3</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="../reference/scale_x_grate_quarter.html">scale_x_grate_quarter</a></span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/yearothersplots-1.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_yrqtr.html">as_yrqtr</a></span><span class="op">(</span><span class="va">date_of_infection</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_year.html">as_year</a></span><span class="op">(</span><span class="va">date_of_infection</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date</span>, name <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/yrothersplots-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_yr.html">as_yr</a></span><span class="op">(</span><span class="va">date_of_infection</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date</span>, name <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/grate-scales.html">scale_x_yr</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/yrothersplots-3.png" width="672" style="display: block; margin: auto;"></p>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_x_grate_year.html">scale_x_grate_year</a></span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="introduction_files/figure-html/yearothersplots-2.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="period" class="section level2">
 <h2 class="hasAnchor">
 <a href="#period" class="anchor"></a>period</h2>
-<p><code>as_period</code> is more flexible, allowing users to group by periods of any length. As arguments it takes, <code>x</code>, the date vector you wish to group, <code>interval</code>, the length of period to group by and, finally, <code>firstdate</code>, an optional value indicating where you would like to start your periods from.</p>
-<p><code>interval</code> can be specified as either an integer value or a more standard specification such as “day”, “week”, “month”, “quarter” or “year”. The format in for the latter is similar to that used by <code><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date()</a></code> where these values can optionally be preceded by a (positive or negative) integer and a space, or followed by “s”;</p>
-<ul>
-<li><ol start="24" style="list-style-type: lower-alpha">
-<li>day(s)</li>
-</ol></li>
-<li><ol start="24" style="list-style-type: lower-alpha">
-<li>weeks(s)</li>
-</ol></li>
-<li><ol start="24" style="list-style-type: lower-alpha">
-<li>epiweeks(s)</li>
-</ol></li>
-<li><ol start="24" style="list-style-type: lower-alpha">
-<li>isoweeks(s)</li>
-</ol></li>
-<li><ol start="24" style="list-style-type: lower-alpha">
-<li>months(s)</li>
-</ol></li>
-<li><ol start="24" style="list-style-type: lower-alpha">
-<li>quarter(s)</li>
-</ol></li>
-<li><ol start="24" style="list-style-type: lower-alpha">
-<li>years(s)</li>
-</ol></li>
-</ul>
-<p>For the values “month”, “quarter” and “year”, intervals are always made to start at the beginning of the calendar equivalent. If the input is an integer value the input is treated as if it was specified in days (i.e. 2 and 2 days) produce the same output.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p><code>as_period</code> is similar to <code>as_month</code> and allows users to group by periods of a fixed length. As arguments it takes, <code>x</code>, the date or integer vector you wish to group, <code>interval</code> and <code>origin</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_period.html">as_period</a></span><span class="op">(</span><span class="va">date_of_infection</span>, interval <span class="op">=</span> <span class="st">"2 weeks"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_period.html">as_period</a></span><span class="op">(</span><span class="va">date_of_infection</span>, interval <span class="op">=</span> <span class="fl">14</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date</span>, name <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">14</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction_files/figure-html/period-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">dat</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_period.html">as_period</a></span><span class="op">(</span><span class="va">date_of_infection</span>, interval <span class="op">=</span> <span class="fl">28</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date</span>, name <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">28</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction_files/figure-html/period-2.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>

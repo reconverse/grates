@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Is object a grouped date — is_grate • grates</title>
+<title>&lt;grate_year&gt; scale — scale_x_grate_year • grates</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Is object a grouped date — is_grate" />
-<meta property="og:description" content="Is object a grouped date" />
+<meta property="og:title" content="&lt;grate_year&gt; scale — scale_x_grate_year" />
+<meta property="og:description" content="ggplot2 scale for &amp;lt;grate_year&amp;gt; vector." />
 
 
 
@@ -123,41 +123,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Is object a grouped date</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/accessors.R'><code>R/accessors.R</code></a></small>
-    <div class="hidden name"><code>is_grate.Rd</code></div>
+    <h1>&lt;grate_year&gt; scale</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/scale_year.R'><code>R/scale_year.R</code></a></small>
+    <div class="hidden name"><code>scale_x_grate_year.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Is object a grouped date</p>
+    <p>ggplot2 scale for &lt;grate_year&gt; vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is_grate</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='fu'>is_yearweek</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='fu'>is_month</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='fu'>is_quarter</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='fu'>is_year</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='fu'>is_period</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='fu'>is_int_period</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>scale_x_grate_year</span><span class='op'>(</span><span class='va'>...</span>, n.breaks <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>Grouped date object.</p></td>
+      <th>...</th>
+      <td><p>Not currently used.</p></td>
+    </tr>
+    <tr>
+      <th>n.breaks</th>
+      <td><p>Approximate number of breaks calculated using
+<code><a href='https://scales.r-lib.org/reference/breaks_pretty.html'>scales::breaks_pretty</a></code> (default 6).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Logical.</p>
+    <p>A scale for use with ggplot2.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

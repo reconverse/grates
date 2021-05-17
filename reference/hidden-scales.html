@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Hidden scales — hidden-scales" />
-<meta property="og:description" content="Wrappers around scale_x_yrwk() with pre-specified firstday argument." />
+<meta property="og:description" content="Wrappers around scale_x_grate_yearweek() with pre-specified firstday argument." />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grates</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -124,39 +124,39 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Hidden scales</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/scales.R'><code>R/scales.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/scale_yearweek.R'><code>R/scale_yearweek.R</code></a></small>
     <div class="hidden name"><code>hidden-scales.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Wrappers around <code><a href='grate-scales.html'>scale_x_yrwk()</a></code> with pre-specified firstday argument.</p>
+    <p>Wrappers around <code><a href='scale_x_grate_yearweek.html'>scale_x_grate_yearweek()</a></code> with pre-specified firstday argument.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_x_yrwk_fd_1</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>scale_x_yearweek_1</span><span class='op'>(</span><span class='va'>...</span>, n.breaks <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
 
-<span class='fu'>scale_x_yrwk_fd_2</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'>scale_x_yearweek_2</span><span class='op'>(</span><span class='va'>...</span>, n.breaks <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
 
-<span class='fu'>scale_x_yrwk_fd_3</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'>scale_x_yearweek_3</span><span class='op'>(</span><span class='va'>...</span>, n.breaks <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
 
-<span class='fu'>scale_x_yrwk_fd_4</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'>scale_x_yearweek_4</span><span class='op'>(</span><span class='va'>...</span>, n.breaks <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
 
-<span class='fu'>scale_x_yrwk_fd_5</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'>scale_x_yearweek_5</span><span class='op'>(</span><span class='va'>...</span>, n.breaks <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
 
-<span class='fu'>scale_x_yrwk_fd_6</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='fu'>scale_x_yearweek_6</span><span class='op'>(</span><span class='va'>...</span>, n.breaks <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span>
 
-<span class='fu'>scale_x_yrwk_fd_7</span><span class='op'>(</span><span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span></pre>
+<span class='fu'>scale_x_yearweek_7</span><span class='op'>(</span><span class='va'>...</span>, n.breaks <span class='op'>=</span> <span class='fl'>6</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed to <code><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>ggplot2::scale_x_continuous()</a></code>.</p></td>
+      <td><p>Not currently used.</p></td>
     </tr>
     <tr>
-      <th>n</th>
+      <th>n.breaks</th>
       <td><p>Approximate number of breaks calculated using
-<code><a href='https://scales.r-lib.org//reference/breaks_pretty.html'>scales::breaks_pretty</a></code> (default 5).</p></td>
+<code><a href='https://scales.r-lib.org/reference/breaks_pretty.html'>scales::breaks_pretty</a></code> (default 6).</p></td>
     </tr>
     </table>
 
