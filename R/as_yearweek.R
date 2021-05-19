@@ -472,11 +472,15 @@ Ops.grate_yearweek <- function(e1, e2) {
 Summary.grate_yearweek <- function (..., na.rm)
 {
   ok <- switch(.Generic, max = TRUE, min = TRUE, range = TRUE, FALSE)
-  if (!ok) abort(.Generic, " not defined for yearweek objects")
-  fd <- attr(list(...)[[1]], "firstday")
-  val <- NextMethod(.Generic)
-  class(val) <- oldClass(list(...)[[1]])
-  attr(val, "firstday") <- fd
+  if (!ok) abort(.Generic, " not defined for <grate_yearweek> objects")
+  dots <- list(...)
+  if (.Generic == "range") {
+    val <- c(do.call(min, dots), do.call(max, dots))
+  } else {
+    val <- NextMethod(.Generic)
+    class(val) <- oldClass(dots[[1]])
+    attr(val, "firstday") <- attr(dots[[1]], "firstday")
+  }
   val
 }
 
