@@ -115,14 +115,14 @@
 <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">wdays</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="va">dates</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_cols</a></span><span class="op">(</span>dates <span class="op">=</span> <span class="va">dates</span>, <span class="va">dat</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 6 x 8</span>
-<span class="co">#&gt;   dates      Monday    Tuesday   Wednesday Thursday  Friday   Saturday  Sunday  </span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;grt_yrw&gt; &lt;grt_yrw&gt; &lt;grt_yrw&gt; &lt;grt_yrw&gt; &lt;grt_yr&gt; &lt;grt_yrw&gt; &lt;grt_yr&gt;</span>
-<span class="co">#&gt; 1 2020-12-29 2020-W53  2021-W01  2020-W52  2020-W52  2020-W52 2020-W52  2020-W53</span>
-<span class="co">#&gt; 2 2020-12-30 2020-W53  2021-W01  2021-W01  2020-W52  2020-W52 2020-W52  2020-W53</span>
-<span class="co">#&gt; 3 2020-12-31 2020-W53  2021-W01  2021-W01  2021-W01  2020-W52 2020-W52  2020-W53</span>
-<span class="co">#&gt; 4 2021-01-01 2020-W53  2021-W01  2021-W01  2021-W01  2021-W01 2020-W52  2020-W53</span>
-<span class="co">#&gt; 5 2021-01-02 2020-W53  2021-W01  2021-W01  2021-W01  2021-W01 2021-W01  2020-W53</span>
-<span class="co">#&gt; 6 2021-01-03 2020-W53  2021-W01  2021-W01  2021-W01  2021-W01 2021-W01  2021-W01</span></code></pre></div>
+<span class="co">#&gt;   dates      Monday   Tuesday  Wednesday Thursday Friday   Saturday Sunday  </span>
+<span class="co">#&gt;   &lt;date&gt;     &lt;yrwk&gt;   &lt;yrwk&gt;   &lt;yrwk&gt;    &lt;yrwk&gt;   &lt;yrwk&gt;   &lt;yrwk&gt;   &lt;yrwk&gt;  </span>
+<span class="co">#&gt; 1 2020-12-29 2020-W53 2021-W01 2020-W52  2020-W52 2020-W52 2020-W52 2020-W53</span>
+<span class="co">#&gt; 2 2020-12-30 2020-W53 2021-W01 2021-W01  2020-W52 2020-W52 2020-W52 2020-W53</span>
+<span class="co">#&gt; 3 2020-12-31 2020-W53 2021-W01 2021-W01  2021-W01 2020-W52 2020-W52 2020-W53</span>
+<span class="co">#&gt; 4 2021-01-01 2020-W53 2021-W01 2021-W01  2021-W01 2021-W01 2020-W52 2020-W53</span>
+<span class="co">#&gt; 5 2021-01-02 2020-W53 2021-W01 2021-W01  2021-W01 2021-W01 2021-W01 2020-W53</span>
+<span class="co">#&gt; 6 2021-01-03 2020-W53 2021-W01 2021-W01  2021-W01 2021-W01 2021-W01 2021-W01</span></code></pre></div>
 <p>We make working with <code>yearweek</code> and other grouped date objects easier by adopting logical conventions:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2021-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">30</span>
@@ -139,18 +139,18 @@
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>plus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">+</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 31 x 3</span>
-<span class="co">#&gt;    dates      weeks      plus4     </span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;grt_yrwk&gt; &lt;grt_yrwk&gt;</span>
-<span class="co">#&gt;  1 2021-01-01 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  2 2021-01-02 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  3 2021-01-03 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  4 2021-01-04 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  5 2021-01-05 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  6 2021-01-06 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  7 2021-01-07 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  8 2021-01-08 2021-W02   2021-W06  </span>
-<span class="co">#&gt;  9 2021-01-09 2021-W02   2021-W06  </span>
-<span class="co">#&gt; 10 2021-01-10 2021-W02   2021-W06  </span>
+<span class="co">#&gt;    dates      weeks    plus4   </span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;yrwk&gt;   &lt;yrwk&gt;  </span>
+<span class="co">#&gt;  1 2021-01-01 2021-W01 2021-W05</span>
+<span class="co">#&gt;  2 2021-01-02 2021-W01 2021-W05</span>
+<span class="co">#&gt;  3 2021-01-03 2021-W01 2021-W05</span>
+<span class="co">#&gt;  4 2021-01-04 2021-W01 2021-W05</span>
+<span class="co">#&gt;  5 2021-01-05 2021-W01 2021-W05</span>
+<span class="co">#&gt;  6 2021-01-06 2021-W01 2021-W05</span>
+<span class="co">#&gt;  7 2021-01-07 2021-W01 2021-W05</span>
+<span class="co">#&gt;  8 2021-01-08 2021-W02 2021-W06</span>
+<span class="co">#&gt;  9 2021-01-09 2021-W02 2021-W06</span>
+<span class="co">#&gt; 10 2021-01-10 2021-W02 2021-W06</span>
 <span class="co">#&gt; # … with 21 more rows</span>
 
 <span class="co"># addition of two yearweek objects will error as it is unclear what the intention is</span>
@@ -164,36 +164,36 @@
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>minus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">-</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 31 x 3</span>
-<span class="co">#&gt;    dates      weeks      minus4    </span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;grt_yrwk&gt; &lt;grt_yrwk&gt;</span>
-<span class="co">#&gt;  1 2021-01-01 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  2 2021-01-02 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  3 2021-01-03 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  4 2021-01-04 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  5 2021-01-05 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  6 2021-01-06 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  7 2021-01-07 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  8 2021-01-08 2021-W02   2020-W50  </span>
-<span class="co">#&gt;  9 2021-01-09 2021-W02   2020-W50  </span>
-<span class="co">#&gt; 10 2021-01-10 2021-W02   2020-W50  </span>
+<span class="co">#&gt;    dates      weeks    minus4  </span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;yrwk&gt;   &lt;yrwk&gt;  </span>
+<span class="co">#&gt;  1 2021-01-01 2021-W01 2020-W49</span>
+<span class="co">#&gt;  2 2021-01-02 2021-W01 2020-W49</span>
+<span class="co">#&gt;  3 2021-01-03 2021-W01 2020-W49</span>
+<span class="co">#&gt;  4 2021-01-04 2021-W01 2020-W49</span>
+<span class="co">#&gt;  5 2021-01-05 2021-W01 2020-W49</span>
+<span class="co">#&gt;  6 2021-01-06 2021-W01 2020-W49</span>
+<span class="co">#&gt;  7 2021-01-07 2021-W01 2020-W49</span>
+<span class="co">#&gt;  8 2021-01-08 2021-W02 2020-W50</span>
+<span class="co">#&gt;  9 2021-01-09 2021-W02 2020-W50</span>
+<span class="co">#&gt; 10 2021-01-10 2021-W02 2020-W50</span>
 <span class="co">#&gt; # … with 21 more rows</span>
 
 <span class="co"># Subtraction of two yearweek objects gives the difference in weeks between them</span>
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>plus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">+</span> <span class="fl">4</span>, difference <span class="op">=</span> <span class="va">plus4</span> <span class="op">-</span> <span class="va">weeks</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 31 x 4</span>
-<span class="co">#&gt;    dates      weeks      plus4      difference</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;grt_yrwk&gt; &lt;grt_yrwk&gt;      &lt;int&gt;</span>
-<span class="co">#&gt;  1 2021-01-01 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  2 2021-01-02 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  3 2021-01-03 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  4 2021-01-04 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  5 2021-01-05 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  6 2021-01-06 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  7 2021-01-07 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  8 2021-01-08 2021-W02   2021-W06            4</span>
-<span class="co">#&gt;  9 2021-01-09 2021-W02   2021-W06            4</span>
-<span class="co">#&gt; 10 2021-01-10 2021-W02   2021-W06            4</span>
+<span class="co">#&gt;    dates      weeks    plus4    difference</span>
+<span class="co">#&gt;    &lt;date&gt;     &lt;yrwk&gt;   &lt;yrwk&gt;        &lt;int&gt;</span>
+<span class="co">#&gt;  1 2021-01-01 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  2 2021-01-02 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  3 2021-01-03 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  4 2021-01-04 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  5 2021-01-05 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  6 2021-01-06 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  7 2021-01-07 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  8 2021-01-08 2021-W02 2021-W06          4</span>
+<span class="co">#&gt;  9 2021-01-09 2021-W02 2021-W06          4</span>
+<span class="co">#&gt; 10 2021-01-10 2021-W02 2021-W06          4</span>
 <span class="co">#&gt; # … with 21 more rows</span>
 
 <span class="co"># weeks can be combined if they have the same firstday but not otherwise</span>
