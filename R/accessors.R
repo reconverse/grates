@@ -90,15 +90,15 @@ get_date_bounds.default <- function(x, ...) {
 
 #' @rdname grate_accessors
 #' @export
-get_date_bounds.grate_month <- function(x, ...) {
-  get_bounds(x)
-}
+get_date_bounds.grate_month <- function(x, ...) get_bounds(x)
 
 #' @rdname grate_accessors
 #' @export
-get_date_bounds.grate_yearweek <- function(x, ...) {
-  get_bounds(x)
-}
+get_date_bounds.grate_yearweek <- function(x, ...) get_bounds(x)
+
+#' @rdname grate_accessors
+#' @export
+get_date_bounds.grate_period <- function(x, ...) get_bounds(x)
 
 get_bounds <- function(x) {
   lower_bound <- as.Date(x)
