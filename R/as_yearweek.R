@@ -264,7 +264,6 @@ is.numeric.grate_yearweek <- function(x) FALSE
 `[.grate_yearweek` <- function (x, ..., drop = TRUE) {
   cl <- oldClass(x)
   fd <- attr(x, "firstday")
-  class(x) <- NULL
   val <- NextMethod()
   class(val) <- cl
   attr(val, "firstday") <- fd
@@ -276,7 +275,6 @@ is.numeric.grate_yearweek <- function(x) FALSE
 `[[.grate_yearweek` <- function (x, ..., drop = TRUE) {
   cl <- oldClass(x)
   fd <- attr(x, "firstday")
-  class(x) <- NULL
   val <- NextMethod()
   class(val) <- cl
   attr(val, "firstday") <- fd
@@ -309,7 +307,6 @@ is.numeric.grate_yearweek <- function(x) FALSE
 rep.grate_yearweek <- function (x, ..., drop = TRUE) {
   cl <- oldClass(x)
   fd <- attr(x, "firstday")
-  class(x) <- NULL
   val <- NextMethod()
   class(val) <- cl
   attr(val, "firstday") <- fd
@@ -320,7 +317,6 @@ rep.grate_yearweek <- function (x, ..., drop = TRUE) {
 unique.grate_yearweek <- function (x, incomparables = FALSE, ...) {
   cl <- oldClass(x)
   fd <- attr(x, "firstday")
-  class(x) <- NULL
   val <- NextMethod()
   class(val) <- cl
   attr(val, "firstday") <- fd

@@ -265,7 +265,6 @@ is.numeric.grate_month <- function(x) FALSE
 `[.grate_month` <- function (x, ..., drop = TRUE) {
   cl <- oldClass(x)
   interval <- attr(x, "interval")
-  class(x) <- class(x)[-1]
   val <- NextMethod()
   class(val) <- cl
   attr(val, "interval") <- interval
@@ -277,7 +276,6 @@ is.numeric.grate_month <- function(x) FALSE
 `[[.grate_month` <- function (x, ..., drop = TRUE) {
   cl <- oldClass(x)
   interval <- attr(x, "interval")
-  class(x) <- NULL
   val <- NextMethod()
   class(val) <- cl
   attr(val, "interval") <- interval
@@ -320,7 +318,6 @@ is.numeric.grate_month <- function(x) FALSE
 rep.grate_month <- function (x, ..., drop = TRUE) {
   cl <- oldClass(x)
   interval <- attr(x, "interval")
-  class(x) <- NULL
   val <- NextMethod()
   class(val) <- cl
   attr(val, "interval") <- interval
@@ -332,7 +329,6 @@ rep.grate_month <- function (x, ..., drop = TRUE) {
 unique.grate_month <- function (x, incomparables = FALSE, ...) {
   cl <- oldClass(x)
   interval <- attr(x, "interval")
-  class(x) <- NULL
   val <- NextMethod()
   class(val) <- cl
   attr(val, "interval") <- interval

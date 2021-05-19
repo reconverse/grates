@@ -334,7 +334,6 @@ is.numeric.grate_period <- function(x) FALSE
 `[.grate_period` <- function (x, ..., drop = TRUE) {
   cl <- oldClass(x)
   interval <- attr(x, "interval")
-  class(x) <- NULL
   val <- NextMethod()
   class(val) <- cl
   attr(val, "interval") <- interval
@@ -346,7 +345,6 @@ is.numeric.grate_period <- function(x) FALSE
 `[[.grate_period` <- function (x, ..., drop = TRUE) {
   cl <- oldClass(x)
   interval <- attr(x, "interval")
-  class(x) <- NULL
   val <- NextMethod()
   class(val) <- cl
   attr(val, "interval") <- interval
@@ -419,7 +417,6 @@ is.numeric.grate_period <- function(x) FALSE
 rep.grate_period <- function (x, ..., drop = TRUE) {
   cl <- oldClass(x)
   interval <- attr(x, "interval")
-  class(x) <- NULL
   val <- NextMethod()
   class(val) <- cl
   attr(val, "interval") <- interval
