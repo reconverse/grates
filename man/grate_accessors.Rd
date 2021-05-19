@@ -7,6 +7,8 @@
 \alias{get_date_bounds.grate_month}
 \alias{get_date_bounds.grate_yearweek}
 \alias{get_date_bounds.grate_period}
+\alias{get_date_bounds.grate_year}
+\alias{get_date_bounds.grate_int_period}
 \alias{get_week}
 \alias{get_week.default}
 \alias{get_week.grate_yearweek}
@@ -40,6 +42,10 @@ get_date_bounds(x, ...)
 \method{get_date_bounds}{grate_yearweek}(x, ...)
 
 \method{get_date_bounds}{grate_period}(x, ...)
+
+\method{get_date_bounds}{grate_year}(x, ...)
+
+\method{get_date_bounds}{grate_int_period}(x, ...)
 
 get_week(x, ...)
 

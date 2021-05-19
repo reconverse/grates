@@ -100,9 +100,22 @@ get_date_bounds.grate_yearweek <- function(x, ...) get_bounds(x)
 #' @export
 get_date_bounds.grate_period <- function(x, ...) get_bounds(x)
 
+#' @rdname grate_accessors
+#' @export
+get_date_bounds.grate_year <- function(x, ...) get_bounds(x)
+
+
 get_bounds <- function(x) {
   lower_bound <- as.Date(x)
   upper_bound <- as.Date(x + 1) - 1
+  data.frame(grouping = x, lower_bound, upper_bound)
+}
+
+#' @rdname grate_accessors
+#' @export
+get_date_bounds.grate_int_period <- function(x, ...) {
+  lower_bound <- as.integer(x)
+  upper_bound <- as.integer(x + 1) - 1
   data.frame(grouping = x, lower_bound, upper_bound)
 }
 
