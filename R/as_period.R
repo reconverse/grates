@@ -238,6 +238,10 @@ format.grate_int_period <- function(x, ...) {
   out
 }
 
+# Make nice heading for tibble columns
+#' @export
+vec_ptype_abbr.grate_period <- function(x) "period"
+
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
@@ -475,6 +479,7 @@ c.grate_int_period <- function(..., recursive = FALSE, use.names = TRUE) {
   if (length(tmp)) {
     tmp <- diff(as.numeric(tmp))
     tmp <- tmp[!is.na(tmp)]
+    tmp <- tmp %% interval
     if (length(unique(tmp)) > 1L) {
       abort(c(
         "Incompatible <grate_int_period> objects.",
@@ -526,6 +531,7 @@ c.grate_period <- function(..., recursive = FALSE, use.names = TRUE) {
   if (length(tmp)) {
     tmp <- diff(as.numeric(tmp))
     tmp <- tmp[!is.na(tmp)]
+    tmp <- tmp %% interval
     if (length(unique(tmp)) > 1L) {
       abort(c(
         "Incompatible <grate_period> objects.",

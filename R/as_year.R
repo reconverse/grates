@@ -134,6 +134,10 @@ print.grate_year <- function(x, ...) {
   invisible(x)
 }
 
+# make nice headings for tibble columns
+#' @export
+vec_ptype_abbr.grate_year <- function(x) "year"
+
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #

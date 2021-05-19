@@ -194,6 +194,9 @@ format.grate_month <- function(x, format = "%Y-%b", sep = "to", ...) {
   out
 }
 
+# Make nice column headers for tibble
+#' @export
+vec_ptype_abbr.grate_month <- function(x) "month"
 
 
 # ------------------------------------------------------------------------- #

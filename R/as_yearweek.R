@@ -194,6 +194,11 @@ print.grate_yearweek <- function(x, ...) {
 }
 
 
+# make nice headings for tibble columns
+#' @export
+vec_ptype_abbr.grate_yearweek <- function(x) "yrwk"
+
+
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 # ------------------ METHODS: CONVERSIONS FROM yearweek ------------------- #
