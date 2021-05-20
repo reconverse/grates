@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   introduction: introduction.html
-last_built: 2021-05-20T14:42Z
+last_built: 2021-05-20T14:50Z
 urls:
   reference: http://www.reconverse.org/grates/reference
   article: http://www.reconverse.org/grates/articles
