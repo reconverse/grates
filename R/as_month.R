@@ -305,7 +305,7 @@ is.numeric.grate_month <- function(x) FALSE
   if (!is.na(value)) {
     dat <- diff(as.numeric(val))
     dat <- dat[!is.na(dat)]
-    if (length(unique(dat %% interval)) > 1L) {
+    if (!all(dat %% interval == 0)) {
       abort(c(
         "Incompatible <grate_month> objects.",
         i = "Were they anchored to incompatible origins?"
@@ -383,7 +383,7 @@ c.grate_month <- function(..., recursive = FALSE, use.names = TRUE) {
   if (length(tmp)) {
     tmp <- diff(as.numeric(tmp))
     tmp <- tmp[!is.na(tmp)]
-    if (length(unique(tmp %% interval)) > 1L) {
+    if (!all(tmp %% interval == 0)) {
       abort(c(
         "Incompatible <grate_month> objects.",
         i = "Were they anchored to incompatible origins?"
