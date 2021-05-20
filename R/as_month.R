@@ -308,7 +308,7 @@ is.numeric.grate_month <- function(x) FALSE
     if (length(unique(dat %% interval)) > 1L) {
       abort(c(
         "Incompatible <grate_month> objects.",
-        i = "Are they anchored to incompatible origins?"
+        i = "Were they anchored to incompatible origins?"
       ))
     }
   }
@@ -386,7 +386,7 @@ c.grate_month <- function(..., recursive = FALSE, use.names = TRUE) {
     if (length(unique(tmp %% interval)) > 1L) {
       abort(c(
         "Incompatible <grate_month> objects.",
-        i = "Are they anchored to incompatible origins?"
+        i = "Were they anchored to incompatible origins?"
       ))
     }
   }
