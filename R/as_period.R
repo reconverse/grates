@@ -374,10 +374,10 @@ is.numeric.grate_period <- function(x) FALSE
   if (!is.na(value)) {
     dat <- diff(as.numeric(val))
     dat <- dat[!is.na(dat)]
-    if (length(unique(dat)) > 1L) {
+    if (length(unique(dat %% interval)) > 1L) {
       abort(c(
         "Incompatible <grate_int_period> objects.",
-        i = "Are they anchored to incompatible origins?"
+        i = "Were they anchored to incompatible origins?"
       ))
     }
   }
@@ -405,7 +405,7 @@ is.numeric.grate_period <- function(x) FALSE
   if (!is.na(value)) {
     dat <- diff(as.numeric(val))
     dat <- dat[!is.na(dat)]
-    if (length(unique(dat)) > 1L) {
+    if (length(unique(dat %% interval)) > 1L) {
       abort(c(
         "Incompatible <grate_period> objects.",
         i = "Are they anchored to incompatible origins?"
