@@ -35,6 +35,6 @@ scale_x_yearweek_7(..., n.breaks = 6)
 A scale for use with ggplot2.
 }
 \description{
-Wrappers around \code{\link[=scale_x_grate_yearweek]{scale_x_grate_yearweek()}} with pre-specified firstday argument.
+Wrappers around \code{\link[=scale_x_grates_yearweek]{scale_x_grates_yearweek()}} with pre-specified firstday argument.
 }
 \keyword{internal}

@@ -1,78 +1,77 @@
-grate_int_period_env <-  new.env(parent = emptyenv())
+grates_int_period_env <-  new.env(parent = emptyenv())
 
-#' <grate_period> scale
+scale_type.grates_int_period <- function(x) {
+  grates_int_period_env$n <- attr(x, "n")
+  grates_int_period_env$origin <- attr(x, "origin")
+  "grates_int_period"
+}
+
+#' <grates_int_period> scale
 #'
-#' ggplot2 scale for <grate_period> vector.
+#' ggplot2 scale for <grates_int_period> vector.
 #'
-#' @inheritParams scale_x_grate_period
+#' @param n.breaks Approximate number of breaks calculated using
+#'   `scales::breaks_pretty` (default 6).
+#' @param n Number of days used for the original grouping.
+#' @param origin Original day on which the grouping began.
 #'
 #' @return A scale for use with ggplot2.
 #' @export
-scale_x_grate_int_period <- function(n.breaks = 6, interval, origin) {
+scale_x_grates_int_period <- function(n.breaks = 6, n, origin) {
 
   # check ggplot2 is installed (this also ensures scales presence)
   check_suggests("ggplot2")
 
-  if (missing(interval)) {
-    interval <- grate_int_period_env$interval
-    if (is.null(interval)) {
-      abort("Please specify the `interval` of the grate_int_period input")
+  if (missing(n)) {
+    n <- grates_int_period_env$n
+    if (is.null(n)) {
+      abort("Please specify the `n` of the grate_int_period input")
     }
   }
 
   if (missing(origin)) {
-    origin <- grate_int_period_env$origin
+    origin <- grates_int_period_env$origin
     if (is.null(origin)) {
       abort("Please specify the `origin` of the grate_int_period input")
     }
   }
 
   ggplot2::scale_x_continuous(
-    trans = grate_int_period_trans(
+    trans = grates_int_period_trans(
       n.breaks = n.breaks,
-      interval = interval,
+      n = n,
       origin = origin
     )
   )
 }
 
 
-scale_type.grate_int_period <- function(x) {
-  grate_int_period_env$interval <- attr(x, "interval")
-  grate_int_period_env$origin <- min(x, na.rm = TRUE)
-  "grate_int_period"
-}
+grates_int_period_trans <- function(n.breaks, n, origin) {
+  shift <- n / 2
 
-
-
-grate_int_period_trans <- function(n.breaks, interval, origin) {
-
+  # breaks function
   brks <- function(x) {
-    dat <- scales::pretty_breaks(n.breaks)(x)
-    m <- floor(min(dat, na.rm = TRUE))
-    origin <- as.integer(origin)
-    if (m < origin) {
-      origin <- m - (interval - ((origin - as.numeric(m)) %% interval))
-    }
-    as.integer(as_period(dat, interval = interval, origin = origin)) - interval/2
+    dat <- trunc(scales::breaks_pretty(n.breaks)(as.numeric(x)))
+    as.integer(as_int_period(dat, n = n, origin = origin)) - shift
   }
 
   # format function
   fmt <- function(x) {
-    as.numeric(x) + interval/2
+    x <- x + shift
+    class(x) <- c("grates_int_period", "vctrs_vctr")
+    attr(x, "n") <- 1L
+    format.grates_int_period(x, format = format)
   }
 
   # set environment variables to NULL so they don't mess other plots up
-  grate_int_period_env$interval <- NULL
-  grate_int_period_env$origin <- NULL
+  grates_int_period_env$n <- NULL
+  grates_int_period_env$origin <- NULL
 
   scales::trans_new(
-    "grate_int_period",
+    "grates_int_period",
     transform = as.numeric,
     inverse = as.numeric,
     breaks = brks,
     format = fmt
   )
 }
-
-

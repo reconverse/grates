@@ -1,8 +1,8 @@
-scale_type.grate_year <- function(x) "grate_year"
+scale_type.grates_year <- function(x) "grates_year"
 
-#' <grate_year> scale
+#' <grates_year> scale
 #'
-#' ggplot2 scale for <grate_year> vector.
+#' ggplot2 scale for <grates_year> vector.
 #'
 #' @param n.breaks Approximate number of breaks calculated using
 #'   `scales::breaks_pretty` (default 6).
@@ -10,21 +10,23 @@ scale_type.grate_year <- function(x) "grate_year"
 #'
 #' @return A scale for use with ggplot2.
 #' @export
-scale_x_grate_year <- function(..., n.breaks = 6) {
+scale_x_grates_year <- function(..., n.breaks = 6) {
   check_suggests("ggplot2")
-  ggplot2::scale_x_continuous(..., trans = grate_year_trans(n.breaks))
+  ggplot2::scale_x_continuous(..., trans = grates_year_trans(n.breaks))
 }
 
-grate_year_trans <- function(n.breaks) {
+grates_year_trans <- function(n.breaks) {
 
   # breaks function
-  brks <- function(x) scales::pretty_breaks(n.breaks)(as.integer(x))
+  brks <- function(x) {
+    as.integer(scales::pretty_breaks(n.breaks)(as.integer(x)))
+  }
 
   # format function
-  fmt <- function(x) format.grate_year(new_grate_year(x))
+  fmt <- function(x) format.grates_year(new_year(as.integer(x)))
 
   scales::trans_new(
-    "grate_year",
+    "grates_year",
     transform = as.numeric,
     inverse = as.numeric,
     breaks = brks,

@@ -1,105 +1,98 @@
-grate_month_env <-  new.env(parent = emptyenv())
+grates_month_env <-  new.env(parent = emptyenv())
 
-#' <grate_month> scale
+scale_type.grates_month <- function(x) {
+  grates_month_env$n <- attr(x, "n")
+  grates_month_env$origin <- attr(x, "origin")
+  "grates_month"
+}
+
+#' <grates_month> scale
 #'
-#' ggplot2 scale for <grate_month> vector.
+#' ggplot2 scale for <grates_month> vector.
 #'
 #' @param n.breaks Approximate number of breaks calculated using
 #'   `scales::breaks_pretty` (default 6).
-#' @param date_format Format to use if "Date" scales are required. If NULL then
+#' @param format Format to use if "Date" scales are required. If NULL then
 #'   labels are centralised and of the form "lower category bound to upper
 #'   category bound". If not NULL then the value is used by `format.Date()` and
 #'   can be any input acceptable by that function (defaults to "%Y-%m-%d).
 #' @param bounds_format Format to use for grouped date labels. Only used if
-#'   `date_format` is NULL.
+#'   `format` is NULL.
 #' @param sep Separator to use for grouped date labels.
-#' @param interval An integer indicating the (fixed) number of months used for
-#'   the original grouping.
-#' @param origin The date used to anchor the grouping.
+#' @param n Number of months used for the original grouping.
+#' @param origin Month since the Unix epoch used in the original grouping.
 #'
 #' @return A scale for use with ggplot2.
 #' @export
-scale_x_grate_month <- function(n.breaks = 6, date_format = "%Y-%m-%d",
+scale_x_grates_month <- function(n.breaks = 6, format = "%Y-%m-%d",
                                 bounds_format = "%Y-%b", sep = "to",
-                                interval, origin) {
+                                n, origin) {
 
   # check ggplot2 is installed (this also ensures scales presence)
   check_suggests("ggplot2")
 
-  if (missing(interval)) {
-    interval <- grate_month_env$interval
-    if (is.null(interval)) {
-      abort("Please specify the `interval` of the grate_month input")
+  if (missing(n)) {
+    n <- grates_month_env$n
+    if (is.null(n)) {
+      abort("Please specify the `n` of the grate_month input")
     }
   }
 
   if (missing(origin)) {
-    origin <- grate_month_env$origin
+    origin <- grates_month_env$origin
     if (is.null(origin)) {
       abort("Please specify the `origin` of the grate_month input")
     }
   }
 
   ggplot2::scale_x_continuous(
-    trans = grate_month_trans(
+    trans = grates_month_trans(
       n.breaks = n.breaks,
-      date_format = date_format,
+      format = format,
       bounds_format = bounds_format,
       sep = sep,
-      interval = interval,
+      n = n,
       origin = origin
     )
   )
 }
 
 
-scale_type.grate_month <- function(x) {
-  grate_month_env$interval <- attr(x, "interval")
-  grate_month_env$origin <- min(x, na.rm = TRUE)
-  "grate_month"
-}
+grates_month_trans <- function(n.breaks, format, bounds_format, sep, n, origin) {
 
-
-grate_month_trans <- function(n.breaks, date_format, bounds_format, sep,
-                              interval, origin) {
-
-  if (is.null(date_format)) {
+  if (is.null(format)) {
     shift <- 0
   } else {
-    shift <- interval / 2
+    shift <- n / 2
   }
 
   # breaks function
   brks <- function(x) {
     dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
-    m <- min(dat, na.rm = TRUE)
-    while (m < origin) {
-      origin <- origin - interval
-    }
-    origin <- as.Date(new_grate_month(origin, interval = interval))
-    dat <- as.Date(new_grate_month(dat, interval = interval))
-    as.numeric(as_month(dat, interval = interval, origin = origin)) - shift
+    as.numeric(as_month(dat, n = n, origin = origin)) - shift
   }
 
   # format function
   fmt <- function(x) {
     x <- x + shift
-    class(x) <- "grate_month"
-    if (is.null(date_format)) {
-      attr(x, "interval") <- interval
-      format.grate_month(x, format = bounds_format, sep = sep)
+    class(x) <- c("grates_month", "vctrs_vctr")
+    if (is.null(format)) {
+      attr(x, "n") <- as.integer(n)
+      attr(x, "origin") <- as.integer(origin)
+      format.grates_month(x, format = bounds_format, sep = sep)
     } else {
-      attr(x, "interval") <- 1
-      format.grate_month(x, format = date_format)
+      attr(x, "n") <- 1L
+      attr(x, "origin") <- as.integer(origin)
+      format.grates_month(x, format = format)
     }
   }
 
   # set environment variables to NULL so they don't mess other plots up
-  grate_month_env$interval <- NULL
-  grate_month_env$origin <- NULL
+  grates_month_env$n <- NULL
+  grates_month_env$origin <- NULL
 
   scales::trans_new(
-    "grate_month",
+    "grates_month",
     transform = as.numeric,
     inverse = as.numeric,
     breaks = brks,

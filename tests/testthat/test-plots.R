@@ -1,8 +1,4 @@
 # setup -------------------------------------------------------------------
-library(outbreaks)
-library(dplyr)
-library(ggplot2)
-
 save_png <- function(code, width = 400, height = 400) {
   path <- tempfile(fileext = ".png")
   png(path, width = width, height = height)
@@ -13,6 +9,7 @@ save_png <- function(code, width = 400, height = 400) {
 
 expect_snapshot_plot <- function(name, code) {
   skip_if_not_installed("ggplot2", "2.0.0")
+  library(ggplot2)
   skip_on_os(c("windows", "mac"))
   skip_on_ci()
   path <- save_png(code)
@@ -21,7 +18,11 @@ expect_snapshot_plot <- function(name, code) {
 
 load_dat <- function() {
   skip_if_not_installed("outbreaks")
+  library(outbreaks)
   skip_if_not_installed("dplyr")
+  library(dplyr)
+  skip_if_not_installed("ggplot2", "2.0.0")
+  library(ggplot2)
   outbreaks::ebola_sim_clean$linelist
 }
 # -------------------------------------------------------------------------
@@ -60,18 +61,18 @@ test_that("month plotting works", {
   month <-
     month_dat %>%
     ggplot(aes(date, cases)) +
-      geom_col(width = 1, colour = "white") +
-      scale_x_grate_month(n.breaks = 4, interval = 1, origin = min(month_dat$date)) +
-      theme_bw() +
-      xlab("")
+    geom_col(width = 1, colour = "white") +
+    scale_x_grates_month(n.breaks = 4, n = 1, origin = 0) +
+    theme_bw() +
+    xlab("")
 
   month2 <-
     month_dat %>%
     ggplot(aes(date, cases)) + geom_col(width = 1, colour = "white") + theme_bw() + xlab("") +
-    scale_x_grate_month(n.breaks = 4, date_format = NULL, interval = 1, origin = min(month_dat$date))
+    scale_x_grates_month(n.breaks = 4, format = NULL, n = 1, origin = 0)
 
   expect_snapshot_plot("month", month)
-  expect_snapshot_plot("month2", month)
+  expect_snapshot_plot("month2", month2)
 })
 
 
@@ -84,10 +85,10 @@ test_that("quarter plotting works", {
     count(date, name = "cases") %>%
     na.omit() %>%
     ggplot(aes(date, cases)) +
-      geom_col(width = 3, colour = "white") +
-      scale_x_grate_quarter(n.breaks = 8) +
-      theme_bw() +
-      xlab("")
+    geom_col(width = 1, colour = "white") +
+    scale_x_grates_quarter(n.breaks = 8) +
+    theme_bw() +
+    xlab("")
 
   expect_snapshot_plot("quarter", quarter)
 })
@@ -102,10 +103,10 @@ test_that("year plotting works", {
     count(date, name = "cases") %>%
     na.omit() %>%
     ggplot(aes(date, cases)) +
-      geom_col(width = 1, colour = "white") +
-      scale_x_grate_year(n.breaks = 2) +
-      theme_bw() +
-      xlab("")
+    geom_col(width = 1, colour = "white") +
+    scale_x_grates_year(n.breaks = 2) +
+    theme_bw() +
+    xlab("")
 
   expect_snapshot_plot("year", year)
 })
@@ -115,7 +116,7 @@ test_that("period plotting works", {
 
   two_weeks <-
     dat %>%
-    mutate(date = as_period(date_of_infection, interval = 14)) %>%
+    mutate(date = as_period(date_of_infection,n = 14)) %>%
     count(date, name = "cases") %>%
     na.omit() %>%
     ggplot(aes(date, cases)) + geom_col(width = 14, colour = "white") + theme_bw() + xlab("")
@@ -124,7 +125,7 @@ test_that("period plotting works", {
 
   twentyeight_days <-
     dat %>%
-    mutate(date = as_period(date_of_infection, 28)) %>%
+    mutate(date = as_period(date_of_infection, n=28)) %>%
     count(date, name = "cases") %>%
     na.omit() %>%
     ggplot(aes(date, cases)) + geom_col(width = 28, colour = "white") + theme_bw() + xlab("")

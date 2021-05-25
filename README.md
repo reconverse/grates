@@ -100,80 +100,81 @@ easier by adopting logical conventions:
 dates <- as.Date("2021-01-01") + 0:30
 weeks <- as_yearweek(dates, firstday = 5) # firstday = 5 to match first day of year
 head(weeks, 8)
-#> [1] "2021-W01" "2021-W01" "2021-W01" "2021-W01" "2021-W01" "2021-W01" "2021-W01"
-#> [8] "2021-W02"
+#> <grates_yearweek[8]>
+#> [1] 2021-W01 2021-W01 2021-W01 2021-W01 2021-W01 2021-W01 2021-W01 2021-W02
 str(weeks)
-#>  'grate_yearweek' num [1:31] 2021-W01 2021-W01 2021-W01 2021-W01 ...
-#>  - attr(*, "firstday")= int 5
+#>  yrwk [1:31] 2021-W01, 2021-W01, 2021-W01, 2021-W01, 2021-W01, 2021-W01, 20...
+#>  @ firstday: int 5
 dat <- tibble(dates, weeks)
 
 # addition of wholenumbers will add the corresponding number of weeks to the object
 dat %>% 
   mutate(plus4 = weeks + 4)
 #> # A tibble: 31 x 3
-#>    dates      weeks      plus4     
-#>    <date>     <grt_yrwk> <grt_yrwk>
-#>  1 2021-01-01 2021-W01   2021-W05  
-#>  2 2021-01-02 2021-W01   2021-W05  
-#>  3 2021-01-03 2021-W01   2021-W05  
-#>  4 2021-01-04 2021-W01   2021-W05  
-#>  5 2021-01-05 2021-W01   2021-W05  
-#>  6 2021-01-06 2021-W01   2021-W05  
-#>  7 2021-01-07 2021-W01   2021-W05  
-#>  8 2021-01-08 2021-W02   2021-W06  
-#>  9 2021-01-09 2021-W02   2021-W06  
-#> 10 2021-01-10 2021-W02   2021-W06  
+#>    dates         weeks    plus4
+#>    <date>       <yrwk>   <yrwk>
+#>  1 2021-01-01 2021-W01 2021-W05
+#>  2 2021-01-02 2021-W01 2021-W05
+#>  3 2021-01-03 2021-W01 2021-W05
+#>  4 2021-01-04 2021-W01 2021-W05
+#>  5 2021-01-05 2021-W01 2021-W05
+#>  6 2021-01-06 2021-W01 2021-W05
+#>  7 2021-01-07 2021-W01 2021-W05
+#>  8 2021-01-08 2021-W02 2021-W06
+#>  9 2021-01-09 2021-W02 2021-W06
+#> 10 2021-01-10 2021-W02 2021-W06
 #> # … with 21 more rows
 
 # addition of two yearweek objects will error as it is unclear what the intention is
 dat %>% 
   mutate(plus4 = weeks + weeks)
-#> Error: Problem with `mutate()` input `plus4`.
-#> x Cannot add <grate_yearweek> objects to each other
-#> ℹ Input `plus4` is `weeks + weeks`.
+#> Error: Problem with `mutate()` column `plus4`.
+#> ℹ `plus4 = weeks + weeks`.
+#> x <grates_yearweek> + <grates_yearweek> is not permitted
 
 # Subtraction of wholenumbers works similarly to addition
 dat %>% 
   mutate(minus4 = weeks - 4)
 #> # A tibble: 31 x 3
-#>    dates      weeks      minus4    
-#>    <date>     <grt_yrwk> <grt_yrwk>
-#>  1 2021-01-01 2021-W01   2020-W49  
-#>  2 2021-01-02 2021-W01   2020-W49  
-#>  3 2021-01-03 2021-W01   2020-W49  
-#>  4 2021-01-04 2021-W01   2020-W49  
-#>  5 2021-01-05 2021-W01   2020-W49  
-#>  6 2021-01-06 2021-W01   2020-W49  
-#>  7 2021-01-07 2021-W01   2020-W49  
-#>  8 2021-01-08 2021-W02   2020-W50  
-#>  9 2021-01-09 2021-W02   2020-W50  
-#> 10 2021-01-10 2021-W02   2020-W50  
+#>    dates         weeks   minus4
+#>    <date>       <yrwk>   <yrwk>
+#>  1 2021-01-01 2021-W01 2020-W49
+#>  2 2021-01-02 2021-W01 2020-W49
+#>  3 2021-01-03 2021-W01 2020-W49
+#>  4 2021-01-04 2021-W01 2020-W49
+#>  5 2021-01-05 2021-W01 2020-W49
+#>  6 2021-01-06 2021-W01 2020-W49
+#>  7 2021-01-07 2021-W01 2020-W49
+#>  8 2021-01-08 2021-W02 2020-W50
+#>  9 2021-01-09 2021-W02 2020-W50
+#> 10 2021-01-10 2021-W02 2020-W50
 #> # … with 21 more rows
 
 # Subtraction of two yearweek objects gives the difference in weeks between them
 dat %>% 
   mutate(plus4 = weeks + 4, difference = plus4 - weeks)
 #> # A tibble: 31 x 4
-#>    dates      weeks      plus4      difference
-#>    <date>     <grt_yrwk> <grt_yrwk>      <int>
-#>  1 2021-01-01 2021-W01   2021-W05            4
-#>  2 2021-01-02 2021-W01   2021-W05            4
-#>  3 2021-01-03 2021-W01   2021-W05            4
-#>  4 2021-01-04 2021-W01   2021-W05            4
-#>  5 2021-01-05 2021-W01   2021-W05            4
-#>  6 2021-01-06 2021-W01   2021-W05            4
-#>  7 2021-01-07 2021-W01   2021-W05            4
-#>  8 2021-01-08 2021-W02   2021-W06            4
-#>  9 2021-01-09 2021-W02   2021-W06            4
-#> 10 2021-01-10 2021-W02   2021-W06            4
+#>    dates         weeks    plus4 difference
+#>    <date>       <yrwk>   <yrwk>      <int>
+#>  1 2021-01-01 2021-W01 2021-W05          4
+#>  2 2021-01-02 2021-W01 2021-W05          4
+#>  3 2021-01-03 2021-W01 2021-W05          4
+#>  4 2021-01-04 2021-W01 2021-W05          4
+#>  5 2021-01-05 2021-W01 2021-W05          4
+#>  6 2021-01-06 2021-W01 2021-W05          4
+#>  7 2021-01-07 2021-W01 2021-W05          4
+#>  8 2021-01-08 2021-W02 2021-W06          4
+#>  9 2021-01-09 2021-W02 2021-W06          4
+#> 10 2021-01-10 2021-W02 2021-W06          4
 #> # … with 21 more rows
 
 # weeks can be combined if they have the same firstday but not otherwise
 wk1 <- as_yearweek("2020-01-01")
 wk2 <- as_yearweek("2021-01-01")
 c(wk1, wk2)
-#> [1] "2020-W01" "2020-W53"
+#> <grates_yearweek[2]>
+#> [1] 2020-W01 2020-W53
 wk3 <- as_yearweek("2020-01-01", firstday = 2)
 c(wk1, wk3)
-#> Error: Unable to combine <grate_yearweek> objects with different `firstday` attributes
+#> Error: Can't combine <grates_yearweek>'s with different `firstday`
 ```

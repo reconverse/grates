@@ -20,9 +20,9 @@ knitr::opts_chunk$set(
 # Overview
 
 **grates** makes it easy to perform common date grouping operations and provides
-multiple grouped date classes for users to work with including *grate_yearweek*,
-*grate_month*, *grate_quarter*, *grate_year*, *grate_period* and
-*grate_int_period*.  These classes aim to formalise the idea of a grouped date
+multiple grouped date classes for users to work with including *grates_yearweek*,
+*grates_month*, *grates_quarter*, *grates_year*, *grates_period* and
+*grates_int_period*.  These classes aim to formalise the idea of a grouped date
 whilst also being intuitive in their use. They build upon ideas of Davis Vaughan
 and the unreleased [**datea**](https://github.com/DavisVaughan/datea/) package. 
 
@@ -34,8 +34,8 @@ library(dplyr)
 ```
 
 
-## grate_yearweek
-`as_yearweek()` allows you to create <grate_yearweek> objects. As arguments it
+## grates_yearweek
+`as_yearweek()` allows you to create <grates_yearweek> objects. As arguments it
 takes, `x`, the date vector you wish to group and `firstday`, the day of the
 week you wish your weeks to start on; (this defaults to 1 (Monday) and can go up
 to 7 (Sunday)). The first week of the year is then defined as the first week
@@ -106,22 +106,22 @@ week_plot
 We can have date labels on the x_axis by utilising `scale_x_grate_yearweek`:
 
 ```{r yearweekplots2}
-week_plot + scale_x_grate_yearweek(format = "%Y-%m-%d", firstday = 7)
+week_plot + scale_x_grates_yearweek(format = "%Y-%m-%d", firstday = 7)
 ```
 
-## grate_month
+## grates_month
 `as_month` allows users to group by a fixed number of months. As arguments it
-takes, `x`, the date vector you wish to group, `interval`, the number of months
+takes, `x`, the date vector you wish to group, `n`, the number of months
 you wish to group by (defaulting to 1) and, finally, `origin`, an optional value
-indicating where you would like to start your periods from (this defaults to the
-earliest month in `x`). By default the provided scale creates a histogram-like
+indicating where you would like to start your periods from relative to the Unix
+Epoch (1970-01-01). By default the provided scale creates a histogram-like
 plot (unlike a histogram the widths of the intervals in the plot are identical
 across months) but can be changed to have centralised labelling.
 
 ```{r month}
 month_dat <- 
   dat %>%
-  mutate(date = as_month(date_of_infection, interval = 2)) %>% 
+  mutate(date = as_month(date_of_infection, n = 2)) %>% 
   count(date, name = "cases") %>% 
   na.omit()
 
@@ -135,10 +135,10 @@ month_plot <-
 month_plot
 
 month_plot + 
-  scale_x_grate_month(
-    date_format = NULL,
-    interval = 2,
-    origin = min(dat$date_of_infection, na.rm = TRUE)
+  scale_x_grates_month(
+    format = NULL,
+    n = 2,
+    origin = 0
   )
 ```
 
@@ -166,7 +166,7 @@ dat %>%
   na.omit() %>% 
   ggplot(aes(date, cases)) + 
     geom_col(width = 3, colour = "white") + 
-    scale_x_grate_quarter(n.breaks = 10) +
+    scale_x_grates_quarter(n.breaks = 10) +
     theme_bw() + 
     xlab("")
 
@@ -176,7 +176,7 @@ dat %>%
   na.omit() %>% 
   ggplot(aes(date, cases)) + 
     geom_col(width = 1, colour = "white") + 
-    scale_x_grate_year(n.breaks = 2) +
+    scale_x_grates_year(n.breaks = 2) +
     theme_bw() + 
     xlab("")
 ```
@@ -186,11 +186,11 @@ dat %>%
 ## period
 `as_period` is similar to `as_month` and allows users to group by periods of a
 fixed length. As arguments it takes, `x`, the date or integer vector you wish to
-group, `interval` and `origin`.
+group, `n` and `origin`.
 
 ```{r period}
 dat %>%
-  mutate(date = as_period(date_of_infection, interval = 14)) %>% 
+  mutate(date = as_period(date_of_infection, n = 14)) %>% 
   count(date, name = "cases") %>% 
   na.omit() %>% 
   ggplot(aes(date, cases)) + 
@@ -199,7 +199,7 @@ dat %>%
     xlab("")
 
 dat %>%
-  mutate(date = as_period(date_of_infection, interval = 28)) %>% 
+  mutate(date = as_period(date_of_infection, n = 28)) %>% 
   count(date, name = "cases") %>% 
   na.omit() %>% 
   ggplot(aes(date, cases)) + 
