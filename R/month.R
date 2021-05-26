@@ -24,17 +24,12 @@
 #' @export
 month <- function(x = integer(), n = 1L, origin = 0L) {
 
-  # ensure inputs are all integer
+  # ensure inputs are all valid
   x <- vec_cast(x, integer())
   n <- vec_cast(n, integer())
   origin <- vec_cast(origin, integer())
-
   stopifnot("`n` must be >= 1" = n > 0)
-
-  # check that the input data is compatible with the specified n
-  if (!is_valid_month_interval(x, n)) {
-    abort("`n` not compatible with specified data `x`")
-  }
+  stopifnot("`n` not compatible with specified data `x`" = is_valid_interval(x, n))
 
   # check that origin is compatible with with combination of x and n
   origin <- origin %% n
@@ -48,7 +43,6 @@ month <- function(x = integer(), n = 1L, origin = 0L) {
 #' @rdname month
 #' @export
 is_month <- function(x) inherits(x, "grates_month")
-
 
 
 # ------------------------------------------------------------------------- #
@@ -438,7 +432,7 @@ delayedAssign(
   c(0L, 31L, 59L, 90L, 120L, 151L, 181L, 212L, 243L, 273L, 304L, 334L)
 )
 
-is_valid_month_interval <- function(x = integer(), n = integer()) {
+is_valid_interval <- function(x = integer(), n = integer()) {
   x <- x[!is.na(x)]
   if (length(x)) all(diff(x) %% n == 0) else TRUE
 }
