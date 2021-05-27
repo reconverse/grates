@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert an object to a year — as_year • grates</title>
+<title>Convert an object to grates_year object — as_year • grates</title>
 
 
 <!-- jquery -->
@@ -39,14 +39,12 @@
 
 
 
-<meta property="og:title" content="Convert an object to a year — as_year" />
+<meta property="og:title" content="Convert an object to grates_year object — as_year" />
 <meta property="og:description" content="
 
-Date, POSIXct, and POSIXlt are converted directly.  Any day, hour, minute,
-or second components are dropped. POSIXct and POSIXlt are converted to
-dates via as.date() with the timezone respected.
-Character input is assumed to be provided in either ISO 8601 standard
-format, i.e. &quot;yyyy-mm-dd&quot;.
+Date, POSIXct, and POSIXlt are converted, with the timezone respected,
+using clock::as_date().
+Character input is parsed using clock::date_parse().
 
 " />
 
@@ -131,19 +129,17 @@ format, i.e. &quot;yyyy-mm-dd&quot;.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert an object to a year</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/as_year.R'><code>R/as_year.R</code></a></small>
+    <h1>Convert an object to grates_year object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/year.R'><code>R/year.R</code></a></small>
     <div class="hidden name"><code>as_year.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
 <ul>
-<li><p>Date, POSIXct, and POSIXlt are converted directly.  Any day, hour, minute,
-or second components are dropped. POSIXct and POSIXlt are converted to
-dates via <code>as.date()</code> with the timezone respected.</p></li>
-<li><p>Character input is assumed to be provided in either ISO 8601 standard
-format, i.e. "yyyy-mm-dd".</p></li>
+<li><p>Date, POSIXct, and POSIXlt are converted, with the timezone respected,
+using <code><a href='https://clock.r-lib.org/reference/as_date.html'>clock::as_date()</a></code>.</p></li>
+<li><p>Character input is parsed using <code><a href='https://clock.r-lib.org/reference/date_parse.html'>clock::date_parse()</a></code>.</p></li>
 </ul>
 
     </div>
@@ -151,21 +147,6 @@ format, i.e. "yyyy-mm-dd".</p></li>
     <pre class="usage"><span class='fu'>as_year</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>as_year</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for grate_year</span>
-<span class='fu'>as_year</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for grate_month</span>
-<span class='fu'>as_year</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for grate_quarter</span>
-<span class='fu'>as_year</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for Date</span>
-<span class='fu'>as_year</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for POSIXt</span>
 <span class='fu'>as_year</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
@@ -179,7 +160,7 @@ format, i.e. "yyyy-mm-dd".</p></li>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>`An object to coerce to year.</p></td>
+      <td><p>An object to convert.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -341,13 +322,16 @@ three white space characters.</p></li>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>year</code> object.</p>
+    <p>A <code>grates_year</code> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>as_year</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2021"</div><div class='input'><span class='fu'>as_year</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2019"</div><div class='input'><span class='fu'>as_year</span><span class='op'>(</span><span class='st'>"2019-05-03"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2019"</div><div class='input'>
+</div><div class='output co'>#&gt; &lt;grates_year[1]&gt;
+#&gt; [1] 2021</div><div class='input'><span class='fu'>as_year</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>, interval <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grates_year[1]&gt;
+#&gt; [1] 2019</div><div class='input'><span class='fu'>as_year</span><span class='op'>(</span><span class='st'>"2019-05-03"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grates_year[1]&gt;
+#&gt; [1] 2019</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert an object to an integer period — as_int_period • grates</title>
+<title>Convert an object to grates_int_period object — as_int_period • grates</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,14 @@
 
 
 
-<meta property="og:title" content="Convert an object to an integer period — as_int_period" />
-<meta property="og:description" content="Convert an object to an integer period" />
+<meta property="og:title" content="Convert an object to grates_int_period object — as_int_period" />
+<meta property="og:description" content="
+
+Date, POSIXct, and POSIXlt are converted, with the timezone respected,
+using clock::as_date().
+Character input is parsed using clock::date_parse().
+
+" />
 
 
 
@@ -72,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">grates</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -123,55 +129,62 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert an object to an integer period</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/as_int_period.R'><code>R/as_int_period.R</code></a></small>
+    <h1>Convert an object to grates_int_period object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/int_period.R'><code>R/int_period.R</code></a></small>
     <div class="hidden name"><code>as_int_period.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert an object to an integer period</p>
+    
+<ul>
+<li><p>Date, POSIXct, and POSIXlt are converted, with the timezone respected,
+using <code><a href='https://clock.r-lib.org/reference/as_date.html'>clock::as_date()</a></code>.</p></li>
+<li><p>Character input is parsed using <code><a href='https://clock.r-lib.org/reference/date_parse.html'>clock::date_parse()</a></code>.</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>as_int_period</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>interval</span>, <span class='va'>firstdate</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>as_int_period</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>as_int_period</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>interval</span>, <span class='va'>firstdate</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for int_period</span>
-<span class='fu'>as_int_period</span><span class='op'>(</span><span class='va'>x</span>, interval <span class='op'>=</span> <span class='fl'>1L</span>, firstdate <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for integer</span>
-<span class='fu'>as_int_period</span><span class='op'>(</span><span class='va'>x</span>, interval <span class='op'>=</span> <span class='fl'>1L</span>, firstdate <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for numeric</span>
-<span class='fu'>as_int_period</span><span class='op'>(</span><span class='va'>x</span>, interval <span class='op'>=</span> <span class='fl'>1L</span>, firstdate <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>as_int_period</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>1L</span>, origin <span class='op'>=</span> <span class='fl'>0L</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An object to coerce to int_period.</p></td>
-    </tr>
-    <tr>
-      <th>interval</th>
-      <td><p>How many days to include in each period.</p></td>
-    </tr>
-    <tr>
-      <th>firstdate</th>
-      <td><p>The date to start the intervals from.  If NULL (default) the
-earliest date in the vector will be used.</p></td>
+      <td><p>An object to convert.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not used.</p></td>
+      <td><p>Not currently used.</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>An integer indicating the (fixed) number of days used for
+grouping; defaults to 1.</p></td>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <td><p>Day on which the grouping begins (default 0).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <code>int_period</code> object.</p>
+    <p>A <code>grates_int_period</code> object.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
+    <p>Internally <code>grates_int_period</code> objects are stored as the number of days
+to the earliest day in the specified grouping.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>as_int_period</span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>10</span>, n <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grates_int_period[11]&gt;
+#&gt;  [1] 0 to 1   0 to 1   2 to 3   2 to 3   4 to 5   4 to 5   6 to 7   6 to 7  
+#&gt;  [9] 8 to 9   8 to 9   10 to 11</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

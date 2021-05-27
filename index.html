@@ -90,11 +90,11 @@
 
 <p><strong>grates</strong> provides a simple and coherent implementation of grouped date classes, including:</p>
 <ul>
-<li><grate_yearweek> (<code><a href="reference/as_yearweek.html">as_yearweek()</a></code>) with arbitrary first day of the week;</grate_yearweek></li>
-<li><grate_month> (<code><a href="reference/as_month.html">as_month()</a></code>);</grate_month></li>
-<li><grate_quarter> (<code><a href="reference/as_quarter.html">as_quarter()</a></code>);</grate_quarter></li>
-<li><grate_year> (<code><a href="reference/as_year.html">as_year()</a></code>);</grate_year></li>
-<li><grate_period> and <grate_int_period> (<code><a href="reference/as_period.html">as_period()</a></code>) of arbitrary length.</grate_int_period></grate_period></li>
+<li><grates_yearweek> (<code><a href="reference/as_yearweek.html">as_yearweek()</a></code>) with arbitrary first day of the week;</grates_yearweek></li>
+<li><grates_month> (<code><a href="reference/as_month.html">as_month()</a></code>);</grates_month></li>
+<li><grates_quarter> (<code><a href="reference/as_quarter.html">as_quarter()</a></code>);</grates_quarter></li>
+<li><grates_year> (<code><a href="reference/as_year.html">as_year()</a></code>);</grates_year></li>
+<li><grates_period> (<code><a href="reference/as_period.html">as_period()</a></code>) and <grates_int_period> (<code><a href="reference/as_int_period.html">as_int_period()</a></code>) for periods of constant length.</grates_int_period></grates_period></li>
 </ul>
 <p>These classes aim to be formalise the idea of a grouped date whilst also being intuitive in their use. They build upon ideas of Davis Vaughan and the unreleased <a href="https://github.com/DavisVaughan/datea/">datea</a> package.</p>
 <p>For each of the grouped date classes, <strong>grates</strong> also provides <strong>scales</strong> to use with <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a>.</p>
@@ -157,82 +157,83 @@
 <code class="sourceCode R"><span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2021-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">30</span>
 <span class="va">weeks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="va">dates</span>, firstday <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="co"># firstday = 5 to match first day of year</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">weeks</span>, <span class="fl">8</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2021-W01" "2021-W01" "2021-W01" "2021-W01" "2021-W01" "2021-W01" "2021-W01"</span>
-<span class="co">#&gt; [8] "2021-W02"</span>
+<span class="co">#&gt; &lt;grates_yearweek[8]&gt;</span>
+<span class="co">#&gt; [1] 2021-W01 2021-W01 2021-W01 2021-W01 2021-W01 2021-W01 2021-W01 2021-W02</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">weeks</span><span class="op">)</span>
-<span class="co">#&gt;  'grate_yearweek' num [1:31] 2021-W01 2021-W01 2021-W01 2021-W01 ...</span>
-<span class="co">#&gt;  - attr(*, "firstday")= int 5</span>
+<span class="co">#&gt;  yrwk [1:31] 2021-W01, 2021-W01, 2021-W01, 2021-W01, 2021-W01, 2021-W01, 20...</span>
+<span class="co">#&gt;  @ firstday: int 5</span>
 <span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span><span class="va">dates</span>, <span class="va">weeks</span><span class="op">)</span>
 
 <span class="co"># addition of wholenumbers will add the corresponding number of weeks to the object</span>
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>plus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">+</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 31 x 3</span>
-<span class="co">#&gt;    dates      weeks      plus4     </span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;grt_yrwk&gt; &lt;grt_yrwk&gt;</span>
-<span class="co">#&gt;  1 2021-01-01 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  2 2021-01-02 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  3 2021-01-03 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  4 2021-01-04 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  5 2021-01-05 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  6 2021-01-06 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  7 2021-01-07 2021-W01   2021-W05  </span>
-<span class="co">#&gt;  8 2021-01-08 2021-W02   2021-W06  </span>
-<span class="co">#&gt;  9 2021-01-09 2021-W02   2021-W06  </span>
-<span class="co">#&gt; 10 2021-01-10 2021-W02   2021-W06  </span>
+<span class="co">#&gt;    dates         weeks    plus4</span>
+<span class="co">#&gt;    &lt;date&gt;       &lt;yrwk&gt;   &lt;yrwk&gt;</span>
+<span class="co">#&gt;  1 2021-01-01 2021-W01 2021-W05</span>
+<span class="co">#&gt;  2 2021-01-02 2021-W01 2021-W05</span>
+<span class="co">#&gt;  3 2021-01-03 2021-W01 2021-W05</span>
+<span class="co">#&gt;  4 2021-01-04 2021-W01 2021-W05</span>
+<span class="co">#&gt;  5 2021-01-05 2021-W01 2021-W05</span>
+<span class="co">#&gt;  6 2021-01-06 2021-W01 2021-W05</span>
+<span class="co">#&gt;  7 2021-01-07 2021-W01 2021-W05</span>
+<span class="co">#&gt;  8 2021-01-08 2021-W02 2021-W06</span>
+<span class="co">#&gt;  9 2021-01-09 2021-W02 2021-W06</span>
+<span class="co">#&gt; 10 2021-01-10 2021-W02 2021-W06</span>
 <span class="co">#&gt; # … with 21 more rows</span>
 
 <span class="co"># addition of two yearweek objects will error as it is unclear what the intention is</span>
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>plus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">+</span> <span class="va">weeks</span><span class="op">)</span>
-<span class="co">#&gt; Error: Problem with `mutate()` input `plus4`.</span>
-<span class="co">#&gt; x Cannot add &lt;grate_yearweek&gt; objects to each other</span>
-<span class="co">#&gt; ℹ Input `plus4` is `weeks + weeks`.</span>
+<span class="co">#&gt; Error: Problem with `mutate()` column `plus4`.</span>
+<span class="co">#&gt; ℹ `plus4 = weeks + weeks`.</span>
+<span class="co">#&gt; x &lt;grates_yearweek&gt; + &lt;grates_yearweek&gt; is not permitted</span>
 
 <span class="co"># Subtraction of wholenumbers works similarly to addition</span>
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>minus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">-</span> <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 31 x 3</span>
-<span class="co">#&gt;    dates      weeks      minus4    </span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;grt_yrwk&gt; &lt;grt_yrwk&gt;</span>
-<span class="co">#&gt;  1 2021-01-01 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  2 2021-01-02 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  3 2021-01-03 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  4 2021-01-04 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  5 2021-01-05 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  6 2021-01-06 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  7 2021-01-07 2021-W01   2020-W49  </span>
-<span class="co">#&gt;  8 2021-01-08 2021-W02   2020-W50  </span>
-<span class="co">#&gt;  9 2021-01-09 2021-W02   2020-W50  </span>
-<span class="co">#&gt; 10 2021-01-10 2021-W02   2020-W50  </span>
+<span class="co">#&gt;    dates         weeks   minus4</span>
+<span class="co">#&gt;    &lt;date&gt;       &lt;yrwk&gt;   &lt;yrwk&gt;</span>
+<span class="co">#&gt;  1 2021-01-01 2021-W01 2020-W49</span>
+<span class="co">#&gt;  2 2021-01-02 2021-W01 2020-W49</span>
+<span class="co">#&gt;  3 2021-01-03 2021-W01 2020-W49</span>
+<span class="co">#&gt;  4 2021-01-04 2021-W01 2020-W49</span>
+<span class="co">#&gt;  5 2021-01-05 2021-W01 2020-W49</span>
+<span class="co">#&gt;  6 2021-01-06 2021-W01 2020-W49</span>
+<span class="co">#&gt;  7 2021-01-07 2021-W01 2020-W49</span>
+<span class="co">#&gt;  8 2021-01-08 2021-W02 2020-W50</span>
+<span class="co">#&gt;  9 2021-01-09 2021-W02 2020-W50</span>
+<span class="co">#&gt; 10 2021-01-10 2021-W02 2020-W50</span>
 <span class="co">#&gt; # … with 21 more rows</span>
 
 <span class="co"># Subtraction of two yearweek objects gives the difference in weeks between them</span>
 <span class="va">dat</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>plus4 <span class="op">=</span> <span class="va">weeks</span> <span class="op">+</span> <span class="fl">4</span>, difference <span class="op">=</span> <span class="va">plus4</span> <span class="op">-</span> <span class="va">weeks</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 31 x 4</span>
-<span class="co">#&gt;    dates      weeks      plus4      difference</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;grt_yrwk&gt; &lt;grt_yrwk&gt;      &lt;int&gt;</span>
-<span class="co">#&gt;  1 2021-01-01 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  2 2021-01-02 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  3 2021-01-03 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  4 2021-01-04 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  5 2021-01-05 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  6 2021-01-06 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  7 2021-01-07 2021-W01   2021-W05            4</span>
-<span class="co">#&gt;  8 2021-01-08 2021-W02   2021-W06            4</span>
-<span class="co">#&gt;  9 2021-01-09 2021-W02   2021-W06            4</span>
-<span class="co">#&gt; 10 2021-01-10 2021-W02   2021-W06            4</span>
+<span class="co">#&gt;    dates         weeks    plus4 difference</span>
+<span class="co">#&gt;    &lt;date&gt;       &lt;yrwk&gt;   &lt;yrwk&gt;      &lt;int&gt;</span>
+<span class="co">#&gt;  1 2021-01-01 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  2 2021-01-02 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  3 2021-01-03 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  4 2021-01-04 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  5 2021-01-05 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  6 2021-01-06 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  7 2021-01-07 2021-W01 2021-W05          4</span>
+<span class="co">#&gt;  8 2021-01-08 2021-W02 2021-W06          4</span>
+<span class="co">#&gt;  9 2021-01-09 2021-W02 2021-W06          4</span>
+<span class="co">#&gt; 10 2021-01-10 2021-W02 2021-W06          4</span>
 <span class="co">#&gt; # … with 21 more rows</span>
 
 <span class="co"># weeks can be combined if they have the same firstday but not otherwise</span>
 <span class="va">wk1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span>
 <span class="va">wk2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="st">"2021-01-01"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">wk1</span>, <span class="va">wk2</span><span class="op">)</span>
-<span class="co">#&gt; [1] "2020-W01" "2020-W53"</span>
+<span class="co">#&gt; &lt;grates_yearweek[2]&gt;</span>
+<span class="co">#&gt; [1] 2020-W01 2020-W53</span>
 <span class="va">wk3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="st">"2020-01-01"</span>, firstday <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">wk1</span>, <span class="va">wk3</span><span class="op">)</span>
-<span class="co">#&gt; Error: Unable to combine &lt;grate_yearweek&gt; objects with different `firstday` attributes</span></code></pre></div>
+<span class="co">#&gt; Error: Can't combine &lt;grates_yearweek&gt;'s with different `firstday`</span></code></pre></div>
 </div>
 </div>
   </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>grates: Grouped Date Classes — grates-package • grates</title>
+<title>&lt;grates_quarter&gt; scale — scale_x_grates_quarter • grates</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="grates: Grouped Date Classes — grates-package" />
-<meta property="og:description" content="Provides a coherent interface and implementation for creating
-  grouped date classes. This package is part of the RECON
-  (&amp;lt;https://www.repidemicsconsortium.org/&amp;gt;) toolkit for outbreak analysis." />
+<meta property="og:title" content="&lt;grates_quarter&gt; scale — scale_x_grates_quarter" />
+<meta property="og:description" content="ggplot2 scale for &amp;lt;grates_quarter&amp;gt; vector." />
 
 
 
@@ -125,30 +123,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>grates: Grouped Date Classes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/grates2-package.R'><code>R/grates2-package.R</code></a></small>
-    <div class="hidden name"><code>grates-package.Rd</code></div>
+    <h1>&lt;grates_quarter&gt; scale</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/scale_quarter.R'><code>R/scale_quarter.R</code></a></small>
+    <div class="hidden name"><code>scale_x_grates_quarter.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Provides a coherent interface and implementation for creating
-  grouped date classes. This package is part of the RECON
-  (&lt;https://www.repidemicsconsortium.org/&gt;) toolkit for outbreak analysis.</p>
+    <p>ggplot2 scale for &lt;grates_quarter&gt; vector.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>scale_x_grates_quarter</span><span class='op'>(</span>n.breaks <span class='op'>=</span> <span class='fl'>6</span>, format <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>n.breaks</th>
+      <td><p>Approximate number of breaks calculated using
+<code><a href='https://scales.r-lib.org/reference/breaks_pretty.html'>scales::breaks_pretty</a></code> (default 6).</p></td>
+    </tr>
+    <tr>
+      <th>format</th>
+      <td><p>Format to use if "Date" scales are required. If NULL then
+labels are centralised and of the form "YYYY-Qq. If not NULL then the value
+is used by <code><a href='https://rdrr.io/r/base/as.Date.html'>format.Date()</a></code> and can be any input acceptable by that function.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://www.reconverse.org/grates/'>https://www.reconverse.org/grates/</a></p></li>
-<li><p><a href='https://github.com/reconverse/grates'>https://github.com/reconverse/grates</a></p></li>
-</ul>
-
-</div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p><strong>Maintainer</strong>: Tim Taylor <a href='mailto:tim.taylor@hiddenelephants.co.uk'>tim.taylor@hiddenelephants.co.uk</a> (<a href='https://orcid.org/0000-0002-8587-7113'>ORCID</a>)</p>
+    <p>A scale for use with ggplot2.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

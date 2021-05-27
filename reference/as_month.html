@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert an object to a monthly grates object — as_month • grates</title>
+<title>Convert an object to grates_month object — as_month • grates</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Convert an object to a monthly grates object — as_month" />
+<meta property="og:title" content="Convert an object to grates_month object — as_month" />
 <meta property="og:description" content="
 
 Date, POSIXct, and POSIXlt are converted, with the timezone respected,
@@ -129,8 +129,8 @@ Character input is parsed using clock::date_parse().
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert an object to a monthly grates object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/as_month.R'><code>R/as_month.R</code></a></small>
+    <h1>Convert an object to grates_month object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/month.R'><code>R/month.R</code></a>, <a href='https://github.com/reconverse/grates/blob/master/R/quarter.R'><code>R/quarter.R</code></a></small>
     <div class="hidden name"><code>as_month.Rd</code></div>
     </div>
 
@@ -147,56 +147,35 @@ using <code><a href='https://clock.r-lib.org/reference/as_date.html'>clock::as_d
     <pre class="usage"><span class='fu'>as_month</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>as_month</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for Date</span>
-<span class='fu'>as_month</span><span class='op'>(</span><span class='va'>x</span>, interval <span class='op'>=</span> <span class='fl'>1</span>, origin <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for POSIXt</span>
-<span class='fu'>as_month</span><span class='op'>(</span><span class='va'>x</span>, interval <span class='op'>=</span> <span class='fl'>1</span>, origin <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>as_month</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>1L</span>, origin <span class='op'>=</span> <span class='fl'>0L</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
-<span class='fu'>as_month</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  interval <span class='op'>=</span> <span class='fl'>1</span>,
-  origin <span class='op'>=</span> <span class='cn'>NULL</span>,
-  format <span class='op'>=</span> <span class='cn'>NULL</span>,
-  locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
+<span class='fu'>as_month</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>1L</span>, origin <span class='op'>=</span> <span class='fl'>0L</span>, format <span class='op'>=</span> <span class='cn'>NULL</span>, locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for factor</span>
-<span class='fu'>as_month</span><span class='op'>(</span>
-  <span class='va'>x</span>,
-  interval <span class='op'>=</span> <span class='fl'>1</span>,
-  origin <span class='op'>=</span> <span class='cn'>NULL</span>,
-  format <span class='op'>=</span> <span class='cn'>NULL</span>,
-  locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='fu'>as_month</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>1L</span>, origin <span class='op'>=</span> <span class='fl'>0L</span>, format <span class='op'>=</span> <span class='cn'>NULL</span>, locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for factor</span>
+<span class='fu'><a href='as_quarter.html'>as_quarter</a></span><span class='op'>(</span><span class='va'>x</span>, format <span class='op'>=</span> <span class='cn'>NULL</span>, locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An object to coerce to monthly.</p></td>
+      <td><p>An object to convert.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Not currently used.</p></td>
     </tr>
     <tr>
-      <th>interval</th>
-      <td><p>An integer indicating the (fixed) number of months used for
-grouping; defaults to 1 month.</p></td>
+      <th>n</th>
+      <td><p>Number of months that are being grouped by (default 1).</p></td>
     </tr>
     <tr>
       <th>origin</th>
-      <td><p>The date to anchor the intervals from. All values prior to the
-given <code>origin</code> will be discarded. If NULL (default) the earliest date in
-the vector will be used. If specified, <code>origin</code> must have the same class
-as x.</p></td>
+      <td><p>Month since the Unix epoch where grouping begins (default 0).</p></td>
     </tr>
     <tr>
       <th>format</th>
@@ -354,10 +333,10 @@ three white space characters.</p></li>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>grate_month</code> object.</p>
+    <p>A <code>grates_month</code> object.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Internally <code>grate_month</code> objects are stored as the number of months
+    <p>Internally <code>grates_month</code> objects are stored as the number of months
 (starting at 0) since the Unix Epoch (1970-01-01) to the earliest month in
 the grouping. Precision is only to the month level (i.e. the day of the
 month is always dropped).</p>
@@ -369,12 +348,12 @@ UNIX Epoch comes from the work of Davis Vaughan in the unreleased
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>as_month</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;grate_month&gt;: interval = 1 month
-#&gt; [1] "2021-May"</div><div class='input'><span class='fu'>as_month</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>, interval <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;grate_month&gt;: interval = 2 months
-#&gt; [1] "2019-Mar to 2019-Apr"</div><div class='input'><span class='fu'>as_month</span><span class='op'>(</span><span class='st'>"2019-05-03"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;grate_month&gt;: interval = 1 month
-#&gt; [1] "2019-May"</div><div class='input'>
+</div><div class='output co'>#&gt; &lt;grates_month[1]&gt;
+#&gt; [1] 2021-May</div><div class='input'><span class='fu'>as_month</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span>, interval <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grates_month[1]&gt;
+#&gt; [1] 2019-Mar</div><div class='input'><span class='fu'>as_month</span><span class='op'>(</span><span class='st'>"2019-05-03"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grates_month[1]&gt;
+#&gt; [1] 2019-May</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

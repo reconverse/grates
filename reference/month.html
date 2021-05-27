@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>grates: Grouped Date Classes — grates-package • grates</title>
+<title>Construct a grates_month object — month • grates</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="grates: Grouped Date Classes — grates-package" />
-<meta property="og:description" content="Provides a coherent interface and implementation for creating
-  grouped date classes. This package is part of the RECON
-  (&amp;lt;https://www.repidemicsconsortium.org/&amp;gt;) toolkit for outbreak analysis." />
+<meta property="og:title" content="Construct a grates_month object — month" />
+<meta property="og:description" content="month() is a constructor for a &amp;lt;grates_month&amp;gt; object" />
 
 
 
@@ -125,31 +123,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>grates: Grouped Date Classes</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/grates2-package.R'><code>R/grates2-package.R</code></a></small>
-    <div class="hidden name"><code>grates-package.Rd</code></div>
+    <h1>Construct a grates_month object</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/month.R'><code>R/month.R</code></a></small>
+    <div class="hidden name"><code>month.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Provides a coherent interface and implementation for creating
-  grouped date classes. This package is part of the RECON
-  (&lt;https://www.repidemicsconsortium.org/&gt;) toolkit for outbreak analysis.</p>
+    <p><code>month()</code> is a constructor for a &lt;grates_month&gt; object</p>
     </div>
 
+    <pre class="usage"><span class='fu'>month</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span><span class='op'>(</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fl'>1L</span>, origin <span class='op'>=</span> <span class='fl'>0L</span><span class='op'>)</span>
 
+<span class='fu'>is_month</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>Integer vector representing the number of months since the Unix
+epoch (1970-01-01).</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>Number of months that are being grouped by (default 1).</p></td>
+    </tr>
+    <tr>
+      <th>origin</th>
+      <td><p>Month since the Unix epoch where grouping begins (default 0).</p></td>
+    </tr>
+    </table>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://www.reconverse.org/grates/'>https://www.reconverse.org/grates/</a></p></li>
-<li><p><a href='https://github.com/reconverse/grates'>https://github.com/reconverse/grates</a></p></li>
-</ul>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-</div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+    <p>The algorithm to convert between dates and months relative to the
+UNIX Epoch comes from the work of Davis Vaughan in the unreleased
+<a href='https://github.com/DavisVaughan/datea/'>datea</a> package.</p>
 
-    <p><strong>Maintainer</strong>: Tim Taylor <a href='mailto:tim.taylor@hiddenelephants.co.uk'>tim.taylor@hiddenelephants.co.uk</a> (<a href='https://orcid.org/0000-0002-8587-7113'>ORCID</a>)</p>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>month</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grates_month[1]&gt;
+#&gt; [1] 1970-Feb</div><div class='input'><span class='fu'>month</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>7</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fl'>3</span>, origin <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grates_month[2]&gt;
+#&gt; [1] 1970-May to 1970-Jul 1970-Aug to 1970-Oct</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

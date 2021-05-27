@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert an object to yearweek — as_yearweek • grates</title>
+<title>Convert an object to grates_yearweek — as_yearweek • grates</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Convert an object to yearweek — as_yearweek" />
+<meta property="og:title" content="Convert an object to grates_yearweek — as_yearweek" />
 <meta property="og:description" content="
 
 Date, POSIXct, and POSIXlt are converted, with the timezone respected,
@@ -132,8 +132,8 @@ or format is non-NULL then it is parsed  using clock::date_parse().
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert an object to yearweek</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/as_yearweek.R'><code>R/as_yearweek.R</code></a></small>
+    <h1>Convert an object to grates_yearweek</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconverse/grates/blob/master/R/yearweek.R'><code>R/yearweek.R</code></a></small>
     <div class="hidden name"><code>as_yearweek.Rd</code></div>
     </div>
 
@@ -150,22 +150,19 @@ or <code>format</code> is non-NULL then it is parsed  using <code><a href='https
 
     </div>
 
-    <pre class="usage"><span class='fu'>as_yearweek</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>as_yearweek</span><span class='op'>(</span><span class='va'>x</span>, firstday <span class='op'>=</span> <span class='fl'>1L</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>as_yearweek</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for grate_yearweek</span>
-<span class='fu'>as_yearweek</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for Date</span>
-<span class='fu'>as_yearweek</span><span class='op'>(</span><span class='va'>x</span>, firstday <span class='op'>=</span> <span class='fl'>1L</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S3 method for POSIXt</span>
 <span class='fu'>as_yearweek</span><span class='op'>(</span><span class='va'>x</span>, firstday <span class='op'>=</span> <span class='fl'>1L</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for character</span>
-<span class='fu'>as_yearweek</span><span class='op'>(</span><span class='va'>x</span>, firstday <span class='op'>=</span> <span class='fl'>1L</span>, format <span class='op'>=</span> <span class='cn'>NULL</span>, locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>as_yearweek</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  firstday <span class='op'>=</span> <span class='fl'>1L</span>,
+  format <span class='op'>=</span> <span class='st'>"%Y-%m-%d"</span>,
+  locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
 <span class='co'># S3 method for factor</span>
 <span class='fu'>as_yearweek</span><span class='op'>(</span><span class='va'>x</span>, firstday <span class='op'>=</span> <span class='fl'>1L</span>, format <span class='op'>=</span> <span class='cn'>NULL</span>, locale <span class='op'>=</span> <span class='fu'><a href='clock_locale.html'>clock_locale</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
@@ -178,13 +175,13 @@ or <code>format</code> is non-NULL then it is parsed  using <code><a href='https
       <td><p>An object to coerce to yearweekly.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Not currently used.</p></td>
-    </tr>
-    <tr>
       <th>firstday</th>
       <td><p>An integer representing the day the week starts on from 1
 (Monday) to 7 (Sunday).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not currently used.</p></td>
     </tr>
     <tr>
       <th>format</th>
@@ -342,10 +339,10 @@ three white space characters.</p></li>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>grate_yearweek</code> object.</p>
+    <p>A <code>grates_yearweek</code> object.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>Internally <code>yearweek</code> objects are stored as the number of weeks
+    <p>Internally <code>grates_yearweek</code> objects are stored as the number of weeks
 from the date of the <code>firstday</code> nearest the Unix Epoch (1970-01-01).  That
 is:</p><pre>- 1969-12-29 for `firstday` as Monday
 - 1969-12-30 for `firstday` as Tuesday
@@ -362,10 +359,14 @@ is:</p><pre>- 1969-12-29 for `firstday` as Monday
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>as_yearweek</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2021-W20"</div><div class='input'><span class='fu'>as_yearweek</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2019-W10"</div><div class='input'><span class='fu'>as_yearweek</span><span class='op'>(</span><span class='st'>"2019-05-03"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2019-W18"</div><div class='input'><span class='fu'>as_yearweek</span><span class='op'>(</span><span class='st'>"2021-W03"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "2021-W03"</div><div class='input'>
+</div><div class='output co'>#&gt; &lt;grates_yearweek[1]&gt;
+#&gt; [1] 2021-W21</div><div class='input'><span class='fu'>as_yearweek</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/as.POSIXlt.html'>as.POSIXct</a></span><span class='op'>(</span><span class='st'>"2019-03-04 01:01:01"</span>, tz <span class='op'>=</span> <span class='st'>"America/New_York"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grates_yearweek[1]&gt;
+#&gt; [1] 2019-W10</div><div class='input'><span class='fu'>as_yearweek</span><span class='op'>(</span><span class='st'>"2019-05-03"</span>, firstday <span class='op'>=</span> <span class='fl'>5L</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grates_yearweek[1]&gt;
+#&gt; [1] 2019-W18</div><div class='input'><span class='fu'>as_yearweek</span><span class='op'>(</span><span class='st'>"2021-W03"</span>, format <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;grates_yearweek[1]&gt;
+#&gt; [1] 2021-W03</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
