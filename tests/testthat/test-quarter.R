@@ -101,7 +101,7 @@ test_that("as_quarter.factor works as expected", {
 test_that("as.POSIXct.grate_quarter works as expected", {
   dat <- "2021-01-04"
   res <- as.POSIXct(as_quarter(dat))
-  expect_equal(res, as.POSIXct(as.POSIXlt("2021-01-01", tz = "")))
+  expect_equal(res, as.POSIXct(as.POSIXlt("2021-01-01"), tz = ""))
 })
 
 

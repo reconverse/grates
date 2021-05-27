@@ -73,7 +73,7 @@ test_that("as_year.factor works as expected", {
 test_that("as.POSIXct.year works as expected", {
   dat <- "2021-01-04"
   res <- as.POSIXct(as_year(dat))
-  expect_equal(res, as.POSIXct(as.POSIXlt("2021-01-01", tz = "")))
+  expect_equal(res, as.POSIXct(as.POSIXlt("2021-01-01"), tz = ""))
 })
 
 

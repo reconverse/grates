@@ -181,7 +181,7 @@ test_that("as_period.factor works as expected", {
 test_that("as.POSIXct.period works as expected", {
   dat <- "2021-01-04"
   res <- as.POSIXct(as_period(dat, origin = as.integer(as.Date("2021-01-03")), n = 2))
-  expect_equal(res, as.POSIXct(as.POSIXlt("2021-01-03", tz = "")))
+  expect_equal(res, as.POSIXct(as.POSIXlt("2021-01-03"), tz = ""))
 })
 
 

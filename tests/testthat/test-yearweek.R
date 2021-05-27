@@ -160,7 +160,7 @@ test_that("as_yearweek errors correctly", {
 test_that("as.POSIXct.yearweek works as expected", {
   dat <- "2021-01-04"
   res <- as.POSIXct(as_yearweek(dat, 1))
-  expect_equal(res, as.POSIXct(as.POSIXlt(dat, tz = "")))
+  expect_equal(res, as.POSIXct(as.POSIXlt(dat), tz = ""))
 })
 
 
