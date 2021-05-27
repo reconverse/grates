@@ -28,7 +28,7 @@
 \alias{get_date_range.grates_quarter}
 \alias{get_date_range.grates_period}
 \alias{get_date_range.grates_year}
-\alias{get_date_bounds.grates_int_period}
+\alias{get_date_range.grates_int_period}
 \title{Grouped date accessors}
 \usage{
 get_n(x, ...)
@@ -83,7 +83,7 @@ get_date_range(x, ...)
 
 \method{get_date_range}{grates_year}(x, ...)
 
-get_date_bounds.grates_int_period(x, ...)
+\method{get_date_range}{grates_int_period}(x, ...)
 }
 \arguments{
 \item{x}{A grates object.}

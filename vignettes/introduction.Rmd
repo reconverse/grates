@@ -165,7 +165,7 @@ dat %>%
   count(date, name = "cases") %>% 
   na.omit() %>% 
   ggplot(aes(date, cases)) + 
-    geom_col(width = 3, colour = "white") + 
+    geom_col(width = 1, colour = "white") + 
     scale_x_grates_quarter(n.breaks = 10) +
     theme_bw() + 
     xlab("")

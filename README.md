@@ -14,13 +14,13 @@ coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](
 **grates** provides a simple and coherent implementation of grouped date
 classes, including:
 
-  - <grate_yearweek> (`as_yearweek()`) with arbitrary first day of the
+  - <grates_yearweek> (`as_yearweek()`) with arbitrary first day of the
     week;
-  - <grate_month> (`as_month()`);
-  - <grate_quarter> (`as_quarter()`);
-  - <grate_year> (`as_year()`);
-  - <grate_period> and <grate_int_period> (`as_period()`) of arbitrary
-    length.
+  - <grates_month> (`as_month()`);
+  - <grates_quarter> (`as_quarter()`);
+  - <grates_year> (`as_year()`);
+  - <grates_period> (`as_period()`) and <grates_int_period>
+    (`as_int_period()`) for periods of constant length.
 
 These classes aim to be formalise the idea of a grouped date whilst also
 being intuitive in their use. They build upon ideas of Davis Vaughan and

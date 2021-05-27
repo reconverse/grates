@@ -151,7 +151,7 @@ format.grates_period <- function(x, format = "%Y-%m-%d", sep = "to", ...) {
 }
 
 #' @export
-vec_ptype_abbr.grates_period <- function(x, ...) "prd"
+vec_ptype_abbr.grates_period <- function(x, ...) "period"
 
 #vec_ptype_full.grates_period <- function(x, ...) sprintf("period: n = %d", attr(x, "n"))
 

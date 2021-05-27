@@ -201,8 +201,10 @@ get_date_range.grates_year <- function(x, ...) {
 
 #' @rdname grates_accessors
 #' @export
-get_date_bounds.grates_int_period <- function(x, ...) {
-  c(as.integer(x), as.integer(x + 1) - 1)
+get_date_range.grates_int_period <- function(x, ...) {
+  minx <- min(x, na.rm = TRUE)
+  maxx <- max(x, na.rm = TRUE)
+  c(as.integer(minx), as.integer(maxx + 1) - 1)
 }
 
 
@@ -212,5 +214,7 @@ get_date_bounds.grates_int_period <- function(x, ...) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 get_range <- function(x) {
-  c(as.Date(x), as.Date(x + 1) - 1)
+  minx <- min(x, na.rm = TRUE)
+  maxx <- max(x, na.rm = TRUE)
+  c(as.Date(minx), as.Date(maxx + 1) - 1)
 }

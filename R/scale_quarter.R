@@ -37,6 +37,7 @@ grates_quarter_trans <- function(n.breaks, format) {
   # breaks function
   brks <- function(x) {
     dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
+    dat <- as.integer(dat)
     as.numeric(as_month(dat, n = 3L, origin = 0L)) - shift
   }
 
