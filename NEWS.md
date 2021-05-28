@@ -1,4 +1,4 @@
-# grates 0.1.2.9000 (Development version)
+# grates 0.2.0
 
 * This is a breaking release that changes the underlying implementations of the
   different grate constructors and associated scales for ggplot2. There has also
