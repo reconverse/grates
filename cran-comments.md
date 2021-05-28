@@ -1,8 +1,13 @@
 ## Reason for submission
-* Bug fix
+* Improvements to underlying implementation.
+
+## Downstream  dependencies
+This release breaks the downstream  dependency incidence2. I am the maintainer
+of that package and have an updated version ready to submit  once this package
+is accepted on to CRAN. 
 
 ## Tested on the following environments
-* Fedora 33, R Under development (unstable) (2021-03-26 r80122)
+* Fedora 34, R Under development (unstable) (2021-05-27 r80400)
 
 ## R CMD check results
 
