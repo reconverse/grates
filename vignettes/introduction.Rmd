@@ -19,12 +19,22 @@ knitr::opts_chunk$set(
 
 # Overview
 
-**grates** makes it easy to perform common date grouping operations and provides
-multiple grouped date classes for users to work with including *grates_yearweek*,
-*grates_month*, *grates_quarter*, *grates_year*, *grates_period* and
-*grates_int_period*.  These classes aim to formalise the idea of a grouped date
-whilst also being intuitive in their use. They build upon ideas of Davis Vaughan
-and the unreleased [**datea**](https://github.com/DavisVaughan/datea/) package. 
+grates tries to make it easy to perform common date grouping operation by providing a simple and coherent implementations of a variety ofgrouped date classes:
+
+* *grates_yearweek* with arbitrary first day of the week (see `as_yearweek()`);
+* *grates_month* (see `as_month()`);
+* *grates_quarter* (see `as_quarter()`);
+* *grates_year* (see `as_year()`);
+* *grates_period* and *grates_int_period* for periods of constant length (see `as_period()` and `as_int_period()`).
+
+These classes aim to be formalise the idea of a grouped date whilst also being intuitive in their use.
+They build upon ideas of Davis Vaughan and the [datea](https://github.com/DavisVaughan/datea/) package.
+
+As well as the class implementations we also provide x-axis scales for use with [ggplot2](https://cran.r-project.org/package=ggplot2). 
+
+**NOTE**: When plotting graphs you may want more flexibility then the built in scales provide.
+If you find yourself in this situation there is always the option to convert the grouped object to a date using the provided `as.Date` method.
+This will return the date at the lower bound of the grouping. Equally you can convert to a factor with `as.factor`.
 
 ```{r setup, message=FALSE}
 library(grates)
@@ -33,14 +43,12 @@ library(outbreaks)
 library(dplyr)
 ```
 
-
 ## grates_yearweek
-`as_yearweek()` allows you to create <grates_yearweek> objects. As arguments it
-takes, `x`, the date vector you wish to group and `firstday`, the day of the
-week you wish your weeks to start on; (this defaults to 1 (Monday) and can go up
-to 7 (Sunday)). The first week of the year is then defined as the first week
-containing 4 days in the new calendar year. This means that the calendar year
-can sometimes be different to that of the `yearweek` object.
+`as_yearweek()` allows you to create *grates_yearweek* objects.
+As arguments it takes, `x`, the date vector you wish to group and `firstday`, the day of the week you wish your weeks to start on;
+(this defaults to 1 (Monday) and can go up to 7 (Sunday)).
+The first week of the year is then defined as the first week containing 4 days in the new calendar year.
+This means that the calendar year can sometimes be different to that of the associated `yearweek` object.
 
 ```{r yearweekdemo}
 # create weekday names
@@ -53,8 +61,7 @@ dat <- lapply(wdays, function(x) as_yearweek(dates, x))
 bind_cols(dates = dates, dat)
 ```
 
-We make working with `yearweek` and other grouped date objects easier by adopting
-logical conventions:
+We make working with `yearweek` and other grouped date objects easier by adopting logical conventions:
 
 ```{r yearweekconventions, error=TRUE}
 dates <- as.Date("2021-01-01") + 0:30
@@ -85,14 +92,11 @@ wk2 <- as_yearweek("2021-01-01")
 c(wk1, wk2)
 wk3 <- as_yearweek("2020-01-01", firstday = 2)
 c(wk1, wk3)
-```
 
-For each date group we also provide associated
-[ggplot2](https://cran.r-project.org/package=ggplot2) scales for the x-axis:
-
-```{r yearweekplots}
+# load some simulated linelist data
 dat <- ebola_sim_clean$linelist
 
+# Example of week plot
 week_plot <- 
   dat %>%
   mutate(week = as_yearweek(date_of_infection), firstday = 7) %>% 
@@ -110,13 +114,14 @@ week_plot + scale_x_grates_yearweek(format = "%Y-%m-%d", firstday = 7)
 ```
 
 ## grates_month
-`as_month` allows users to group by a fixed number of months. As arguments it
-takes, `x`, the date vector you wish to group, `n`, the number of months
-you wish to group by (defaulting to 1) and, finally, `origin`, an optional value
-indicating where you would like to start your periods from relative to the Unix
-Epoch (1970-01-01). By default the provided scale creates a histogram-like
-plot (unlike a histogram the widths of the intervals in the plot are identical
-across months) but can be changed to have centralised labelling.
+`as_month` allows users to group by a fixed number of months.
+As arguments it takes: 
+
++ `x`, the date vector you wish to group;
++ `n`, the number of months you wish to group by (defaulting to 1) and; 
++ `origin`, an optional value indicating where you would like to start your periods from relative to the Unix Epoch (1970-01-01).
+
+By default the provided scale creates a histogram-like plot (unlike a histogram the widths of the intervals in the plot are identical across months) but this can be changed to have centralised labelling.
 
 ```{r month}
 month_dat <- 
@@ -134,17 +139,11 @@ month_plot <-
 
 month_plot
 
-month_plot + 
-  scale_x_grates_month(
-    format = NULL,
-    n = 2,
-    origin = 0
-  )
+month_plot + scale_x_grates_month(format = NULL, n = 2, origin = 0)
 ```
 
 ## grate_quarter and grate_year
-`as_quarter()` and `as_year()` behave similarly to `as_yearweek()` with the main
-difference main being that they have no need for a `firstday` argument:
+`as_quarter()` and `as_year()` behave similarly to `as_yearweek()` with the main difference main being that they have no need for a `firstday` argument:
 
 ```{r yearothers}
 # create weekday names
@@ -154,12 +153,7 @@ as_quarter(dates)
 as_year(dates)
 as_quarter(dates[1]) + 0:1
 as_year(dates[1]) + 0:1
-```
 
-Again we provide [ggplot2](https://cran.r-project.org/package=ggplot2) scales 
-for the x-axis:
-
-```{r yearothersplots}
 dat %>%
   mutate(date = as_quarter(date_of_infection)) %>% 
   count(date, name = "cases") %>% 
@@ -181,12 +175,9 @@ dat %>%
     xlab("")
 ```
 
-
-
 ## period
-`as_period` is similar to `as_month` and allows users to group by periods of a
-fixed length. As arguments it takes, `x`, the date or integer vector you wish to
-group, `n` and `origin`.
+`as_period()` is similar to `as_month()` and allows users to group by periods of a fixed length.
+As arguments it takes, `x`, the date or integer vector you wish to group, `n` and `origin`.
 
 ```{r period}
 dat %>%
