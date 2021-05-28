@@ -95,7 +95,22 @@
 <div id="overview" class="section level1">
 <h1 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h1>
-<p><strong>grates</strong> makes it easy to perform common date grouping operations and provides multiple grouped date classes for users to work with including <em>grates_yearweek</em>, <em>grates_month</em>, <em>grates_quarter</em>, <em>grates_year</em>, <em>grates_period</em> and <em>grates_int_period</em>. These classes aim to formalise the idea of a grouped date whilst also being intuitive in their use. They build upon ideas of Davis Vaughan and the unreleased <a href="https://github.com/DavisVaughan/datea/"><strong>datea</strong></a> package.</p>
+<p>grates tries to make it easy to perform common date grouping operation by providing a simple and coherent implementations of a variety ofgrouped date classes:</p>
+<ul>
+<li>
+<em>grates_yearweek</em> with arbitrary first day of the week (see <code><a href="../reference/as_yearweek.html">as_yearweek()</a></code>);</li>
+<li>
+<em>grates_month</em> (see <code><a href="../reference/as_month.html">as_month()</a></code>);</li>
+<li>
+<em>grates_quarter</em> (see <code><a href="../reference/as_quarter.html">as_quarter()</a></code>);</li>
+<li>
+<em>grates_year</em> (see <code><a href="../reference/as_year.html">as_year()</a></code>);</li>
+<li>
+<em>grates_period</em> and <em>grates_int_period</em> for periods of constant length (see <code><a href="../reference/as_period.html">as_period()</a></code> and <code><a href="../reference/as_int_period.html">as_int_period()</a></code>).</li>
+</ul>
+<p>These classes aim to be formalise the idea of a grouped date whilst also being intuitive in their use. They build upon ideas of Davis Vaughan and the <a href="https://github.com/DavisVaughan/datea/">datea</a> package.</p>
+<p>As well as the class implementations we also provide x-axis scales for use with <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a>.</p>
+<p><strong>NOTE</strong>: When plotting graphs you may want more flexibility then the built in scales provide. If you find yourself in this situation there is always the option to convert the grouped object to a date using the provided <code>as.Date</code> method. This will return the date at the lower bound of the grouping. Equally you can convert to a factor with <code>as.factor</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.reconverse.org/grates/">grates</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
@@ -104,7 +119,7 @@
 <div id="grates_yearweek" class="section level2">
 <h2 class="hasAnchor">
 <a href="#grates_yearweek" class="anchor"></a>grates_yearweek</h2>
-<p><code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> allows you to create <grates_yearweek> objects. As arguments it takes, <code>x</code>, the date vector you wish to group and <code>firstday</code>, the day of the week you wish your weeks to start on; (this defaults to 1 (Monday) and can go up to 7 (Sunday)). The first week of the year is then defined as the first week containing 4 days in the new calendar year. This means that the calendar year can sometimes be different to that of the <code>yearweek</code> object.</grates_yearweek></p>
+<p><code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> allows you to create <em>grates_yearweek</em> objects. As arguments it takes, <code>x</code>, the date vector you wish to group and <code>firstday</code>, the day of the week you wish your weeks to start on; (this defaults to 1 (Monday) and can go up to 7 (Sunday)). The first week of the year is then defined as the first week containing 4 days in the new calendar year. This means that the calendar year can sometimes be different to that of the associated <code>yearweek</code> object.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create weekday names</span>
 <span class="va">wdays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">weekdays</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span>, firstday <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>
@@ -204,11 +219,12 @@
 <span class="co">#&gt; [1] 2020-W01 2020-W53</span>
 <span class="va">wk3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="st">"2020-01-01"</span>, firstday <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">wk1</span>, <span class="va">wk3</span><span class="op">)</span>
-<span class="co">#&gt; Error: Can't combine &lt;grates_yearweek&gt;'s with different `firstday`</span></code></pre></div>
-<p>For each date group we also provide associated <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> scales for the x-axis:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span>
+<span class="co">#&gt; Error: Can't combine &lt;grates_yearweek&gt;'s with different `firstday`</span>
 
+<span class="co"># load some simulated linelist data</span>
+<span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span>
+
+<span class="co"># Example of week plot</span>
 <span class="va">week_plot</span> <span class="op">&lt;-</span> 
   <span class="va">dat</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>week <span class="op">=</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="va">date_of_infection</span><span class="op">)</span>, firstday <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -217,17 +233,26 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">week</span>, <span class="va">cases</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">week_plot</span></code></pre></div>
-<p><img src="introduction_files/figure-html/yearweekplots-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="introduction_files/figure-html/yearweekconventions-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We can have date labels on the x_axis by utilising <code>scale_x_grate_yearweek</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">week_plot</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_x_grates_yearweek.html">scale_x_grates_yearweek</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span>, firstday <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction_files/figure-html/yearweekplots2-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="grates_month" class="section level2">
 <h2 class="hasAnchor">
 <a href="#grates_month" class="anchor"></a>grates_month</h2>
-<p><code>as_month</code> allows users to group by a fixed number of months. As arguments it takes, <code>x</code>, the date vector you wish to group, <code>n</code>, the number of months you wish to group by (defaulting to 1) and, finally, <code>origin</code>, an optional value indicating where you would like to start your periods from relative to the Unix Epoch (1970-01-01). By default the provided scale creates a histogram-like plot (unlike a histogram the widths of the intervals in the plot are identical across months) but can be changed to have centralised labelling.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p><code>as_month</code> allows users to group by a fixed number of months. As arguments it takes:</p>
+<ul>
+<li>
+<code>x</code>, the date vector you wish to group;</li>
+<li>
+<code>n</code>, the number of months you wish to group by (defaulting to 1) and;</li>
+<li>
+<code>origin</code>, an optional value indicating where you would like to start your periods from relative to the Unix Epoch (1970-01-01).</li>
+</ul>
+<p>By default the provided scale creates a histogram-like plot (unlike a histogram the widths of the intervals in the plot are identical across months) but this can be changed to have centralised labelling.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">month_dat</span> <span class="op">&lt;-</span> 
   <span class="va">dat</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_month.html">as_month</a></span><span class="op">(</span><span class="va">date_of_infection</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -243,21 +268,16 @@
 
 <span class="va">month_plot</span></code></pre></div>
 <p><img src="introduction_files/figure-html/month-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">month_plot</span> <span class="op">+</span> 
-  <span class="fu"><a href="../reference/scale_x_grates_month.html">scale_x_grates_month</a></span><span class="op">(</span>
-    format <span class="op">=</span> <span class="cn">NULL</span>,
-    n <span class="op">=</span> <span class="fl">2</span>,
-    origin <span class="op">=</span> <span class="fl">0</span>
-  <span class="op">)</span></code></pre></div>
+<span class="va">month_plot</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_x_grates_month.html">scale_x_grates_month</a></span><span class="op">(</span>format <span class="op">=</span> <span class="cn">NULL</span>, n <span class="op">=</span> <span class="fl">2</span>, origin <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction_files/figure-html/month-2.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="grate_quarter-and-grate_year" class="section level2">
 <h2 class="hasAnchor">
 <a href="#grate_quarter-and-grate_year" class="anchor"></a>grate_quarter and grate_year</h2>
 <p><code><a href="../reference/as_quarter.html">as_quarter()</a></code> and <code><a href="../reference/as_year.html">as_year()</a></code> behave similarly to <code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> with the main difference main being that they have no need for a <code>firstday</code> argument:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create weekday names</span>
 <span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span>, to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2021-12-01"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"1 month"</span><span class="op">)</span>
 
@@ -275,10 +295,9 @@
 <span class="co">#&gt; [1] 2020-Q1 2020-Q2</span>
 <span class="fu"><a href="../reference/as_year.html">as_year</a></span><span class="op">(</span><span class="va">dates</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span>
 <span class="co">#&gt; &lt;grates_year[2]&gt;</span>
-<span class="co">#&gt; [1] 2020 2021</span></code></pre></div>
-<p>Again we provide <a href="https://cran.r-project.org/package=ggplot2">ggplot2</a> scales for the x-axis:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">%&gt;%</span>
+<span class="co">#&gt; [1] 2020 2021</span>
+
+<span class="va">dat</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_quarter.html">as_quarter</a></span><span class="op">(</span><span class="va">date_of_infection</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date</span>, name <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -287,8 +306,8 @@
     <span class="fu"><a href="../reference/scale_x_grates_quarter.html">scale_x_grates_quarter</a></span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/yearothersplots-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p><img src="introduction_files/figure-html/yearothers-1.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">dat</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_year.html">as_year</a></span><span class="op">(</span><span class="va">date_of_infection</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -299,13 +318,13 @@
     <span class="fu"><a href="../reference/scale_x_grates_year.html">scale_x_grates_year</a></span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
-<p><img src="introduction_files/figure-html/yearothersplots-2.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="introduction_files/figure-html/yearothers-2.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="period" class="section level2">
 <h2 class="hasAnchor">
 <a href="#period" class="anchor"></a>period</h2>
-<p><code>as_period</code> is similar to <code>as_month</code> and allows users to group by periods of a fixed length. As arguments it takes, <code>x</code>, the date or integer vector you wish to group, <code>n</code> and <code>origin</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<p><code><a href="../reference/as_period.html">as_period()</a></code> is similar to <code><a href="../reference/as_month.html">as_month()</a></code> and allows users to group by periods of a fixed length. As arguments it takes, <code>x</code>, the date or integer vector you wish to group, <code>n</code> and <code>origin</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_period.html">as_period</a></span><span class="op">(</span><span class="va">date_of_infection</span>, n <span class="op">=</span> <span class="fl">14</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">date</span>, name <span class="op">=</span> <span class="st">"cases"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -315,7 +334,7 @@
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></code></pre></div>
 <p><img src="introduction_files/figure-html/period-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">dat</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="../reference/as_period.html">as_period</a></span><span class="op">(</span><span class="va">date_of_infection</span>, n <span class="op">=</span> <span class="fl">28</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
