@@ -94,7 +94,7 @@ ggplot(weekly_dat, aes(date, cases)) + geom_col(width = 1, colour = "white") + t
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
-We make working with `<grate_yearweek>` and other grouped date objects
+We make working with `<grates_yearweek>` and other grouped date objects
 easier by adopting logical conventions:
 
 ``` r
