@@ -241,6 +241,11 @@ vec_math.grates_quarter <- function(.fn, .x, ...) {
   )
 }
 
+#' @export
+quantile.grates_quarter <- function(x, type = 1, ...) {
+  q <- as.integer(quantile(unclass(x), type = type, ...))
+  new_quarter(q)
+}
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #

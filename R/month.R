@@ -339,6 +339,14 @@ vec_math.grates_month <- function(.fn, .x, ...) {
   )
 }
 
+#' @export
+quantile.grates_month <- function(x, type = 1, ...) {
+  n <- attr(x, "n")
+  origin <- attr(x, "origin")
+  months <- as.integer(quantile(unclass(x), type = type, ...) %/% n) * n
+  new_month(months, n = n, origin = origin)
+}
+
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #

@@ -9,7 +9,7 @@ NULL
 #' @importFrom clock as_date as_date_time as_zoned_time clock_locale
 #' @importFrom clock date_build date_group date_parse date_time_build date_zone
 #' @importFrom ellipsis check_dots_empty
-#' @importFrom stats setNames
+#' @importFrom stats setNames quantile
 #' @keywords internal
 "_PACKAGE"
 

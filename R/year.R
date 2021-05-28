@@ -230,6 +230,12 @@ vec_math.grates_year <- function(.fn, .x, ...) {
   )
 }
 
+#' @export
+quantile.grates_year <- function(x, type = 1, ...) {
+  q <- as.integer(quantile(unclass(x), type = type, ...))
+  new_year(q)
+}
+
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #

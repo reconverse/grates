@@ -330,6 +330,14 @@ vec_math.grates_period <- function(.fn, .x, ...) {
 }
 
 
+#' @export
+quantile.grates_period <- function(x, type = 1, ...) {
+  n <- attr(x, "n")
+  origin <- attr(x, "origin")
+  periods <- as.integer(quantile(unclass(x), type = type, ...))
+  as_period(periods, n = n, origin = origin)
+}
+
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 # ------------------------------ ARITHMETIC ------------------------------- #

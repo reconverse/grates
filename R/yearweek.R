@@ -352,6 +352,13 @@ vec_math.grates_yearweek <- function(.fn, .x, ...) {
   )
 }
 
+#' @export
+quantile.grates_yearweek <- function(x, type = 1, ...) {
+  firstday <- attr(x, "firstday")
+  weeks <- as.integer(quantile(unclass(x), type = type, ...))
+  new_yearweek(weeks, firstday = firstday)
+}
+
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #

@@ -276,6 +276,13 @@ vec_math.grates_int_period <- function(.fn, .x, ...) {
   )
 }
 
+#' @export
+quantile.grates_int_period <- function(x, type = 1, ...) {
+  n <- attr(x, "n")
+  origin <- attr(x, "origin")
+  vec_cast(quantile(unclass(x), type = type, ...), new_int_period(n = n, origin = origin))
+}
+
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
