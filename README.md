@@ -11,24 +11,23 @@ coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](
 [![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-maturing.svg)](https://www.reconverse.org/lifecycle.html#maturing)
 <!-- badges: end -->
 
-**grates** provides a simple and coherent implementation of grouped date
-classes, including:
+grates provides a simple and coherent implementation of grouped date
+classes:
 
-  - <grates_yearweek> (`as_yearweek()`) with arbitrary first day of the
-    week;
-  - <grates_month> (`as_month()`);
-  - <grates_quarter> (`as_quarter()`);
-  - <grates_year> (`as_year()`);
-  - <grates_period> (`as_period()`) and <grates_int_period>
-    (`as_int_period()`) for periods of constant length.
+  - *grates\_yearweek* with arbitrary first day of the week (see
+    `as_yearweek()`);
+  - *grates\_month* (see `as_month()`);
+  - *grates\_quarter* (see `as_quarter()`);
+  - *grates\_year* (see `as_year()`);
+  - *grates\_period* and **grates\_int\_period** for periods of constant
+    length (see `as_period()` and `as_int_period()`).
 
 These classes aim to be formalise the idea of a grouped date whilst also
 being intuitive in their use. They build upon ideas of Davis Vaughan and
-the unreleased [datea](https://github.com/DavisVaughan/datea/) package.
+the [datea](https://github.com/DavisVaughan/datea/) package.
 
-For each of the grouped date classes, **grates** also provides
-**scales** to use with
-[ggplot2](https://cran.r-project.org/package=ggplot2).
+For each of the grouped date classes, grates also provides scales to use
+with [ggplot2](https://cran.r-project.org/package=ggplot2).
 
 ## Installation
 
@@ -42,9 +41,9 @@ if (!require(remotes)) {
 remotes::install_github("reconverse/grates", build_vignettes = TRUE)
 ```
 
-You can install the current version of the package from the releases
-[page](https://github.com/reconverse/grates/releases) or directly from
-[CRAN](https://cran.r-project.org/) with:
+You can install the current version of the package from either the
+releases [page](https://github.com/reconverse/grates/releases) or
+directly from [CRAN](https://cran.r-project.org/) with:
 
 ``` r
 install.packages("grates")
@@ -52,11 +51,13 @@ install.packages("grates")
 
 ## Vignette
 
-A short illustration of **grates** functionality is provided in the
-worked example below. A more detailed introduction is available in the
-vignette included with the package:
+A short illustration to grates functionality is provided in the worked
+example below but a more detailed introduction can be found in the
+included vignette
 
-  - `vignette("introduction", package = "grates")`
+``` r
+`vignette("introduction", package = "grates")`
+```
 
 ## Example
 
@@ -108,8 +109,7 @@ str(weeks)
 dat <- tibble(dates, weeks)
 
 # addition of wholenumbers will add the corresponding number of weeks to the object
-dat %>% 
-  mutate(plus4 = weeks + 4)
+mutate(dat, plus4 = weeks + 4)
 #> # A tibble: 31 x 3
 #>    dates         weeks    plus4
 #>    <date>       <yrwk>   <yrwk>
@@ -126,15 +126,13 @@ dat %>%
 #> # … with 21 more rows
 
 # addition of two yearweek objects will error as it is unclear what the intention is
-dat %>% 
-  mutate(plus4 = weeks + weeks)
-#> Error: Problem with `mutate()` column `plus4`.
-#> ℹ `plus4 = weeks + weeks`.
+mutate(dat, addweeks = weeks + weeks)
+#> Error: Problem with `mutate()` column `addweeks`.
+#> ℹ `addweeks = weeks + weeks`.
 #> x <grates_yearweek> + <grates_yearweek> is not permitted
 
 # Subtraction of wholenumbers works similarly to addition
-dat %>% 
-  mutate(minus4 = weeks - 4)
+mutate(dat, minus4 = weeks - 4)
 #> # A tibble: 31 x 3
 #>    dates         weeks   minus4
 #>    <date>       <yrwk>   <yrwk>
@@ -151,8 +149,7 @@ dat %>%
 #> # … with 21 more rows
 
 # Subtraction of two yearweek objects gives the difference in weeks between them
-dat %>% 
-  mutate(plus4 = weeks + 4, difference = plus4 - weeks)
+mutate(dat, plus4 = weeks + 4, difference = plus4 - weeks)
 #> # A tibble: 31 x 4
 #>    dates         weeks    plus4 difference
 #>    <date>       <yrwk>   <yrwk>      <int>
