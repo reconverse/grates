@@ -27,7 +27,7 @@ grates provides a simple and coherent implementation of grouped date classes:
 * *grates_month* (see `as_month()`);
 * *grates_quarter* (see `as_quarter()`);
 * *grates_year* (see `as_year()`);
-* *grates_period* and **grates_int_period** for periods of constant length (see `as_period()` and `as_int_period()`).
+* *grates_period* and *grates_int_period* for periods of constant length (see `as_period()` and `as_int_period()`).
 
 These classes aim to be formalise the idea of a grouped date whilst also being intuitive in their use.
 They build upon ideas of Davis Vaughan and the [datea](https://github.com/DavisVaughan/datea/) package.

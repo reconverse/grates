@@ -19,7 +19,7 @@ classes:
   - *grates\_month* (see `as_month()`);
   - *grates\_quarter* (see `as_quarter()`);
   - *grates\_year* (see `as_year()`);
-  - *grates\_period* and **grates\_int\_period** for periods of constant
+  - *grates\_period* and *grates\_int\_period* for periods of constant
     length (see `as_period()` and `as_int_period()`).
 
 These classes aim to be formalise the idea of a grouped date whilst also
