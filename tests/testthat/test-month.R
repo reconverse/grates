@@ -57,8 +57,8 @@ test_that("pre-epoch dates work", {
 
 test_that("as_month errors correctly", {
   expect_error(as_month(TRUE))
-  expect_error(as_month("bob"))
-  expect_error(as_month("2021-W53"))
+  suppressWarnings(expect_error(as_month("bob")))
+  suppressWarnings(expect_error(as_month("2021-W53")))
 })
 
 

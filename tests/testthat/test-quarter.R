@@ -31,8 +31,8 @@ test_that("pre-epoch dates work", {
 
 test_that("as_quarter errors correctly", {
   expect_error(as_quarter(TRUE))
-  expect_error(as_quarter("bob"))
-  expect_error(as_quarter("2021-W53"))
+  suppressWarnings(expect_error(as_quarter("bob")))
+  suppressWarnings(expect_error(as_quarter("2021-W53")))
 })
 
 test_that("as_quarter.Date works correctly", {

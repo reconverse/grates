@@ -22,8 +22,8 @@ test_that("as_year errors correctly", {
 
   expect_error(as_year(dat, 8))
   expect_error(as_year(TRUE))
-  expect_error(as_year("bob"))
-  expect_error(as_year("2021-W53"))
+  suppressWarnings(expect_error(as_year("bob")))
+  suppressWarnings(expect_error(as_year("2021-W53")))
 
 })
 

@@ -147,9 +147,9 @@ test_that("as_yearweek errors correctly", {
   expect_error(as_yearweek(dat, 6.5))
   expect_error(as_yearweek(dat, 8))
   expect_error(as_yearweek(TRUE))
-  expect_error(as_yearweek("bob"))
-  expect_error(as_yearweek("2021-W53"))
-  expect_error(as_yearweek("2021-W54"))
+  suppressWarnings(expect_error(as_yearweek("bob")))
+  suppressWarnings(expect_error(as_yearweek("2021-W53")))
+  suppressWarnings(expect_error(as_yearweek("2021-W54")))
 })
 # -------------------------------------------------------------------------
 

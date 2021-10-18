@@ -44,8 +44,8 @@ test_that("as_period errors correctly", {
 
   expect_error(as_period(dat))
   expect_error(as_period(TRUE))
-  expect_error(as_period("bob"))
-  expect_error(as_period("2021-W53"))
+  suppressWarnings(expect_error(as_period("bob")))
+  suppressWarnings(expect_error(as_period("2021-W53")))
 
 })
 
