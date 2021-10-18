@@ -279,26 +279,30 @@ as.list.grates_period <- function(x, ...) {
   check_dots_empty()
   n <- attr(x, "n")
   origin <- attr(x, "origin")
-  lapply(unclass(x), new_period, n = n, origin = origin)
+  out <- lapply(unclass(x), new_period, n = n, origin = origin)
+  setNames(out, names(x))
 }
 
 #' @export
 as.double.grates_period <- function(x, ...) {
   check_dots_empty()
-  as.double(unclass(x))
+  out <- as.double(unclass(x))
+  setNames(out, names(x))
 }
 
 #' @export
 as.numeric.grates_period <- function(x, ...) {
   check_dots_empty()
-  as.numeric(unclass(x))
+  out <- as.numeric(unclass(x))
+  setNames(out, names(x))
 }
 
 #' @export
 as.integer.grates_period <- function(x, ...) {
   check_dots_empty()
   attributes(x) <- NULL
-  unclass(x)
+  out <- unclass(x)
+  setNames(out, names(x))
 }
 
 #' @export

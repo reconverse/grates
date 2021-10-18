@@ -308,7 +308,7 @@ as.numeric.grates_month <- function(x, ...) {
 as.integer.grates_month <- function(x, ...) {
   check_dots_empty()
   out <- as.integer(unclass(x))
-  unclass(x)
+  setNames(out, names(x))
 }
 
 #' @export

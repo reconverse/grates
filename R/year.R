@@ -200,6 +200,7 @@ as.numeric.grates_year <- function(x, ...) {
 as.integer.grates_year <- function(x, ...) {
   check_dots_empty()
   out <- unclass(x)
+  setNames(out, names(x))
 }
 
 #' @export
