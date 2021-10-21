@@ -1,3 +1,13 @@
+# grates 0.3.0
+
+## New functions
+* seq methods now implemented for all grates objects.
+
+## bug fixes
+* Conversion functions now preserve names.
+* Bug fixes for cast functions operating on objects of the same class but
+  with different attributes.
+
 # grates 0.2.0
 
 * This is a breaking release that changes the underlying implementations of the
