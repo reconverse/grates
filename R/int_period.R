@@ -158,14 +158,16 @@ vec_ptype2.grates_int_period.grates_int_period <- function(x, y, ...) {
 #' @export
 vec_cast.grates_int_period.grates_int_period <- function(x, to, ...) {
   # check compatibility of n
+  x_arg <- deparse(substitute(x))
+  to_arg <- deparse(substitute(to))
   nx <- attr(x, "n")
   nto <- attr(to, "n")
-  if (nx != nto) stop_incompatible_cast(x, to)
+  if (nx != nto) abort("Can't cast <grates_int_period>'s with different `n`")
 
   # check compatibility of the origin
   ox <- attr(x, "origin")
   oto <- attr(to, "origin")
-  if (ox != oto) stop_incompatible_cast(x, to)
+  if (ox != oto) abort("Can't cast <grates_int_period>'s with different `origin`")
 
   x
 }

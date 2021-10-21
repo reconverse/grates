@@ -208,7 +208,7 @@ vec_ptype2.grates_yearweek.grates_yearweek <- function(x, y, ...) {
 vec_cast.grates_yearweek.grates_yearweek <- function(x, to, ...) {
   fdx <- attr(x, "firstday")
   fdto <- attr(to, "firstday")
-  if (fdx != fdto) stop_incompatible_cast(x, to)
+  if (fdx != fdto) abort("Can't cast <grates_yearweek>'s with different `firstday`")
   x
 }
 

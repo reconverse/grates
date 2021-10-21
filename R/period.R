@@ -194,12 +194,12 @@ vec_cast.grates_period.grates_period <- function(x, to, ...) {
   # check compatibility of n
   nx <- attr(x, "n")
   nto <- attr(to, "n")
-  if (nx != nto) stop_incompatible_cast(x, to)
+  if (nx != nto) abort("Can't cast <grates_period>'s with different `n`")
 
   # check compatibility of the origin
   ox <- attr(x, "origin")
   oto <- attr(to, "origin")
-  if (ox != oto) stop_incompatible_cast(x, to)
+  if (ox != oto) abort("Can't cast <grates_period>'s with different `origin`")
 
   x
 }
