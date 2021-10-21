@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Codecov test
-coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](https://codecov.io/gh/reconverse/grates?branch=main)
+coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](https://app.codecov.io/gh/reconverse/grates?branch=main)
 [![R-CMD-check](https://github.com/reconverse/grates/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/grates/actions)
 [![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-maturing.svg)](https://www.reconverse.org/lifecycle.html#maturing)
 <!-- badges: end -->
@@ -14,12 +14,12 @@ coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](
 grates provides a simple and coherent implementation of grouped date
 classes:
 
-  - *grates\_yearweek* with arbitrary first day of the week (see
+-   *grates_yearweek* with arbitrary first day of the week (see
     `as_yearweek()`);
-  - *grates\_month* (see `as_month()`);
-  - *grates\_quarter* (see `as_quarter()`);
-  - *grates\_year* (see `as_year()`);
-  - *grates\_period* and *grates\_int\_period* for periods of constant
+-   *grates_month* (see `as_month()`);
+-   *grates_quarter* (see `as_quarter()`);
+-   *grates_year* (see `as_year()`);
+-   *grates_period* and *grates_int_period* for periods of constant
     length (see `as_period()` and `as_int_period()`).
 
 These classes aim to be formalise the idea of a grouped date whilst also
@@ -87,7 +87,6 @@ head(weekly_dat, 8)
 #> 6 2014-W19    12
 #> 7 2014-W20    12
 #> 8 2014-W21    15
-
 # plot
 ggplot(weekly_dat, aes(date, cases)) + geom_col(width = 1, colour = "white") + theme_bw() + xlab("")
 ```
@@ -110,7 +109,7 @@ dat <- tibble(dates, weeks)
 
 # addition of wholenumbers will add the corresponding number of weeks to the object
 mutate(dat, plus4 = weeks + 4)
-#> # A tibble: 31 x 3
+#> # A tibble: 31 × 3
 #>    dates         weeks    plus4
 #>    <date>       <yrwk>   <yrwk>
 #>  1 2021-01-01 2021-W01 2021-W05
@@ -124,16 +123,14 @@ mutate(dat, plus4 = weeks + 4)
 #>  9 2021-01-09 2021-W02 2021-W06
 #> 10 2021-01-10 2021-W02 2021-W06
 #> # … with 21 more rows
-
 # addition of two yearweek objects will error as it is unclear what the intention is
 mutate(dat, addweeks = weeks + weeks)
 #> Error: Problem with `mutate()` column `addweeks`.
 #> ℹ `addweeks = weeks + weeks`.
 #> x <grates_yearweek> + <grates_yearweek> is not permitted
-
 # Subtraction of wholenumbers works similarly to addition
 mutate(dat, minus4 = weeks - 4)
-#> # A tibble: 31 x 3
+#> # A tibble: 31 × 3
 #>    dates         weeks   minus4
 #>    <date>       <yrwk>   <yrwk>
 #>  1 2021-01-01 2021-W01 2020-W49
@@ -147,10 +144,9 @@ mutate(dat, minus4 = weeks - 4)
 #>  9 2021-01-09 2021-W02 2020-W50
 #> 10 2021-01-10 2021-W02 2020-W50
 #> # … with 21 more rows
-
 # Subtraction of two yearweek objects gives the difference in weeks between them
 mutate(dat, plus4 = weeks + 4, difference = plus4 - weeks)
-#> # A tibble: 31 x 4
+#> # A tibble: 31 × 4
 #>    dates         weeks    plus4 difference
 #>    <date>       <yrwk>   <yrwk>      <int>
 #>  1 2021-01-01 2021-W01 2021-W05          4
@@ -164,7 +160,6 @@ mutate(dat, plus4 = weeks + 4, difference = plus4 - weeks)
 #>  9 2021-01-09 2021-W02 2021-W06          4
 #> 10 2021-01-10 2021-W02 2021-W06          4
 #> # … with 21 more rows
-
 # weeks can be combined if they have the same firstday but not otherwise
 wk1 <- as_yearweek("2020-01-01")
 wk2 <- as_yearweek("2021-01-01")
