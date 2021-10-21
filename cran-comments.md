@@ -1,16 +1,15 @@
 ## Reason for submission
-* Improvements to underlying implementation.
+* Additional functionality and minor bug fixes
 
 ## Downstream  dependencies
-This release breaks the downstream  dependency incidence2. I am the maintainer
-of that package and have an updated version ready to submit  once this package
-is accepted on to CRAN. 
+* 1 downstream dependency. All checks passed without issue
 
 ## Tested on the following environments
-* Fedora 34, R Under development (unstable) (2021-05-27 r80400)
+* fedora 35, R Under development (unstable) (2021-10-21 r81082)
+* win-builder, R Under development (unstable) (2021-10-18 r81071)
+* macbuilder, r-release-macosx-arm64|4.1.1|macosx|macOS 11.5.2 (20G95)|Mac mini|Apple M1|
 
 ## R CMD check results
-
-0 errors | 0 warnings | 0 note
+Status: OK
 
 
