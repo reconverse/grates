@@ -3,214 +3,65 @@
 \name{as_period}
 \alias{as_period}
 \alias{as_period.default}
+\alias{as_period.Date}
+\alias{as_period.POSIXt}
 \alias{as_period.character}
 \alias{as_period.factor}
-\title{Convert an object to grates_period object}
+\title{Coerce an object to period}
 \usage{
-as_period(x, ...)
+as_period(x, n, ...)
 
-\method{as_period}{default}(x, n = 1L, origin = 0L, ...)
+\method{as_period}{default}(x, n = 1L, offset = 0L, ...)
 
-\method{as_period}{character}(x, n = 1L, origin = 0L, format = NULL, locale = clock_locale(), ...)
+\method{as_period}{Date}(x, n = 1L, offset = 0L, ...)
 
-\method{as_period}{factor}(x, n = 1L, origin = 0L, format = NULL, locale = clock_locale(), ...)
+\method{as_period}{POSIXt}(x, n = 1L, offset = 0L, ...)
+
+\method{as_period}{character}(x, n = 1L, offset = 0L, ...)
+
+\method{as_period}{factor}(x, n = 1L, offset = 0L, ...)
 }
 \arguments{
-\item{x}{An object to convert.}
-
-\item{...}{Not currently used.}
-
-\item{n}{An integer indicating the (fixed) number of days used for
-grouping; defaults to 1.}
-
-\item{origin}{Month since the Unix epoch where grouping begins (default 0).}
-
-\item{format}{\verb{[character / NULL]}
-
-A format string. A combination of the following commands, or \code{NULL},
-in which case a default format string is used.
-
-A vector of multiple format strings can be supplied. They will be tried in
-the order they are provided.
-
-\strong{Year}
+\item{x}{An \R object:
 \itemize{
-\item \verb{\%C}: The century as a decimal number. The modified command \verb{\%NC} where
-\code{N} is a positive decimal integer specifies the maximum number of
-characters to read. If not specified, the default is \code{2}. Leading zeroes
-are permitted but not required.
-\item \verb{\%y}: The last two decimal digits of the year. If the century is not
-otherwise specified (e.g. with \verb{\%C}), values in the range \verb{[69 - 99]} are
-presumed to refer to the years \verb{[1969 - 1999]}, and values in the range
-\verb{[00 - 68]} are presumed to refer to the years \verb{[2000 - 2068]}. The
-modified command \verb{\%Ny}, where \code{N} is a positive decimal integer, specifies
-the maximum number of characters to read. If not specified, the default is
-\code{2}. Leading zeroes are permitted but not required.
-\item \verb{\%Y}: The year as a decimal number. The modified command \verb{\%NY} where \code{N}
-is a positive decimal integer specifies the maximum number of characters to
-read. If not specified, the default is \code{4}. Leading zeroes are permitted
-but not required.
-}
-
-\strong{Month}
-\itemize{
-\item \verb{\%b}, \verb{\%B}, \verb{\%h}: The \code{locale}'s full or abbreviated case-insensitive
-month name.
-\item \verb{\%m}: The month as a decimal number. January is \code{1}. The modified command
-\verb{\%Nm} where \code{N} is a positive decimal integer specifies the maximum number
-of characters to read. If not specified, the default is \code{2}. Leading zeroes
-are permitted but not required.
-}
-
-\strong{Day}
-\itemize{
-\item \verb{\%d}, \verb{\%e}: The day of the month as a decimal number. The modified
-command \verb{\%Nd} where \code{N} is a positive decimal integer specifies the maximum
-number of characters to read. If not specified, the default is \code{2}. Leading
-zeroes are permitted but not required.
-}
-
-\strong{Day of the week}
-\itemize{
-\item \verb{\%a}, \verb{\%A}: The \code{locale}'s full or abbreviated case-insensitive weekday
-name.
-\item \verb{\%w}: The weekday as a decimal number (\code{0-6}), where Sunday is \code{0}. The
-modified command \verb{\%Nw} where \code{N} is a positive decimal integer specifies
-the maximum number of characters to read. If not specified, the default is
-\code{1}. Leading zeroes are permitted but not required.
-}
-
-\strong{ISO 8601 week-based year}
-\itemize{
-\item \verb{\%g}: The last two decimal digits of the ISO week-based year. The
-modified command \verb{\%Ng} where \code{N} is a positive decimal integer specifies
-the maximum number of characters to read. If not specified, the default is
-\code{2}. Leading zeroes are permitted but not required.
-\item \verb{\%G}: The ISO week-based year as a decimal number. The modified command
-\verb{\%NG} where \code{N} is a positive decimal integer specifies the maximum number
-of characters to read. If not specified, the default is \code{4}. Leading zeroes
-are permitted but not required.
-\item \verb{\%V}: The ISO week-based week number as a decimal number. The modified
-command \verb{\%NV} where \code{N} is a positive decimal integer specifies the maximum
-number of characters to read. If not specified, the default is \code{2}. Leading
-zeroes are permitted but not required.
-\item \verb{\%u}: The ISO weekday as a decimal number (\code{1-7}), where Monday is \code{1}.
-The modified command \verb{\%Nu} where \code{N} is a positive decimal integer
-specifies the maximum number of characters to read. If not specified, the
-default is \code{1}. Leading zeroes are permitted but not required.
-}
-
-\strong{Week of the year}
-\itemize{
-\item \verb{\%U}: The week number of the year as a decimal number. The first Sunday
-of the year is the first day of week \code{01}. Days of the same year prior to
-that are in week \code{00}. The modified command \verb{\%NU} where \code{N} is a positive
-decimal integer specifies the maximum number of characters to read. If not
-specified, the default is \code{2}. Leading zeroes are permitted but not
-required.
-\item \verb{\%W}: The week number of the year as a decimal number. The first Monday
-of the year is the first day of week \code{01}. Days of the same year prior to
-that are in week \code{00}. The modified command \verb{\%NW} where \code{N} is a positive
-decimal integer specifies the maximum number of characters to read. If not
-specified, the default is \code{2}. Leading zeroes are permitted but not
-required.
-}
-
-\strong{Day of the year}
-\itemize{
-\item \verb{\%j}: The day of the year as a decimal number. January 1 is \code{1}. The
-modified command \verb{\%Nj} where \code{N} is a positive decimal integer specifies
-the maximum number of characters to read. If not specified, the default is
-\code{3}. Leading zeroes are permitted but not required.
-}
-
-\strong{Date}
-\itemize{
-\item \verb{\%D}, \verb{\%x}: Equivalent to \verb{\%m/\%d/\%y}.
-\item \verb{\%F}: Equivalent to \verb{\%Y-\%m-\%d}. If modified with a width (like \verb{\%NF}),
-the width is applied to only \verb{\%Y}.
-}
-
-\strong{Time of day}
-\itemize{
-\item \verb{\%H}: The hour (24-hour clock) as a decimal number. The modified command
-\verb{\%NH} where \code{N} is a positive decimal integer specifies the maximum number
-of characters to read. If not specified, the default is \code{2}. Leading zeroes
-are permitted but not required.
-\item \verb{\%I}: The hour (12-hour clock) as a decimal number. The modified command
-\verb{\%NI} where \code{N} is a positive decimal integer specifies the maximum number
-of characters to read. If not specified, the default is \code{2}. Leading zeroes
-are permitted but not required.
-\item \verb{\%M}: The minutes as a decimal number. The modified command \verb{\%NM} where
-\code{N} is a positive decimal integer specifies the maximum number of
-characters to read. If not specified, the default is \code{2}. Leading zeroes
-are permitted but not required.
-\item \verb{\%S}: The seconds as a decimal number. Leading zeroes are permitted but
-not required. If encountered, the \code{locale} determines the decimal point
-character. Generally, the maximum number of characters to read is
-determined by the precision that you are parsing at. For example, a
-precision of \code{"second"} would read a maximum of 2 characters, while a
-precision of \code{"millisecond"} would read a maximum of 6 (2 for the values
-before the decimal point, 1 for the decimal point, and 3 for the values
-after it). The modified command \verb{\%NS}, where \code{N} is a positive decimal
-integer, can be used to exactly specify the maximum number of characters to
-read. This is only useful if you happen to have seconds with more than 1
-leading zero.
-\item \verb{\%p}: The \code{locale}'s equivalent of the AM/PM designations associated with
-a 12-hour clock. The command \verb{\%I} must precede \verb{\%p} in the format string.
-\item \verb{\%R}: Equivalent to \verb{\%H:\%M}.
-\item \verb{\%T}, \verb{\%X}: Equivalent to \verb{\%H:\%M:\%S}.
-\item \verb{\%r}: Equivalent to \verb{\%I:\%M:\%S \%p}.
-}
-
-\strong{Time zone}
-\itemize{
-\item \verb{\%z}: The offset from UTC in the format \verb{[+|-]hh[mm]}. For example
-\code{-0430} refers to 4 hours 30 minutes behind UTC. And \code{04} refers to 4 hours
-ahead of UTC. The modified command \verb{\%Ez} parses a \code{:} between the hours and
-minutes and leading zeroes on the hour field are optional:
-\verb{[+|-]h[h][:mm]}. For example \code{-04:30} refers to 4 hours 30 minutes behind
-UTC. And \code{4} refers to 4 hours ahead of UTC.
-\item \verb{\%Z}: The full time zone name or the time zone abbreviation, depending on
-the function being used. A single word is parsed. This word can only
-contain characters that are alphanumeric, or one of \code{'_'}, \code{'/'}, \code{'-'} or
-\code{'+'}.
-}
-
-\strong{Miscellaneous}
-\itemize{
-\item \verb{\%c}: A date and time representation. Equivalent to
-\verb{\%a \%b \%d \%H:\%M:\%S \%Y}.
-\item \code{\%\%}: A \verb{\%} character.
-\item \verb{\%n}: Matches one white space character. \verb{\%n}, \verb{\%t}, and a space can be
-combined to match a wide range of white-space patterns. For example \code{"\%n "}
-matches one or more white space characters, and \code{"\%n\%t\%t"} matches one to
-three white space characters.
-\item \verb{\%t}: Matches zero or one white space characters.
+\item Character input is first parsed using \code{as.Date()}.
+\item POSIXt inputs are converted with the timezone respected.
 }}
 
-\item{locale}{\verb{[clock_locale]}
+\item{n}{\verb{[integer]}
 
-A locale object created from \code{\link[clock:clock_locale]{clock_locale()}}.}
+Number of days that are being grouped.}
+
+\item{...}{Only used For character input where additional arguments are passed through
+to \code{as.Date()}.}
+
+\item{offset}{\verb{[integer]} or \verb{[date]}
+
+Value you wish to start counting periods from relative to the Unix Epoch:
+\itemize{
+\item For integer values this is stored scaled by \code{n}
+(\code{offset <- as.integer(offset) \%\% n}).
+\item For date values for periods this is first converted to an integer offset
+(\code{offset <- floor(as.numeric(offset))}) and then scaled via \code{n} as above.
+}}
 }
 \value{
-A \code{grates_period} object.
+A \verb{<grates_period>} object.
 }
 \description{
-\itemize{
-\item Date, POSIXct, and POSIXlt are converted, with the timezone respected,
-using \code{\link[clock:as_date]{clock::as_date()}}.
-\item Character input is parsed using \code{\link[clock:date_parse]{clock::date_parse()}}.
-}
+\code{as_period()} is a generic for coercing input in to \verb{<grates_period>}.
 }
 \note{
-Internally \code{grates_period} objects are stored as the number of days
-(starting at 0) since the Unix Epoch (1970-01-01) to the earliest day in
-the specified grouping.
+Internally \code{grates_period} objects are stored as the integer number, starting
+at 0L, of periods since the Unix Epoch (1970-01-01) and a specified offset.
+Here periods are taken to mean groupings of \code{n} consecutive days.
 }
 \examples{
-as_period(Sys.Date())
-as_period(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), interval = 2)
 as_period("2019-05-03")
+as_period("2019-05-03", n = 2, offset = 1)
+as_period(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 10)
 
+}
+\seealso{
+\code{as.Date()}
 }

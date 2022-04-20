@@ -1,312 +1,365 @@
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# --------------------------------- YEAR ---------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-#' Construct a grates_year object
+#' Construct a year object
 #'
-#' `year()` is a constructor for a <grates_year> object
+#' @description
+#' `year()` is a constructor for `<grates_year>` objects.
 #'
-#' @param x Integer vector representing the year.
+#' @param x `[integer]`
+#' Vector representing the years. `double` vectors will be converted via
+#' `as.integer(floor(x))`.
+#'
+#' @param object
+#' An \R object.
+#'
+#' @return
+#' A `<grates_year>` object.
 #'
 #' @examples
-#' year(2021)
+#' year(2011:2020)
 #'
 #' @export
 year <- function(x = integer()) {
-  x <- vec_cast(x, integer())
-  new_year(x)
+    if (!is.integer(x)) {
+        if (is.double(x) && is.vector(x)) {
+            x <- as.integer(floor(x))
+        } else {
+            stop("`x` must be integer.")
+        }
+    }
+
+    .new_year(x = x)
 }
 
+# -------------------------------------------------------------------------
 #' @rdname year
 #' @export
-is_year <- function(x) inherits(x, "grates_year")
+is_year <- function(object) inherits(object, "grates_year")
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------- AS_YEAR --------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-#' Convert an object to grates_year object
+# -------------------------------------------------------------------------
+#' Print a year-quarter object
 #'
-#' - Date, POSIXct, and POSIXlt are converted, with the timezone respected,
-#'   using [clock::as_date()].
-#' - Character input is parsed using [clock::date_parse()].
-#'
-#' @param x An object to convert.
+#' @param x A `<grates_year>` object.
 #' @param ... Not currently used.
 #'
-#' @return A `grates_year` object.
+#' @export
+print.grates_year <- function(x, ...) {
+    # replicate the header as in vctrs
+    n <- length(x)
+    cat("<grates_year[", n, "]>\n", sep="")
+    if (n)
+        print(as.integer(x))
+    invisible(x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname print.grates_year
+#' @export
+format.grates_year <- function(x, ...) {
+    if (length(x) == 0)
+        return(character(0))
+    class(x) <- NULL
+    out <- as.character(x)
+    out[is.na(x)] <- NA_character_
+    out
+}
+
+# -------------------------------------------------------------------------
+vec_ptype_abbr.grates_year <- function(x, ...) "year"
+vec_ptype_full.grates_year <- function(x, ...) "grates_year"
+
+# -------------------------------------------------------------------------
+#' Coerce an object to year-quarter
+#'
+#' @description
+#' `as_year()` is a generic for coercing input in to `<grates_year>`.
+#'
+#' @param x
+#' An \R object:
+#' - Character input is first parsed using `as.Date()`.
+#' POSIXct and POSIXlt are converted with the timezone respected.
+#'
+#' @param ...
+#' Only used For character input where additional arguments are  passed through
+#' to `as.Date()`.
+#'
+#' @return
+#' A `<grates_year>` object.
 #'
 #' @examples
 #' as_year(Sys.Date())
 #' as_year(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), interval = 2)
 #' as_year("2019-05-03")
 #'
-#' @export
-as_year <- function(x, ...) {
-  UseMethod("as_year")
-}
-
-#' @rdname as_year
-#' @export
-as_year.default <- function(x, ...) vec_cast(x, new_year())
-
-#' @inheritParams clock::date_parse
-#' @rdname as_year
-#' @export
-as_year.character <- function(x, format = NULL, locale = clock_locale(), ...) {
-  check_dots_empty()
-  x <- date_parse(x, format = format, locale = locale)
-  if (all(is.na(x))) abort("Unable to parse any entries of x as Dates")
-  vec_cast(x, new_year())
-}
-
-#' @inheritParams clock::date_parse
-#' @rdname as_year
-#' @export
-as_year.factor <- function(x, format = NULL, locale = clock_locale(), ...) {
-  check_dots_empty()
-  x <- as.character(x)
-  as_year.character(x, format = format, locale = locale)
-}
-
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------ FORMATING -------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-#' Format a grates_year object
-#'
-#' @param x A grates_year object.
-#' @param ... Not currently used.
+#' @seealso
+#' `as.Date()`
 #'
 #' @export
-format.grates_year <- function(x, ...) {
-  if (length(x) == 0) return(character(0))
-  out <- format(unclass(x))
-  out[is.na(x)] <- NA_character_
-  out
+as_year <- function(x, ...) UseMethod("as_year")
+
+# -------------------------------------------------------------------------
+#' @rdname as_year
+#' @export
+as_year.default <- function(x, ...) {
+    stop(
+        sprintf(
+            "Not implemented for class [%s].",
+            paste(class(x), collapse = ", ")
+        )
+    )
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_year
+#' @export
+as_year.Date <- function(x, ...) {
+
+    # convert to posixlt (this will always be UTC when called on a date)
+    x <- as.POSIXlt(x)
+
+    # calculate the year
+    .new_year(x$year + 1900L)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_year
+#' @export
+as_year.POSIXt <- function(x, ...) {
+    x <- .as_date(x)
+    as_year.Date(x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_year
+#' @export
+as_year.character <- function(x, ...) {
+    out <- as.Date(x, ...)
+    if (all(is.na(out)))
+        stop("Unable to parse any entries of `x` as Dates.")
+    as_year.Date(x = out, ...)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_year
+#' @export
+as_year.factor <- function(x, ...) {
+    x <- as.character(x)
+    as_year.character(x, ...)
 }
 
 #' @export
-vec_ptype_abbr.grates_year <- function(x, ...) "year"
-
-#' @export
-obj_print_data.grates_year <- function(x, ...) print(format(x), quote = FALSE)
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------ PROTOTYPES ------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-#' @export
-vec_ptype2.grates_year.grates_year <- function(x, y, ...) new_year()
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# -------------------------------- CASTING -------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-#' @export
-vec_cast.grates_year.grates_year <- function(x, to, ...) x
-
-#' @export
-vec_cast.grates_year.Date <- function(x, to, ...) {
-  x <- date_group(x, precision = "month", n = 1L) # floor to start of month
-  x <- as_utc_posixlt_from_int(x) # convert to posixlt
-  yr <- x$year + 1900L # calculate the year
-  new_year(yr)
+`[.grates_year` <- function(x, ..., drop = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.Date.grates_year <- function(x, to, ...) {
-  date_build(year = unclass(x), invalid = "error")
+`[[.grates_year` <- function(x, ..., drop = TRUE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.grates_year.POSIXct <- function(x, to, ...) {
-  x <- as.POSIXlt(x)
-  yr <- x$year + 1900L # calculate the year
-  new_year(yr)
+`[<-.grates_year` <- function(x, ..., value) {
+    if (!inherits(value, "grates_year"))
+        stop("Can only assign <grates_year> objects in to an <grates_year> object.")
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.grates_year.POSIXlt <- function(x, to, ...) {
-  yr <- x$year + 1900L # calculate the year
-  new_year(yr)
+`[[<-.grates_year` <- `[<-.grates_year`
+
+# -------------------------------------------------------------------------
+#' @export
+rep.grates_year <- function(x, ...) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.POSIXct.grates_year <- function(x, to, ...) {
-  tz <- date_zone(to)
-  date_time_build(
-    year = unclass(x),
-    zone = tz,
-    invalid = "error",
-    nonexistent = "error",
-    ambiguous = "error"
-  )
+unique.grates_year <- function(x, incomparables = FALSE, ...) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.POSIXlt.grates_year <- function(x, to, ...) {
-  out <- vec_cast.POSIXct.grates_year(x, to)
-  as.POSIXlt(out)
+c.grates_year <- function(..., recursive = FALSE, use.names = TRUE) {
+    dots <- list(...)
+    if (!all(vapply(dots, inherits, TRUE, what = "grates_year")))
+        stop("Unable to combine <grates_year> objects with other classes.")
+    res <- NextMethod()
+    .new_year(res)
 }
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# --------------------------- OTHER CONVERSIONS --------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------------------
 #' @export
-as.character.grates_year <- function(x, ...) {
-  check_dots_empty()
-  format(x)
+seq.grates_year <- function(from, to, by = 1L, ...) {
+
+    if (!inherits(to, "grates_year") || length(to) != 1L)
+        stop("`to` must be a <grates_year> object of length 1.")
+
+    if (!.is_scalar_whole(by))
+        stop("`by` must be an integer of length 1.")
+
+    from <- as.integer(from)
+    to <- as.integer(to)
+    out <- seq.int(from = from, to = to, by = by)
+
+    # Ensure integer as we cannot rely on seq.int (may return double)
+    out <- as.integer(out)
+    .new_year(out)
 }
 
+# -------------------------------------------------------------------------
 #' @export
-as.list.grates_year <- function(x, ...) {
-  check_dots_empty()
-  out <- lapply(unclass(x), new_year)
-  setNames(out, names(x))
+as.integer.grates_year <- function(x, ...) unclass(x)
+
+# -------------------------------------------------------------------------
+#' @export
+as.double.grates_year <- function(x, ...) as.double(unclass(x))
+
+# -------------------------------------------------------------------------
+#' @export
+as.Date.grates_year <- function(x, ...) {
+    days <- .month_to_days((unclass(x) - 1970L) * 12L)
+    .Date(days)
 }
 
+# -------------------------------------------------------------------------
 #' @export
-as.double.grates_year <- function(x, ...) {
-  check_dots_empty()
-  out <- as.double(unclass(x))
-  setNames(out, names(x))
+as.POSIXct.grates_year <- function(x, tz = "UTC", ...) {
+    if (tz != "UTC")
+        stop("<grates_year> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    x <- .month_to_days((unclass(x) - 1970L) * 12L)
+    .POSIXct(x * 86400, tz = "UTC")
 }
 
+# -------------------------------------------------------------------------
 #' @export
-as.numeric.grates_year <- function(x, ...) {
-  check_dots_empty()
-  out <- as.numeric(unclass(x))
-  setNames(out, names(x))
+as.POSIXlt.grates_year <- function(x, tz = "UTC", ...) {
+    if (tz != "UTC")
+        stop("<grates_year> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    x <- .month_to_days((unclass(x) - 1970L) * 12L)
+    as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
 }
 
+# -------------------------------------------------------------------------
 #' @export
-as.integer.grates_year <- function(x, ...) {
-  check_dots_empty()
-  out <- unclass(x)
-  setNames(out, names(x))
-}
+as.character.grates_year <- function(x, ...) format.grates_year(x)
 
+# -------------------------------------------------------------------------
+#' @export
+as.list.grates_year <- function(x, ...) lapply(unclass(x), `class<-`, class(x))
+
+# -------------------------------------------------------------------------
 #' @export
 as.data.frame.grates_year <- as.data.frame.vector
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# --------------------------------- MATH ---------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-is_nan_grates_year <- function(x) vector("logical", vec_size(x))
-
-is_finite_grates_year <- function(x) !vec_detect_missing(x)
-
-is_infinite_grates_year <- function(x) vector("logical", vec_size(x))
-
+# -------------------------------------------------------------------------
 #' @export
-#' @method vec_math grates_year
-vec_math.grates_year <- function(.fn, .x, ...) {
-  switch(
-    .fn,
-    "is.nan" = is_nan_grates_year(.x),
-    "is.finite" = is_finite_grates_year(.x),
-    "is.infinite" = is_infinite_grates_year(.x),
-    abort(sprintf("`%s()` is not supported for <grates_year>", .fn))
-  )
+min.grates_year <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
+# -------------------------------------------------------------------------
+#' @export
+max.grates_year <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+range.grates_year <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+Summary.grates_year <- function(..., na.rm = FALSE) {
+    stop(
+        sprintf("`%s()` is not supported for <grates_year> objects.", .Generic)
+    )
+}
+
+# -------------------------------------------------------------------------
+#' @export
+Math.grates_year <- function(x, ...) {
+    stop(
+        sprintf("`%s()` is not supported for <grates_year> objects.", .Generic)
+    )
+}
+
+# -------------------------------------------------------------------------
 #' @export
 quantile.grates_year <- function(x, type = 1, ...) {
-  q <- as.integer(quantile(unclass(x), type = type, ...))
-  new_year(q)
+    x <- unclass(x)
+    x <- as.integer(quantile(x, type = type, ...))
+    .new_year(x)
 }
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------ ARITHMETIC ------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------------------
 #' @export
-#' @method vec_arith grates_year
-vec_arith.grates_year <- function(op, x, y, ...) {
-  UseMethod("vec_arith.grates_year", y)
-}
+Ops.grates_year <- function(e1, e2) {
+    op <- .Generic
+    if (op %in% c("==", "!=", "<", ">", "<=", ">=")) {
+        if (!inherits(e2, "grates_year"))
+            stop("Can only compare <grates_year> objects with <grates_year> objects.")
+        return(NextMethod())
+    }
 
-#' @export
-#' @method vec_arith.grates_year default
-vec_arith.grates_year.default <- function(op, x, y, ...) {
-  stop_incompatible_op(op, x, y)
+    switch(
+        op,
+        "+" = {
+            if (missing(e2)) {
+                return(e1)
+            } else if (inherits(e1, "grates_year") && inherits(e2, "grates_year")) {
+                stop("Cannot add <grates_year> objects to each other.")
+            } else if (inherits(e1, "grates_year") && (.is_whole(e2))) {
+                .new_year(unclass(e1) + as.integer(e2))
+            } else if (inherits(e2, "grates_year") && (.is_whole(e1))) {
+                .new_year(unclass(e2) + as.integer(e1))
+            } else {
+                stop("Can only add integers to <grates_year> objects.")
+            }
+        },
+        "-" = {
+            if (missing(e2)) {
+                stop("Cannot negate a <grates_year> object.")
+            } else if (inherits(e2, "grates_year")) {
+                if (!inherits(e1, "grates_year"))
+                    stop("Can only subtract from a <grates_year> object, not vice-versa.")
+                unclass(e1) - unclass(e2)
+            } else if (inherits(e1, "grates_year") && is.integer(e2)) {
+                .new_year(unclass(e1) - e2)
+            } else if (inherits(e1, "grates_year") && .is_whole(e2)) {
+                .new_year(unclass(e1) - as.integer(e2))
+            } else {
+                stop("Can only subtract whole numbers and other <grates_year> objects from <grates_year> objects.")
+            }
+        },
+        stop(sprintf("%s is not compatible with <grates_year> objects.", op))
+    )
 }
-
-#' @export
-#' @method vec_arith.grates_year grates_year
-vec_arith.grates_year.grates_year <- function(op, x, y, ...) {
-  switch(
-    op,
-    "-" = vec_arith_base(op, x, y),
-    stop_incompatible_op(op, x, y)
-  )
-}
-
-#' @export
-#' @method vec_arith.grates_year numeric
-vec_arith.grates_year.numeric <- function(op, x, y, ...) {
-  y <- vec_cast(y, integer())
-  switch(
-    op,
-    "+" = ,
-    "-" = new_year(as.integer(vec_arith_base(op, x, y))),
-    stop_incompatible_op(op, x, y)
-  )
-}
-
-#' @export
-#' @method vec_arith.numeric grates_year
-vec_arith.numeric.grates_year <- function(op, x, y, ...) {
-  x <- vec_cast(x, integer())
-  switch(
-    op,
-    "+" = new_year(as.integer(vec_arith_base(op, x, y))),
-    stop_incompatible_op(op, x, y)
-  )
-}
-
-#' @export
-#' @method vec_arith.grates_year MISSING
-vec_arith.grates_year.MISSING <- function(op, x, y, ...) {
-  switch(
-    op,
-    `+` = x,
-    stop_incompatible_op(op, x, y)
-  )
-}
-
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 # -------------------------------- INTERNALS ------------------------------ #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-new_year <- function(x = integer()) {
-  vec_assert(x, ptype = integer())
-  new_vctr(x, class = "grates_year")
-}
 
+.new_year <- function(x = integer()) structure(x, class = "grates_year")

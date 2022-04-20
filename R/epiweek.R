@@ -1,0 +1,436 @@
+#' Construct a epiweek object
+#'
+#' @description
+#' `epiweek()` is a constructor for `<grates_epiweek>` objects.
+#'
+#' @details
+#' Epiweeks are defined to start on a Sunday and `<grates_epiweek>` objects are
+#' stored as the number of weeks (starting at 0) from the first Sunday after the
+#' Unix Epoch (1970-01-01). That is, the number of seven day periods from
+#' 1970-01-04.
+#'
+#' Internally they have the same representation as a `<grates_yearweek_sunday>`
+#' object so are akin to an alias but with a marginally more efficient
+#' implementation.
+#'
+#' @param x `[integer]`
+#' Vector representing the number of weeks. `double` vectors will be converted
+#' via `as.integer(floor(x))`.
+#'
+#' @param object
+#' An \R object.
+#'
+#' @return
+#' A `<grates_epiweek>` object.
+#'
+#' @seealso
+#' `yearweek()` and `isoweek()`.
+#'
+#' @examples
+#' epiweek(1:10)
+#'
+#' @export
+epiweek <- function(x = integer()) {
+    if (!is.integer(x)) {
+        if (is.double(x) && is.vector(x)) {
+            x <- as.integer(floor(x))
+        } else {
+            stop("`x` must be integer.")
+        }
+    }
+    .new_epiweek(x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname epiweek
+#' @export
+is_epiweek <- function(object) inherits(object, "grates_epiweek")
+
+# -------------------------------------------------------------------------
+#' @export
+format.grates_epiweek <- function(x, ...) format.grates_yearweek(x, ...)
+
+# -------------------------------------------------------------------------
+#' @export
+print.grates_epiweek <- function(x, ...) print.grates_yearweek(x, ...)
+
+# -------------------------------------------------------------------------
+vec_ptype_abbr.grates_epiweek <- function(x, ...) "epiwk"
+vec_ptype_full.grates_epiweek <- function(x, ...) "epiweek"
+
+# -------------------------------------------------------------------------
+#' Coerce to a epiweek object
+#'
+#' @description
+#' Generic for conversion to `<grates_epiweek>`
+#'
+#' @details
+#' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
+#'
+#' @param x
+#' An \R object.
+#'
+#' @param format `[character]`
+#' If NULL, then it attempts to pass character values of the form 'YYYY-Www',
+#' otherwise passed through to `as.Date()` (default behaviour).
+#'
+#' @param tryFormats `[character]`
+#' Passed through to `as.Date()`
+#'
+#' @param ...
+#' Other values passed to as.Date().
+#'
+#' @return
+#' A `<grates_epiweek>` object.
+#'
+#' @examples
+#' as_epiweek(Sys.Date())
+#' as_epiweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#' as_epiweek("2019-05-03")
+#' as_epiweek("2021-W03", format = NULL)
+#'
+#' @seealso
+#' `epiweek()` and `as.Date()`.
+#'
+#' @export
+as_epiweek <- function(x, ...) UseMethod("as_epiweek")
+
+# -------------------------------------------------------------------------
+#' @rdname as_epiweek
+#' @export
+as_epiweek.default <- function(x, ...) {
+    stop(
+        sprintf(
+            "Not implemented for class [%s].",
+            paste(class(x), collapse = ", ")
+        )
+    )
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_epiweek
+#' @export
+as_epiweek.Date <- function(x, ...) {
+    firstday <- 7L
+    x <- as.integer(floor(unclass(x)))
+    x <- (x + 4L - firstday) %/% 7L
+    .new_epiweek(x = x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_epiweek
+#' @export
+as_epiweek.POSIXt <- function(x, ...) {
+    x <- .as_date(x)
+    as_epiweek.Date(x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_epiweek
+#' @export
+as_epiweek.character <- function(
+        x,
+        format,
+        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+        ...
+) {
+
+    if (!missing(format) && is.null(format) && ...length() == 0L) {
+        yearweek_pattern <- "(^\\d{4}-W([0][1-9]|[1-4][0-9]|5[0-3])$)"
+        x <- trimws(x)
+        allowed <- grepl(yearweek_pattern, x)
+        if (all(allowed)) {
+            out <- .parse_epiweek_string(x)
+        } else if (any(allowed)) {
+            warning("Unable to parse some entries in epiweek format 'YYYY-Www'. Returning these as NA")
+            x[!allowed] <- NA_character_
+            out <- double(length(x))
+            out[!allowed] <- NA_real_
+            out[allowed] <- .parse_epiweek_string(x[allowed])
+        } else {
+            out <- as.Date(x)
+        }
+    } else {
+        out <- as.Date(x, format = format, ...)
+    }
+
+    as_epiweek.Date(out)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_epiweek
+#' @export
+as_epiweek.factor <- function(x, format = NULL, ...) {
+    x <- as.character(x)
+    as_epiweek.character(x, format = format, ...)
+}
+
+# -------------------------------------------------------------------------
+#' @export
+`[.grates_epiweek` <- function(x, ..., drop = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+`[[.grates_epiweek` <- function(x, ..., drop = TRUE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+`[<-.grates_epiweek` <- function(x, ..., value) {
+    if (!inherits(value, "grates_epiweek"))
+        stop("Can only assign <grates_epiweek> objects in to an <grates_epiweek> object.")
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+`[[<-.grates_epiweek` <- `[<-.grates_epiweek`
+
+# -------------------------------------------------------------------------
+#' @export
+rep.grates_epiweek <- function(x, ...) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+unique.grates_epiweek <- function(x, incomparables = FALSE, ...) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+c.grates_epiweek <- function(..., recursive = FALSE, use.names = TRUE) {
+    dots <- list(...)
+    if (!all(vapply(dots, inherits, TRUE, what = "grates_epiweek")))
+        stop("Unable to combine <grates_epiweek> objects with other classes.")
+    res <- NextMethod()
+    .new_epiweek(res)
+}
+
+# -------------------------------------------------------------------------
+#' @export
+seq.grates_epiweek <- function(from, to, by = 1L, ...) {
+
+    if (!inherits(to, "grates_epiweek") || length(to) != 1L)
+        stop("`to` must be a <grates_epiweek> object of length 1.")
+
+    if (!.is_scalar_whole(by))
+        stop("`by` must be an integer of length 1.")
+
+    from <- as.integer(from)
+    to <- as.integer(to)
+    out <- seq.int(from = from, to = to, by = by)
+
+    # Ensure integer as we cannot rely on seq.int (may return double)
+    out <- as.integer(out)
+    .new_epiweek(out)
+}
+
+# -------------------------------------------------------------------------
+#' @export
+as.integer.grates_yearweek <- function(x, ...) unclass(x)
+
+# -------------------------------------------------------------------------
+#' @export
+as.double.grates_yearweek <- function(x, ...) as.double(unclass(x))
+
+# -------------------------------------------------------------------------
+#' @export
+as.Date.grates_epiweek <- function(x, ...) {
+    .Date(as.double(unclass(x)) * 7L + 3L)
+}
+
+# -------------------------------------------------------------------------
+#' @export
+as.POSIXct.grates_epiweek <- function(x, tz = "UTC", ...) {
+    if (tz != "UTC")
+        stop("<grates_epiweek> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    x <- as.double(unclass(x)) * 7 + 3L
+    .POSIXct(x * 86400, tz = "UTC")
+}
+
+# -------------------------------------------------------------------------
+#' @export
+as.POSIXlt.grates_epiweek <- function(x, tz = "UTC", ...) {
+    if (tz != "UTC")
+        stop("<grates_epiweek> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    x <- as.double(unclass(x)) * 7L + 3L
+    as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
+}
+
+# -------------------------------------------------------------------------
+#' @export
+as.character.grates_epiweek <- function(x, ...) format.grates_epiweek(x)
+
+# -------------------------------------------------------------------------
+#' @export
+as.list.grates_epiweek <- function(x, ...) lapply(unclass(x), `class<-`, class(x))
+
+# -------------------------------------------------------------------------
+#' @export
+as.data.frame.grates_epiweek <- as.data.frame.vector
+
+# -------------------------------------------------------------------------
+#' @export
+min.grates_epiweek <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+max.grates_epiweek <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+range.grates_epiweek <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+Summary.grates_epiweek <- function(..., na.rm = FALSE) {
+    stop(
+        sprintf(
+            "`%s()` is not supported for <grates_epiweek> objects.",
+            .Generic
+        )
+    )
+}
+
+# -------------------------------------------------------------------------
+#' @export
+Math.grates_epiweek <- function(x, ...) {
+    stop(
+        sprintf(
+            "`%s()` is not supported for <grates_epiweek> objects.",
+            .Generic
+        )
+    )
+}
+
+# -------------------------------------------------------------------------
+#' @export
+quantile.grates_epiweek <- function(x, type = 1, ...) {
+    x <- unclass(x)
+    x <- as.integer(quantile(x, type = type, ...))
+    epiweek(x)
+}
+
+# -------------------------------------------------------------------------
+#' @export
+Ops.grates_epiweek <- function(e1, e2) {
+    op <- .Generic
+
+    if (op %in% c("==", "!=", "<", ">", "<=", ">=")) {
+        if (inherits(e2, "grates_epiweek")) {
+            return(NextMethod())
+        } else {
+            stop("Can only compare <grates_epiweek> objects with <grates_epiweek> objects.")
+        }
+    }
+
+    switch(
+        op,
+        "+" = {
+            if (missing(e2)) {
+                return(e1)
+            } else if (inherits(e1, "grates_epiweek") && inherits(e2, "grates_epiweek")) {
+                stop("Cannot add <grates_epiweek> objects to each other.")
+            } else if (inherits(e1, "grates_epiweek") && (.is_whole(e2))) {
+                return(.new_epiweek(unclass(e1) + as.integer(e2)))
+            } else if (inherits(e2, "grates_epiweek") && (.is_whole(e1))) {
+                return(.new_epiweek(unclass(e2) + as.integer(e1)))
+            } else {
+                stop("Can only add integers to <grates_epiweek> objects.")
+            }
+        },
+        "-" = {
+            if (missing(e2)) {
+                stop("Cannot negate a <grates_epiweek> object.")
+            } else if (inherits(e2, "grates_epiweek")) {
+                if (inherits(e1, "grates_epiweek")) {
+                    weekdiff <- (unclass(e1) - unclass(e2))
+                    return(as.difftime(weekdiff, units = "weeks"))
+                } else {
+                    stop("Can only subtract from a <grates_epiweek> object, not vice-versa.")
+                }
+            } else if (inherits(e1, "grates_epiweek") && is.integer(e2)) {
+                .new_epiweek(unclass(e1) - e2)
+            } else if (inherits(e1, "grates_epiweek") && .is_whole(e2)) {
+                .new_epiweek(unclass(e1) - as.integer(e2))
+            } else {
+                stop("Can only subtract whole numbers and other <grates_epiweek> objects from <grates_epiweek> objects.")
+            }
+        },
+        stop(
+            sprintf("%s is not compatible with <grates_epiweek> objects.", op)
+        )
+    )
+}
+
+
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+# -------------------------------- INTERNALS ------------------------------ #
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+
+.new_epiweek <- function(x) {
+    structure(x, class = c("grates_epiweek"))
+}
+
+.parse_epiweek_string <- function(x) {
+
+    firstday <- 7L
+
+    # pull out the year and week from string
+    year <- as.integer(substr(x, 1, 4))
+    week <- as.integer(substr(x, 7, 8))
+
+    # check weeks are valid relative to years
+    cond <- (week > .last_week_in_year(year = year, firstday = firstday))
+    if (any(cond, na.rm = TRUE)) {
+        idx <- which(cond)
+        if (length(cond) > 1) {
+            stop(
+                sprintf(
+                    "Some weeks are invalid epiweeks. The first invalid epiweek is %d-W%d (position %d).",
+                    year[idx], week[idx], idx
+                )
+            )
+        } else {
+            stop(sprintf("%s is not a valid epiweek.", x))
+        }
+
+    }
+
+    # convert numeric values to date
+    jan4 <- strptime(sprintf("%d-01-04", year), format = "%Y-%m-%d", tz = "UTC")
+    wday <- jan4$wday
+    out <- jan4 - ((wday + 7L - firstday) %% 7) * 86400
+    out <- out + (week - 1) * 7L * 86400
+    as.Date(out)
+}
+

@@ -1,36 +1,33 @@
 Package: grates
 Title: Grouped Date Classes
-Version: 0.3.1.9000
+<<<<<<< HEAD
+Version: 0.9.9.9000
 Authors@R:
     c(
       person(
         given = "Tim",
         family = "Taylor",
         role = c("aut", "cre"),
-        email = "tim.taylor@hiddenelephants.co.uk", 
+        email = "tim.taylor@hiddenelephants.co.uk",
         comment = c(ORCID = "0000-0002-8587-7113")
       )
     )
 Description: Provides a coherent interface and implementation for creating
-  grouped date classes. This package is part of the RECON
-  (<https://www.repidemicsconsortium.org/>) toolkit for outbreak analysis.
+    grouped date classes. This package is part of the RECON
+    (<https://www.repidemicsconsortium.org/>) toolkit for outbreak analysis.
 URL: https://www.reconverse.org/grates/, https://github.com/reconverse/grates
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.2
 Imports:
-    clock,
-    ellipsis,
-    rlang,
-    vctrs (>= 0.5.0)
-Suggests: 
+Suggests:
     knitr,
     ggplot2,
     scales,
-    testthat (>= 3.0.0),
+    vctrs,
+    rlang,
+    tinytest,
     rmarkdown,
-    dplyr,
     outbreaks
-Config/testthat/edition: 3
 VignetteBuilder: knitr

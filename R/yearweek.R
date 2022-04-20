@@ -1,88 +1,132 @@
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------- YEARWEEK -------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-#' Construct a grates_yearweek object
+#' Construct a yearweek object
 #'
-#' `yearweek()` is a constructor for a <grates_yearweek> object.
+#' @description
+#' `yearweek()` is a constructor for `<grates_yearweek>` objects.
 #'
-#' @param x Integer vector representing the number of weeks.
-#' @param firstday An integer representing the day the week starts on from 1
-#'   (Monday) to 7 (Sunday).
-#'
-#' <grates_yearweek> objects are stored as the number of weeks (startint at 0)
-#'   from the date of the specified `firstday` nearest the Unix Epoch
-#'   (1970-01-01). That is, the number of seven day periods from:
+#' @details
+#' `<grates_yearweek>` objects are stored as the number of weeks
+#' (starting at 0) from the date of the `firstday` nearest the Unix Epoch
+#' (1970-01-01). That is, the number of seven day periods from:
 #'
 #'     - 1969-12-29 for `firstday` equal to 1 (Monday)
-#'     - 1969-12-30 for `firstday` equal to 2 Tuesday
-#'     - 1969-12-31 for `firstday` equal to 3 Wednesday
-#'     - 1970-01-01 for `firstday` equal to 4 Thursday
-#'     - 1970-01-02 for `firstday` equal to 5 Friday
-#'     - 1970-01-03 for `firstday` equal to 6 Saturday
-#'     - 1970-01-04 for `firstday` equal to 7 Sunday
+#'     - 1969-12-30 for `firstday` equal to 2 (Tuesday)
+#'     - 1969-12-31 for `firstday` equal to 3 (Wednesday)
+#'     - 1970-01-01 for `firstday` equal to 4 (Thursday)
+#'     - 1970-01-02 for `firstday` equal to 5 (Friday)
+#'     - 1970-01-03 for `firstday` equal to 6 (Saturday)
+#'     - 1970-01-04 for `firstday` equal to 7 (Sunday)
+#'
+#' @param x `[integer]`
+#' Vector representing the number of weeks. `double` vectors will be converted
+#' via `as.integer(floor(x))`.
+#'
+#' @param firstday `[integer]`
+#' The day the week starts on from 1 (Monday) to 7 (Sunday).
+#'
+#' @param object
+#' An \R object.
+#'
+#' @return
+#' A `<grates_yearweek>` object with subclass corresponding to the first
+#' day of the week they represent (e.g. `<grates_yearweek_monday>`).
 #'
 #' @examples
-#' yearweek(0:5)
+#' yearweek(1:10)
+#'
+#' @seealso
+#' `as_yearweek()`, `isoweek()` and `epiweek()`.
 #'
 #' @export
 yearweek <- function(x = integer(), firstday = 1L) {
+    if (!is.integer(x)) {
+        if (is.double(x) && is.vector(x)) {
+            x <- as.integer(floor(x))
+        } else {
+            stop("`x` must be integer.")
+        }
+    }
 
-  # ensure inputs are all integer
-  x <- vec_cast(x, integer())
-  firstday <- vec_cast(firstday, integer())
+    if (length(firstday) != 1L)
+        stop("`firstday` must be an integer of length 1.")
 
-  # ensure firstday is of length 1 and between 1 and 7
-  if (!vec_is(firstday, size = 1L) || firstday < 1L || firstday > 7L) {
-    abort("`firstday` must be a single integer between 1 (Monday) and 7 (Sunday) inclusive")
-  }
+    if (!is.integer(firstday)) {
+        if (!.is_whole(firstday))
+            stop("`firstday` must be an integer of length 1.")
+        firstday <- as.integer(firstday)
+    }
 
-  new_yearweek(x, firstday = firstday)
+    if (firstday < 1L || firstday > 7L || is.na(firstday))
+        stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
+
+    .new_yearweek(x = x, firstday = firstday)
 }
 
+# -------------------------------------------------------------------------
 #' @rdname yearweek
 #' @export
-is_yearweek <- function(x) inherits(x, "grates_yearweek")
+is_yearweek <- function(object) inherits(object, "grates_yearweek")
 
+# -------------------------------------------------------------------------
+#' @export
+format.grates_yearweek <- function(x, ...) {
+    if (length(x) == 0)
+        return(character(0))
+    week <- get_week.grates_yearweek(x)
+    yr <- get_year.grates_yearweek(x)
+    out <- sprintf("%04d-W%02d", yr, week)
+    out[is.na(x)] <- NA_character_
+    setNames(out, names(x))
+}
 
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------ AS_YEARWEEK ------------------------------ #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
+# -------------------------------------------------------------------------
+#' @export
+print.grates_yearweek <- function(x, ...) {
+    # replicate the header similar to vctrs
+    n <- length(x)
+    cls <- class(x)[[1L]]
+    cat("<", cls, "[", n, "]>\n", sep = "")
+    if (n)
+        print(format.grates_yearweek(x))
+    invisible(x)
+}
 
-#' Convert an object to grates_yearweek
+# -------------------------------------------------------------------------
+vec_ptype_abbr.grates_yearweek <- function(x, ...) "yrwk"
+vec_ptype_full.grates_yearweek <- function(x, ...) "yearweek"
+vec_ptype_full.grates_yearweek_monday <- function(x, ...) "yearweek-mon"
+vec_ptype_full.grates_yearweek_tuesday <- function(x, ...) "yearweek-tue"
+vec_ptype_full.grates_yearweek_wednesday <- function(x, ...) "yearweek-wed"
+vec_ptype_full.grates_yearweek_thursday <- function(x, ...) "yearweek-thu"
+vec_ptype_full.grates_yearweek_friday <- function(x, ...) "yearweek-fri"
+vec_ptype_full.grates_yearweek_saturday <- function(x, ...) "yearweek-sat"
+vec_ptype_full.grates_yearweek_sunday <- function(x, ...) "yearweek-sun"
+
+# -------------------------------------------------------------------------
+#' Coerce to a yearweek object
 #'
 #' @description
-#' - Date, POSIXct, and POSIXlt are converted, with the timezone respected,
-#'   using [clock::as_date()].
+#' Generic for conversion to <grates_yearweek>
 #'
-#' - Character input is parsed by two methods. Firstly, if `format = NULL` then
-#'   character input is first checked to see if it is in the format of "YYYY-Www"
-#'   (e.g. "2021-W03") and parsed accordingly. If it is in a different format,
-#'   or `format` is non-NULL then it is parsed  using [clock::date_parse()].
+#' @details
+#' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
 #'
-#' @param x An object to coerce to yearweekly.
-#' @param firstday An integer representing the day the week starts on from 1
-#'   (Monday) to 7 (Sunday).
-#' @inheritParams clock::date_parse
-#' @param ... Not currently used.
+#' @param x
+#' An \R object.
 #'
-#' @note Internally `grates_yearweek` objects are stored as the number of weeks
-#'   from the date of the `firstday` nearest the Unix Epoch (1970-01-01).  That
-#'   is:
+#' @param format `[character]`
+#' If NULL, then it attempts to pass character values of the form 'YYYY-Www',
+#' otherwise passed through to `as.Date()` (default behaviour).
 #'
-#'     - 1969-12-29 for `firstday` as Monday
-#'     - 1969-12-30 for `firstday` as Tuesday
-#'     - 1969-12-31 for `firstday` as Wednesday
-#'     - 1970-01-01 for `firstday` as Thursday
-#'     - 1970-01-02 for `firstday` as Friday
-#'     - 1970-01-03 for `firstday` as Saturday
-#'     - 1970-01-04 for `firstday` as Sunday
+#' @param tryFormats `[character]`
+#' Passed through to `as.Date()`
 #'
-#' @return A `grates_yearweek` object.
+#' @param ...
+#' Other values passed to as.Date().
+#'
+#' @inheritParams yearweek
+#'
+#' @return
+#' A `<grates_yearweek>` object.
 #'
 #' @examples
 #' as_yearweek(Sys.Date())
@@ -90,342 +134,383 @@ is_yearweek <- function(x) inherits(x, "grates_yearweek")
 #' as_yearweek("2019-05-03", firstday = 5L)
 #' as_yearweek("2021-W03", format = NULL)
 #'
-#' @seealso [clock::date_parse()]
+#' @seealso
+#' `as.Date()` and `yearweek()`.
 #'
 #' @export
-as_yearweek <- function(x, firstday = 1L, ...) {
-  # ensure firstday is of length 1 and between 1 and 7
-  if (!vec_is(firstday, size = 1L) || firstday < 1L || firstday > 7L) {
-    abort("`firstday` must be a single integer between 1 (Monday) and 7 (Sunday) inclusive")
-  }
+as_yearweek <- function(x, ...) UseMethod("as_yearweek")
 
-  UseMethod("as_yearweek")
-}
-
+# -------------------------------------------------------------------------
 #' @rdname as_yearweek
 #' @export
-as_yearweek.default <- function(x, firstday = 1L, ...) {
-  firstday <- vec_cast(firstday, integer())
-  vec_cast(x, new_yearweek(firstday = firstday))
+as_yearweek.default <- function(x, ...) {
+    stop(
+        sprintf(
+            "Not implemented for class [%s].",
+            paste(class(x), collapse = ", ")
+        )
+    )
 }
 
-#' @inheritParams clock::date_parse
+# -------------------------------------------------------------------------
 #' @rdname as_yearweek
 #' @export
-as_yearweek.character <- function(x, firstday = 1L, format = "%Y-%m-%d",
-                                  locale = clock_locale(), ...) {
-  check_dots_empty()
-  firstday <- vec_cast(firstday, integer())
+as_yearweek.Date <- function(x, firstday = 1L, ...) {
+    if (length(firstday) != 1L)
+        stop("`firstday` must be an integer of length 1.")
 
-  # We add an additional parsing method for a custom YYYY-Www format before
-  # using clock to parse if this fails
-  if (is.null(format)) {
-    yrwk_pattern <- "(^\\d{4}-W([0][1-9]|[1-4][0-9]|5[0-3])$)"
-    allowed <- grepl(yrwk_pattern, trimws(x))
-    allowed[is.na(x)] <- TRUE
-    if (all(allowed)) {
-      # remove additional whitespace and parse
-      dat <- trimws(x)
-      out <- parse_yrwk_string(dat, firstday)
-    } else {
-      out <- date_parse(x, locale = locale)
+    if (!is.integer(firstday)) {
+        if (!.is_whole(firstday))
+            stop("`firstday` must be an integer of length 1.")
+        firstday <- as.integer(firstday)
     }
-  }
-  else {
-    out <- date_parse(x, format = format, locale = locale)
-  }
 
-  if (all(is.na(out))) abort("Unable to parse any entries of x as Dates")
-  vec_cast(out, new_yearweek(firstday = firstday))
+    if (firstday < 1L || firstday > 7L || is.na(firstday))
+        stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
+
+    x <- as.integer(floor(unclass(x)))
+    x <- (x + 4L - firstday) %/% 7L
+    .new_yearweek(x = x, firstday = firstday)
 }
 
-#' @inheritParams clock::date_parse
+# -------------------------------------------------------------------------
 #' @rdname as_yearweek
 #' @export
-as_yearweek.factor <- function(x, firstday = 1L, format = NULL,
-                            locale = clock_locale(), ...) {
-  check_dots_empty()
-  x <- as.character(x)
-  as_yearweek.character(x, firstday = firstday, format = format, locale = locale)
+as_yearweek.POSIXt <- function(x, firstday = 1L, ...) {
+    x <- .as_date(x)
+    as_yearweek.Date(x, firstday = firstday)
 }
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------ FORMATING -------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-#' Format a grates_yearweek object
-#'
-#' @param x A grates_yearweek object.
-#' @param ... Not currently used.
-#'
+# -------------------------------------------------------------------------
+#' @rdname as_yearweek
 #' @export
-format.grates_yearweek <- function(x, ...) {
-  if (length(x) == 0) return(character(0))
-  wk <- yearweek_to_week(x)
-  yr <- yearweek_to_year(x)
-  out <- sprintf("%04d-W%02d", yr, wk)
-  out[is.na(x)] <- NA_character_
-  out
+as_yearweek.character <- function(
+    x,
+    firstday = 1L,
+    format,
+    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+    ...
+) {
+    if (!missing(format) && is.null(format) && ...length() == 0L) {
+        yearweek_pattern <- "(^\\d{4}-W([0][1-9]|[1-4][0-9]|5[0-3])$)"
+        x <- trimws(x)
+        allowed <- grepl(yearweek_pattern, x)
+        if (all(allowed)) {
+            out <- .parse_yearweek_string(x, firstday)
+        } else if (any(allowed)) {
+            warning("Unable to parse some entries in yearweek format 'YYYY-Www'. Returning these as NA")
+            x[!allowed] <- NA_character_
+            out <- double(length(x))
+            out[!allowed] <- NA_real_
+            out[allowed] <- .parse_yearweek_string(x[allowed], firstday)
+        } else {
+            out <- as.Date(x)
+        }
+    } else {
+        out <- as.Date(x, format = format, ...)
+    }
+
+    as_yearweek.Date(out, firstday = firstday)
 }
 
+# -------------------------------------------------------------------------
+#' @rdname as_yearweek
 #' @export
-vec_ptype_abbr.grates_yearweek <- function(x, ...) "yrwk"
-
-vec_ptype_full.grates_yearweek <- function(x, ...) {
-  sprintf("yearweek<fd:%d>", attr(x, "firstday"))
+as_yearweek.factor <- function(x, firstday = 1L, format = NULL, ...) {
+    x <- as.character(x)
+    as_yearweek.character(x, firstday = firstday, format = format, ...)
 }
 
+# -------------------------------------------------------------------------
 #' @export
-obj_print_data.grates_yearweek <- function(x, ...) {
-  print(format(x), quote = FALSE)
+`[.grates_yearweek` <- function(x, ..., drop = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------ PROTOTYPES ------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------------------
 #' @export
-vec_ptype2.grates_yearweek.grates_yearweek <- function(x, y, ...) {
-  fdx <- attr(x, "firstday")
-  fdy <- attr(y, "firstday")
-  if (fdx != fdy) abort("Can't combine <grates_yearweek>'s with different `firstday`")
-  new_yearweek(firstday = fdx)
+`[[.grates_yearweek` <- function(x, ..., drop = TRUE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# -------------------------------- CASTING -------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.grates_yearweek.grates_yearweek <- function(x, to, ...) {
-  fdx <- attr(x, "firstday")
-  fdto <- attr(to, "firstday")
-  if (fdx != fdto) abort("Can't cast <grates_yearweek>'s with different `firstday`")
-  x
+`[<-.grates_yearweek` <- function(x, ..., value) {
+    if (!inherits(value, "grates_yearweek"))
+        stop("Can only assign <grates_yearweek> objects in to an <grates_yearweek> object.")
+    fdx <- .firstday_from_class(x)
+    fdv <- .firstday_from_class(value)
+    if (isTRUE(fdx != fdv))
+        stop("Incompatible first day of the week.")
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.grates_yearweek.Date <- function(x, to, ...) {
+`[[<-.grates_yearweek` <- `[<-.grates_yearweek`
 
-  # Ensure no fractional days
-  x <- as.integer(trunc(x))
-
-  # calculate the week number (relative to firstday nearest unix epoch)
-  firstday <- attr(to, "firstday")
-  weeknumber <- (x + 4 - firstday) %/% 7
-  new_yearweek(as.integer(weeknumber), firstday = firstday)
+# -------------------------------------------------------------------------
+#' @export
+rep.grates_yearweek <- function(x, ...) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.Date.grates_yearweek <- function(x, to, ...) {
-  firstday <- attr(x, "firstday")
-  weeknumber <- unclass(x)
-  new_date((7 * weeknumber) + (firstday - 4))
+unique.grates_yearweek <- function(x, incomparables = FALSE, ...) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.grates_yearweek.POSIXct <- function(x, to, ...) {
-  x <- as_date(x)
-  firstday <- attr(to, "firstday")
-  vec_cast.grates_yearweek.Date(x, new_yearweek(firstday = firstday))
+c.grates_yearweek <- function(..., recursive = FALSE, use.names = TRUE) {
+    dots <- list(...)
+    if (!all(vapply(dots, inherits, TRUE, what = "grates_yearweek")))
+        stop("Unable to combine <grates_yearweek> objects with other classes.")
+    fds <- vapply(dots, .firstday_from_class, 1L)
+    if (length(unique(fds)) != 1L)
+        stop("Unable to combine <grates_yearweek> objects with different first days of the week.")
+    res <- NextMethod()
+    .new_yearweek(res, firstday = fds[[1]])
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.grates_yearweek.POSIXlt <- vec_cast.grates_yearweek.POSIXct
+seq.grates_yearweek <- function(from, to, by = 1L, ...) {
 
-#' @export
-vec_cast.POSIXct.grates_yearweek <- function(x, to, ...) {
-  out <- vec_cast.Date.grates_yearweek(x, to)
-  tz <- date_zone(to)
-  out <- as_zoned_time(out, zone = tz, nonexistent = "roll-forward", ambiguous = "latest")
-  as_date_time(out)
+    if (!inherits(to, "grates_yearweek") || length(to) != 1L)
+        stop("`to` must be a <grates_yearweek> object of length 1.")
+
+    if (!.is_scalar_whole(by))
+        stop("`by` must be an integer of length 1.")
+
+    ffd <- .firstday_from_class(from)
+    tfd <- .firstday_from_class(to)
+    if (ffd != tfd)
+        stop("`to` must have the same first day of the week as `from`")
+
+    from <- as.integer(from)
+    to <- as.integer(to)
+    out <- seq.int(from = from, to = to, by = by)
+
+    # Ensure integer as we cannot rely on seq.int (may return double)
+    out <- as.integer(out)
+    .new_yearweek(out, firstday = ffd)
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.POSIXlt.grates_yearweek <- function(x, to, ...) {
-  out <- vec_cast.Date.grates_yearweek(x, to)
-  tz <- date_zone(to)
-  out <- as_zoned_time(out, zone = tz, nonexistent = "roll-forward", ambiguous = "latest")
-  as.POSIXlt(out)
+as.integer.grates_yearweek <- function(x, ...) unclass(x)
+
+# -------------------------------------------------------------------------
+#' @export
+as.double.grates_yearweek <- function(x, ...) as.double(unclass(x))
+
+# -------------------------------------------------------------------------
+#' @export
+as.Date.grates_yearweek <- function(x, ...) {
+    firstday <- .firstday_from_class(x)
+    .Date(as.double(unclass(x)) * 7 + (firstday - 4))
 }
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# --------------------------- OTHER CONVERSIONS --------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------------------
 #' @export
-as.character.grates_yearweek <- function(x, ...) {
-  check_dots_empty()
-  format(x)
+as.POSIXct.grates_yearweek <- function(x, tz = "UTC", ...) {
+    if (tz != "UTC")
+        stop("<grates_yearweek> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    firstday <- .firstday_from_class(x)
+    x <- as.double(unclass(x)) * 7 + (firstday - 4)
+    .POSIXct(x * 86400, tz = "UTC")
 }
 
+# -------------------------------------------------------------------------
 #' @export
-as.list.grates_yearweek <- function(x, ...) {
-  check_dots_empty()
-  firstday <- attr(x, "firstday")
-  out <- lapply(unclass(x), new_yearweek, firstday = firstday)
-  setNames(out, names(x))
+as.POSIXlt.grates_yearweek <- function(x, tz = "UTC", ...) {
+    if (tz != "UTC")
+        stop("<grates_yearweek> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    firstday <- .firstday_from_class(x)
+    x <- as.double(unclass(x)) * 7 + (firstday - 4)
+    as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
 }
 
+# -------------------------------------------------------------------------
 #' @export
-as.double.grates_yearweek <- function(x, ...) {
-  check_dots_empty()
-  out <- as.double(unclass(x))
-  setNames(out, names(x))
-}
+as.character.grates_yearweek <- function(x, ...) format.grates_yearweek(x)
 
+# -------------------------------------------------------------------------
 #' @export
-as.numeric.grates_yearweek <- function(x, ...) {
-  check_dots_empty()
-  out <- as.numeric(unclass(x))
-  setNames(out, names(x))
-}
+as.list.grates_yearweek <- function(x, ...) lapply(unclass(x), `class<-`, class(x))
 
-#' @export
-as.integer.grates_yearweek <- function(x, ...) {
-  check_dots_empty()
-  out <- as.integer(unclass(x))
-  setNames(out, names(x))
-}
-
+# -------------------------------------------------------------------------
 #' @export
 as.data.frame.grates_yearweek <- as.data.frame.vector
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# --------------------------------- MATH ---------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-is_nan_grates_yearweek <- function(x) vector("logical", vec_size(x))
-
-is_finite_grates_yearweek <- function(x) !vec_detect_missing(x)
-
-is_infinite_grates_yearweek <- function(x) vector("logical", vec_size(x))
-
+# -------------------------------------------------------------------------
 #' @export
-#' @method vec_math grates_yearweek
-vec_math.grates_yearweek <- function(.fn, .x, ...) {
-  switch(
-    .fn,
-    "is.nan" = is_nan_grates_yearweek(.x),
-    "is.finite" = is_finite_grates_yearweek(.x),
-    "is.infinite" = is_infinite_grates_yearweek(.x),
-    abort(sprintf("`%s()` is not supported for <grates_yearweek>", .fn))
-  )
+min.grates_yearweek <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# --------------------------------- MATH ---------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-is_nan_grates_yearweek <- function(x) vector("logical", vec_size(x))
-
-is_finite_grates_yearweek <- function(x) !vec_detect_missing(x)
-
-is_infinite_grates_yearweek <- function(x) vector("logical", vec_size(x))
-
+# -------------------------------------------------------------------------
 #' @export
-#' @method vec_math grates_yearweek
-vec_math.grates_yearweek <- function(.fn, .x, ...) {
-  switch(
-    .fn,
-    "is.nan" = is_nan_grates_yearweek(.x),
-    "is.finite" = is_finite_grates_yearweek(.x),
-    "is.infinite" = is_infinite_grates_yearweek(.x),
-    abort(sprintf("`%s()` is not supported for <grates_yearweek>", .fn))
-  )
+max.grates_yearweek <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
 }
 
+# -------------------------------------------------------------------------
+#' @export
+range.grates_yearweek <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+Summary.grates_yearweek <- function(..., na.rm = FALSE) {
+    stop(
+        sprintf(
+            "`%s()` is not supported for <grates_yearweek> objects.",
+            .Generic
+        )
+    )
+}
+
+# -------------------------------------------------------------------------
+#' @export
+Math.grates_yearweek <- function(x, ...) {
+    stop(
+        sprintf(
+            "`%s()` is not supported for <grates_yearweek> objects.",
+            .Generic
+        )
+    )
+}
+
+# -------------------------------------------------------------------------
 #' @export
 quantile.grates_yearweek <- function(x, type = 1, ...) {
-  firstday <- attr(x, "firstday")
-  weeks <- as.integer(quantile(unclass(x), type = type, ...))
-  new_yearweek(weeks, firstday = firstday)
+    x <- unclass(x)
+    firstday <- .firstday_from_class(x)
+    x <- as.integer(quantile(x, type = type, ...))
+    yearweek(x, firstday = firstday)
 }
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------ ARITHMETIC ------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------------------
 #' @export
-#' @method vec_arith grates_yearweek
-vec_arith.grates_yearweek <- function(op, x, y, ...) {
-  UseMethod("vec_arith.grates_yearweek", y)
+Ops.grates_yearweek <- function(e1, e2) {
+    op <- .Generic
+    if (op %in% c("==", "!=", "<", ">", "<=", ">=")) {
+        if (inherits(e2, "grates_yearweek")) {
+            fd1 <- .firstday_from_class(e1)
+            fd2 <- .firstday_from_class(e2)
+            if (isTRUE(all.equal(fd1, fd2))) {
+                return(NextMethod())
+            } else if (op == "==") {
+                return(FALSE)
+            } else if (op == "!=") {
+                return(TRUE)
+            } else {
+                stop("Can only compare <grates_yearweek> objects with the same first day of the week.")
+            }
+        } else {
+            stop("Can only compare <grates_yearweek> objects with <grates_yearweek> objects.")
+        }
+    }
+
+    switch(
+        op,
+        "+" = {
+            if (missing(e2)) {
+                return(e1)
+            } else if (inherits(e1, "grates_yearweek") && inherits(e2, "grates_yearweek")) {
+                stop("Cannot add <grates_yearweek> objects to each other.")
+            } else if (inherits(e1, "grates_yearweek") && (.is_whole(e2))) {
+                fd <- .firstday_from_class(e1)
+                .new_yearweek(unclass(e1) + as.integer(e2), firstday = fd)
+            } else if (inherits(e2, "grates_yearweek") && (.is_whole(e1))) {
+                fd <- .firstday_from_class(e2)
+                .new_yearweek(unclass(e2) + as.integer(e1), firstday = fd)
+            } else {
+                stop("Can only add integers to <grates_yearweek> objects.")
+            }
+        },
+        "-" = {
+            if (missing(e2)) {
+                stop("Cannot negate a <grates_yearweek> object.")
+            } else if (inherits(e2, "grates_yearweek")) {
+                if (inherits(e1, "grates_yearweek")) {
+                    fd1 <- .firstday_from_class(e1)
+                    fd2 <- .firstday_from_class(e2)
+                    if (isTRUE(all.equal(fd1, fd2))) {
+                        weekdiff <- (unclass(e1) - unclass(e2))
+                        as.difftime(weekdiff, units = "weeks")
+                    } else {
+                        stop("<grates_yearweek> objects must have the same first day of the week to perform subtraction.")
+                    }
+                } else {
+                    stop("Can only subtract from a <grates_yearweek> object, not vice-versa.")
+                }
+            } else if (inherits(e1, "grates_yearweek") && is.integer(e2)) {
+                fd <- .firstday_from_class(e1)
+                .new_yearweek(unclass(e1) - e2, firstday = fd)
+            } else if (inherits(e1, "grates_yearweek") && .is_whole(e2)) {
+                fd <- .firstday_from_class(e1)
+                .new_yearweek(unclass(e1) - as.integer(e2), firstday = fd)
+            } else {
+                stop("Can only subtract whole numbers and other <grates_yearweek> objects from <grates_yearweek> objects.")
+            }
+
+
+        },
+        stop(
+            sprintf("%s is not compatible with <grates_yearweek> objects.", op)
+        )
+    )
 }
 
-#' @export
-#' @method vec_arith.grates_yearweek default
-vec_arith.grates_yearweek.default <- function(op, x, y, ...) {
-  stop_incompatible_op(op, x, y)
+# -------------------------------------------------------------------------
+# TODO export this and add checks
+yearweek_string_to_date <- function(x, firstday) {
+
+    if (!is.character(x))
+        stop("`x` must be a character vector.")
+
+    if (length(firstday) != 1L)
+        stop("`firstday` must be an integer of length 1.")
+
+    if (!is.integer(firstday)) {
+        if (!.is_whole(firstday))
+            stop("`firstday` must be an integer of length 1.")
+        firstday <- as.integer(firstday)
+    }
+
+    if (firstday < 1L || firstday > 7L || is.na(firstday))
+        stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
+
+    yearweek_pattern <- "(^\\d{4}-W([0][1-9]|[1-4][0-9]|5[0-3])$)"
+    allowed <- grepl(yearweek_pattern, trimws(x))
+    allowed[is.na(x)] <- TRUE
+    dat <- trimws(x)
+    out <- rep.int(NA_integer_, length(x))
+    out[allowed] <- .parse_yearweek_string(dat[allowed], firstday)
+    out <- .Date(out)
+    out
 }
-
-#' @export
-#' @method vec_arith.grates_yearweek grates_yearweek
-vec_arith.grates_yearweek.grates_yearweek <- function(op, x, y, ...) {
-
-  if (attr(x, "firstday") != attr(y, "firstday")) stop_incompatible_type(x, y)
-  switch(
-    op,
-    "-" = vec_arith_base(op, x, y),
-    stop_incompatible_op(op, x, y)
-  )
-}
-
-#' @export
-#' @method vec_arith.grates_yearweek numeric
-vec_arith.grates_yearweek.numeric <- function(op, x, y, ...) {
-  firstday <- attr(x, "firstday")
-  y <- vec_cast(y, integer())
-  switch(
-    op,
-    "+" = ,
-    "-" = new_yearweek(as.integer(vec_arith_base(op, x, y)), firstday = firstday),
-    stop_incompatible_op(op, x, y)
-  )
-}
-
-#' @export
-#' @method vec_arith.numeric grates_yearweek
-vec_arith.numeric.grates_yearweek <- function(op, x, y, ...) {
-  firstday <- attr(y, "firstday")
-  x <- vec_cast(x, integer())
-  switch(
-    op,
-    "+" = new_yearweek(as.integer(vec_arith_base(op, x, y)), firstday = firstday),
-    stop_incompatible_op(op, x, y)
-  )
-}
-
-#' @export
-#' @method vec_arith.grates_yearweek MISSING
-vec_arith.grates_yearweek.MISSING <- function(op, x, y, ...) {
-  switch(
-    op,
-    `+` = x,
-    stop_incompatible_op(op, x, y)
-  )
-}
-
-
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
@@ -433,81 +518,124 @@ vec_arith.grates_yearweek.MISSING <- function(op, x, y, ...) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-new_yearweek <- function(x = integer(), firstday = 1L) {
-  vec_assert(x, ptype = integer())
-  vec_assert(firstday, ptype = integer(), size = 1L)
-  new_vctr(x, firstday = firstday, class = "grates_yearweek")
+.new_yearweek <- function(x = integer(), firstday = 1L) {
+    switch(
+        firstday,
+        .new_yearweek_monday(x),
+        .new_yearweek_tuesday(x),
+        .new_yearweek_wednesday(x),
+        .new_yearweek_thursday(x),
+        .new_yearweek_friday(x),
+        .new_yearweek_saturday(x),
+        .new_yearweek_sunday(x)
+    )
 }
 
-yearweek_to_week <- function(x) {
-  firstday <- attr(x, "firstday")
-  weeknumber <- as.numeric(x)
-  x <- new_date((7 * weeknumber) + (firstday - 4))
-  midweek <- x + 3
-  seven_day_week_in_year(date = midweek)
+# -------------------------------------------------------------------------
+.new_yearweek_monday <- function(x) {
+    structure(x, class = c("grates_yearweek_monday", "grates_yearweek"))
 }
 
-yearweek_to_year <- function(x) {
-  firstday <- attr(x, "firstday")
-  weeknumber <- as.numeric(x)
-  x <- new_date((7 * weeknumber) + (firstday - 4))
-
-  # calculate week
-  midweek <- x + 3
-  week <- seven_day_week_in_year(date = midweek)
-
-  # calculate year (
-  dat <- as_utc_posixlt_from_int(x)
-  december <- dat$mon == 11L
-  january <- dat$mon == 0L
-  boundary_adjustment <- integer(length(x)) # h/t Zhian Kamvar for boundary adjustment idea in aweek)
-  boundary_adjustment[january  & week >= 52] <- -1L
-  boundary_adjustment[december & week == 1]  <- 1L
-  yr = dat$year + 1900L
-  yr + boundary_adjustment
+# -------------------------------------------------------------------------
+.new_yearweek_tuesday <- function(x) {
+    structure(x, class = c("grates_yearweek_tuesday", "grates_yearweek"))
 }
 
-seven_day_week_in_year <- function(date) {
-  x <- as_utc_posixlt_from_int(date)
-  yr <- x$year + 1900L
-  jan1 <- date_build(year = yr, invalid = "error")
-  res <- 1 + (unclass(date) - unclass(jan1)) %/% 7
-  attributes(res) <- NULL
-  res
+# -------------------------------------------------------------------------
+.new_yearweek_wednesday <- function(x) {
+    structure(x, class = c("grates_yearweek_wednesday", "grates_yearweek"))
 }
 
-parse_yrwk_string <- function(x, firstday) {
-
-  # pull out the year and week from string
-  year <- as.integer(substr(x, 1, 4))
-  week <- as.integer(substr(x, 7, 8))
-
-  # check weeks are valid relative to years
-  cond <- (week > last_week_in_year(year = year, firstday = firstday))
-  if (any(cond, na.rm = TRUE)) {
-    idx <- which(cond)
-    abort(c(
-      "Some weeks are invalid for the given week_start",
-      i = sprintf("The first invalid year-week combination is %d-%d", year[idx], week[idx])
-    ))
-  }
-
-  numeric_yrwk_to_date(year = year, week = week, firstday = firstday)
+# -------------------------------------------------------------------------
+.new_yearweek_thursday <- function(x) {
+    structure(x, class = c("grates_yearweek_thursday", "grates_yearweek"))
 }
 
-
-last_week_in_year <- function(year = integer(), firstday = 1L) {
-  x <- as.Date(sprintf("%d-12-28", year))
-  wday <- strptime(sprintf("%d-12-28", year), format="%Y-%m-%d", tz = "UTC")$wday
-  wday <- 1L + (wday + (7L - firstday)) %% 7L
-  midweek <- x + (4L - wday)
-  seven_day_week_in_year(date = midweek)
+# -------------------------------------------------------------------------
+.new_yearweek_friday <- function(x) {
+    structure(x, class = c("grates_yearweek_friday", "grates_yearweek"))
 }
 
-numeric_yrwk_to_date <- function(year = integer(), week = integer(), firstday = integer()) {
-  jan4 <- strptime(sprintf("%d-01-04", year), format="%Y-%m-%d", tz = "UTC")
-  wday <- jan4$wday
-  out <- jan4 - ((wday + 7L - firstday) %% 7) * 86400
-  out <- out + (week - 1) * 7L * 86400
-  as.Date(out)
+# -------------------------------------------------------------------------
+.new_yearweek_saturday <- function(x) {
+    structure(x, class = c("grates_yearweek_saturday", "grates_yearweek"))
+}
+
+# -------------------------------------------------------------------------
+.new_yearweek_sunday <- function(x) {
+    structure(x, class = c("grates_yearweek_sunday", "grates_yearweek"))
+}
+
+# -------------------------------------------------------------------------
+.firstday_from_class <- function(x) {
+
+    if (inherits(x, "grates_yearweek_monday") || inherits(x, "grates_isoweek"))
+        return(1L)
+    if (inherits(x, "grates_yearweek_tuesday"))
+        return(2L)
+    if (inherits(x, "grates_yearweek_wednesday"))
+        return(3L)
+    if (inherits(x, "grates_yearweek_thursday"))
+        return(4L)
+    if (inherits(x, "grates_yearweek_friday"))
+        return(5L)
+    if (inherits(x, "grates_yearweek_saturday"))
+        return(6L)
+    if (inherits(x, "grates_yearweek_sunday"))
+        return(7L)
+    stop("Invalid <grates_yearweek> object - class corrupted.")
+}
+
+# -------------------------------------------------------------------------
+.parse_yearweek_string <- function(x, firstday) {
+
+    # pull out the year and week from string
+    year <- as.integer(substr(x, 1, 4))
+    week <- as.integer(substr(x, 7, 8))
+
+    # check weeks are valid relative to years
+    cond <- (week > .last_week_in_year(year = year, firstday = firstday))
+    if (any(cond, na.rm = TRUE)) {
+        idx <- which(cond)
+        if (length(cond) > 1) {
+            stop("Some weeks in are invalid for the given first day. The first invalid year-week combination is %d-W%d (position %d).",
+                  year[idx], week[idx], idx)
+        } else {
+            stop(
+                sprintf(
+                    "%s is not a valid week for the given first day (%d).",
+                    x,
+                    firstday
+                )
+            )
+        }
+
+    }
+
+    # convert numeric values to date
+    jan4 <- strptime(sprintf("%d-01-04", year), format = "%Y-%m-%d", tz = "UTC")
+    wday <- jan4$wday
+    out <- jan4 - ((wday + 7L - firstday) %% 7) * 86400
+    out <- out + (week - 1) * 7L * 86400
+    as.Date(out)
+}
+
+# -------------------------------------------------------------------------
+.last_week_in_year <- function(year = integer(), firstday = 1L) {
+    x <- as.Date(sprintf("%d-12-28", year))
+    wday <- strptime(sprintf("%d-12-28", year), format = "%Y-%m-%d", tz = "UTC")$wday
+    wday <- 1L + (wday + (7L - firstday)) %% 7L
+    midweek <- x + (4L - wday)
+    .seven_day_week_in_year(date = midweek)
+}
+
+# -------------------------------------------------------------------------
+.seven_day_week_in_year <- function(date) {
+    x <- .as_utc_posixlt_from_int(date)
+    yr <- x$year + 1900L
+    jan1 <- sprintf("%d-01-01", yr)
+    jan1 <- as.Date(strptime(jan1, format="%Y-%m-%d", tz = "UTC"))
+    res <- 1 + (unclass(date) - unclass(jan1)) %/% 7
+    attributes(res) <- NULL
+    res
 }

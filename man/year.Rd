@@ -3,19 +3,26 @@
 \name{year}
 \alias{year}
 \alias{is_year}
-\title{Construct a grates_year object}
+\title{Construct a year object}
 \usage{
 year(x = integer())
 
-is_year(x)
+is_year(object)
 }
 \arguments{
-\item{x}{Integer vector representing the year.}
+\item{x}{\verb{[integer]}
+Vector representing the years. \code{double} vectors will be converted via
+\code{as.integer(floor(x))}.}
+
+\item{object}{An \R object.}
+}
+\value{
+A \verb{<grates_year>} object.
 }
 \description{
-\code{year()} is a constructor for a <grates_year> object
+\code{year()} is a constructor for \verb{<grates_year>} objects.
 }
 \examples{
-year(2021)
+year(2011:2020)
 
 }

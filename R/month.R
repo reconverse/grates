@@ -1,465 +1,501 @@
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# --------------------------------- MONTH --------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-#' Construct a grates_month object
+#' Construct a month object
 #'
-#' `month()` is a constructor for a <grates_month> object
+#' @description
+#' `month()` is a constructor for `<grates_month>` objects.
 #'
-#' @param x Integer vector representing the number of months since the Unix
-#'   epoch (1970-01-01).
-#' @param n Number of months that are being grouped by (default 1).
-#' @param origin Month since the Unix epoch where grouping begins (default 0).
+#' @details
+#' `grates_month` objects are stored as the position, starting at 0, of n-month
+#' groups since the Unix Epoch (1970-01-01). Here n-months is taken to mean
+#' a 'grouping of n consecutive months'. Precision is only to the month
+#' level (i.e. the day of the  month is always dropped).
+#'
+#' @param x `[integer]`
+#' Vector representing the number of n-months since the Unix Epoch (1970-01-01).
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @param n `[integer]`
+#' Number of months that are being grouped. Must be greater than 1 (use
+#' `yearmonth()` for this case).
+#'
+#' @param object
+#' An \R object.
+#'
+#' @references
+#' The algorithm to convert between dates and months relative to the UNIX Epoch
+#' comes from the work of Davis Vaughan in the unreleased
+#' [datea](https://github.com/DavisVaughan/datea/) package.
+#'
+#' @return
+#' A `<grates_month>` object.
 #'
 #' @examples
-#' month(1)
-#' month(c(4, 7), n = 3, origin = 1)
-#'
-#' @references The algorithm to convert between dates and months relative to the
-#'   UNIX Epoch comes from the work of Davis Vaughan in the unreleased
-#'   [datea](https://github.com/DavisVaughan/datea/) package.
+#' month(1:10, 2L)
 #'
 #' @export
-month <- function(x = integer(), n = 1L, origin = 0L) {
+month <- function(x = integer(), n) {
+    if (!is.integer(x)) {
+        if (is.double(x) && is.vector(x)) {
+            x <- as.integer(floor(x))
+        } else {
+            stop("`x` must be integer.")
+        }
+    }
 
-  # ensure inputs are all valid
-  x <- vec_cast(x, integer())
-  n <- vec_cast(n, integer())
-  origin <- vec_cast(origin, integer())
-  stopifnot("`n` must be >= 1" = n > 0)
-  stopifnot("`n` not compatible with specified data `x`" = is_valid_interval(x, n))
+    # trigger warning for missing n at top level
+    n <- n
+    if (!.is_scalar_whole(n))
+        stop("`n` must be an integer of length 1.")
+    n <- as.integer(n)
+    if (n == 1L)
+        stop("`n` must be greater than 1. If single month groupings are required please use `yearmonth()`.")
 
-  # check that origin is compatible with with combination of x and n
-  origin <- origin %% n
-  if(!all(x %% n == origin)) {
-    abort("`origin` not compatible with specified `x` and `n")
-  }
-
-  new_month(x, n = n, origin = origin)
+    .new_month(x = x, n = n)
 }
 
+# -------------------------------------------------------------------------
 #' @rdname month
 #' @export
-is_month <- function(x) inherits(x, "grates_month")
+is_month <- function(object) inherits(object, "grates_month")
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------- AS_MONTH -------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-#' Convert an object to grates_month object
+# -------------------------------------------------------------------------
+#' Print a month object
 #'
-#' - Date, POSIXct, and POSIXlt are converted, with the timezone respected,
-#'   using [clock::as_date()].
-#' - Character input is parsed using [clock::date_parse()].
+#' @param x
+#' A `<grates_month>` object.
 #'
-#' @param x An object to convert.
-#' @param n Number of months that are being grouped by (default 1).
-#' @param origin Month since the Unix epoch where grouping begins (default 0).
-#' @param ... Not currently used.
+#' @param format `[character]`
+#' The format to use for the bounds of each value.
 #'
-#' @return A `grates_month` object.
+#' @param sep `[character]`
+#' Where more than one month is grouped with others, `sep` is placed between the
+#' upper and lower bounds when printing.
 #'
-#' @examples
-#' as_month(Sys.Date())
-#' as_month(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), interval = 2)
-#' as_month("2019-05-03")
-#'
-#' @note Internally `grates_month` objects are stored as the number of months
-#'   (starting at 0) since the Unix Epoch (1970-01-01) to the earliest month in
-#'   the grouping. Precision is only to the month level (i.e. the day of the
-#'   month is always dropped).
-#'
-#' @references The algorithm to convert between dates and months relative to the
-#'   UNIX Epoch comes from the work of Davis Vaughan in the unreleased
-#'   [datea](https://github.com/DavisVaughan/datea/) package.
+#' @param ...
+#' Not currently used.
 #'
 #' @export
-as_month <- function(x, ...) {
-  UseMethod("as_month")
+print.grates_month <- function(x, format = "%Y-%b", sep = "to", ...) {
+    # replicate the header as in vctrs
+    n <- length(x)
+    cat("<grates_yearmonth[", n, "]>\n", sep = "")
+    if (n)
+        print(format.grates_month(x, format = format, sep = sep))
+    invisible(x)
 }
 
-#' @rdname as_month
-#' @export
-as_month.default <- function(x, n = 1L, origin = 0L, ...) {
-  n <- vec_cast(n, integer())
-  origin <- vec_cast(origin, integer())
-  vec_cast(x, new_month(n = n, origin = origin))
-}
-
-#' @inheritParams clock::date_parse
-#' @rdname as_month
-#' @export
-as_month.character <- function(x, n = 1L, origin = 0L, format = NULL,
-                               locale = clock_locale(), ...) {
-  check_dots_empty()
-  n <- vec_cast(n, integer())
-  origin <- vec_cast(origin, integer())
-  x <- date_parse(x, format = format, locale = locale)
-  if (all(is.na(x))) abort("Unable to parse any entries of x as Dates")
-  vec_cast(x, new_month(n = n, origin = origin))
-}
-
-#' @inheritParams clock::date_parse
-#' @rdname as_month
-#' @export
-as_month.factor <- function(x, n = 1L, origin = 0L, format = NULL,
-                            locale = clock_locale(), ...) {
-  check_dots_empty()
-  x <- as.character(x)
-  as_month.character(x,n = n, origin = origin, format = format, locale = locale)
-}
-
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------ FORMATING -------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-#' Format a grates_month object
-#'
-#' @param x A grates_month object.
-#' @param format The format to use for the bounds of each grates_month entry.
-#' @param sep Where more than one month is grouped with others, `sep` is placed
-#'   between the upper and lower bounds when printing.
-#' @param ... Not currently used.
-#'
+# -------------------------------------------------------------------------
+#' @rdname print.grates_month
 #' @export
 format.grates_month <- function(x, format = "%Y-%b", sep = "to", ...) {
-  if (length(x) == 0) return(character(0))
-  n <- attr(x, "n")
-  if (n > 1) {
+    if (length(x) == 0) return(character(0))
     out <- sprintf(
-      "%s %s %s",
-      format.Date(vec_cast(x, new_date(0)), format = format),
-      sep,
-      format.Date(vec_cast(x + 1, new_date(0)) - 1, format = format)
+        "%s %s %s",
+        format.Date(as.Date(x), format = format),
+        sep,
+        format.Date(as.Date(x + 1) - 1, format = format)
     )
-  } else {
-    out <- format.Date(vec_cast(x, new_date(0)), format = format)
-  }
-  out[is.na(x)] <- NA_character_
-  out
+    out[is.na(x)] <- NA_character_
+    out
+}
+
+# -------------------------------------------------------------------------
+vec_ptype_abbr.grates_month <- function(x, ...) "month"
+vec_ptype_full.grates_month <- function(x, ...) "grates_month"
+
+# -------------------------------------------------------------------------
+#' Coerce an object to month
+#'
+#' @description
+#' `as_month()` is a generic for coercing input in to `<grates_month>`.
+#'
+#' @param x
+#' A \R object:
+#' - Character input is first parsed using `as.Date()`.
+#' - POSIXt inputs are converted with the timezone respected.
+#'
+#' @param n `[integer]`
+#' Number of months that are being grouped. Must be greater than 1 (use
+#' `as_yearmonth()` for this case).
+
+#' @param ...
+#' Only used For character input where additional arguments are passed through
+#' to `as.Date()`.
+#'
+#' @return
+#' A `<grates_month>` object.
+#'
+#' @examples
+#' as_month("2019-05-03", n = 4L)
+#' as_month(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 2)
+#'
+#' @note
+#' Internally `grates_month` objects are stored as the position, starting at 0,
+#' of n-month groups since the Unix Epoch (1970-01-01). Here n-months is taken
+#' to mean a 'grouping of n consecutive months'. Precision is only to the month
+#' level (i.e. the day of the  month is always dropped).
+#'
+#' @references
+#' The algorithm to convert between dates and months relative to the UNIX Epoch
+#' comes from the work of Davis Vaughan in the unreleased
+#' [datea](https://github.com/DavisVaughan/datea/) package.
+#'
+#' @seealso
+#' `as.Date()`
+#'
+#' @export
+as_month <- function(x, n, ...) UseMethod("as_month")
+
+# -------------------------------------------------------------------------
+#' @rdname as_month
+#' @export
+as_month.default <- function(x, n, ...) {
+    stop(
+        sprintf(
+            "Not implemented for class [%s].",
+            paste(class(x), collapse = ", ")
+        )
+    )
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_month
+#' @export
+as_month.Date <- function(x, n, ...) {
+
+    # trigger warning for missing n at top level
+    n <- n
+
+    if (!.is_scalar_whole(n))
+        stop("`n` must be an integer of length 1.")
+    n <- as.integer(n)
+    if (n == 1L)
+        stop("`n` must be greater than 1. If single month groupings are required please use `as_yearmonth()`.")
+
+    # convert to posixlt (this will always be UTC when called on a date)
+    x <- as.POSIXlt(x)
+
+    # calculate the year
+    yr <- x$year + 1900L
+
+    # calculate the month relative to unix epoch
+    mon <- (yr - 1970L) * 12L + x$mon
+
+    # scale month by n
+    mon <- (mon %/% n)
+
+    # TODO - could mon ever be double here? Is as.integer needed or superfluous?
+    .new_month(x = as.integer(mon), n = n)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_month
+#' @export
+as_month.POSIXt <- function(x, n, ...) {
+
+    # trigger warning for missing n at top level
+    n <- n
+
+    x <- .as_date(x)
+    as_month.Date(x = x, n = n)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_month
+#' @export
+as_month.character <- function(x, n, ...) {
+
+    # trigger warning for missing n at top level
+    n <- n
+
+    out <- as.Date(x, ...)
+    if (all(is.na(out)))
+        stop("Unable to parse any entries of `x` as Dates.")
+    as_month.Date(x = out, n = n)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname as_month
+#' @export
+as_month.factor <- function(x, n, ...) {
+
+    # trigger warning for missing n at top level
+    n <- n
+
+    x <- as.character(x)
+    as_month.character(x, n = n, ...)
 }
 
 #' @export
-vec_ptype_abbr.grates_month <- function(x, ...) "mnth"
-
-#vec_ptype_full.grates_month <- function(x, ...) sprintf("month<%d>", attr(x, "n"))
-
-#' @export
-obj_print_data.grates_month <- function(x, format = "%Y-%b", sep = "to", ...) {
-  print(format(x, format = format, sep = sep), quote = FALSE)
+`[.grates_month` <- function(x, ..., drop = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    attr(out, "n") <- attr(x, "n")
+    out
 }
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------ PROTOTYPES ------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------------------
 #' @export
-vec_ptype2.grates_month.grates_month <- function(x, y, ...) {
-  # check compatibility of n
-  nx <- attr(x, "n")
-  ny <- attr(y, "n")
-  if (nx != ny) abort("Can't combine <grates_month>'s with different `n`")
-
-  # check compatibility of the origin
-  ox <- attr(x, "origin")
-  oy <- attr(y, "origin")
-  if (ox != oy) abort("Can't combine <grates_month>'s with different `origin`")
-
-  # prototype
-  new_month(n = nx, origin = ox)
+`[[.grates_month` <- function(x, ..., drop = TRUE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    attr(out, "n") <- attr(x, "n")
+    out
 }
 
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# -------------------------------- CASTING -------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.grates_month.grates_month <- function(x, to, ...) {
-  # check compatibility of n
-  nx <- attr(x, "n")
-  nto <- attr(to, "n")
-  if (nx != nto) abort("Can't cast <grates_month>'s with different `n`")
-
-  # check compatibility of the origin
-  ox <- attr(x, "origin")
-  oto <- attr(to, "origin")
-  if (ox != oto) abort("Can't cast <grates_month>'s with different `origin`")
-
-  x
+`[<-.grates_month` <- function(x, ..., value) {
+    if (!inherits(value, "grates_month"))
+        stop("Can only assign <grates_month> objects in to an <grates_month> object.")
+    nx <- attr(x, "n")
+    nv <- attr(value, "n")
+    if (isTRUE(nx != nv))
+        stop("Incompatible month groupings.")
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    attr(out, "n") <- nx
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.grates_month.Date <- function(x, to, ...) {
+`[[<-.grates_month` <- `[<-.grates_month`
 
-  # floor to start of month
-  x <- date_group(x, precision = "month", n = 1L)
-
-  # convert to posixlt
-  x <- as_utc_posixlt_from_int(x)
-
-  # calculate the year
-  yr <- x$year + 1900L
-
-  # calculate the month relative to unix epoch
-  mon <- (yr - 1970L) * 12L + x$mon
-
-  # Adjust the origin for dates around Unix Epoch or prior
-  n <- attr(to, "n")
-  origin <- attr(to, "origin") %% n
-  min <- min(mon, na.rm = TRUE)
-  while(min < origin) {
-    origin <- origin - n
-  }
-
-  # generate sequence of month groupings staring at origin
-  months <- seq(from = origin, to = max(mon, na.rm = TRUE), by = n)
-  idx <- cut(mon, breaks = c(months, Inf), labels = FALSE, right = FALSE)
-  out <- months[idx]
-
-  # rescale origin modulo n
-  origin <- min(out, na.rm = TRUE) %% n
-
-  new_month(out, n = n, origin = origin)
+# -------------------------------------------------------------------------
+#' @export
+rep.grates_month <- function(x, ...) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    attr(out, "n") <- attr(x, "n")
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.Date.grates_month <- function(x, to, ...) {
-  days <- month_to_days(unclass(x))
-  new_date(days)
+unique.grates_month <- function(x, incomparables = FALSE, ...) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    attr(out, "n") <- attr(x, "n")
+    out
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.grates_month.POSIXct <- function(x, to, ...) {
-  x <- as_date(x)
-  n <- attr(to, "n")
-  origin <- attr(to, "origin")
-  vec_cast.grates_month.Date(x, new_month(n = n, origin = origin))
+c.grates_month <- function(..., recursive = FALSE, use.names = TRUE) {
+    dots <- list(...)
+    if (!all(vapply(dots, inherits, TRUE, what = "grates_month")))
+        stop("Unable to combine <grates_month> objects with other classes.")
+    ns <- vapply(dots, function(x) attr(x, "n"), 1L)
+    if (length(unique(ns)) != 1L)
+        stop("Unable to combine <grates_month> objects with different groupings.")
+    res <- NextMethod()
+    .new_month(x = res, n = ns[[1]])
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.grates_month.POSIXlt <- vec_cast.grates_month.POSIXct
+seq.grates_month <- function(from, to, by = 1L, ...) {
 
-#' @export
-vec_cast.POSIXct.grates_month <- function(x, to, ...) {
-  out <- vec_cast.Date.grates_month(x, to)
-  tz <- date_zone(to)
-  out <- as_zoned_time(out, zone = tz, nonexistent = "roll-forward", ambiguous = "latest")
-  as_date_time(out)
+    if (!inherits(to, "grates_month") || length(to) != 1L)
+        stop("`to` must be a <grates_month> object of length 1.")
+
+    if (!.is_scalar_whole(by))
+        stop("`by` must be an integer of length 1.")
+
+    fn <- attr(from, "n")
+    tn <- attr(to, "n")
+    if (fn != tn)
+        stop("`to` must have the same month grouping as `from`")
+
+    from <- as.integer(from)
+    to <- as.integer(to)
+    out <- seq.int(from = from, to = to, by = by)
+
+    # Ensure integer as we cannot rely on seq.int (may return double)
+    out <- as.integer(out)
+    .new_month(x = out, n = tn)
 }
 
+# -------------------------------------------------------------------------
 #' @export
-vec_cast.POSIXlt.grates_month <- function(x, to, ...) {
-  out <- vec_cast.Date.grates_month(x, to)
-  tz <- date_zone(to)
-  out <- as_zoned_time(out, zone = tz, nonexistent = "roll-forward", ambiguous = "latest")
-  as.POSIXlt(out)
+as.Date.grates_month <- function(x, ...) {
+    n <- attr(x, "n")
+    x <- as.integer(x)
+    days <- .month_to_days(x * n)
+    .Date(days)
 }
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# --------------------------- OTHER CONVERSIONS --------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------------------
 #' @export
-as.character.grates_month <- function(x, format = "%Y-%b", sep = "to", ...) {
-  check_dots_empty()
-  format(x, format = format, sep = sep)
+as.POSIXct.grates_month <- function(x, tz = "UTC", ...) {
+    if (tz != "UTC")
+        stop("<grates_month> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    n <- attr(x, "n")
+    x <- as.integer(x)
+    x <- .month_to_days(x * n)
+    .POSIXct(x * 86400, tz = "UTC")
 }
 
+# -------------------------------------------------------------------------
+#' @export
+as.POSIXlt.grates_month <- function(x, tz = "UTC", ...) {
+    if (tz != "UTC")
+        stop("<grates_month> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    n <- attr(x, "n")
+    x <- as.integer(x)
+    x <- .month_to_days(x * n)
+    as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
+}
+
+# -------------------------------------------------------------------------
+#' @export
+as.character.grates_month <- function(x, ...) format.grates_month(x)
+
+# -------------------------------------------------------------------------
 #' @export
 as.list.grates_month <- function(x, ...) {
-  check_dots_empty()
-  n <- attr(x, "n")
-  origin <- attr(x, "origin")
-  out <- lapply(unclass(x), new_month, n = n, origin = origin)
-  setNames(out, names(x))
+    lapply(
+        as.integer(x),
+        function(y) {
+            class(y) <- oldClass(x)
+            attr(y, "n") <- attr(x, "n")
+            y
+        }
+    )
 }
 
-#' @export
-as.double.grates_month <- function(x, ...) {
-  check_dots_empty()
-  out <- as.double(unclass(x))
-  setNames(out, names(x))
-}
-
-#' @export
-as.numeric.grates_month <- function(x, ...) {
-  check_dots_empty()
-  out <- as.numeric(unclass(x))
-  setNames(out, names(x))
-}
-
-#' @export
-as.integer.grates_month <- function(x, ...) {
-  check_dots_empty()
-  out <- as.integer(unclass(x))
-  setNames(out, names(x))
-}
-
+# -------------------------------------------------------------------------
 #' @export
 as.data.frame.grates_month <- as.data.frame.vector
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# --------------------------------- MATH ---------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
-is_nan_grates_month <- function(x) vector("logical", vec_size(x))
-
-is_finite_grates_month <- function(x) !vec_detect_missing(x)
-
-is_infinite_grates_month <- function(x) vector("logical", vec_size(x))
+# -------------------------------------------------------------------------
 
 #' @export
-#' @method vec_math grates_month
-vec_math.grates_month <- function(.fn, .x, ...) {
-  switch(
-    .fn,
-    "is.nan" = is_nan_grates_month(.x),
-    "is.finite" = is_finite_grates_month(.x),
-    "is.infinite" = is_infinite_grates_month(.x),
-    abort(sprintf("`%s()` is not supported for <grates_month>", .fn))
-  )
+min.grates_month <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    attr(out, "n") <- attr(x, "n")
+    out
 }
 
+# -------------------------------------------------------------------------
+#' @export
+max.grates_month <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    attr(out, "n") <- attr(x, "n")
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+range.grates_month <- function(x, ..., na.rm = FALSE) {
+    out <- NextMethod()
+    class(out) <- oldClass(x)
+    attr(out, "n") <- attr(x, "n")
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @export
+Summary.grates_month <- function(..., na.rm = FALSE) {
+    stop(
+        sprintf(
+            "`%s()` is not supported for <grates_month> objects.",
+            .Generic
+        )
+    )
+}
+
+# -------------------------------------------------------------------------
+#' @export
+Math.grates_month <- function(x, ...) {
+    stop(
+        sprintf(
+            "`%s()` is not supported for <grates_month> objects.",
+            .Generic
+        )
+    )
+}
+
+# -------------------------------------------------------------------------
 #' @export
 quantile.grates_month <- function(x, type = 1, ...) {
-  n <- attr(x, "n")
-  origin <- attr(x, "origin")
-  months <- as.integer(quantile(unclass(x), type = type, ...) %/% n) * n
-  new_month(months, n = n, origin = origin)
+    n <- attr(x, "n")
+    months <- as.integer(quantile(as.integer(x), type = type, ...))
+    .new_month(x = months, n = n)
 }
 
-
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------ ARITHMETIC ------------------------------- #
-# ------------------------------------------------------------------------- #
-# ------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------------------
 #' @export
-#' @method vec_arith grates_month
-vec_arith.grates_month <- function(op, x, y, ...) {
-  UseMethod("vec_arith.grates_month", y)
+Ops.grates_month <- function(e1, e2) {
+    op <- .Generic
+    if (op %in% c("==", "!=", "<", ">", "<=", ">=")) {
+        if (inherits(e2, "grates_month")) {
+            n1 <- attr(e1, "n")
+            n2 <- attr(e2, "n")
+            if (isTRUE(all.equal(n1, n2))) {
+                return(NextMethod())
+            } else if (op == "==") {
+                return(FALSE)
+            } else if (op == "!=") {
+                return(TRUE)
+            } else {
+                stop("Can only compare <grates_month> objects with the same month grouping.")
+            }
+        } else {
+            stop("Can only compare <grates_month> objects with <grates_month> objects.")
+        }
+    }
+
+    switch(
+        op,
+        "+" = {
+            if (missing(e2)) {
+                return(e1)
+            } else if (inherits(e1, "grates_month") && inherits(e2, "grates_month")) {
+                stop("Cannot add <grates_month> objects to each other.")
+            } else if (inherits(e1, "grates_month") && (.is_whole(e2))) {
+                n <- attr(e1, "n")
+                .new_month(as.integer(e1) + as.integer(e2), n = n)
+            } else if (inherits(e2, "grates_month") && (.is_whole(e1))) {
+                n <- attr(e2, "n")
+                .new_month(as.integer(e2) + as.integer(e1), n = n)
+            } else {
+                stop("Can only add integers to <grates_month> objects.")
+            }
+        },
+        "-" = {
+            if (missing(e2)) {
+                stop("Cannot negate a <grates_month> object.")
+            } else if (inherits(e2, "grates_month")) {
+                if (inherits(e1, "grates_month")) {
+                    n1 <- attr(e1, "n")
+                    n2 <- attr(e2, "n")
+                    if (isTRUE(all.equal(n1, n2))) {
+                        (as.integer(e1) - as.integer(e2))
+                    } else {
+                        stop("<grates_month> objects must have the same month grouping to perform subtraction.")
+                    }
+                } else {
+                    stop("Can only subtract from a <grates_month> object, not vice-versa.")
+                }
+            } else if (inherits(e1, "grates_month") && .is_whole(e2)) {
+                n <- attr(e1, "n")
+                .new_month(as.integer(e1) - e2, n = n)
+            } else {
+                stop("Can only subtract whole numbers and other <grates_month> objects from <grates_month> objects.")
+            }
+        },
+        stop(sprintf("%s is not compatible with <grates_month> objects.", op))
+    )
 }
 
-#' @export
-#' @method vec_arith.grates_month default
-vec_arith.grates_month.default <- function(op, x, y, ...) {
-  stop_incompatible_op(op, x, y)
-}
-
-#' @export
-#' @method vec_arith.grates_month grates_month
-vec_arith.grates_month.grates_month <- function(op, x, y, ...) {
-
-  # check compatibility of n
-  nx <- attr(x, "n")
-  ny <- attr(y, "n")
-  if (nx != ny) stop_incompatible_type(x, y)
-
-  # check compatibility of the origin
-  ox <- attr(x, "origin")
-  oy <- attr(y, "origin")
-  if (nx != ny) stop_incompatible_type(x, y)
-
-  switch(
-    op,
-    "-" = vec_arith_base(op, x, y) / nx,
-    stop_incompatible_op(op, x, y)
-  )
-}
-
-#' @export
-#' @method vec_arith.grates_month numeric
-vec_arith.grates_month.numeric <- function(op, x, y, ...) {
-  n <- attr(x, "n")
-  y <- vec_cast(y, integer())
-  origin <- attr(x, "origin")
-  switch(
-    op,
-    "+" = ,
-    "-" = new_month(as.integer(vec_arith_base(op, x, n*y)), n = n, origin = origin),
-    stop_incompatible_op(op, x, y)
-  )
-}
-
-#' @export
-#' @method vec_arith.numeric grates_month
-vec_arith.numeric.grates_month <- function(op, x, y, ...) {
-  n <- attr(y, "n")
-  x <- vec_cast(x, integer())
-  origin <- attr(y, "origin")
-  switch(
-    op,
-    "+" = new_month(as.integer(vec_arith_base(op, n*x, y)), n = n, origin = origin),
-    stop_incompatible_op(op, x, y)
-  )
-}
-
-#' @export
-#' @method vec_arith.grates_month MISSING
-vec_arith.grates_month.MISSING <- function(op, x, y, ...) {
-  switch(op,
-         `+` = x,
-         stop_incompatible_op(op, x, y)
-  )
-}
 
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 # -------------------------------- INTERNALS ------------------------------ #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-new_month <- function(x = integer(), n = 1L, origin = 0L) {
-  vec_assert(x, ptype = integer())
-  vec_assert(n, ptype = integer(), size = 1L)
-  vec_assert(origin, ptype = integer(), size = 1L)
-  new_vctr(x, n = n, origin = origin, class = "grates_month")
-}
 
-delayedAssign(
-  "DAYS_BEFORE_MONTH",
-  c(0L, 31L, 59L, 90L, 120L, 151L, 181L, 212L, 243L, 273L, 304L, 334L)
-)
-
-is_valid_interval <- function(x = integer(), n = integer()) {
-  x <- x[!is.na(x)]
-  if (length(x)) all(diff(x) %% n == 0) else TRUE
-}
-
-month_to_days <- function(month) {
-  year <- month %/% 12L + 1970L
-  month <- month %% 12L + 1L
-  days_before_year(year) + days_before_month(year, month) - 719162L
-}
-
-days_before_year <- function(year = integer()) {
-  year <- year - 1L
-  (year * 365) + (year %/% 4) - (year %/% 100) + (year %/% 400)
-}
-
-days_before_month <- function(year, month) {
-  DAYS_BEFORE_MONTH[month] + ((month > 2) & is_leap_year(year))
-}
-
-is_leap_year <- function(year) {
-  ((year %% 4 == 0) & (year %% 100 != 0)) | (year %% 400 == 0)
-}
+.new_month <- function(x = integer(), n) structure(x, n = n, class = "grates_month")

@@ -3,32 +3,47 @@
 \name{period}
 \alias{period}
 \alias{is_period}
-\title{Construct a grates_period object}
+\title{Construct a period object}
 \usage{
-period(x = integer(), n = 1L, origin = 0L)
+period(x = integer(), n = 1L, offset = 0L)
 
-is_period(x)
+is_period(xx)
 }
 \arguments{
-\item{x}{Integer vector representing the number of days since the Unix
-epoch (1970-01-01) at the beginning of the specified grouping.}
+\item{x}{\verb{[integer]}
 
-\item{n}{An integer indicating the (fixed) number of days used for
-grouping; defaults to 1.}
+Vector representing the number of periods since the Unix Epoch (1970-01-01)
+and a specified offset.
 
-\item{origin}{Day since the Unix epoch where grouping begins (default 0).}
+\code{double} vectors will be converted via \code{as.integer(floor(x))}.}
+
+\item{n}{\verb{[integer]}
+
+Number of days that are being grouped by.}
+
+\item{offset}{\verb{[integer]}
+
+Value you wish to start counting groups from relative to the Unix Epoch.}
+
+\item{xx}{An \R object.}
 }
 \value{
-a <grates_period> vector.
+A \verb{<grates_period>} object.
 }
 \description{
-\code{period()} is a constructor for a <grates_period> object
+\code{period()} is a constructor for \verb{<grates_period>} objects.
 }
-\note{
-To allow easy comparison between <grates_period> object, the \code{origin}
-will be stored as it's value modulo \code{n} (i.e \code{origin <- origin \%\% n}).
+\details{
+\code{grates_period} objects are stored as the integer number, starting at 0L, of
+periods since the Unix Epoch (1970-01-01) and a specified offset. Here
+periods are taken to mean groupings of \code{n} consecutive days.
+
+For storage and calculation purposes, \code{offset} is scaled relative to \code{n}.
+I.e. \code{offset <- offset \%\% n} and values of \code{x} stored relative to this scaled
+offset.
 }
 \examples{
-period(1, n = 2, origin = 1)
+
+period(1:10)
 
 }

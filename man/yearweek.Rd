@@ -3,35 +3,47 @@
 \name{yearweek}
 \alias{yearweek}
 \alias{is_yearweek}
-\title{Construct a grates_yearweek object}
+\title{Construct a yearweek object}
 \usage{
 yearweek(x = integer(), firstday = 1L)
 
-is_yearweek(x)
+is_yearweek(object)
 }
 \arguments{
-\item{x}{Integer vector representing the number of weeks.}
+\item{x}{\verb{[integer]}
+Vector representing the number of weeks. \code{double} vectors will be converted
+via \code{as.integer(floor(x))}.}
 
-\item{firstday}{An integer representing the day the week starts on from 1
-(Monday) to 7 (Sunday).
+\item{firstday}{\verb{[integer]}
+The day the week starts on from 1 (Monday) to 7 (Sunday).}
 
-<grates_yearweek> objects are stored as the number of weeks (startint at 0)
-from the date of the specified \code{firstday} nearest the Unix Epoch
+\item{object}{An \R object.}
+}
+\value{
+A \verb{<grates_yearweek>} object with subclass corresponding to the first
+day of the week they represent (e.g. \verb{<grates_yearweek_monday>}).
+}
+\description{
+\code{yearweek()} is a constructor for \verb{<grates_yearweek>} objects.
+}
+\details{
+\verb{<grates_yearweek>} objects are stored as the number of weeks
+(starting at 0) from the date of the \code{firstday} nearest the Unix Epoch
 (1970-01-01). That is, the number of seven day periods from:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{- 1969-12-29 for `firstday` equal to 1 (Monday)
-- 1969-12-30 for `firstday` equal to 2 Tuesday
-- 1969-12-31 for `firstday` equal to 3 Wednesday
-- 1970-01-01 for `firstday` equal to 4 Thursday
-- 1970-01-02 for `firstday` equal to 5 Friday
-- 1970-01-03 for `firstday` equal to 6 Saturday
-- 1970-01-04 for `firstday` equal to 7 Sunday
-}\if{html}{\out{</div>}}}
-}
-\description{
-\code{yearweek()} is a constructor for a <grates_yearweek> object.
+- 1969-12-30 for `firstday` equal to 2 (Tuesday)
+- 1969-12-31 for `firstday` equal to 3 (Wednesday)
+- 1970-01-01 for `firstday` equal to 4 (Thursday)
+- 1970-01-02 for `firstday` equal to 5 (Friday)
+- 1970-01-03 for `firstday` equal to 6 (Saturday)
+- 1970-01-04 for `firstday` equal to 7 (Sunday)
+}\if{html}{\out{</div>}}
 }
 \examples{
-yearweek(0:5)
+yearweek(1:10)
 
+}
+\seealso{
+\code{as_yearweek()}, \code{isoweek()} and \code{epiweek()}.
 }

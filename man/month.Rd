@@ -3,30 +3,41 @@
 \name{month}
 \alias{month}
 \alias{is_month}
-\title{Construct a grates_month object}
+\title{Construct a month object}
 \usage{
-month(x = integer(), n = 1L, origin = 0L)
+month(x = integer(), n)
 
-is_month(x)
+is_month(object)
 }
 \arguments{
-\item{x}{Integer vector representing the number of months since the Unix
-epoch (1970-01-01).}
+\item{x}{\verb{[integer]}
+Vector representing the number of n-months since the Unix Epoch (1970-01-01).
+\code{double} vectors will be converted via \code{as.integer(floor(x))}.}
 
-\item{n}{Number of months that are being grouped by (default 1).}
+\item{n}{\verb{[integer]}
+Number of months that are being grouped. Must be greater than 1 (use
+\code{yearmonth()} for this case).}
 
-\item{origin}{Month since the Unix epoch where grouping begins (default 0).}
+\item{object}{An \R object.}
+}
+\value{
+A \verb{<grates_month>} object.
 }
 \description{
-\code{month()} is a constructor for a <grates_month> object
+\code{month()} is a constructor for \verb{<grates_month>} objects.
+}
+\details{
+\code{grates_month} objects are stored as the position, starting at 0, of n-month
+groups since the Unix Epoch (1970-01-01). Here n-months is taken to mean
+a 'grouping of n consecutive months'. Precision is only to the month
+level (i.e. the day of the  month is always dropped).
 }
 \examples{
-month(1)
-month(c(4, 7), n = 3, origin = 1)
+month(1:10, 2L)
 
 }
 \references{
-The algorithm to convert between dates and months relative to the
-UNIX Epoch comes from the work of Davis Vaughan in the unreleased
+The algorithm to convert between dates and months relative to the UNIX Epoch
+comes from the work of Davis Vaughan in the unreleased
 \href{https://github.com/DavisVaughan/datea/}{datea} package.
 }
