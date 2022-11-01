@@ -125,7 +125,7 @@ test_that("as_month.POSIXlt works as expected", {
   result <- as.POSIXlt(as_month(nz), tz = "NZ")
   nz$gmtoff <- result$gmtoff <- NA_integer_ # HACK but ok for this test
   attr(nz, "tzone") <- attr(result, "tzone") <- "NZ" # HACK but ok for this test
-  expect_equal(result, as.POSIXlt("2021-01-01", tz = "NZ"))
+  expect_equal(balancePOSIXlt(result), as.POSIXlt("2021-01-01", tz = "NZ"))
 
   dat <- as.POSIXlt("2021-01-04", tz = "UTC")
   res <- as_month(dat)

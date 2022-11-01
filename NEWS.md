@@ -1,3 +1,8 @@
+# grates (development version)
+* Temporary fix re: balancePOSIXlt changes which may or may not be pushed to
+  CRAN (planned refactor would eliminate need for the fix but unlikely to have
+  time to implement so may just push patch).
+
 # grates 0.3.0
 
 ## New functions
