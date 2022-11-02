@@ -6,9 +6,7 @@
 \alias{grates-package}
 \title{grates: Grouped Date Classes}
 \description{
-Provides a coherent interface and implementation for creating
-  grouped date classes. This package is part of the RECON
-  (<https://www.repidemicsconsortium.org/>) toolkit for outbreak analysis.
+Provides a coherent interface and implementation for creating grouped date classes. This package is part of the RECON (\url{https://www.repidemicsconsortium.org/}) toolkit for outbreak analysis.
 }
 \seealso{
 Useful links:

@@ -213,14 +213,16 @@ or \code{format} is non-NULL then it is parsed  using \code{\link[clock:date_par
 \note{
 Internally \code{grates_yearweek} objects are stored as the number of weeks
 from the date of the \code{firstday} nearest the Unix Epoch (1970-01-01).  That
-is:\preformatted{- 1969-12-29 for `firstday` as Monday
+is:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{- 1969-12-29 for `firstday` as Monday
 - 1969-12-30 for `firstday` as Tuesday
 - 1969-12-31 for `firstday` as Wednesday
 - 1970-01-01 for `firstday` as Thursday
 - 1970-01-02 for `firstday` as Friday
 - 1970-01-03 for `firstday` as Saturday
 - 1970-01-04 for `firstday` as Sunday
-}
+}\if{html}{\out{</div>}}
 }
 \examples{
 as_yearweek(Sys.Date())

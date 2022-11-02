@@ -17,14 +17,16 @@ is_yearweek(x)
 
 <grates_yearweek> objects are stored as the number of weeks (startint at 0)
 from the date of the specified \code{firstday} nearest the Unix Epoch
-(1970-01-01). That is, the number of seven day periods from:\preformatted{- 1969-12-29 for `firstday` equal to 1 (Monday)
+(1970-01-01). That is, the number of seven day periods from:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{- 1969-12-29 for `firstday` equal to 1 (Monday)
 - 1969-12-30 for `firstday` equal to 2 Tuesday
 - 1969-12-31 for `firstday` equal to 3 Wednesday
 - 1970-01-01 for `firstday` equal to 4 Thursday
 - 1970-01-02 for `firstday` equal to 5 Friday
 - 1970-01-03 for `firstday` equal to 6 Saturday
 - 1970-01-04 for `firstday` equal to 7 Sunday
-}}
+}\if{html}{\out{</div>}}}
 }
 \description{
 \code{yearweek()} is a constructor for a <grates_yearweek> object.
