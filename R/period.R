@@ -317,7 +317,7 @@ as.data.frame.grates_period <- as.data.frame.vector
 
 is_nan_grates_period <- function(x) vector("logical", vec_size(x))
 
-is_finite_grates_period <- function(x) !vec_equal_na(x)
+is_finite_grates_period <- function(x) !vec_detect_missing(x)
 
 is_infinite_grates_period <- function(x) vector("logical", vec_size(x))
 

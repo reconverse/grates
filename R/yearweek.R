@@ -311,7 +311,7 @@ as.data.frame.grates_yearweek <- as.data.frame.vector
 
 is_nan_grates_yearweek <- function(x) vector("logical", vec_size(x))
 
-is_finite_grates_yearweek <- function(x) !vec_equal_na(x)
+is_finite_grates_yearweek <- function(x) !vec_detect_missing(x)
 
 is_infinite_grates_yearweek <- function(x) vector("logical", vec_size(x))
 
@@ -336,7 +336,7 @@ vec_math.grates_yearweek <- function(.fn, .x, ...) {
 
 is_nan_grates_yearweek <- function(x) vector("logical", vec_size(x))
 
-is_finite_grates_yearweek <- function(x) !vec_equal_na(x)
+is_finite_grates_yearweek <- function(x) !vec_detect_missing(x)
 
 is_infinite_grates_yearweek <- function(x) vector("logical", vec_size(x))
 

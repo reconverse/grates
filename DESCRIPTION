@@ -23,7 +23,7 @@ Imports:
     clock,
     ellipsis,
     rlang,
-    vctrs
+    vctrs (>= 0.5.0)
 Suggests: 
     knitr,
     ggplot2,

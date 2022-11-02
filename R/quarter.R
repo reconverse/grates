@@ -225,7 +225,7 @@ as.data.frame.grates_month <- as.data.frame.vector
 
 is_nan_grates_quarter <- function(x) vector("logical", vec_size(x))
 
-is_finite_grates_quarter <- function(x) !vec_equal_na(x)
+is_finite_grates_quarter <- function(x) !vec_detect_missing(x)
 
 is_infinite_grates_quarter <- function(x) vector("logical", vec_size(x))
 
