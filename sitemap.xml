@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.reconverse.org/grates/404.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/articles/introduction.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/authors.html</loc>
+  </url>
+  <url>
     <loc>http://www.reconverse.org/grates/index.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/news/index.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/reference/as_int_period.html</loc>
@@ -55,6 +76,9 @@
     <loc>http://www.reconverse.org/grates/reference/hidden-scales.html</loc>
   </url>
   <url>
+    <loc>http://www.reconverse.org/grates/reference/index.html</loc>
+  </url>
+  <url>
     <loc>http://www.reconverse.org/grates/reference/int_period.html</loc>
   </url>
   <url>
@@ -92,8 +116,5 @@
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/reference/yearweek.html</loc>
-  </url>
-  <url>
-    <loc>http://www.reconverse.org/grates/articles/introduction.html</loc>
   </url>
 </urlset>
