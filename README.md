@@ -9,6 +9,7 @@
 coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](https://app.codecov.io/gh/reconverse/grates?branch=main)
 [![R-CMD-check](https://github.com/reconverse/grates/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/grates/actions)
 [![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-maturing.svg)](https://www.reconverse.org/lifecycle.html#maturing)
+[![R-CMD-check](https://github.com/reconverse/grates/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/reconverse/grates/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 grates provides a simple and coherent implementation of grouped date
@@ -87,6 +88,7 @@ head(weekly_dat, 8)
 #> 6 2014-W19    12
 #> 7 2014-W20    12
 #> 8 2014-W21    15
+
 # plot
 ggplot(weekly_dat, aes(date, cases)) + geom_col(width = 1, colour = "white") + theme_bw() + xlab("")
 ```
@@ -123,11 +125,14 @@ mutate(dat, plus4 = weeks + 4)
 #>  9 2021-01-09 2021-W02 2021-W06
 #> 10 2021-01-10 2021-W02 2021-W06
 #> # … with 21 more rows
+
 # addition of two yearweek objects will error as it is unclear what the intention is
 mutate(dat, addweeks = weeks + weeks)
-#> Error: Problem with `mutate()` column `addweeks`.
-#> ℹ `addweeks = weeks + weeks`.
-#> x <grates_yearweek> + <grates_yearweek> is not permitted
+#> Error in `mutate()`:
+#> ! Problem while computing `addweeks = weeks + weeks`.
+#> Caused by error in `vec_arith()`:
+#> ! <grates_yearweek> + <grates_yearweek> is not permitted
+
 # Subtraction of wholenumbers works similarly to addition
 mutate(dat, minus4 = weeks - 4)
 #> # A tibble: 31 × 3
@@ -144,6 +149,7 @@ mutate(dat, minus4 = weeks - 4)
 #>  9 2021-01-09 2021-W02 2020-W50
 #> 10 2021-01-10 2021-W02 2020-W50
 #> # … with 21 more rows
+
 # Subtraction of two yearweek objects gives the difference in weeks between them
 mutate(dat, plus4 = weeks + 4, difference = plus4 - weeks)
 #> # A tibble: 31 × 4
@@ -160,6 +166,7 @@ mutate(dat, plus4 = weeks + 4, difference = plus4 - weeks)
 #>  9 2021-01-09 2021-W02 2021-W06          4
 #> 10 2021-01-10 2021-W02 2021-W06          4
 #> # … with 21 more rows
+
 # weeks can be combined if they have the same firstday but not otherwise
 wk1 <- as_yearweek("2020-01-01")
 wk2 <- as_yearweek("2021-01-01")
@@ -168,5 +175,6 @@ c(wk1, wk2)
 #> [1] 2020-W01 2020-W53
 wk3 <- as_yearweek("2020-01-01", firstday = 2)
 c(wk1, wk3)
-#> Error: Can't combine <grates_yearweek>'s with different `firstday`
+#> Error in `vec_ptype2.grates_yearweek.grates_yearweek()`:
+#> ! Can't combine <grates_yearweek>'s with different `firstday`
 ```
