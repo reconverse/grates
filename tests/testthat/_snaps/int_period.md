@@ -1,7 +1,10 @@
 # formatting
 
-    <grates_period[4]>
-    [1] 1970-01-01 1970-01-08 1970-01-15 1970-01-22
+    Code
+      period(dat)
+    Output
+      <grates_period[4]>
+      [1] 1970-01-01 1970-01-08 1970-01-15 1970-01-22
 
 # pre-epoch dates work
 
@@ -14,10 +17,16 @@
 
 # int_period output looks correct
 
-    <grates_int_period[4]>
-    [1] 1 to 2 1 to 2 3 to 4 3 to 4
+    Code
+      dat
+    Output
+      <grates_int_period[4]>
+      [1] 1 to 2 1 to 2 3 to 4 3 to 4
 
 ---
 
-    [1] "1 to 2" "1 to 2" "3 to 4" "3 to 4"
+    Code
+      as.character(dat)
+    Output
+      [1] "1 to 2" "1 to 2" "3 to 4" "3 to 4"
 

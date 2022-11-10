@@ -19,7 +19,7 @@ test_that("formatting", {
   )
   expect_identical(format(period()), character())
 
-  expect_snapshot_output(print(period(dat)))
+  expect_snapshot(print(period(dat)))
   # <grates_period[4]>
   # [1] 1970-01-01 1970-01-08 1970-01-15 1970-01-22
 })
@@ -55,7 +55,7 @@ test_that("period output looks correct", {
   dat <- as_period(dates, n = 2, origin = as.integer(as.Date("2020-01-01")))
   expect_equal(as.Date(dat), rep(dates[c(TRUE,FALSE)], each = 2))
 
-  expect_snapshot_output(print(dat))
+  expect_snapshot(print(dat))
   # this should look like:
   # <grate_period: n = 2>
   #  [1] "2020-01-01 to 2020-01-02" "2020-01-01 to 2020-01-02"
@@ -90,7 +90,7 @@ test_that("period output looks correct", {
   # [59] "2020-02-28 to 2020-02-29" "2020-02-28 to 2020-02-29"
   # [61] "2020-03-01 to 2020-03-02" "2020-03-01 to 2020-03-02"
 
-  expect_snapshot_output(as.character(dat))
+  expect_snapshot(as.character(dat))
   # this should look like:
   #  [1] "2020-01-01 to 2020-01-02" "2020-01-01 to 2020-01-02"
   #  [3] "2020-01-03 to 2020-01-04" "2020-01-03 to 2020-01-04"

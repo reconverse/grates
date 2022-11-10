@@ -11,7 +11,7 @@ test_that("formatting", {
   expect_identical(format(year(dat)), c("2001", "2002", "2003", "2004"))
   expect_identical(format(quarter()), character())
 
-  expect_snapshot_output(print(year(dat)))
+  expect_snapshot(print(year(dat)))
   # this should look like:
   #  <grates_year[4]>
   #  [1] 2001 2002 2003 2004
@@ -242,13 +242,13 @@ test_that("year output looks correct", {
 
   expect_equal(as_year(dates), expected)
 
-  expect_snapshot_output(print(as_year(dates)))
+  expect_snapshot(print(as_year(dates)))
   # This should look like:
   # <grates_year[24]>
   #   [1] 2021 2021 2021 2021 2021 2021 2021 2021 2021 2021 2021 2021 2022 2022 2022
   #  [16] 2022 2022 2022 2022 2022 2022 2022 2022 2022
 
-  expect_snapshot_output(as.character(as_year(dates)))
+  expect_snapshot(as.character(as_year(dates)))
   # This should look like:
   #  [1] "2021" "2021" "2021" "2021" "2021" "2021" "2021" "2021" "2021" "2021"
   # [11] "2021" "2021" "2022" "2022" "2022" "2022" "2022" "2022" "2022" "2022"

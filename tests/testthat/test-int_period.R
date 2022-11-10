@@ -15,7 +15,7 @@ test_that("formatting", {
 
   expect_identical(format(period()), character())
 
-  expect_snapshot_output(print(period(dat)))
+  expect_snapshot(period(dat))
   # <grates_period[4]>
   # [1] 1970-01-01 1970-01-08 1970-01-15 1970-01-22
 })
@@ -41,12 +41,12 @@ test_that("int_period output looks correct", {
   expected <- c(1, 1, 3, 3)
   expect_equal(as.integer(dat), expected)
 
-  expect_snapshot_output(print(dat))
+  expect_snapshot(dat)
   # this should look like:
   # <grates_int_period[4]>
   # [1] 1 to 2 1 to 2 3 to 4 3 to 4
 
-  expect_snapshot_output(as.character(dat))
+  expect_snapshot(as.character(dat))
   # this should look like:
   # [1] "1 to 2" "1 to 2" "3 to 4" "3 to 4"
 

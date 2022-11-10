@@ -11,7 +11,7 @@ test_that("formatting", {
   expect_identical(format(quarter(dat)), c("1970-Q1", "1970-Q2", "1970-Q3", "1970-Q4"))
   expect_identical(format(quarter()), character())
 
-  expect_snapshot_output(print(quarter(dat)))
+  expect_snapshot(print(quarter(dat)))
   # this should look like:
   #  <grates_quarter[4]>
   #  [1] 1970-Q1 1970-Q2 1970-Q3 1970-Q4
@@ -46,7 +46,7 @@ test_that("as_quarter.Date works correctly", {
     seq.Date(from = start, to = start + 365, by = "quarter")
   )
 
-  expect_snapshot_output(print(res))
+  expect_snapshot(print(res))
   # This should look like:
   # Group.1  x
   # 1  2020-Q1 91

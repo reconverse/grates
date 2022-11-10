@@ -26,7 +26,7 @@ test_that("formatting", {
   expect_identical(format(month(dat), "%Y-%m"), format.Date(dates, "%Y-%m"))
   expect_identical(format(month()), character())
 
-  expect_snapshot_output(print(month(dat)))
+  expect_snapshot(print(month(dat)))
   # this should look like:
   #  <grates_month[4]>
   #  [1] 1970-Jan 1970-Feb 1970-Mar 1970-Apr
@@ -73,7 +73,7 @@ test_that("as_month.Date works correctly - n = 1", {
     seq.Date(from = start, to = start + 365, by = "month")
   )
 
-  expect_snapshot_output(print(res))
+  expect_snapshot(print(res))
   # This should look like:
   # Group.1  x
   # 1  2020-Jan 31
@@ -89,7 +89,7 @@ test_that("as_month.Date works correctly - n = 1", {
   # 11 2020-Nov 30
   # 12 2020-Dec 31
 
-  expect_snapshot_output(print(unique(res$Group.1)))
+  expect_snapshot(print(unique(res$Group.1)))
   # This should look like:
   # <grates_month[12]>
   # [1] 2020-Jan 2020-Feb 2020-Mar 2020-Apr 2020-May 2020-Jun 2020-Jul 2020-Aug
@@ -106,7 +106,7 @@ test_that("as_month.Date works correctly - n > 1", {
 
   expect_equal(as.Date(as_month(dates, n = 2)), expected)
 
-  expect_snapshot_output(print(as_month(dates, n = 2)))
+  expect_snapshot(print(as_month(dates, n = 2)))
   # This should look like:
   # <grates_month[24]>
   #   [1] "2021-Jan to 2021-Feb" "2021-Jan to 2021-Feb" "2021-Mar to 2021-Apr"

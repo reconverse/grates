@@ -13,7 +13,7 @@ test_that("formatting", {
     c("1970-W01", "1970-W02", "1970-W03", "1970-W04"))
   expect_identical(format(yearweek()), character())
 
-  expect_snapshot_output(print(yearweek(dat)))
+  expect_snapshot(print(yearweek(dat)))
   # this should look like:
   #  <grates_yearweek[fd: 4]>
   #  [1] 1970-W01 1970-W02 1970-W03 1970-W04
@@ -108,7 +108,7 @@ test_that("as_yearweek.POSIXct works as expected", {
   res6 <- as_yearweek(pos, 6)
   res7 <- as_yearweek(pos, 7)
   res <- list(res1, res2, res3, res4, res5, res6, res7)
-  expect_snapshot_output(res)
+  expect_snapshot(res)
 
   expect_equal(as.Date(res1), as.Date(dat))
   expect_equal(as.Date(res2), as.Date("2020-12-29"))
@@ -118,7 +118,7 @@ test_that("as_yearweek.POSIXct works as expected", {
   expect_equal(as.Date(res6), as.Date("2021-01-02"))
   expect_equal(as.Date(res7), as.Date("2021-01-03"))
   res2 <- lapply(res, as.Date)
-  expect_snapshot_output(res2)
+  expect_snapshot(res2)
 
 })
 

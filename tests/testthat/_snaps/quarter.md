@@ -1,7 +1,10 @@
 # formatting
 
-    <grates_quarter[4]>
-    [1] 1970-Q1 1970-Q2 1970-Q3 1970-Q4
+    Code
+      print(quarter(dat))
+    Output
+      <grates_quarter[4]>
+      [1] 1970-Q1 1970-Q2 1970-Q3 1970-Q4
 
 # pre-epoch dates work
 
@@ -13,9 +16,12 @@
 
 # as_quarter.Date works correctly
 
-      Group.1  x
-    1 2020-Q1 91
-    2 2020-Q2 91
-    3 2020-Q3 92
-    4 2020-Q4 92
+    Code
+      print(res)
+    Output
+        Group.1  x
+      1 2020-Q1 91
+      2 2020-Q2 91
+      3 2020-Q3 92
+      4 2020-Q4 92
 
