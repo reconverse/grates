@@ -54,7 +54,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_x_grates_yearweek</span><span class="op">(</span><span class="va">...</span>, n.breaks <span class="op">=</span> <span class="fl">6</span>, <span class="va">firstday</span>, format <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_x_grates_yearweek</span><span class="op">(</span><span class="va">...</span>, n.breaks <span class="op">=</span> <span class="fl">6L</span>, <span class="va">firstday</span>, format <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_x_grates_yearweek_monday</span><span class="op">(</span><span class="va">...</span>, n.breaks <span class="op">=</span> <span class="fl">6</span>, format <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
@@ -82,19 +82,21 @@
 
 
 <dt>n.breaks</dt>
-<dd><p>Approximate number of breaks calculated using
-<code><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">scales::breaks_pretty</a></code> (default 6).</p></dd>
+<dd><p><code>[integer]</code></p>
+<p>Approximate number of breaks calculated using <code><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">scales::breaks_pretty</a></code>
+(default 6L).</p></dd>
 
 
 <dt>firstday</dt>
-<dd><p>Integer value of the first weekday: 1 (Monday) to 7 (Sunday).</p></dd>
+<dd><p><code>[integer]</code></p>
+<p>Integer value of the first weekday: 1 (Monday) to 7 (Sunday).</p></dd>
 
 
 <dt>format</dt>
-<dd><p>Format to use if "Date" scales are required. If NULL (default)
-then labels are in the standard yearweek format (YYYY-Www). If not NULL
-then the value is used by <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">format.Date()</a></code> and can be any input acceptable
-by that function.</p></dd>
+<dd><p>Format to use if "Date" scales are required.</p>
+<p>If NULL (default) then labels are in the standard yearweek format (YYYY-Www).</p>
+<p>If not NULL then the value is used by <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">format.Date()</a></code> and can be any input
+acceptable by that function.</p></dd>
 
 </dl></div>
     <div class="section level2">
