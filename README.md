@@ -32,23 +32,22 @@ with [ggplot2](https://cran.r-project.org/package=ggplot2).
 
 ## Installation
 
-The development version, which this documentation refers to, can be
-installed from [GitHub](https://github.com/) with:
-
-``` r
-if (!require(remotes)) {
-  install.packages("remotes")
-}
-remotes::install_github("reconverse/grates", build_vignettes = TRUE)
-```
-
-You can install the current version of the package from either the
-releases [page](https://github.com/reconverse/grates/releases) or
-directly from [CRAN](https://cran.r-project.org/) with:
+You can install the released version of grates from
+[CRAN](https://cran.r-project.org/) with:
 
 ``` r
 install.packages("grates")
 ```
+
+<div class="pkgdown-devel">
+
+The development version of grates can be installed from GitHub with:
+
+``` r
+remotes::install_github("reconverse/grates")
+```
+
+</div>
 
 ## Vignette
 
