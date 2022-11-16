@@ -16,7 +16,7 @@ NULL
 int_period <- function(x = integer(), n = 1L, origin = 0L) {
     .Defunct(
         package = "grates",
-        msg = "As of grates version 1.0.0 the int_period function is defunct"
+        msg = "As of grates version 1.0.0, the int_period function is defunct"
     )
 }
 
@@ -26,7 +26,7 @@ int_period <- function(x = integer(), n = 1L, origin = 0L) {
 as_int_period <- function(x, ...) {
     .Defunct(
         package = "grates",
-         msg = "As of grates version 1.0.0 the as_int_period function is defunct"
+         msg = "As of grates version 1.0.0, the as_int_period function is defunct"
     )
 }
 
@@ -36,7 +36,7 @@ as_int_period <- function(x, ...) {
 is_int_period <- function(x) {
     .Defunct(
         package = "grates",
-        msg = "As of grates version 1.0.0 the is_int_period function is defunct"
+        msg = "As of grates version 1.0.0, the is_int_period function is defunct"
     )
 }
 
@@ -46,6 +46,6 @@ is_int_period <- function(x) {
 scale_x_grates_int_period <- function(n.breaks = 6, n, origin) {
     .Defunct(
         package = "grates",
-        msg = "As of grates version 1.0.0 the scale_x_grates_int_period function is defunct"
+        msg = "As of grates version 1.0.0, the scale_x_grates_int_period function is defunct"
     )
 }
