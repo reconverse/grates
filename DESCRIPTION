@@ -1,6 +1,5 @@
 Package: grates
 Title: Grouped Date Classes
-<<<<<<< HEAD
 Version: 0.9.9.9000
 Authors@R:
     c(
