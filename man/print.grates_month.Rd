@@ -13,9 +13,11 @@
 \item{x}{A \verb{<grates_month>} object.}
 
 \item{format}{\verb{[character]}
+
 The format to use for the bounds of each value.}
 
 \item{sep}{\verb{[character]}
+
 Where more than one month is grouped with others, \code{sep} is placed between the
 upper and lower bounds when printing.}
 

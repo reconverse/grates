@@ -8,11 +8,14 @@
 #' since the Unix Epoch (1970-01-01).
 #'
 #' @param x `[integer]`
-#' Vector representing the number of quarters. `double` vectors will be
-#' converted via `as.integer(floor(x))`.
 #'
-#' @param object
-#' An \R object.
+#' Vector representing the number of quarters.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @param xx
+#'
+#' \R object.
 #'
 #' @return
 #' A `<grates_yearquarter>` object.
@@ -36,13 +39,18 @@ yearquarter <- function(x = integer()) {
 # -------------------------------------------------------------------------
 #' @rdname yearquarter
 #' @export
-is_yearquarter <- function(object) inherits(object, "grates_yearquarter")
+is_yearquarter <- function(xx) inherits(xx, "grates_yearquarter")
 
 # -------------------------------------------------------------------------
 #' Print a year-quarter object
 #'
-#' @param x An `<grates_yearquarter>` object.
-#' @param ... Not currently used.
+#' @param x
+#'
+#' A `<grates_yearquarter>` object.
+#'
+#' @param ...
+#'
+#' Not currently used.
 #'
 #' @export
 print.grates_yearquarter <- function(x, ...) {
@@ -79,9 +87,11 @@ vec_ptype_full.grates_yearquarter <- function(x, ...) "yearquarter"
 #' all converted, with the timezone respected.
 #'
 #' @param x
-#' An object to convert.
+#'
+#' \R object
 #'
 #' @param ...
+#'
 #' Only used For character input where additional arguments are passed through
 #' to `as.Date()`.
 #'

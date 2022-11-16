@@ -4,21 +4,28 @@
 \alias{scale_x_grates_period}
 \title{period scale}
 \usage{
-scale_x_grates_period(..., n.breaks = 6, format = "\%Y-\%m-\%d", n, offset)
+scale_x_grates_period(..., n.breaks = 6L, format = "\%Y-\%m-\%d", n, offset)
 }
 \arguments{
 \item{...}{Not currently used.}
 
-\item{n.breaks}{Approximate number of breaks calculated using
-\code{scales::breaks_pretty} (default 6).}
+\item{n.breaks}{\verb{[integer]}
 
-\item{format}{Format to use for dates. Value is used by \code{format.Date()} and
-can be any input acceptable by that function.}
+Approximate number of breaks calculated using \code{scales::breaks_pretty}
+(default 6L).}
 
-\item{n}{Number of days in each period.}
+\item{format}{Format to use for dates.
 
-\item{offset}{Number of days used in original grouping for the offset from
-the Unix Epoch.}
+Value is used by \code{format.Date()} and can be any input acceptable by that
+function.}
+
+\item{n}{\verb{[integer]}
+
+Number of days in each period.}
+
+\item{offset}{\verb{[integer]}
+
+Number of days used in original grouping for the offset from the Unix Epoch.}
 }
 \value{
 A scale for use with ggplot2.

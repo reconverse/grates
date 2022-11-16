@@ -19,15 +19,13 @@
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
-#'
 #' @param n `[integer]`
 #'
 #' Number of days that are being grouped by.
 #'
-#'
 #' @param xx
 #'
-#' An \R object.
+#' \R object.
 #'
 #' @param offset `[integer]`
 #'

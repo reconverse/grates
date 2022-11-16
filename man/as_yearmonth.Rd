@@ -22,7 +22,7 @@ as_yearmonth(x, ...)
 \method{as_yearmonth}{factor}(x, ...)
 }
 \arguments{
-\item{x}{An \R object.}
+\item{x}{\R object.}
 
 \item{...}{Only used For character input where additional arguments are passed through
 to \code{as.Date()}.}

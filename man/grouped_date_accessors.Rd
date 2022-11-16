@@ -92,7 +92,7 @@ get_offset(x, ...)
 \method{get_offset}{grates_period}(x, ...)
 }
 \arguments{
-\item{x}{An \R object.}
+\item{x}{\R object}
 
 \item{...}{Not currently used}
 }

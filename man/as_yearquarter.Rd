@@ -22,7 +22,7 @@ as_yearquarter(x, ...)
 \method{as_yearquarter}{factor}(x, ...)
 }
 \arguments{
-\item{x}{An object to convert.}
+\item{x}{\R object}
 
 \item{...}{Only used For character input where additional arguments are passed through
 to \code{as.Date()}.}

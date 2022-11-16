@@ -1,7 +1,12 @@
 #' Accessors for grouped date objects
 #'
-#' @param x An \R object.
-#' @param ... Not currently used
+#' @param x
+#'
+#' \R object
+#'
+#' @param ...
+#'
+#' Not currently used
 #'
 #' @name grouped_date_accessors
 NULL

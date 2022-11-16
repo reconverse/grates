@@ -9,23 +9,42 @@ scale_type.grates_month <- function(x) {
 #'
 #' ggplot2 scale for a month vector.
 #'
-#' @param n.breaks Approximate number of breaks calculated using
-#'   `scales::breaks_pretty` (default 6).
-#' @param format Format to use if "Date" scales are required. If NULL then
-#'   labels are centralised and of the form "lower category bound to upper
-#'   category bound". If not NULL then the value is used by `format.Date()` and
-#'   can be any input acceptable by that function (defaults to "%Y-%m-%d).
-#' @param bounds_format Format to use for grouped date labels. Only used if
-#'   `format` is NULL.
-#' @param sep Separator to use for grouped date labels.
-#' @param n Number of months used for the original grouping.
-#' @param ... Not currently used.
+#' @param n.breaks `[integer]`
+#'
+#' Approximate number of breaks calculated using `scales::breaks_pretty`
+#' (default 6L).
+#'
+#' @param format
+#'
+#' Format to use if "Date" scales are required.
+#'
+#' If NULL then labels are centralised and of the form "lower category bound to
+#' upper category bound".
+#'
+#' If not NULL then the value is used by `format.Date()` and can be any input
+#' acceptable by that function (defaults to "%Y-%m-%d).
+#'
+#' @param bounds_format
+#'
+#' Format to use for grouped date labels. Only used if `format` is NULL.
+#'
+#' @param sep `[character]`
+#'
+#' Separator to use for grouped date labels.
+#'
+#' @param n `[integer]`
+#'
+#' Number of months used for the original grouping.
+#'
+#' @param ...
+#'
+#' Not currently used.
 #'
 #' @return A scale for use with ggplot2.
 #' @export
 scale_x_grates_month <- function(
         ...,
-        n.breaks = 6,
+        n.breaks = 6L,
         format = "%Y-%m-%d",
         bounds_format = "%Y-%b",
         sep = "to",

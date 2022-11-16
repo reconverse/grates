@@ -22,15 +22,17 @@ as_epiweek(x, ...)
 \method{as_epiweek}{factor}(x, format = NULL, ...)
 }
 \arguments{
-\item{x}{An \R object.}
+\item{x}{\R object.}
 
 \item{...}{Other values passed to as.Date().}
 
 \item{format}{\verb{[character]}
+
 If NULL, then it attempts to pass character values of the form 'YYYY-Www',
 otherwise passed through to \code{as.Date()} (default behaviour).}
 
 \item{tryFormats}{\verb{[character]}
+
 Passed through to \code{as.Date()}}
 }
 \value{

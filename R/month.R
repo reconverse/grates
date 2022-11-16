@@ -4,21 +4,24 @@
 #' `month()` is a constructor for `<grates_month>` objects.
 #'
 #' @details
-#' `grates_month` objects are stored as the position, starting at 0, of n-month
-#' groups since the Unix Epoch (1970-01-01). Here n-months is taken to mean
-#' a 'grouping of n consecutive months'. Precision is only to the month
-#' level (i.e. the day of the  month is always dropped).
+#' `grates_month` objects are stored as the integer number (starting at 0), of
+#' n-month groups since the Unix Epoch (1970-01-01). Here n-months is taken to
+#' mean a 'grouping of n consecutive months'.
 #'
 #' @param x `[integer]`
+#'
 #' Vector representing the number of n-months since the Unix Epoch (1970-01-01).
+#'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
 #' @param n `[integer]`
+#'
 #' Number of months that are being grouped. Must be greater than 1 (use
 #' `yearmonth()` for this case).
 #'
-#' @param object
-#' An \R object.
+#' @param xx
+#'
+#' \R object.
 #'
 #' @references
 #' The algorithm to convert between dates and months relative to the UNIX Epoch
@@ -55,22 +58,26 @@ month <- function(x = integer(), n) {
 # -------------------------------------------------------------------------
 #' @rdname month
 #' @export
-is_month <- function(object) inherits(object, "grates_month")
+is_month <- function(xx) inherits(xx, "grates_month")
 
 # -------------------------------------------------------------------------
 #' Print a month object
 #'
 #' @param x
+#'
 #' A `<grates_month>` object.
 #'
 #' @param format `[character]`
+#'
 #' The format to use for the bounds of each value.
 #'
 #' @param sep `[character]`
+#'
 #' Where more than one month is grouped with others, `sep` is placed between the
 #' upper and lower bounds when printing.
 #'
 #' @param ...
+#'
 #' Not currently used.
 #'
 #' @export
@@ -108,16 +115,19 @@ vec_ptype_full.grates_month <- function(x, ...) "grates_month"
 #' @description
 #' `as_month()` is a generic for coercing input in to `<grates_month>`.
 #'
-#' @param x
-#' A \R object:
-#' - Character input is first parsed using `as.Date()`.
-#' - POSIXt inputs are converted with the timezone respected.
+#' @param x An \R object.
+#'
+#' Character input is first parsed using `as.Date()`.
+#'
+#' POSIXt inputs are converted with the timezone respected.
 #'
 #' @param n `[integer]`
+#'
 #' Number of months that are being grouped. Must be greater than 1 (use
 #' `as_yearmonth()` for this case).
 
 #' @param ...
+#'
 #' Only used For character input where additional arguments are passed through
 #' to `as.Date()`.
 #'

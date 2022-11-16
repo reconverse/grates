@@ -7,14 +7,16 @@
 \usage{
 isoweek(x = integer())
 
-is_isoweek(object)
+is_isoweek(xx)
 }
 \arguments{
 \item{x}{\verb{[integer]}
-Vector representing the number of weeks. \code{double} vectors will be converted
-via \code{as.integer(floor(x))}.}
 
-\item{object}{An \R object.}
+Vector representing the number of weeks.
+
+\code{double} vectors will be converted via \code{as.integer(floor(x))}.}
+
+\item{xx}{\R object.}
 }
 \value{
 A \verb{<grates_isoweek>} object.

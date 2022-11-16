@@ -4,17 +4,20 @@
 \alias{scale_x_grates_yearmonth}
 \title{yearmonth scale}
 \usage{
-scale_x_grates_yearmonth(..., n.breaks = 6, format = NULL)
+scale_x_grates_yearmonth(..., n.breaks = 6L, format = NULL)
 }
 \arguments{
 \item{...}{Not currently used.}
 
-\item{n.breaks}{Approximate number of breaks calculated using
-\code{scales::breaks_pretty} (default 6).}
+\item{n.breaks}{\verb{[integer]}
 
-\item{format}{Format to use if "Date" scales are required. If not NULL then
-the value is used by \code{format.Date()} and can be any input acceptable by
-that function.}
+Approximate number of breaks calculated using \code{scales::breaks_pretty}
+(default 6L).}
+
+\item{format}{Format to use if "Date" scales are required.
+
+If not NULL then the value is used by \code{format.Date()} and can be any input
+acceptable by that function.}
 }
 \value{
 A scale for use with ggplot2.

@@ -22,13 +22,13 @@ as_year(x, ...)
 \method{as_year}{factor}(x, ...)
 }
 \arguments{
-\item{x}{An \R object:
-\itemize{
-\item Character input is first parsed using \code{as.Date()}.
-POSIXct and POSIXlt are converted with the timezone respected.
-}}
+\item{x}{\R object.
 
-\item{...}{Only used For character input where additional arguments are  passed through
+Character input is first parsed using \code{as.Date()}.
+
+POSIXct and POSIXlt are converted with the timezone respected.}
+
+\item{...}{Only used For character input where additional arguments are passed through
 to \code{as.Date()}.}
 }
 \value{

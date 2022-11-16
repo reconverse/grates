@@ -6,7 +6,7 @@
 \usage{
 scale_x_grates_month(
   ...,
-  n.breaks = 6,
+  n.breaks = 6L,
   format = "\%Y-\%m-\%d",
   bounds_format = "\%Y-\%b",
   sep = "to",
@@ -16,20 +16,28 @@ scale_x_grates_month(
 \arguments{
 \item{...}{Not currently used.}
 
-\item{n.breaks}{Approximate number of breaks calculated using
-\code{scales::breaks_pretty} (default 6).}
+\item{n.breaks}{\verb{[integer]}
 
-\item{format}{Format to use if "Date" scales are required. If NULL then
-labels are centralised and of the form "lower category bound to upper
-category bound". If not NULL then the value is used by \code{format.Date()} and
-can be any input acceptable by that function (defaults to "\%Y-\%m-\%d).}
+Approximate number of breaks calculated using \code{scales::breaks_pretty}
+(default 6L).}
 
-\item{bounds_format}{Format to use for grouped date labels. Only used if
-\code{format} is NULL.}
+\item{format}{Format to use if "Date" scales are required.
 
-\item{sep}{Separator to use for grouped date labels.}
+If NULL then labels are centralised and of the form "lower category bound to
+upper category bound".
 
-\item{n}{Number of months used for the original grouping.}
+If not NULL then the value is used by \code{format.Date()} and can be any input
+acceptable by that function (defaults to "\%Y-\%m-\%d).}
+
+\item{bounds_format}{Format to use for grouped date labels. Only used if \code{format} is NULL.}
+
+\item{sep}{\verb{[character]}
+
+Separator to use for grouped date labels.}
+
+\item{n}{\verb{[integer]}
+
+Number of months used for the original grouping.}
 }
 \value{
 A scale for use with ggplot2.

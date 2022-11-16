@@ -14,11 +14,14 @@
 #' implementation.
 #'
 #' @param x `[integer]`
-#' Vector representing the number of weeks. `double` vectors will be converted
-#' via `as.integer(floor(x))`.
 #'
-#' @param object
-#' An \R object.
+#' Vector representing the number of weeks.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @param xx
+#'
+#' \R object.
 #'
 #' @return
 #' A `<grates_isoweek>` object.
@@ -44,7 +47,7 @@ isoweek <- function(x = integer()) {
 # -------------------------------------------------------------------------
 #' @rdname isoweek
 #' @export
-is_isoweek <- function(object) inherits(object, "grates_isoweek")
+is_isoweek <- function(xx) inherits(xx, "grates_isoweek")
 
 # -------------------------------------------------------------------------
 #' @export

@@ -4,11 +4,14 @@
 #' `year()` is a constructor for `<grates_year>` objects.
 #'
 #' @param x `[integer]`
-#' Vector representing the years. `double` vectors will be converted via
-#' `as.integer(floor(x))`.
+#'
+#' Vector representing the years.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
 #' @param object
-#' An \R object.
+#'
+#' \R object.
 #'
 #' @return
 #' A `<grates_year>` object.
@@ -37,8 +40,13 @@ is_year <- function(object) inherits(object, "grates_year")
 # -------------------------------------------------------------------------
 #' Print a year-quarter object
 #'
-#' @param x A `<grates_year>` object.
-#' @param ... Not currently used.
+#' @param x
+#'
+#' A `<grates_year>` object.
+#'
+#' @param ...
+#'
+#' Not currently used.
 #'
 #' @export
 print.grates_year <- function(x, ...) {
@@ -72,13 +80,15 @@ vec_ptype_full.grates_year <- function(x, ...) "grates_year"
 #' @description
 #' `as_year()` is a generic for coercing input in to `<grates_year>`.
 #'
-#' @param x
-#' An \R object:
-#' - Character input is first parsed using `as.Date()`.
+#' @param x \R object.
+#'
+#' Character input is first parsed using `as.Date()`.
+#'
 #' POSIXct and POSIXlt are converted with the timezone respected.
 #'
 #' @param ...
-#' Only used For character input where additional arguments are  passed through
+#'
+#' Only used For character input where additional arguments are passed through
 #' to `as.Date()`.
 #'
 #' @return

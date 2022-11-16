@@ -28,18 +28,21 @@ as_yearweek(x, ...)
 \method{as_yearweek}{factor}(x, firstday = 1L, format = NULL, ...)
 }
 \arguments{
-\item{x}{An \R object.}
+\item{x}{\R object.}
 
 \item{...}{Other values passed to as.Date().}
 
 \item{firstday}{\verb{[integer]}
+
 The day the week starts on from 1 (Monday) to 7 (Sunday).}
 
 \item{format}{\verb{[character]}
+
 If NULL, then it attempts to pass character values of the form 'YYYY-Www',
 otherwise passed through to \code{as.Date()} (default behaviour).}
 
 \item{tryFormats}{\verb{[character]}
+
 Passed through to \code{as.Date()}}
 }
 \value{

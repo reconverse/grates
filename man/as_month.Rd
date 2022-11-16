@@ -22,13 +22,14 @@ as_month(x, n, ...)
 \method{as_month}{factor}(x, n, ...)
 }
 \arguments{
-\item{x}{A \R object:
-\itemize{
-\item Character input is first parsed using \code{as.Date()}.
-\item POSIXt inputs are converted with the timezone respected.
-}}
+\item{x}{An \R object.
+
+Character input is first parsed using \code{as.Date()}.
+
+POSIXt inputs are converted with the timezone respected.}
 
 \item{n}{\verb{[integer]}
+
 Number of months that are being grouped. Must be greater than 1 (use
 \code{as_yearmonth()} for this case).}
 

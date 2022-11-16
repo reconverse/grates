@@ -7,14 +7,16 @@
 \usage{
 yearquarter(x = integer())
 
-is_yearquarter(object)
+is_yearquarter(xx)
 }
 \arguments{
 \item{x}{\verb{[integer]}
-Vector representing the number of quarters. \code{double} vectors will be
-converted via \code{as.integer(floor(x))}.}
 
-\item{object}{An \R object.}
+Vector representing the number of quarters.
+
+\code{double} vectors will be converted via \code{as.integer(floor(x))}.}
+
+\item{xx}{\R object.}
 }
 \value{
 A \verb{<grates_yearquarter>} object.

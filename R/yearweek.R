@@ -17,14 +17,18 @@
 #'     - 1970-01-04 for `firstday` equal to 7 (Sunday)
 #'
 #' @param x `[integer]`
-#' Vector representing the number of weeks. `double` vectors will be converted
-#' via `as.integer(floor(x))`.
+#'
+#' Vector representing the number of weeks.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
 #' @param firstday `[integer]`
+#'
 #' The day the week starts on from 1 (Monday) to 7 (Sunday).
 #'
-#' @param object
-#' An \R object.
+#' @param xx
+#'
+#' \R object.
 #'
 #' @return
 #' A `<grates_yearweek>` object with subclass corresponding to the first
@@ -64,7 +68,7 @@ yearweek <- function(x = integer(), firstday = 1L) {
 # -------------------------------------------------------------------------
 #' @rdname yearweek
 #' @export
-is_yearweek <- function(object) inherits(object, "grates_yearweek")
+is_yearweek <- function(xx) inherits(xx, "grates_yearweek")
 
 # -------------------------------------------------------------------------
 #' @export
@@ -111,16 +115,20 @@ vec_ptype_full.grates_yearweek_sunday <- function(x, ...) "yearweek-sun"
 #' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
 #'
 #' @param x
-#' An \R object.
+#'
+#' \R object.
 #'
 #' @param format `[character]`
+#'
 #' If NULL, then it attempts to pass character values of the form 'YYYY-Www',
 #' otherwise passed through to `as.Date()` (default behaviour).
 #'
 #' @param tryFormats `[character]`
+#'
 #' Passed through to `as.Date()`
 #'
 #' @param ...
+#'
 #' Other values passed to as.Date().
 #'
 #' @inheritParams yearweek

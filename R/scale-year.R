@@ -4,16 +4,27 @@ scale_type.grates_year <- function(x) "grates_year"
 #'
 #' ggplot2 scale for year vector.
 #'
-#' @param n.breaks Approximate number of breaks calculated using
-#'   `scales::breaks_pretty` (default 6).
-#' @param format Format to use if "Date" scales are required. If not NULL then
-#'   the value is used by `format.Date()` and can be any input acceptable by
-#'   that function.
-#' @param ... Not currently used.
+#' @param n.breaks `[integer]`
 #'
-#' @return A scale for use with ggplot2.
+#' Approximate number of breaks calculated using `scales::breaks_pretty`
+#' (default 6L).
+#'
+#' @param format
+#'
+#' Format to use if "Date" scales are required.
+#'
+#' If not NULL then the value is used by `format.Date()` and can be any input
+#' acceptable by that function.
+#'
+#' @param ...
+#'
+#' Not currently used.
+#'
+#' @return
+#' A scale for use with ggplot2.
+#'
 #' @export
-scale_x_grates_year <- function(..., n.breaks = 6, format = NULL) {
+scale_x_grates_year <- function(..., n.breaks = 6L, format = NULL) {
 
     check_suggests("ggplot2")
     check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2

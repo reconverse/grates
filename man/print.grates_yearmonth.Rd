@@ -10,7 +10,7 @@
 \method{format}{grates_yearmonth}(x, format = "\%Y-\%b", ...)
 }
 \arguments{
-\item{x}{An \verb{<grates_yearmonth>} object.}
+\item{x}{A \verb{<grates_yearmonth>} object.}
 
 \item{format}{The format to use for printing.}
 

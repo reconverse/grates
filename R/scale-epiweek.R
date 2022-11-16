@@ -2,20 +2,29 @@
 #'
 #' ggplot2 scale for an `<grates_epiweek>` vector.
 #'
-#' @param n.breaks Approximate number of breaks calculated using
-#' `scales::breaks_pretty` (default 6).
+#' @param n.breaks `[integer]`
 #'
-#' @param format Format to use if "Date" scales are required. If NULL (default)
-#' then labels are in the standard yearweek format (YYYY-Www). If not NULL
-#' then the value is used by `format.Date()` and can be any input acceptable
-#' by that function.
+#' Approximate number of breaks calculated using `scales::breaks_pretty`
+#' (default 6L).
 #'
-#' @param ... Not currently used.
+#' @param format
 #'
-#' @return A scale for use with ggplot2.
+#' Format to use if "Date" scales are required.
+#'
+#' If NULL (default) then labels are in the standard yearweek format (YYYY-Www).
+#'
+#' If not NULL then the value is used by `format.Date()` and can be any input
+#' acceptable by that function.
+#'
+#' @param ...
+#'
+#' Not currently used.
+#'
+#' @return
+#' A scale for use with ggplot2.
 #'
 #' @export
-scale_x_grates_epiweek <- function(..., n.breaks = 6, format = NULL) {
+scale_x_grates_epiweek <- function(..., n.breaks = 6L, format = NULL) {
 
     check_suggests("ggplot2")
     check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2

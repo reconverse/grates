@@ -14,11 +14,14 @@
 #' implementation.
 #'
 #' @param x `[integer]`
-#' Vector representing the number of weeks. `double` vectors will be converted
-#' via `as.integer(floor(x))`.
 #'
-#' @param object
-#' An \R object.
+#' Vector representing the number of weeks.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @param xx
+#'
+#' \R object.
 #'
 #' @return
 #' A `<grates_epiweek>` object.
@@ -44,7 +47,7 @@ epiweek <- function(x = integer()) {
 # -------------------------------------------------------------------------
 #' @rdname epiweek
 #' @export
-is_epiweek <- function(object) inherits(object, "grates_epiweek")
+is_epiweek <- function(xx) inherits(xx, "grates_epiweek")
 
 # -------------------------------------------------------------------------
 #' @export
@@ -67,17 +70,19 @@ vec_ptype_full.grates_epiweek <- function(x, ...) "epiweek"
 #' @details
 #' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
 #'
-#' @param x
-#' An \R object.
+#' @param x \R object.
 #'
 #' @param format `[character]`
+#'
 #' If NULL, then it attempts to pass character values of the form 'YYYY-Www',
 #' otherwise passed through to `as.Date()` (default behaviour).
 #'
 #' @param tryFormats `[character]`
+#'
 #' Passed through to `as.Date()`
 #'
 #' @param ...
+#'
 #' Other values passed to as.Date().
 #'
 #' @return

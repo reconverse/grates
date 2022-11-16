@@ -13,7 +13,7 @@
 \alias{scale_x_grates_yearweek_epiweek}
 \title{yearweek scale}
 \usage{
-scale_x_grates_yearweek(..., n.breaks = 6, firstday, format = NULL)
+scale_x_grates_yearweek(..., n.breaks = 6L, firstday, format = NULL)
 
 scale_x_grates_yearweek_monday(..., n.breaks = 6, format = NULL)
 
@@ -36,15 +36,21 @@ scale_x_grates_yearweek_epiweek(..., n.breaks = 6, format = NULL)
 \arguments{
 \item{...}{Not currently used.}
 
-\item{n.breaks}{Approximate number of breaks calculated using
-\code{scales::breaks_pretty} (default 6).}
+\item{n.breaks}{\verb{[integer]}
 
-\item{firstday}{Integer value of the first weekday: 1 (Monday) to 7 (Sunday).}
+Approximate number of breaks calculated using \code{scales::breaks_pretty}
+(default 6L).}
 
-\item{format}{Format to use if "Date" scales are required. If NULL (default)
-then labels are in the standard yearweek format (YYYY-Www). If not NULL
-then the value is used by \code{format.Date()} and can be any input acceptable
-by that function.}
+\item{firstday}{\verb{[integer]}
+
+Integer value of the first weekday: 1 (Monday) to 7 (Sunday).}
+
+\item{format}{Format to use if "Date" scales are required.
+
+If NULL (default) then labels are in the standard yearweek format (YYYY-Www).
+
+If not NULL then the value is used by \code{format.Date()} and can be any input
+acceptable by that function.}
 }
 \value{
 A scale for use with ggplot2.

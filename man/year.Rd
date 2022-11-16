@@ -11,10 +11,12 @@ is_year(object)
 }
 \arguments{
 \item{x}{\verb{[integer]}
-Vector representing the years. \code{double} vectors will be converted via
-\code{as.integer(floor(x))}.}
 
-\item{object}{An \R object.}
+Vector representing the years.
+
+\code{double} vectors will be converted via \code{as.integer(floor(x))}.}
+
+\item{object}{\R object.}
 }
 \value{
 A \verb{<grates_year>} object.

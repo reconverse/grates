@@ -25,7 +25,7 @@ Number of days that are being grouped by.}
 
 Value you wish to start counting groups from relative to the Unix Epoch.}
 
-\item{xx}{An \R object.}
+\item{xx}{\R object.}
 }
 \value{
 A \verb{<grates_period>} object.

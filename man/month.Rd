@@ -7,18 +7,21 @@
 \usage{
 month(x = integer(), n)
 
-is_month(object)
+is_month(xx)
 }
 \arguments{
 \item{x}{\verb{[integer]}
+
 Vector representing the number of n-months since the Unix Epoch (1970-01-01).
+
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.}
 
 \item{n}{\verb{[integer]}
+
 Number of months that are being grouped. Must be greater than 1 (use
 \code{yearmonth()} for this case).}
 
-\item{object}{An \R object.}
+\item{xx}{\R object.}
 }
 \value{
 A \verb{<grates_month>} object.
@@ -27,10 +30,9 @@ A \verb{<grates_month>} object.
 \code{month()} is a constructor for \verb{<grates_month>} objects.
 }
 \details{
-\code{grates_month} objects are stored as the position, starting at 0, of n-month
-groups since the Unix Epoch (1970-01-01). Here n-months is taken to mean
-a 'grouping of n consecutive months'. Precision is only to the month
-level (i.e. the day of the  month is always dropped).
+\code{grates_month} objects are stored as the integer number (starting at 0), of
+n-month groups since the Unix Epoch (1970-01-01). Here n-months is taken to
+mean a 'grouping of n consecutive months'.
 }
 \examples{
 month(1:10, 2L)

@@ -10,23 +10,35 @@ scale_type.grates_period <- function(x) {
 #'
 #' ggplot2 scale for an `<grates_period>` vector.
 #'
-#' @param n.breaks Approximate number of breaks calculated using
-#' `scales::breaks_pretty` (default 6).
+#' @param n.breaks `[integer]`
 #'
-#' @param format Format to use for dates. Value is used by `format.Date()` and
-#' can be any input acceptable by that function.
+#' Approximate number of breaks calculated using `scales::breaks_pretty`
+#' (default 6L).
 #'
-#' @param n Number of days in each period.
+#' @param format
 #'
-#' @param offset Number of days used in original grouping for the offset from
-#' the Unix Epoch.
+#' Format to use for dates.
 #'
-#' @param ... Not currently used.
+#' Value is used by `format.Date()` and can be any input acceptable by that
+#' function.
 #'
-#' @return A scale for use with ggplot2.
+#' @param n `[integer]`
+#'
+#' Number of days in each period.
+#'
+#' @param offset `[integer]`
+#'
+#' Number of days used in original grouping for the offset from the Unix Epoch.
+#'
+#' @param ...
+#'
+#' Not currently used.
+#'
+#' @return
+#' A scale for use with ggplot2.
 #'
 #' @export
-scale_x_grates_period <- function(..., n.breaks = 6, format = "%Y-%m-%d", n, offset) {
+scale_x_grates_period <- function(..., n.breaks = 6L, format = "%Y-%m-%d", n, offset) {
 
     check_suggests("ggplot2")
     check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2

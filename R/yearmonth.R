@@ -9,11 +9,14 @@
 #' (i.e. the day of the month is always dropped).
 #'
 #' @param x `[integer]`
-#' Vector representing the number of months. `double` vectors will be converted
-#' via `as.integer(floor(x))`.
 #'
-#' @param object
-#' An \R object.
+#' Vector representing the number of months.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @param xx
+#'
+#' \R object
 #'
 #' @references
 #' The algorithm to convert between dates and months relative to the UNIX Epoch
@@ -42,14 +45,22 @@ yearmonth <- function(x = integer()) {
 # -------------------------------------------------------------------------
 #' @rdname yearmonth
 #' @export
-is_yearmonth <- function(object) inherits(object, "grates_yearmonth")
+is_yearmonth <- function(xx) inherits(xx, "grates_yearmonth")
 
 # -------------------------------------------------------------------------
 #' Print a year-month object
 #'
-#' @param x An `<grates_yearmonth>` object.
-#' @param format The format to use for printing.
-#' @param ... Not currently used.
+#' @param x
+#'
+#' A `<grates_yearmonth>` object.
+#'
+#' @param format
+#'
+#' The format to use for printing.
+#'
+#' @param ...
+#'
+#' Not currently used.
 #'
 #' @export
 print.grates_yearmonth <- function(x, format = "%Y-%b", ...) {
@@ -85,9 +96,11 @@ vec_ptype_full.grates_yearmonth <- function(x, ...) "grates_yearmonth"
 #' all converted, with the timezone respected.
 #'
 #' @param x
-#' An \R object.
+#'
+#' \R object.
 #'
 #' @param ...
+#'
 #' Only used For character input where additional arguments are passed through
 #' to `as.Date()`.
 #'

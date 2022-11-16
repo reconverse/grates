@@ -7,14 +7,16 @@
 \usage{
 yearmonth(x = integer())
 
-is_yearmonth(object)
+is_yearmonth(xx)
 }
 \arguments{
 \item{x}{\verb{[integer]}
-Vector representing the number of months. \code{double} vectors will be converted
-via \code{as.integer(floor(x))}.}
 
-\item{object}{An \R object.}
+Vector representing the number of months.
+
+\code{double} vectors will be converted via \code{as.integer(floor(x))}.}
+
+\item{xx}{\R object}
 }
 \value{
 A \verb{<grates_yearmonth>} object.

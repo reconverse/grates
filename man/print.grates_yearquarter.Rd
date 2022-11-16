@@ -10,7 +10,7 @@
 \method{format}{grates_yearquarter}(x, ...)
 }
 \arguments{
-\item{x}{An \verb{<grates_yearquarter>} object.}
+\item{x}{A \verb{<grates_yearquarter>} object.}
 
 \item{...}{Not currently used.}
 }

@@ -7,17 +7,20 @@
 \usage{
 yearweek(x = integer(), firstday = 1L)
 
-is_yearweek(object)
+is_yearweek(xx)
 }
 \arguments{
 \item{x}{\verb{[integer]}
-Vector representing the number of weeks. \code{double} vectors will be converted
-via \code{as.integer(floor(x))}.}
+
+Vector representing the number of weeks.
+
+\code{double} vectors will be converted via \code{as.integer(floor(x))}.}
 
 \item{firstday}{\verb{[integer]}
+
 The day the week starts on from 1 (Monday) to 7 (Sunday).}
 
-\item{object}{An \R object.}
+\item{xx}{\R object.}
 }
 \value{
 A \verb{<grates_yearweek>} object with subclass corresponding to the first
