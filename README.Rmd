@@ -17,7 +17,6 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Codecov test coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](https://app.codecov.io/gh/reconverse/grates?branch=main)
-[![R-CMD-check](https://github.com/reconverse/grates/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/grates/actions)
 [![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-maturing.svg)](https://www.reconverse.org/lifecycle.html#maturing)
 [![R-CMD-check](https://github.com/reconverse/grates/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/reconverse/grates/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
