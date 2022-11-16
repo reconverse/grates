@@ -89,14 +89,14 @@ objects we also provides x-axis scales that can be used in conjunction
 with <a href="https://cran.r-project.org/package=ggplot2" class="external-link">ggplot2</a>
 output. Currently implemented classes are:</p>
 <ul>
-<li><p><code><a href="../reference/yearweek.html">yearweek()</a></code>;</p></li>
-<li><p><code><a href="../reference/epiweek.html">epiweek()</a></code>;</p></li>
-<li><p><code><a href="../reference/isoweek.html">isoweek()</a></code>;</p></li>
-<li><p><code><a href="../reference/yearmonth.html">yearmonth()</a></code>;</p></li>
-<li><p><code><a href="../reference/yearquarter.html">yearquarter()</a></code>;</p></li>
-<li><p><code><a href="../reference/year.html">year()</a></code>;</p></li>
-<li><p><code><a href="../reference/month.html">month()</a></code> and</p></li>
-<li><p><code><a href="../reference/period.html">period()</a></code>.</p></li>
+<li><p><a href="#yearweek">grates_yearweek</a>;</p></li>
+<li><p><a href="#yearweek">grates_epiweek</a>;</p></li>
+<li><p><a href="#yearweek">grates_isoweek</a>;</p></li>
+<li><p><a href="#period">grates_period</a>;</p></li>
+<li><p><a href="#yearxxx">grates_yearmonth</a>;</p></li>
+<li><p><a href="#yearxxx">grates_yearquarter</a>;</p></li>
+<li><p><a href="#yearxxx">grates_year</a>; and</p></li>
+<li><p><a href="#month">grates_month</a></p></li>
 </ul>
 <p>The underlying implementation for these objects build upon ideas of
 Davis Vaughan and the unreleased <a href="https://github.com/DavisVaughan/datea/" class="external-link">datea</a> package as well
@@ -106,10 +106,9 @@ as Zhian Kamvar and the <a href="https://cran.r-project.org/package=aweek" class
 <h2 id="grates-objects">grates objects<a class="anchor" aria-label="anchor" href="#grates-objects"></a>
 </h2>
 <div class="section level3">
-<h3 id="yearweek-epiweek-and-isoweek">yearweek, epiweek and isoweek<a class="anchor" aria-label="anchor" href="#yearweek-epiweek-and-isoweek"></a>
+<h3 id="yearweek">yearweek, epiweek and isoweek<a class="anchor" aria-label="anchor" href="#yearweek"></a>
 </h3>
-<p><strong>yearweek</strong> objects (of class
-<code>&lt;grates_yearweek&gt;</code>) are stored as the number of weeks
+<p><strong>yearweek</strong> objects are stored as the number of weeks
 (starting at 0L) from the date of the <code>firstday</code> nearest the
 Unix Epoch (1970-01-01). Put more simply, the number of seven day
 periods from:</p>
@@ -216,10 +215,9 @@ for the date labels:</p>
 <div class="section level3">
 <h3 id="period">Period<a class="anchor" aria-label="anchor" href="#period"></a>
 </h3>
-<p><strong>period</strong> objects (of
-class<code>&lt;grates_period&gt;</code>) are stored as the integer
-number, starting at 0L, of periods since the Unix Epoch (1970-01-01) and
-a specified offset. Here periods are taken to mean groupings of
+<p><strong>period</strong> objects are stored as the integer number,
+starting at 0L, of periods since the Unix Epoch (1970-01-01) and a
+specified offset. Here periods are taken to mean groupings of
 <code>n</code> consecutive days.</p>
 <p>Like with yearweek objects, period objects can be constructed
 directly via a call to <code><a href="../reference/period.html">period()</a></code> but more easily via the
@@ -260,16 +258,12 @@ and values of <code>x</code> stored relative to this scaled offset.</p>
 <p><img src="grates_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
-<h3 id="yearmonth-yearquarter-and-year">yearmonth, yearquarter and year<a class="anchor" aria-label="anchor" href="#yearmonth-yearquarter-and-year"></a>
+<h3 id="yearxxx">yearmonth, yearquarter and year<a class="anchor" aria-label="anchor" href="#yearxxx"></a>
 </h3>
 <p><strong>yearmonth</strong>, <strong>yearquarter</strong> and
-<strong>year</strong> objects (of class
-<code>&lt;grates_yearmonth&gt;</code>,
-<code>&lt;grates_yearquarter&gt;</code> and
-<code>&lt;grates_year&gt;</code> respectively) are stored as the number
-of integer months/quarters/years (starting at 0L) since the Unix Epoch
-(1970-01-01). Precision is only to the level of the given grouping
-(i.e. the day of the month/quarter/year is always dropped).</p>
+<strong>year</strong> objects are stored as the integer number of
+months/quarters/years (starting at 0L) since the Unix Epoch
+(1970-01-01).</p>
 <p>As with all grates objects they they can be constructed directly from
 integers via the <code><a href="../reference/yearmonth.html">yearmonth()</a></code>, <code><a href="../reference/yearquarter.html">yearquarter()</a></code>
 and <code><a href="../reference/year.html">year()</a></code> functions but it is often easier to use the
@@ -355,10 +349,9 @@ and <code><a href="../reference/year.html">year()</a></code> functions but it is
 <div class="section level3">
 <h3 id="month">month<a class="anchor" aria-label="anchor" href="#month"></a>
 </h3>
-<p><strong>month</strong> objects (class
-<code>&lt;grates_month&gt;</code>) are stored as the position, starting
-at 0, of n-month groups since the Unix Epoch (1970-01-01). Here n-months
-is taken to mean a ‘grouping of n consecutive months’.</p>
+<p><strong>month</strong> objects are stored as the integer number of
+n-month groups (starting at 0L) since the Unix Epoch (1970-01-01). Here
+n-months is taken to mean a ‘grouping of n consecutive months’.</p>
 <p><code>&lt;grates_month&gt;</code> objects can be constructed directly
 from integers via the <code><a href="../reference/month.html">month()</a></code> function and throuh coercion
 via the <code><a href="../reference/as_month.html">as_month()</a></code> function. <code><a href="../reference/as_period.html">as_period()</a></code> takes
