@@ -27,30 +27,32 @@ can be used in conjunction with
 [ggplot2](https://cran.r-project.org/package=ggplot2) output. Currently
 implemented classes are:
 
-- `yearweek()`;
-- `epiweek()`;
-- `isoweek()`;
+- [grates_yearweek](#yearweek);
+- [grates_epiweek](#yearweek);
+- [grates_isoweek](#yearweek);
 
-- `yearmonth()`;
-- `yearquarter()`;
-- `year()`;
+- [grates_period](#period);
 
-- `month()` and
+- [grates_yearmonth](#yearxxx);
+- [grates_yearquarter](#yearxxx);
+- [grates_year](#yearxxx); and
 
-- `period()`.
+- [grates_month](#month)
 
 The underlying implementation for these objects build upon ideas of Davis
 Vaughan and the unreleased [datea](https://github.com/DavisVaughan/datea/)
 package as well as Zhian Kamvar and the
 [aweek](https://cran.r-project.org/package=aweek) package.
 
+
 # grates objects
 
-## yearweek, epiweek and isoweek
 
-**yearweek** objects (of class `<grates_yearweek>`) are stored as the number of
-weeks (starting at 0L) from the date of the `firstday` nearest the Unix Epoch
-(1970-01-01). Put more simply, the number of seven day periods from:
+## yearweek, epiweek and isoweek {#yearweek}
+
+**yearweek** objects are stored as the number of weeks (starting at 0L) from
+the date of the `firstday` nearest the Unix Epoch (1970-01-01). Put more simply,
+the number of seven day periods from:
 
 - 1969-12-29 for `firstday` equal to 1 (Monday)
 - 1969-12-30 for `firstday` equal to 2 (Tuesday)
@@ -132,11 +134,12 @@ labels:
 week_plot + scale_x_grates_epiweek(format = "%Y-%m-%d")
 ```
 
-## Period
 
-**period** objects (of class`<grates_period>`) are stored as the integer number,
-starting at 0L, of periods since the Unix Epoch (1970-01-01) and a specified
-offset. Here periods are taken to mean groupings of `n` consecutive days.
+## Period {#period}
+
+**period** objects are stored as the integer number, starting at 0L, of periods
+since the Unix Epoch (1970-01-01) and a specified offset. Here periods are taken
+to mean groupings of `n` consecutive days.
 
 Like with yearweek objects, period objects can be constructed directly via a 
 call to `period()` but more easily via the `as_period()` coercion function.
@@ -169,13 +172,11 @@ ggplot(period_dat, aes(period, cases)) +
     xlab("")
 ```
 
-## yearmonth, yearquarter and year
+## yearmonth, yearquarter and year {#yearxxx}
 
-**yearmonth**, **yearquarter** and **year** objects (of class
-`<grates_yearmonth>`, `<grates_yearquarter>` and `<grates_year>` respectively)
-are stored as the number of integer months/quarters/years (starting at 0L)
-since the Unix Epoch (1970-01-01). Precision is only to the level of the given
-grouping (i.e. the day of the month/quarter/year is always dropped).
+**yearmonth**, **yearquarter** and **year** objects are stored as the integer
+number of months/quarters/years (starting at 0L) since the Unix Epoch
+(1970-01-01). 
 
 As with all grates objects they they can be constructed directly from integers
 via the `yearmonth()`, `yearquarter()` and `year()`  functions but it is often
@@ -228,11 +229,11 @@ ggplot(year_dat, aes(year, cases)) +
     xlab("")
 ```
 
-## month
+## month {#month}
 
-**month** objects (class `<grates_month>`) are stored as the position, starting
-at 0, of n-month groups since the Unix Epoch (1970-01-01). Here n-months is
-taken to mean a 'grouping of n consecutive months'.
+**month** objects are stored as the integer number of n-month groups (starting
+at 0L) since the Unix Epoch (1970-01-01). Here n-months is taken to mean a
+'grouping of n consecutive months'.
 
 `<grates_month>` objects can be constructed directly from integers via the
 `month()` function and throuh coercion via the `as_month()` function.
