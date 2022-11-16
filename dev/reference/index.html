@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">grates</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.9.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,14 +18,11 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
+      <ul class="navbar-nav me-auto"><li class="nav-item">
+  <a class="nav-link" href="../articles/grates.html">Get started</a>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/introduction.html">Introduction</a>
-  </div>
+<li class="active nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
@@ -62,134 +59,154 @@
 
       <dl><dt>
           
-          <code><a href="as_int_period.html">as_int_period()</a></code> 
+          <code><a href="as_epiweek.html">as_epiweek()</a></code> 
         </dt>
-        <dd>Convert an object to grates_int_period object</dd>
+        <dd>Coerce to a epiweek object</dd>
       </dl><dl><dt>
           
-          <code><a href="as_month.html">as_month()</a></code> <code><a href="as_month.html">as_quarter(<i>&lt;factor&gt;</i>)</a></code> 
+          <code><a href="as_isoweek.html">as_isoweek()</a></code> 
         </dt>
-        <dd>Convert an object to grates_month object</dd>
+        <dd>Coerce to a isoweek object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="as_month.html">as_month()</a></code> 
+        </dt>
+        <dd>Coerce an object to month</dd>
       </dl><dl><dt>
           
           <code><a href="as_period.html">as_period()</a></code> 
         </dt>
-        <dd>Convert an object to grates_period object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="as_quarter.html">as_quarter()</a></code> 
-        </dt>
-        <dd>Convert an object to grates_quarter object</dd>
+        <dd>Coerce an object to period</dd>
       </dl><dl><dt>
           
           <code><a href="as_year.html">as_year()</a></code> 
         </dt>
-        <dd>Convert an object to grates_year object</dd>
+        <dd>Coerce an object to year-quarter</dd>
+      </dl><dl><dt>
+          
+          <code><a href="as_yearmonth.html">as_yearmonth()</a></code> 
+        </dt>
+        <dd>Coerce an object to year-month</dd>
+      </dl><dl><dt>
+          
+          <code><a href="as_yearquarter.html">as_yearquarter()</a></code> 
+        </dt>
+        <dd>Coerce an object to year-quarter</dd>
       </dl><dl><dt>
           
           <code><a href="as_yearweek.html">as_yearweek()</a></code> 
         </dt>
-        <dd>Convert an object to grates_yearweek</dd>
+        <dd>Coerce to a yearweek object</dd>
       </dl><dl><dt>
           
-          <code><a href="format.grates_int_period.html">format(<i>&lt;grates_int_period&gt;</i>)</a></code> 
+          <code><a href="epiweek.html">epiweek()</a></code> <code><a href="epiweek.html">is_epiweek()</a></code> 
         </dt>
-        <dd>Format a grates_int_period object</dd>
+        <dd>Construct a epiweek object</dd>
       </dl><dl><dt>
           
-          <code><a href="format.grates_month.html">format(<i>&lt;grates_month&gt;</i>)</a></code> 
+          <code><a href="grouped_date_accessors.html">get_firstday()</a></code> <code><a href="grouped_date_accessors.html">get_week()</a></code> <code><a href="grouped_date_accessors.html">get_year()</a></code> <code><a href="grouped_date_accessors.html">get_n()</a></code> <code><a href="grouped_date_accessors.html">get_offset()</a></code> 
         </dt>
-        <dd>Format a grates_month object</dd>
+        <dd>Accessors for grouped date objects</dd>
       </dl><dl><dt>
           
-          <code><a href="format.grates_period.html">format(<i>&lt;grates_period&gt;</i>)</a></code> 
+          <code><a href="isoweek.html">isoweek()</a></code> <code><a href="isoweek.html">is_isoweek()</a></code> 
         </dt>
-        <dd>Format a grates_period object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="format.grates_quarter.html">format(<i>&lt;grates_quarter&gt;</i>)</a></code> 
-        </dt>
-        <dd>Format a grates_quarter object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="format.grates_year.html">format(<i>&lt;grates_year&gt;</i>)</a></code> 
-        </dt>
-        <dd>Format a grates_year object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="format.grates_yearweek.html">format(<i>&lt;grates_yearweek&gt;</i>)</a></code> 
-        </dt>
-        <dd>Format a grates_yearweek object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="grates_accessors.html">get_n()</a></code> <code><a href="grates_accessors.html">get_firstday()</a></code> <code><a href="grates_accessors.html">get_week()</a></code> <code><a href="grates_accessors.html">get_quarter()</a></code> <code><a href="grates_accessors.html">get_year()</a></code> <code><a href="grates_accessors.html">get_date_range()</a></code> 
-        </dt>
-        <dd>Grouped date accessors</dd>
-      </dl><dl><dt>
-          
-          <code><a href="int_period.html">int_period()</a></code> <code><a href="int_period.html">is_int_period()</a></code> 
-        </dt>
-        <dd>Construct a grates_int_period object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="is_grate.html">is_grate()</a></code> 
-        </dt>
-        <dd>Is object a grouped date</dd>
+        <dd>Construct a isoweek object</dd>
       </dl><dl><dt>
           
           <code><a href="month.html">month()</a></code> <code><a href="month.html">is_month()</a></code> 
         </dt>
-        <dd>Construct a grates_month object</dd>
+        <dd>Construct a month object</dd>
       </dl><dl><dt>
           
           <code><a href="period.html">period()</a></code> <code><a href="period.html">is_period()</a></code> 
         </dt>
-        <dd>Construct a grates_period object</dd>
+        <dd>Construct a period object</dd>
       </dl><dl><dt>
           
-          <code><a href="quarter.html">quarter()</a></code> <code><a href="quarter.html">is_quarter()</a></code> 
+          <code><a href="print.grates_month.html">print(<i>&lt;grates_month&gt;</i>)</a></code> <code><a href="print.grates_month.html">format(<i>&lt;grates_month&gt;</i>)</a></code> 
         </dt>
-        <dd>Construct a grates_quarter object</dd>
+        <dd>Print a month object</dd>
       </dl><dl><dt>
           
-          <code><a href="scale_x_grates_int_period.html">scale_x_grates_int_period()</a></code> 
+          <code><a href="print.grates_period.html">print(<i>&lt;grates_period&gt;</i>)</a></code> <code><a href="print.grates_period.html">format(<i>&lt;grates_period&gt;</i>)</a></code> 
         </dt>
-        <dd>&lt;grates_int_period&gt; scale</dd>
+        <dd>Print a period object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="print.grates_year.html">print(<i>&lt;grates_year&gt;</i>)</a></code> <code><a href="print.grates_year.html">format(<i>&lt;grates_year&gt;</i>)</a></code> 
+        </dt>
+        <dd>Print a year-quarter object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="print.grates_yearmonth.html">print(<i>&lt;grates_yearmonth&gt;</i>)</a></code> <code><a href="print.grates_yearmonth.html">format(<i>&lt;grates_yearmonth&gt;</i>)</a></code> 
+        </dt>
+        <dd>Print a year-month object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="print.grates_yearquarter.html">print(<i>&lt;grates_yearquarter&gt;</i>)</a></code> <code><a href="print.grates_yearquarter.html">format(<i>&lt;grates_yearquarter&gt;</i>)</a></code> 
+        </dt>
+        <dd>Print a year-quarter object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="scale_x_grates_epiweek.html">scale_x_grates_epiweek()</a></code> 
+        </dt>
+        <dd>epiweek scale</dd>
+      </dl><dl><dt>
+          
+          <code><a href="scale_x_grates_isoweek.html">scale_x_grates_isoweek()</a></code> 
+        </dt>
+        <dd>isoweek scale</dd>
       </dl><dl><dt>
           
           <code><a href="scale_x_grates_month.html">scale_x_grates_month()</a></code> 
         </dt>
-        <dd>&lt;grates_month&gt; scale</dd>
+        <dd>month scale</dd>
       </dl><dl><dt>
           
           <code><a href="scale_x_grates_period.html">scale_x_grates_period()</a></code> 
         </dt>
-        <dd>&lt;grates_period&gt; scale</dd>
-      </dl><dl><dt>
-          
-          <code><a href="scale_x_grates_quarter.html">scale_x_grates_quarter()</a></code> 
-        </dt>
-        <dd>&lt;grates_quarter&gt; scale</dd>
+        <dd>period scale</dd>
       </dl><dl><dt>
           
           <code><a href="scale_x_grates_year.html">scale_x_grates_year()</a></code> 
         </dt>
-        <dd>&lt;grates_year&gt; scale</dd>
+        <dd>year scale</dd>
       </dl><dl><dt>
           
-          <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek()</a></code> 
+          <code><a href="scale_x_grates_yearmonth.html">scale_x_grates_yearmonth()</a></code> 
         </dt>
-        <dd>&lt;grates_yearweek&gt; scale</dd>
+        <dd>yearmonth scale</dd>
+      </dl><dl><dt>
+          
+          <code><a href="scale_x_grates_yearquarter.html">scale_x_grates_yearquarter()</a></code> 
+        </dt>
+        <dd>yearquarter scale</dd>
+      </dl><dl><dt>
+          
+          <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek()</a></code> <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek_monday()</a></code> <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek_isoweek()</a></code> <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek_tuesday()</a></code> <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek_wednesday()</a></code> <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek_thursday()</a></code> <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek_friday()</a></code> <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek_saturday()</a></code> <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek_sunday()</a></code> <code><a href="scale_x_grates_yearweek.html">scale_x_grates_yearweek_epiweek()</a></code> 
+        </dt>
+        <dd>yearweek scale</dd>
       </dl><dl><dt>
           
           <code><a href="year.html">year()</a></code> <code><a href="year.html">is_year()</a></code> 
         </dt>
-        <dd>Construct a grates_year object</dd>
+        <dd>Construct a year object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="yearmonth.html">yearmonth()</a></code> <code><a href="yearmonth.html">is_yearmonth()</a></code> 
+        </dt>
+        <dd>Construct a yearmonth object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="yearquarter.html">yearquarter()</a></code> <code><a href="yearquarter.html">is_yearquarter()</a></code> 
+        </dt>
+        <dd>Construct a yearquarter object</dd>
       </dl><dl><dt>
           
           <code><a href="yearweek.html">yearweek()</a></code> <code><a href="yearweek.html">is_yearweek()</a></code> 
         </dt>
-        <dd>Construct a grates_yearweek object</dd>
+        <dd>Construct a yearweek object</dd>
       </dl></div>
   </main></div>
 

@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">grates</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.3.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.9.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,13 +19,10 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
+  <a class="nav-link" href="../articles/grates.html">Get started</a>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/introduction.html">Introduction</a>
-  </div>
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
 <li class="active nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
@@ -52,6 +49,29 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="grates-development-version">grates (development version)<a class="anchor" aria-label="anchor" href="#grates-development-version"></a></h2>
+<p>For the first major release of grates a significant refactor of grates has been undertaken that builds upon lessons learnt over the last two years. Whilst we have tried to limit breaking changes some functionality has been removed and some function parameters altered (see details below):</p>
+<div class="section level3">
+<h3 id="breaking-changes-development-version">breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<ul><li><p><code>&lt;grates_month&gt;</code> objects are now always stored relative to the UNIX epoch. This is equivalent to setting <code>origin = 0</code> in the previous release. Calling the function with an <code>origin</code> argument will now error.</p></li>
+<li><p>Trying to create a <code>&lt;grates_month&gt;</code> object with <code>n</code> set to 1 will now error. Uses are encouraged to use <code>&lt;grates_yearmonth&gt;</code> for this case.</p></li>
+<li><p><code>&lt;grates_int_period&gt;</code> is now a defunct as it did not fit with the scope of the package (i.e grouped dates, not grouped integers). In particular the <code><a href="../reference/grates-defunct.html">int_period()</a></code>, <code><a href="../reference/grates-defunct.html">as_int_period()</a></code> and <code><a href="../reference/grates-defunct.html">is_int_period()</a></code> will now error on use.</p></li>
+<li><p>The <code>origin</code> parameter from <code>&lt;grates_period&gt;</code> as been renamed to <code>offset</code> to better reflect its usage. Users will need to update uses of <code><a href="../reference/period.html">period()</a></code>, <code><a href="../reference/as_period.html">as_period()</a></code> and <code><a href="../reference/scale_x_grates_period.html">scale_x_grates_period()</a></code> to reflect this.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-functions-and-classes-development-version">new functions and classes<a class="anchor" aria-label="anchor" href="#new-functions-and-classes-development-version"></a></h3>
+<ul><li><p>A new <code>yearmonth</code> class (<code>&lt;grates_yearmonth&gt;</code>) and associated functions have been introduced. This object is similar to what was previously obtained via a call of <code>month(x, n = 1L, origin = 0L)</code> (now defunct - see above).</p></li>
+<li><p>New <code>isoweek</code> and <code>epiweek</code> classes (<code>&lt;grates_isoweek&gt;</code> and <code>&lt;grates_epiweek&gt;</code> respectively) and associated functions. Internally these are similar to the corresponding <code>&lt;grates_yearweek&gt;</code> objects but with a marginally more efficient implementation.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-development-version">bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<ul><li>
+<code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">is.numeric()</a></code> methods for grates objects previously returned FALSE. Calls to these methods now dispatch to the default implementation based on the underlying type and should now return TRUE.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="miscellaneous-development-version">miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-development-version"></a></h3>
+<ul><li><p>Hard dependencies on <a href="https://CRAN.R-project.org/package=clock" class="external-link">clock</a> and <a href="https://CRAN.R-project.org/package=vctrs" class="external-link">vctrs</a> have now been removed.</p></li>
+<li><p>The underlying test framework used is now <a href="https://CRAN.R-project.org/package=tinytest" class="external-link">tinytest</a> as opposed to <a href="https://CRAN.R-project.org/package=testthat" class="external-link">testthat</a>.</p></li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.1" id="grates-031">grates 0.3.1<a class="anchor" aria-label="anchor" href="#grates-031"></a></h2><p class="text-muted">CRAN release: 2022-11-10</p>
@@ -61,7 +81,8 @@
 <h2 class="pkg-version" data-toc-text="0.3.0" id="grates-030">grates 0.3.0<a class="anchor" aria-label="anchor" href="#grates-030"></a></h2><p class="text-muted">CRAN release: 2021-10-21</p>
 <div class="section level3">
 <h3 id="new-functions-0-3-0">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-3-0"></a></h3>
-<ul><li>seq methods now implemented for all grates objects.</li>
+<ul><li>
+<code><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq()</a></code> methods now implemented for all grates objects.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-0-3-0">bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-3-0"></a></h3>
@@ -78,7 +99,8 @@
 <h2 class="pkg-version" data-toc-text="0.1.2" id="grates-012">grates 0.1.2<a class="anchor" aria-label="anchor" href="#grates-012"></a></h2><p class="text-muted">CRAN release: 2021-03-28</p>
 <div class="section level3">
 <h3 id="bug-fixes-0-1-2">bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-0-1-2"></a></h3>
-<ul><li>Fixed bug affecting scale_x_period</li>
+<ul><li>Fixed bug affecting <code>scale_x_period()</code>
+</li>
 </ul></div>
 </div>
     <div class="section level2">

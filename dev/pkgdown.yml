@@ -2,8 +2,8 @@ pandoc: 2.19.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
-  introduction: introduction.html
-last_built: 2022-11-16T15:59Z
+  grates: grates.html
+last_built: 2022-11-16T17:01Z
 urls:
   reference: http://www.reconverse.org/grates/reference
   article: http://www.reconverse.org/grates/articles
