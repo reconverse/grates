@@ -19,7 +19,7 @@ as_epiweek(x, ...)
 
 \method{as_epiweek}{character}(x, format, tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"), ...)
 
-\method{as_epiweek}{factor}(x, format = NULL, ...)
+\method{as_epiweek}{factor}(x, format, tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"), ...)
 }
 \arguments{
 \item{x}{\R object.}
@@ -28,12 +28,15 @@ as_epiweek(x, ...)
 
 \item{format}{\verb{[character]}
 
-If NULL, then it attempts to pass character values of the form 'YYYY-Www',
-otherwise passed through to \code{as.Date()} (default behaviour).}
+Passed to as.Date().
+
+If not specified, it will try tryFormats one by one on the first non-NA
+element, and give an error if none works. Otherwise, the processing is via
+\code{strptime()} whose help page describes available conversion specifications.}
 
 \item{tryFormats}{\verb{[character]}
 
-Passed through to \code{as.Date()}}
+Format strings to try if format is not specified.}
 }
 \value{
 A \verb{<grates_epiweek>} object.
@@ -50,7 +53,6 @@ Generic for conversion to \verb{<grates_epiweek>}
 as_epiweek(Sys.Date())
 as_epiweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 as_epiweek("2019-05-03")
-as_epiweek("2021-W03", format = NULL)
 
 }
 \seealso{

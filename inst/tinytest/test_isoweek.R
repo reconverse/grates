@@ -61,10 +61,6 @@ dat <- "2021-01-04"
 res <- as_isoweek(dat)
 expect_identical(as.Date(res), as.Date(dat))
 
-dat <- "2020-W53"
-res <- as_isoweek(dat, format = NULL)
-expect_identical(as.Date(res), as.Date("2020-12-28"))
-
 dat <- as.factor("2021-01-04")
 res <- as_isoweek(dat)
 expect_identical(as.Date(res), as.Date(dat))
@@ -78,14 +74,6 @@ expect_error(
     "Not implemented for class [logical].",
     fixed = TRUE
 )
-
-expect_error(
-    as_isoweek("2021-W53", format = NULL),
-    "2021-W53 is not a valid isoweek.",
-    fixed = TRUE
-)
-
-expect_error(as_isoweek("2021-W54", format = NULL))
 
 # as.POSIXct --------------------------------------------------------------
 dat <- "2021-01-04"
@@ -250,11 +238,6 @@ expect_error(abs(dat))
 # miscellaneous -----------------------------------------------------------
 expect_identical(isoweek(-1.5), isoweek(-2L))
 expect_error(isoweek("bob"), "`x` must be integer.", fixed = TRUE)
-expect_warning(
-    as_isoweek(c("2020-W01", "bob"), format = NULL),
-    "Unable to parse some entries in yearweek format 'YYYY-Www'. Returning these as NA",
-    fixed = TRUE
-)
 dat <- Sys.Date()
 dat <- c(dat, dat - 45L)
 dat <- as_isoweek(dat)

@@ -101,10 +101,6 @@ dat <- "2021-01-04"
 res <- as_yearweek(dat, 1)
 expect_identical(as.Date(res), as.Date(dat))
 
-dat <- "2020-W53"
-res <- as_yearweek(dat, firstday = 1, format = NULL)
-expect_identical(as.Date(res), as.Date("2020-12-28"))
-
 dat <- as.factor("2021-01-04")
 res <- as_yearweek(dat, 1)
 expect_identical(as.Date(res), as.Date(dat))
@@ -133,14 +129,6 @@ expect_error(
 )
 
 expect_error(as_yearweek("bob"))
-
-suppressWarnings(expect_error(
-    as_yearweek("2021-W53", format = NULL),
-    "2021-W53 is not a valid week for the given first day (1).",
-    fixed = TRUE
-))
-
-suppressWarnings(expect_error(as_yearweek("2021-W54", format = NULL)))
 
 # as.POSIXct --------------------------------------------------------------
 dat <- "2021-01-04"
@@ -359,12 +347,6 @@ expect_error(
 expect_error(
     as_yearweek(Sys.Date(), 0:1),
     "`firstday` must be an integer of length 1.",
-    fixed = TRUE
-)
-
-expect_warning(
-    as_yearweek(c("2020-W01", "bob"), format = NULL),
-    "Unable to parse some entries in yearweek format 'YYYY-Www'. Returning these as NA",
     fixed = TRUE
 )
 

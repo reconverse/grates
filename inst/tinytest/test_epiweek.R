@@ -59,10 +59,6 @@ dat <- "2021-01-04"
 res <- as_epiweek(dat)
 expect_identical(as.Date(res), as.Date(dat) - 1L)
 
-dat <- "2020-W53"
-res <- as_epiweek(dat, format = NULL)
-expect_identical(as.Date(res), as.Date("2020-12-27"))
-
 dat <- as.factor("2021-01-04")
 res <- as_epiweek(dat)
 expect_identical(as.Date(res), as.Date(dat) - 1L)
@@ -76,14 +72,6 @@ expect_error(
     "Not implemented for class [logical].",
     fixed = TRUE
 )
-
-expect_error(
-    as_epiweek("2021-W53", format = NULL),
-    "2021-W53 is not a valid epiweek.",
-    fixed = TRUE
-)
-
-expect_error(as_epiweek("2021-W54", format = NULL))
 
 # as.POSIXct --------------------------------------------------------------
 dat <- "2021-01-03"
@@ -248,11 +236,6 @@ expect_error(abs(dat))
 # miscellaneous -----------------------------------------------------------
 expect_identical(epiweek(-1.5), epiweek(-2L))
 expect_error(epiweek("bob"), "`x` must be integer.", fixed = TRUE)
-expect_warning(
-    as_epiweek(c("2020-W01", "bob"), format = NULL),
-    "Unable to parse some entries in epiweek format 'YYYY-Www'. Returning these as NA",
-    fixed = TRUE
-)
 dat <- Sys.Date()
 dat <- c(dat, dat - 45L)
 dat <- as_epiweek(dat)

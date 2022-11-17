@@ -71,16 +71,22 @@ vec_ptype_full.grates_isoweek <- function(x, ...) "isoweek"
 #' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
 #'
 #' @param x
-#' An \R object.
+#' \R object.
 #'
 #' @param format `[character]`
-#' If NULL, then it attempts to pass character values of the form 'YYYY-Www',
-#' otherwise passed through to `as.Date()` (default behaviour).
+#'
+#' Passed to as.Date().
+#'
+#' If not specified, it will try tryFormats one by one on the first non-NA
+#' element, and give an error if none works. Otherwise, the processing is via
+#' `strptime()` whose help page describes available conversion specifications.
 #'
 #' @param tryFormats `[character]`
-#' Passed through to `as.Date()`
+#'
+#' Format strings to try if format is not specified.
 #'
 #' @param ...
+#'
 #' Other values passed to as.Date().
 #'
 #' @return
@@ -90,7 +96,6 @@ vec_ptype_full.grates_isoweek <- function(x, ...) "isoweek"
 #' as_isoweek(Sys.Date())
 #' as_isoweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 #' as_isoweek("2019-05-03")
-#' as_isoweek("2021-W03", format = NULL)
 #'
 #' @seealso
 #' `isoweek()` and `as.Date()`.
@@ -132,47 +137,26 @@ as_isoweek.POSIXt <- function(x, ...) {
 #' @rdname as_isoweek
 #' @export
 as_isoweek.character <- function(
-        x,
-        format,
-        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-        ...
+    x,
+    format,
+    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+    ...
 ) {
-    if (!missing(format) && is.null(format) && ...length() == 0L) {
-        yearweek_pattern <- "(^\\d{4}-W([0][1-9]|[1-4][0-9]|5[0-3])$)"
-        x <- trimws(x)
-        allowed <- grepl(yearweek_pattern, x)
-        if (all(allowed)) {
-            out <- .parse_isoweek_string(x)
-        } else if (any(allowed)) {
-            warning("Unable to parse some entries in yearweek format 'YYYY-Www'. Returning these as NA")
-            x[!allowed] <- NA_character_
-            out <- double(length(x))
-            out[!allowed] <- NA_real_
-            out[allowed] <- .parse_isoweek_string(x[allowed])
-        } else {
-            out <- as.Date(x)
-        }
-    } else {
-        out <- as.Date(x, format = format, ...)
-    }
-
+    out <- as.Date(x, format = format, tryFormats = tryFormats,...)
     as_isoweek.Date(out)
 }
 
 # -------------------------------------------------------------------------
 #' @rdname as_isoweek
 #' @export
-as_isoweek.factor <- function(x, format = NULL, ...) {
+as_isoweek.factor <- function(
+    x,
+    format,
+    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+    ...
+) {
     x <- as.character(x)
-    as_isoweek.character(x, format = format, ...)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_isoweek
-#' @export
-as_isoweek.factor <- function(x, format = NULL, ...) {
-    x <- as.character(x)
-    as_isoweek.character(x, format = format, ...)
+    as_isoweek.character(x, format = format, tryFormats = tryFormats, ...)
 }
 
 # -------------------------------------------------------------------------
@@ -411,37 +395,3 @@ Ops.grates_isoweek <- function(e1, e2) {
 .new_isoweek <- function(x) {
     structure(x, class = c("grates_isoweek"))
 }
-
-.parse_isoweek_string <- function(x) {
-
-    firstday <- 1L
-
-    # pull out the year and week from string
-    year <- as.integer(substr(x, 1, 4))
-    week <- as.integer(substr(x, 7, 8))
-
-    # check weeks are valid relative to years
-    cond <- (week > .last_week_in_year(year = year, firstday = firstday))
-    if (any(cond, na.rm = TRUE)) {
-        idx <- which(cond)
-        if (length(cond) > 1) {
-            stop(
-                sprintf(
-                    "Some weeks are invalid isoweeks. The first invalid isoweek is %d-W%d (position %d).",
-                    year[idx], week[idx], idx
-                )
-            )
-        } else {
-            stop(sprintf("%s is not a valid isoweek.", x))
-        }
-
-    }
-
-    # convert numeric values to date
-    jan4 <- strptime(sprintf("%d-01-04", year), format = "%Y-%m-%d", tz = "UTC")
-    wday <- jan4$wday
-    out <- jan4 - ((wday + 7L - firstday) %% 7) * 86400
-    out <- out + (week - 1) * 7L * 86400
-    as.Date(out)
-}
-

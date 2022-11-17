@@ -25,7 +25,13 @@ as_yearweek(x, ...)
   ...
 )
 
-\method{as_yearweek}{factor}(x, firstday = 1L, format = NULL, ...)
+\method{as_yearweek}{factor}(
+  x,
+  firstday = 1L,
+  format,
+  tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"),
+  ...
+)
 }
 \arguments{
 \item{x}{\R object.}
@@ -38,29 +44,32 @@ The day the week starts on from 1 (Monday) to 7 (Sunday).}
 
 \item{format}{\verb{[character]}
 
-If NULL, then it attempts to pass character values of the form 'YYYY-Www',
-otherwise passed through to \code{as.Date()} (default behaviour).}
+Passed to as.Date().
+
+If not specified, it will try tryFormats one by one on the first non-NA
+element, and give an error if none works. Otherwise, the processing is via
+\code{strptime()} whose help page describes available conversion specifications.}
 
 \item{tryFormats}{\verb{[character]}
 
-Passed through to \code{as.Date()}}
+Format strings to try if format is not specified.}
 }
 \value{
 A \verb{<grates_yearweek>} object.
 }
 \description{
-Generic for conversion to <grates_yearweek>
+Generic for conversion to <grates_yearweek>.
 }
 \details{
 \itemize{
 \item Date, POSIXct, and POSIXlt are converted with the timezone respected.
+\item Character objects are first coerced to date via \code{as.Date()}.
 }
 }
 \examples{
 as_yearweek(Sys.Date())
 as_yearweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 as_yearweek("2019-05-03", firstday = 5L)
-as_yearweek("2021-W03", format = NULL)
 
 }
 \seealso{

@@ -21,6 +21,9 @@ some function parameters altered (see details below):
 * The `origin` parameter from `<grates_period>` as been renamed to `offset` to
   better reflect its usage. Users will need to update uses of `period()`,
   `as_period()` and `scale_x_grates_period()` to reflect this.
+  
+* `as_yearweek()` no longer parsers character strings of the form "YYYY-Www"
+  (e.g. "2020-W01").
 
 ## new functions and classes
 

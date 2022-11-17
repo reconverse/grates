@@ -19,21 +19,24 @@ as_isoweek(x, ...)
 
 \method{as_isoweek}{character}(x, format, tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"), ...)
 
-\method{as_isoweek}{factor}(x, format = NULL, ...)
-
-\method{as_isoweek}{factor}(x, format = NULL, ...)
+\method{as_isoweek}{factor}(x, format, tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"), ...)
 }
 \arguments{
-\item{x}{An \R object.}
+\item{x}{\R object.}
 
 \item{...}{Other values passed to as.Date().}
 
 \item{format}{\verb{[character]}
-If NULL, then it attempts to pass character values of the form 'YYYY-Www',
-otherwise passed through to \code{as.Date()} (default behaviour).}
+
+Passed to as.Date().
+
+If not specified, it will try tryFormats one by one on the first non-NA
+element, and give an error if none works. Otherwise, the processing is via
+\code{strptime()} whose help page describes available conversion specifications.}
 
 \item{tryFormats}{\verb{[character]}
-Passed through to \code{as.Date()}}
+
+Format strings to try if format is not specified.}
 }
 \value{
 A \verb{<grates_isoweek>} object.
@@ -50,7 +53,6 @@ Generic for conversion to \verb{<grates_isoweek>}
 as_isoweek(Sys.Date())
 as_isoweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 as_isoweek("2019-05-03")
-as_isoweek("2021-W03", format = NULL)
 
 }
 \seealso{
