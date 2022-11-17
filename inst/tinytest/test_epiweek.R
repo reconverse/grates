@@ -1,13 +1,13 @@
 dates <- seq.Date(from = as.Date("1970-01-04"), length.out = 4, by = "week")
 storage.mode(dates) <- "double" # needed for R <= 4.1.3
-yw4 <- epiweek(0:3)
+yw4 <- new_epiweek(0:3)
 
 # constructor -------------------------------------------------------------
 expect_identical(as.Date(yw4), dates)
 
 # formatting --------------------------------------------------------------
 expect_identical(format(yw4), c("1970-W01", "1970-W02", "1970-W03", "1970-W04"))
-expect_identical(format(epiweek()), character())
+expect_identical(format(new_epiweek()), character())
 
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-04"), length.out = 4, by = "week")
@@ -116,7 +116,7 @@ expect_error(get_week("bob"))
 # is_yearweek -----------------------------------------------------------------
 dat <- as_epiweek(Sys.Date())
 expect_true(is_epiweek(dat))
-expect_false(is_yearweek("bob"))
+expect_false(is_epiweek("bob"))
 
 # subsetting --------------------------------------------------------------
 x <- Sys.Date()
@@ -227,15 +227,15 @@ expect_error(!dat)
 
 # Math
 x <- as_epiweek(as.Date("2021-01-04"))
-dat <- c(x + 0:1, epiweek(NA_integer_))
+dat <- c(x + 0:1, new_epiweek(NA_integer_))
 expect_identical(is.nan(dat), c(FALSE, FALSE, FALSE))
 expect_identical(is.finite(dat), c(TRUE, TRUE, FALSE))
 expect_identical(is.infinite(dat), c(FALSE, FALSE, FALSE))
 expect_error(abs(dat))
 
 # miscellaneous -----------------------------------------------------------
-expect_identical(epiweek(-1.5), epiweek(-2L))
-expect_error(epiweek("bob"), "`x` must be integer.", fixed = TRUE)
+expect_identical(new_epiweek(-1.5), new_epiweek(-2L))
+expect_error(new_epiweek("bob"), "`x` must be integer.", fixed = TRUE)
 dat <- Sys.Date()
 dat <- c(dat, dat - 45L)
 dat <- as_epiweek(dat)
@@ -245,7 +245,7 @@ expect_identical(unique(c(dat, dat)), dat)
 dat <- as_epiweek(as.Date("1970-01-04"))
 expect_identical(
     seq(dat, dat + 6L, by = 2L),
-    epiweek(c(0L, 2L, 4L, 6L))
+    new_epiweek(c(0L, 2L, 4L, 6L))
 )
 expect_error(
     seq(dat, dat + 11, by = 2.5),
@@ -258,8 +258,8 @@ expect_error(
     "`to` must be a <grates_epiweek> object of length 1.",
     fixed = TRUE
 )
-expect_identical(as.integer(epiweek(100L)), 100L)
-expect_identical(as.double(epiweek(100L)), 100)
+expect_identical(as.integer(new_epiweek(100L)), 100L)
+expect_identical(as.double(new_epiweek(100L)), 100)
 expect_identical(min(c(dat, dat+11)), dat)
 expect_identical(max(c(dat, dat+11)), dat+11)
 expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
@@ -268,5 +268,3 @@ expect_error(
     "`any()` is not supported for <grates_epiweek> objects.",
     fixed = TRUE
 )
-
-

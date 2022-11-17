@@ -39,7 +39,7 @@
 #' new_yearweek(1:10)
 #'
 #' @seealso
-#' `as_yearweek()`, `isoweek()` and `epiweek()`.
+#' `as_yearweek()`, `isoweek()` and `new_epiweek()`.
 #'
 #' @export
 new_yearweek <- function(x = integer(), firstday = 1L) {

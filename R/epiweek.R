@@ -1,7 +1,8 @@
 #' Construct a epiweek object
 #'
 #' @description
-#' `epiweek()` is a constructor for `<grates_epiweek>` objects.
+#' `new_epiweek()` is a constructor for `<grates_epiweek>` objects aimed at
+#' developers.
 #'
 #' @details
 #' Epiweeks are defined to start on a Sunday and `<grates_epiweek>` objects are
@@ -27,13 +28,13 @@
 #' A `<grates_epiweek>` object.
 #'
 #' @seealso
-#' `yearweek()` and `isoweek()`.
+#' `new_yearweek()` and `isoweek()`.
 #'
 #' @examples
-#' epiweek(1:10)
+#' new_epiweek(1:10)
 #'
 #' @export
-epiweek <- function(x = integer()) {
+new_epiweek <- function(x = integer()) {
     if (!is.integer(x)) {
         if (is.double(x) && is.vector(x)) {
             x <- as.integer(floor(x))
@@ -45,7 +46,7 @@ epiweek <- function(x = integer()) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname epiweek
+#' @rdname new_epiweek
 #' @export
 is_epiweek <- function(xx) inherits(xx, "grates_epiweek")
 
@@ -98,7 +99,7 @@ vec_ptype_full.grates_epiweek <- function(x, ...) "epiweek"
 #' as_epiweek("2019-05-03")
 #'
 #' @seealso
-#' `epiweek()` and `as.Date()`.
+#' `new_epiweek()` and `as.Date()`.
 #'
 #' @export
 as_epiweek <- function(x, ...) UseMethod("as_epiweek")
@@ -329,7 +330,7 @@ Math.grates_epiweek <- function(x, ...) {
 quantile.grates_epiweek <- function(x, type = 1, ...) {
     x <- unclass(x)
     x <- as.integer(quantile(x, type = type, ...))
-    epiweek(x)
+    new_epiweek(x)
 }
 
 # -------------------------------------------------------------------------

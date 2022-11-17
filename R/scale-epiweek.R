@@ -50,12 +50,12 @@ scale_type.grates_epiweek <- function(x) "grates_epiweek"
     brks <- function(x) {
         dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
         dat <- as.integer(floor(dat))
-        as.numeric(epiweek(dat)) - shift
+        as.numeric(new_epiweek(dat)) - shift
     }
 
     # format function
     fmt <- function(x) {
-        x <- epiweek(x + shift)
+        x <- new_epiweek(x + shift)
         if (is.null(format)) {
             format.grates_yearweek(x)
         } else {

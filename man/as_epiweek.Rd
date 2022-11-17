@@ -56,5 +56,5 @@ as_epiweek("2019-05-03")
 
 }
 \seealso{
-\code{epiweek()} and \code{as.Date()}.
+\code{new_epiweek()} and \code{as.Date()}.
 }
