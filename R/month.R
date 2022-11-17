@@ -332,7 +332,7 @@ as.Date.grates_month <- function(x, ...) {
     n <- attr(x, "n")
     x <- as.integer(x)
     days <- .month_to_days(x * n)
-    .Date(days)
+    .Date(as.double(days))
 }
 
 # -------------------------------------------------------------------------

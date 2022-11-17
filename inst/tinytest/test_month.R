@@ -1,6 +1,8 @@
 dates <- seq.Date(from = as.Date("1970-01-01"), length.out = 6L, by = "2 months")
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
 dat <- month(0:5, n=2L)
 dates5 <- seq.Date(from = as.Date("1970-01-01"), length.out = 6L, by = "5 months")
+storage.mode(dates5) <- "double" # needed for R <= 4.1.3
 dat5 <- month(0:5, n=5L)
 
 # constructor -------------------------------------------------------------
@@ -9,6 +11,7 @@ expect_identical(as.Date(dat5), dates5)
 
 # formatting --------------------------------------------------------------
 dates2 <- seq.Date(from = as.Date("1970-01-01"), length.out = 7L, by = "2 months")
+storage.mode(dates2) <- "double" # needed for R <= 4.1.3
 dates2 <- dates2[-1L]
 expect_identical(
     format(dat),
@@ -18,6 +21,7 @@ expect_identical(format(yearmonth()), character())
 
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 3L, by = "2 months")
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
 expect_identical(as.Date(as_month(dates, n = 2L)), dates)
 
 # POSIXlt -----------------------------------------------------------------

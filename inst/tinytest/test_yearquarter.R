@@ -1,4 +1,5 @@
 dates <- seq.Date(from = as.Date("1970-01-01"), length.out = 4, by = "3 months")
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
 yq4 <- yearquarter(0:3)
 
 # constructor -------------------------------------------------------------
@@ -10,7 +11,9 @@ expect_identical(format(yearquarter()), character())
 
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 4, by = "3 months")
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
 dates2 <- seq.Date(from = as.Date("1899-01-01"), length.out = 4, by = "3 month")
+storage.mode(dates2) <- "double" # needed for R <= 4.1.3
 expect_identical(as.Date(as_yearquarter(dates)), dates)
 expect_identical(as.Date(as_yearquarter(dates) - 4), dates2)
 

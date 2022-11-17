@@ -255,7 +255,7 @@ as.double.grates_yearquarter <- function(x, ...) as.double(unclass(x))
 #' @export
 as.Date.grates_yearquarter <- function(x, ...) {
     days <- .month_to_days(unclass(x) * 3L)
-    .Date(days)
+    .Date(as.double(days))
 }
 
 # -------------------------------------------------------------------------

@@ -1,4 +1,5 @@
 dates <- seq.Date(from = as.Date("0000-01-01"), length.out = 4, by = "year")
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
 yr4 <- year(0:3)
 
 # constructor -------------------------------------------------------------
@@ -10,7 +11,9 @@ expect_identical(format(year()), character())
 
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 4, by = "year")
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
 dates2 <- seq.Date(from = as.Date("1896-01-01"), length.out = 4, by = "year")
+storage.mode(dates2) <- "double" # needed for R <= 4.1.3
 expect_identical(as.Date(as_year(dates)), dates)
 expect_identical(as.Date(as_year(dates) - 4), dates2)
 
@@ -102,6 +105,7 @@ expect_false(is_year("bob"))
 # subsetting --------------------------------------------------------------
 x <- Sys.Date()
 x2 <- seq.Date(x, by="year", length.out=2)[2]
+storage.mode(x2) <- "double" # needed for R <= 4.1.3
 dat <- as_year(x) + 0:1
 dat <- setNames(dat, c("a", "b"))
 expect_identical(dat[1], c(a=as_year(x)))

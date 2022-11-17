@@ -241,7 +241,7 @@ as.double.grates_year <- function(x, ...) as.double(unclass(x))
 #' @export
 as.Date.grates_year <- function(x, ...) {
     days <- .month_to_days((unclass(x) - 1970L) * 12L)
-    .Date(days)
+    .Date(as.double(days))
 }
 
 # -------------------------------------------------------------------------

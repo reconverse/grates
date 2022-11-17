@@ -1,4 +1,5 @@
 dates <- seq.Date(from = as.Date("1969-12-29"), length.out = 4, by = "week")
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
 yw4 <- isoweek(0:3)
 
 # constructor -------------------------------------------------------------
@@ -10,7 +11,9 @@ expect_identical(format(isoweek()), character())
 
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-04"), length.out = 4, by = "week")
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
 dates2 <- seq.Date(from = as.Date("1900-01-04") - 28L, length.out = 4, by = "week")
+storage.mode(dates2) <- "double" # needed for R <= 4.1.3
 expect_identical(as.Date(as_isoweek(dates)), dates - 3L)
 expect_identical(as.Date(as_isoweek(dates) - 4L), dates2 - 3L)
 

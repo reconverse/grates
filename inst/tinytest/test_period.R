@@ -1,8 +1,8 @@
 dat <- 0:3
 datesw <- seq.Date(from = as.Date("1970-01-01"), length.out = 4, by = 7)
+storage.mode(datesw) <- "double" # needed for R <= 4.1.3
 
 # constructor -------------------------------------------------------------
-storage.mode(datesw) <- "integer"
 expect_identical(as.Date(period(dat, n = 7)), datesw)
 expect_error(period(dat, n = -1L))
 
@@ -25,8 +25,8 @@ expect_identical(format(period()), character())
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 4, by = 7)
 dates2 <- seq.Date(from = as.Date("1900-01-01") - 28, length.out = 4, by = 7)
-storage.mode(dates) <- "integer"
-storage.mode(dates2) <- "integer"
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
+storage.mode(dates2) <- "double" # needed for R <= 4.1.3
 expect_identical(as.Date(as_period(dates, n=7, offset = as.integer(as.Date("1900-01-01")))), dates)
 expect_identical(as.Date(as_period(dates, n=7, offset = as.integer(as.Date("1900-01-01"))) - 4), dates2)
 
@@ -42,7 +42,6 @@ expect_error(as_period("2021-W53"))
 # as_period.Date
 dates <- as.Date("2020-01-01") + (0:61)
 dat <- as_period(dates, n = 2, offset = as.integer(as.Date("2020-01-01")))
-storage.mode(dates) <- "integer"
 expect_identical(as.Date(dat), rep(dates[c(TRUE, FALSE)], each = 2))
 
 # as_period.POSIXlt
@@ -56,7 +55,6 @@ dat <- as.POSIXlt("2021-01-04", tz = "UTC")
 res <- as_period(dat, n = 2, offset = as.integer(as.Date("2021-01-01")))
 expect_identical(res, as_period(as.Date("2021-01-04"), n = 2, offset = as.integer(as.Date("2021-01-01"))))
 expected <- as.Date("2021-01-03")
-storage.mode(expected) <- "integer"
 expect_identical(as.Date(res), expected)
 
 # as_period.POSIXct
@@ -72,14 +70,12 @@ expect_identical(result, expected)
 dat <- "2021-01-04"
 res <- as_period(dat, n = 2, offset = as.integer(as.Date(dat)))
 expected <- as.Date("2021-01-04")
-storage.mode(expected) <- "integer"
 expect_identical(as.Date(res), expected)
 
 # as_period.factor
 dat <- as.factor("2021-01-04")
 res <- as_period(dat, n = 3, offset = as.integer(as.Date(dat)) - 1)
 expected <- as.Date("2021-01-03")
-storage.mode(expected) <- "integer"
 expect_identical(as.Date(res), expected)
 
 
@@ -121,7 +117,6 @@ dat <- as_period(
 expect_identical(get_n(dat), 55L)
 expect_identical(get_offset(dat), as.integer(as.Date("2020-12-26")) %% 55L)
 expected <- as.Date("2020-12-26")
-storage.mode(expected) <- "integer"
 expect_identical(as.Date(dat), expected)
 
 # is_period ---------------------------------------------------------------
@@ -175,7 +170,6 @@ dat1 <- as_period(x, n = 2L)
 dat2 <- dat1 + 0:1
 y <- as.Date("2021-01-05")
 expected <- as.Date(c(y, y + 2))
-storage.mode(expected) <- "integer"
 expect_identical(as.Date(dat2), expected)
 expect_identical(dat2, 0:1 + dat1)
 expect_identical(+dat1, dat1)
@@ -196,7 +190,6 @@ dat1 <- as_period(x, n = 2)
 dat2 <- dat1 - 0:1
 y <- as.Date("2021-01-05")
 expected <- as.Date(c(y, y - 2))
-storage.mode(expected) <- "integer"
 expect_identical(as.Date(dat2), expected)
 
 expect_error(

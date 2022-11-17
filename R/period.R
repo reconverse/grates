@@ -371,7 +371,7 @@ as.Date.grates_period <- function(x, ...) {
     n <- attr(x, "n")
     offset <- attr(x, "offset")
     days <- as.integer(x) * n + offset
-    .Date(days)
+    .Date(as.double(days))
 }
 
 # -------------------------------------------------------------------------

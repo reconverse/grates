@@ -1,4 +1,5 @@
 dates <- seq.Date(from = as.Date("1970-01-01"), length.out = 4, by = "month")
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
 ym4 <- yearmonth(0:3)
 
 # constructor -------------------------------------------------------------
@@ -10,7 +11,9 @@ expect_identical(format(yearmonth()), character())
 
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 4, by = "month")
+storage.mode(dates) <- "double" # needed for R <= 4.1.3
 dates2 <- seq.Date(from = as.Date("1899-09-01"), length.out = 4, by = "month")
+storage.mode(dates2) <- "double" # needed for R <= 4.1.3
 expect_identical(as.Date(as_yearmonth(dates)), dates)
 expect_identical(as.Date(as_yearmonth(dates) - 4), dates2)
 
