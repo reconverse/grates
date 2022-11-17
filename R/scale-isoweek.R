@@ -50,12 +50,12 @@ scale_type.grates_isoweek <- function(x) "grates_isoweek"
     brks <- function(x) {
         dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
         dat <- as.integer(floor(dat))
-        as.numeric(isoweek(dat)) - shift
+        as.numeric(new_isoweek(dat)) - shift
     }
 
     # format function
     fmt <- function(x) {
-        x <- isoweek(x + shift)
+        x <- new_isoweek(x + shift)
         if (is.null(format)) {
             format.grates_yearweek(x)
         } else {

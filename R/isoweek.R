@@ -1,7 +1,8 @@
 #' Construct a isoweek object
 #'
 #' @description
-#' `isoweek()` is a constructor for `<grates_isoweek>` objects.
+#' `new_isoweek()` is a constructor for `<grates_isoweek>` objects aimed at
+#' developers.
 #'
 #' @details
 #' isoweeks are defined to start on a Monday and `<grates_isoweek>` objects are
@@ -27,13 +28,13 @@
 #' A `<grates_isoweek>` object.
 #'
 #' @seealso
-#' `yearweek()` and `epiweek()`.
+#' `new_yearweek()` and `new_epiweek()`.
 #'
 #' @examples
-#' isoweek(1:10)
+#' new_isoweek(1:10)
 #'
 #' @export
-isoweek <- function(x = integer()) {
+new_isoweek <- function(x = integer()) {
     if (!is.integer(x)) {
         if (is.double(x) && is.vector(x)) {
             x <- as.integer(floor(x))
@@ -45,7 +46,7 @@ isoweek <- function(x = integer()) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname isoweek
+#' @rdname new_isoweek
 #' @export
 is_isoweek <- function(xx) inherits(xx, "grates_isoweek")
 
@@ -98,7 +99,7 @@ vec_ptype_full.grates_isoweek <- function(x, ...) "isoweek"
 #' as_isoweek("2019-05-03")
 #'
 #' @seealso
-#' `isoweek()` and `as.Date()`.
+#' `new_isoweek()` and `as.Date()`.
 #'
 #' @export
 as_isoweek <- function(x, ...) UseMethod("as_isoweek")
@@ -330,7 +331,7 @@ Math.grates_isoweek <- function(x, ...) {
 quantile.grates_isoweek <- function(x, type = 1, ...) {
     x <- unclass(x)
     x <- as.integer(quantile(x, type = type, ...))
-    isoweek(x)
+    new_isoweek(x)
 }
 
 # -------------------------------------------------------------------------

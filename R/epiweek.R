@@ -28,7 +28,7 @@
 #' A `<grates_epiweek>` object.
 #'
 #' @seealso
-#' `new_yearweek()` and `isoweek()`.
+#' `new_yearweek()` and `new_isoweek()`.
 #'
 #' @examples
 #' new_epiweek(1:10)

@@ -56,5 +56,5 @@ as_isoweek("2019-05-03")
 
 }
 \seealso{
-\code{isoweek()} and \code{as.Date()}.
+\code{new_isoweek()} and \code{as.Date()}.
 }

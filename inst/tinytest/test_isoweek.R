@@ -1,13 +1,13 @@
 dates <- seq.Date(from = as.Date("1969-12-29"), length.out = 4, by = "week")
 storage.mode(dates) <- "double" # needed for R <= 4.1.3
-yw4 <- isoweek(0:3)
+yw4 <- new_isoweek(0:3)
 
 # constructor -------------------------------------------------------------
 expect_identical(as.Date(yw4), dates)
 
 # formatting --------------------------------------------------------------
 expect_identical(format(yw4), c("1970-W01", "1970-W02", "1970-W03", "1970-W04"))
-expect_identical(format(isoweek()), character())
+expect_identical(format(new_isoweek()), character())
 
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-04"), length.out = 4, by = "week")
@@ -229,15 +229,15 @@ expect_error(!dat)
 
 # Math
 x <- as_isoweek(as.Date("2021-01-04"))
-dat <- c(x + 0:1, isoweek(NA_integer_))
+dat <- c(x + 0:1, new_isoweek(NA_integer_))
 expect_identical(is.nan(dat), c(FALSE, FALSE, FALSE))
 expect_identical(is.finite(dat), c(TRUE, TRUE, FALSE))
 expect_identical(is.infinite(dat), c(FALSE, FALSE, FALSE))
 expect_error(abs(dat))
 
 # miscellaneous -----------------------------------------------------------
-expect_identical(isoweek(-1.5), isoweek(-2L))
-expect_error(isoweek("bob"), "`x` must be integer.", fixed = TRUE)
+expect_identical(new_isoweek(-1.5), new_isoweek(-2L))
+expect_error(new_isoweek("bob"), "`x` must be integer.", fixed = TRUE)
 dat <- Sys.Date()
 dat <- c(dat, dat - 45L)
 dat <- as_isoweek(dat)
@@ -247,7 +247,7 @@ expect_identical(unique(c(dat, dat)), dat)
 dat <- as_isoweek(as.Date("1970-01-04"))
 expect_identical(
     seq(dat, dat + 6L, by = 2L),
-    isoweek(c(0L, 2L, 4L, 6L))
+    new_isoweek(c(0L, 2L, 4L, 6L))
 )
 expect_error(
     seq(dat, dat + 11, by = 2.5),
@@ -260,8 +260,8 @@ expect_error(
     "`to` must be a <grates_isoweek> object of length 1.",
     fixed = TRUE
 )
-expect_identical(as.integer(isoweek(100L)), 100L)
-expect_identical(as.double(isoweek(100L)), 100)
+expect_identical(as.integer(new_isoweek(100L)), 100L)
+expect_identical(as.double(new_isoweek(100L)), 100)
 expect_identical(min(c(dat, dat+11)), dat)
 expect_identical(max(c(dat, dat+11)), dat+11)
 expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))

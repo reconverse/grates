@@ -49,5 +49,5 @@ new_yearweek(1:10)
 
 }
 \seealso{
-\code{as_yearweek()}, \code{isoweek()} and \code{new_epiweek()}.
+\code{as_yearweek()}, \code{new_isoweek()} and \code{new_epiweek()}.
 }
