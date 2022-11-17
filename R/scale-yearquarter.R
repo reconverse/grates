@@ -51,12 +51,12 @@ scale_x_grates_yearquarter <- function(..., n.breaks = 6L, format = NULL) {
     brks <- function(x) {
         dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
         dat <- as.integer(floor(dat))
-        as.numeric(yearquarter(dat)) - shift
+        as.numeric(new_yearquarter(dat)) - shift
     }
 
     # format function
     fmt <- function(x) {
-        x <- yearquarter(x + shift)
+        x <- new_yearquarter(x + shift)
         if (is.null(format)) {
             format.grates_yearquarter(x)
         } else {

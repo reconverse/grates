@@ -1,13 +1,13 @@
 dates <- seq.Date(from = as.Date("1970-01-01"), length.out = 4, by = "3 months")
 storage.mode(dates) <- "double" # needed for R <= 4.1.3
-yq4 <- yearquarter(0:3)
+yq4 <- new_yearquarter(0:3)
 
 # constructor -------------------------------------------------------------
 expect_identical(as.Date(yq4), dates)
 
 # formatting --------------------------------------------------------------
 expect_identical(format(yq4), c("1970-Q1", "1970-Q2", "1970-Q3", "1970-Q4"))
-expect_identical(format(yearquarter()), character())
+expect_identical(format(new_yearquarter()), character())
 
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 4, by = "3 months")
@@ -202,7 +202,7 @@ expect_error(!dat)
 
 # Math
 x <- as_yearquarter(as.Date("2021-01-05"))
-dat <- c(x + 0:1, yearquarter(NA_integer_))
+dat <- c(x + 0:1, new_yearquarter(NA_integer_))
 expect_identical(is.nan(dat), c(FALSE, FALSE, FALSE))
 expect_identical(is.finite(dat), c(TRUE, TRUE, FALSE))
 expect_identical(is.infinite(dat), c(FALSE, FALSE, FALSE))

@@ -1,7 +1,8 @@
 #' Construct a yearquarter object
 #'
 #' @description
-#' `yearquarter()` is a constructor for `<grates_yearquarter>` objects.
+#' `new_yearquarter()` is a constructor for `<grates_yearquarter>` objects aimed
+#' at developers.
 #'
 #' @details
 #' `<yearquarter>` objects are stored as the number of quarters (starting at 0)
@@ -21,10 +22,10 @@
 #' A `<grates_yearquarter>` object.
 #'
 #' @examples
-#' yearquarter(1:10)
+#' new_yearquarter(1:10)
 #'
 #' @export
-yearquarter <- function(x = integer()) {
+new_yearquarter <- function(x = integer()) {
     if (!is.integer(x)) {
         if (is.double(x) && is.vector(x)) {
             x <- as.integer(floor(x))
@@ -37,7 +38,7 @@ yearquarter <- function(x = integer()) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearquarter
+#' @rdname new_yearquarter
 #' @export
 is_yearquarter <- function(xx) inherits(xx, "grates_yearquarter")
 
