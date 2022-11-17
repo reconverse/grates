@@ -225,13 +225,15 @@ directly via a call to <code><a href="../reference/period.html">period()</a></co
 takes 3 arguments; <code>x</code>, the vector (normally a Date or
 POSIXt) you wish to group, <code>n</code>, the integer number of days
 you wish to group, and <code>offset</code>, the value you wish to start
-counting groups from relative to the Unix Epoch.</p>
-<p>For storage and calculation purposes, <code>offset</code> is scaled
-relative to <code>n</code>. I.e. <code>offset &lt;- offset %% n</code>
-and values of <code>x</code> stored relative to this scaled offset.</p>
+counting groups from relative to the Unix Epoch. For convenience,
+<code>offset</code> can be given as a date you want periods to be
+relative to (internally this date is converted to integer).</p>
+<p>Note that storage and calculation purposes, <code>offset</code> is
+scaled relative to <code>n</code>. I.e.
+<code>offset &lt;- offset %% n</code> and values of <code>x</code>
+stored relative to this scaled offset.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># calculate the total number for across 14 day periods 0 offset.</span></span>
+<code class="sourceCode R"><span><span class="co"># calculate the total number for across 14 day periods with no offset.</span></span>
 <span><span class="co"># note - 0L is the default value for the offset but we specify it explicitly</span></span>
 <span><span class="co"># here for added clarity</span></span>
 <span><span class="va">period_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span></span>
@@ -256,6 +258,24 @@ and values of <code>x</code> stored relative to this scaled offset.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <p><img src="grates_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># using a date as an offset</span></span>
+<span><span class="va">start</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-03"</span><span class="op">)</span></span>
+<span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="va">start</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span></span>
+<span><span class="va">offset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2020-01-01"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">dates</span>, period <span class="op">=</span> <span class="fu"><a href="../reference/as_period.html">as_period</a></span><span class="op">(</span><span class="va">dates</span>, n <span class="op">=</span> <span class="fl">7L</span>, offset <span class="op">=</span> <span class="va">offset</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt;         dates                   period</span></span>
+<span><span class="co">#&gt; 1  2020-01-03 2020-01-01 to 2020-01-07</span></span>
+<span><span class="co">#&gt; 2  2020-01-04 2020-01-01 to 2020-01-07</span></span>
+<span><span class="co">#&gt; 3  2020-01-05 2020-01-01 to 2020-01-07</span></span>
+<span><span class="co">#&gt; 4  2020-01-06 2020-01-01 to 2020-01-07</span></span>
+<span><span class="co">#&gt; 5  2020-01-07 2020-01-01 to 2020-01-07</span></span>
+<span><span class="co">#&gt; 6  2020-01-08 2020-01-08 to 2020-01-14</span></span>
+<span><span class="co">#&gt; 7  2020-01-09 2020-01-08 to 2020-01-14</span></span>
+<span><span class="co">#&gt; 8  2020-01-10 2020-01-08 to 2020-01-14</span></span>
+<span><span class="co">#&gt; 9  2020-01-11 2020-01-08 to 2020-01-14</span></span>
+<span><span class="co">#&gt; 10 2020-01-12 2020-01-08 to 2020-01-14</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="yearxxx">yearmonth, yearquarter and year<a class="anchor" aria-label="anchor" href="#yearxxx"></a>
@@ -269,7 +289,7 @@ integers via the <code><a href="../reference/yearmonth.html">yearmonth()</a></co
 and <code><a href="../reference/year.html">year()</a></code> functions but it is often easier to use the
 <code><a href="../reference/as_yearmonth.html">as_yearmonth()</a></code>, <code><a href="../reference/as_yearquarter.html">as_yearquarter()</a></code> and
 <code><a href="../reference/as_year.html">as_year()</a></code> coercion functions.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate the monthly number of cases</span></span>
 <span><span class="op">(</span><span class="va">month_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cases <span class="op">=</span> <span class="va">dat</span><span class="op">)</span>,</span>
@@ -300,12 +320,12 @@ and <code><a href="../reference/year.html">year()</a></code> functions but it is
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="grates_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># again we can have non-centred date labels by applying the associated scale</span></span>
 <span><span class="va">month_plot</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_x_grates_yearmonth.html">scale_x_grates_yearmonth</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="grates_files/figure-html/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># yearquarter works similarly</span></span>
 <span><span class="op">(</span><span class="va">quarter_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span></span>
@@ -327,7 +347,7 @@ and <code><a href="../reference/year.html">year()</a></code> functions but it is
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <p><img src="grates_files/figure-html/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># year also works similarly</span></span>
 <span><span class="op">(</span><span class="va">year_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span></span>
@@ -358,7 +378,7 @@ via the <code><a href="../reference/as_month.html">as_month()</a></code> functio
 2 arguments; <code>x</code>, the vector (normally a Date or POSIXt) you
 wish to group, <code>n</code>, the integer number of months you wish to
 group.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate the bimonthly number of cases</span></span>
 <span><span class="op">(</span><span class="va">bimonth_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cases <span class="op">=</span> <span class="va">dat</span><span class="op">)</span>,</span>
@@ -386,7 +406,7 @@ group.</p>
 is different to that of the yearweek, yearmonth, yearquarter and year
 scales where labels are centred by default. To obtain centred labels you
 must explicitly set the format to NULL in the scale:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">month_plot</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_x_grates_yearmonth.html">scale_x_grates_yearmonth</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="grates_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
@@ -399,7 +419,7 @@ operations to ensure logical and consistent behaviour. Where things
 break down we try to provide detailed messaging explaining why errors
 have occurred. Whilst this behviour is implemented for all grates
 objects, below we illustrate how it manifests with epiweek objects.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># use the unique epiweeks from the earlier example</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">week_dat</span><span class="op">$</span><span class="va">week</span></span>
 <span></span>
