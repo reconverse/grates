@@ -228,8 +228,8 @@ expect_error(dat | 3)
 expect_error(!dat)
 
 # Math
-x <- as_yearweek(as.Date("2021-01-04"))
-dat <- c(x + 0:1, yearweek(NA_integer_))
+x <- as_isoweek(as.Date("2021-01-04"))
+dat <- c(x + 0:1, isoweek(NA_integer_))
 expect_identical(is.nan(dat), c(FALSE, FALSE, FALSE))
 expect_identical(is.finite(dat), c(TRUE, TRUE, FALSE))
 expect_identical(is.infinite(dat), c(FALSE, FALSE, FALSE))
