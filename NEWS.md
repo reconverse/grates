@@ -44,9 +44,6 @@ some function parameters altered (see details below):
 * Hard dependencies on [clock](https://CRAN.R-project.org/package=clock) and
   [vctrs](https://CRAN.R-project.org/package=vctrs) have now been removed.
 
-* The underlying test framework used is now
-  [tinytest](https://CRAN.R-project.org/package=tinytest) as opposed to
-  [testthat](https://CRAN.R-project.org/package=testthat).
 
 # grates 0.3.1
 
