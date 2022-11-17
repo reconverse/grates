@@ -64,6 +64,9 @@
     <loc>http://www.reconverse.org/grates/dev/reference/month.html</loc>
   </url>
   <url>
+    <loc>http://www.reconverse.org/grates/dev/reference/new_yearweek.html</loc>
+  </url>
+  <url>
     <loc>http://www.reconverse.org/grates/dev/reference/period.html</loc>
   </url>
   <url>
@@ -116,8 +119,5 @@
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/dev/reference/yearquarter.html</loc>
-  </url>
-  <url>
-    <loc>http://www.reconverse.org/grates/dev/reference/yearweek.html</loc>
   </url>
 </urlset>
