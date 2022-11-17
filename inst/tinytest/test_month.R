@@ -1,9 +1,9 @@
 dates <- seq.Date(from = as.Date("1970-01-01"), length.out = 6L, by = "2 months")
 storage.mode(dates) <- "double" # needed for R <= 4.1.3
-dat <- month(0:5, n=2L)
+dat <- new_month(0:5, n=2L)
 dates5 <- seq.Date(from = as.Date("1970-01-01"), length.out = 6L, by = "5 months")
 storage.mode(dates5) <- "double" # needed for R <= 4.1.3
-dat5 <- month(0:5, n=5L)
+dat5 <- new_month(0:5, n=5L)
 
 # constructor -------------------------------------------------------------
 expect_identical(as.Date(dat), dates)
@@ -17,7 +17,7 @@ expect_identical(
     format(dat),
     sprintf("%s to %s", format(dates, "%Y-%b"), format(dates2-1, "%Y-%b"))
 )
-expect_identical(format(yearmonth()), character())
+expect_identical(format(new_month(n=2L)), character())
 
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 3L, by = "2 months")
@@ -43,7 +43,7 @@ result <- as.POSIXct(dat)
 expect_identical(result, as.POSIXct(as.POSIXlt("2021-01-01", tz = "UTC")))
 
 pos <- as.POSIXct(as.POSIXlt("2021-01-04", tz = "UTC"))
-res1 <- as_yearmonth(pos)
+res1 <- as_month(pos, n = 2L)
 expect_identical(as.Date(res1), as.Date("2021-01-01"))
 
 
@@ -209,7 +209,7 @@ expect_error(!dat)
 
 # Math
 x <- as_month(as.Date("2021-01-05"), n = 2L)
-dat <- c(x + 0:1, month(NA_integer_, n = 2L))
+dat <- c(x + 0:1, new_month(NA_integer_, n = 2L))
 expect_identical(is.na(dat), c(FALSE, FALSE, TRUE))
 expect_identical(is.nan(dat), c(FALSE, FALSE, FALSE))
 expect_identical(is.finite(dat), c(TRUE, TRUE, FALSE))

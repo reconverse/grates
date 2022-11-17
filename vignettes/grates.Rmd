@@ -242,7 +242,7 @@ at 0L) since the Unix Epoch (1970-01-01). Here n-months is taken to mean a
 'grouping of n consecutive months'.
 
 `<grates_month>` objects can be constructed directly from integers via the
-`month()` function and throuh coercion via the `as_month()` function.
+`new_month()` function and through coercion via the `as_month()` function.
 `as_period()` takes 2 arguments; `x`, the vector (normally a Date or POSIXt) you
 wish to group, `n`, the integer number of months you wish to group.
 

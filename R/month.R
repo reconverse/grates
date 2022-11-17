@@ -1,7 +1,8 @@
 #' Construct a month object
 #'
 #' @description
-#' `month()` is a constructor for `<grates_month>` objects.
+#' `new_month()` is a constructor for `<grates_month>` objects aimed at
+#' developers.
 #'
 #' @details
 #' `grates_month` objects are stored as the integer number (starting at 0), of
@@ -32,10 +33,10 @@
 #' A `<grates_month>` object.
 #'
 #' @examples
-#' month(1:10, 2L)
+#' new_month(1:10, 2L)
 #'
 #' @export
-month <- function(x = integer(), n) {
+new_month <- function(x = integer(), n) {
     if (!is.integer(x)) {
         if (is.double(x) && is.vector(x)) {
             x <- as.integer(floor(x))
@@ -56,7 +57,7 @@ month <- function(x = integer(), n) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname month
+#' @rdname new_month
 #' @export
 is_month <- function(xx) inherits(xx, "grates_month")
 

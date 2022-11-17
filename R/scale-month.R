@@ -95,12 +95,12 @@ scale_x_grates_month <- function(
     brks <- function(x) {
         dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
         dat <- as.integer(floor(dat))
-        as.numeric(month(dat, n = n)) - shift
+        as.numeric(new_month(dat, n = n)) - shift
     }
 
     # format function
     fmt <- function(x) {
-        x <- month(x + shift, n)
+        x <- new_month(x + shift, n)
         if (is.null(format)) {
             format.grates_month(x, format = bounds_format, sep = sep)
         } else {
