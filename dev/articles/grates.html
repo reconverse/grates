@@ -373,11 +373,11 @@ and <code><a href="../reference/year.html">year()</a></code> functions but it is
 n-month groups (starting at 0L) since the Unix Epoch (1970-01-01). Here
 n-months is taken to mean a ‘grouping of n consecutive months’.</p>
 <p><code>&lt;grates_month&gt;</code> objects can be constructed directly
-from integers via the <code><a href="../reference/month.html">month()</a></code> function and throuh coercion
-via the <code><a href="../reference/as_month.html">as_month()</a></code> function. <code><a href="../reference/as_period.html">as_period()</a></code> takes
-2 arguments; <code>x</code>, the vector (normally a Date or POSIXt) you
-wish to group, <code>n</code>, the integer number of months you wish to
-group.</p>
+from integers via the <code><a href="../reference/new_month.html">new_month()</a></code> function and through
+coercion via the <code><a href="../reference/as_month.html">as_month()</a></code> function.
+<code><a href="../reference/as_period.html">as_period()</a></code> takes 2 arguments; <code>x</code>, the vector
+(normally a Date or POSIXt) you wish to group, <code>n</code>, the
+integer number of months you wish to group.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate the bimonthly number of cases</span></span>
 <span><span class="op">(</span><span class="va">bimonth_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span></span>
