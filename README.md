@@ -28,7 +28,7 @@ install.packages("grates")
 The development version of grates can be installed from GitHub with:
 
 ``` r
-remotes::install_github("reconverse/grates")
+remotes::install_github("reconverse/grates", build_vignettes = TRUE)
 ```
 
 </div>
@@ -38,5 +38,5 @@ remotes::install_github("reconverse/grates")
 A detailed introduction to grates can be found in the included vignette
 
 ``` r
-`vignette("introduction", package = "grates")`
+`vignette("grates", package = "grates")`
 ```
