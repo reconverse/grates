@@ -38,5 +38,5 @@ remotes::install_github("reconverse/grates", build_vignettes = TRUE)
 A detailed introduction to grates can be found in the included vignette
 
 ``` r
-`vignette("grates", package = "grates")`
+vignette("grates", package = "grates")
 ```
