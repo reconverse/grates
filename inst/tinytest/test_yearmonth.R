@@ -1,13 +1,13 @@
 dates <- seq.Date(from = as.Date("1970-01-01"), length.out = 4, by = "month")
 storage.mode(dates) <- "double" # needed for R <= 4.1.3
-ym4 <- yearmonth(0:3)
+ym4 <- new_yearmonth(0:3)
 
 # constructor -------------------------------------------------------------
 expect_identical(as.Date(ym4), dates)
 
 # formatting --------------------------------------------------------------
 expect_identical(format(ym4), format(as.Date(ym4), "%Y-%b"))
-expect_identical(format(yearmonth()), character())
+expect_identical(format(new_yearmonth()), character())
 
 # pre-epoch dates ---------------------------------------------------------
 dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 4, by = "month")
@@ -201,15 +201,15 @@ expect_error(!dat)
 
 # Math
 x <- as_yearmonth(as.Date("2021-01-05"))
-dat <- c(x + 0:1, yearmonth(NA_integer_))
+dat <- c(x + 0:1, new_yearmonth(NA_integer_))
 expect_identical(is.nan(dat), c(FALSE, FALSE, FALSE))
 expect_identical(is.finite(dat), c(TRUE, TRUE, FALSE))
 expect_identical(is.infinite(dat), c(FALSE, FALSE, FALSE))
 expect_error(abs(dat))
 
 # miscellaneous -----------------------------------------------------------
-expect_identical(yearmonth(-1.5), yearmonth(-2L))
-expect_error(yearmonth("bob"), "`x` must be integer.", fixed = TRUE)
+expect_identical(new_yearmonth(-1.5), new_yearmonth(-2L))
+expect_error(new_yearmonth("bob"), "`x` must be integer.", fixed = TRUE)
 expect_error(
     as_yearmonth(NA_character_),
     "Unable to parse any entries of `x` as Dates.",
@@ -224,7 +224,7 @@ expect_identical(unique(c(dat, dat)), dat)
 dat <- as_yearmonth(as.Date("1970-01-01"))
 expect_identical(
     seq(dat, dat + 11, by = 2L),
-    yearmonth(c(0L, 2L, 4L, 6L, 8L, 10L))
+    new_yearmonth(c(0L, 2L, 4L, 6L, 8L, 10L))
 )
 expect_error(
     seq(dat, dat + 11, by = 2.5),
@@ -236,8 +236,8 @@ expect_error(
     "`to` must be a <grates_yearmonth> object of length 1.",
     fixed = TRUE
 )
-expect_identical(as.integer(yearmonth(100L)), 100L)
-expect_identical(as.double(yearmonth(100L)), 100)
+expect_identical(as.integer(new_yearmonth(100L)), 100L)
+expect_identical(as.double(new_yearmonth(100L)), 100)
 expect_identical(min(c(dat, dat+11)), dat)
 expect_identical(max(c(dat, dat+11)), dat+11)
 expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))

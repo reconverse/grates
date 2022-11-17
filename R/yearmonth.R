@@ -1,7 +1,8 @@
 #' Construct a yearmonth object
 #'
 #' @description
-#' `yearmonth()` is a constructor for `<grates_yearmonth>` objects.
+#' `new_yearmonth()` is a constructor for `<grates_yearmonth>` objects aimed at
+#' developers.
 #'
 #' @details
 #' `<grates_yearmonth>` objects are stored as the number of months (starting at
@@ -27,10 +28,10 @@
 #' A `<grates_yearmonth>` object.
 #'
 #' @examples
-#' yearmonth(1:10)
+#' new_yearmonth(1:10)
 #'
 #' @export
-yearmonth <- function(x = integer()) {
+new_yearmonth <- function(x = integer()) {
     if (!is.integer(x)) {
         if (is.double(x) && is.vector(x)) {
             x <- as.integer(floor(x))
@@ -43,7 +44,7 @@ yearmonth <- function(x = integer()) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearmonth
+#' @rdname new_yearmonth
 #' @export
 is_yearmonth <- function(xx) inherits(xx, "grates_yearmonth")
 

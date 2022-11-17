@@ -50,12 +50,12 @@ scale_x_grates_yearmonth <- function(..., n.breaks = 6L, format = NULL) {
     brks <- function(x) {
         dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
         dat <- as.integer(floor(dat))
-        as.numeric(yearmonth(dat)) - shift
+        as.numeric(new_yearmonth(dat)) - shift
     }
 
     # format function
     fmt <- function(x) {
-        x <- yearmonth(x + shift)
+        x <- new_yearmonth(x + shift)
         if (is.null(format)) {
             format.grates_yearmonth(x)
         } else {

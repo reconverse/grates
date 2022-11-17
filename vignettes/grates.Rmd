@@ -185,9 +185,9 @@ number of months/quarters/years (starting at 0L) since the Unix Epoch
 (1970-01-01). 
 
 As with all grates objects they they can be constructed directly from integers
-via the `yearmonth()`, `yearquarter()` and `year()`  functions but it is often
-easier to use the `as_yearmonth()`, `as_yearquarter()` and `as_year()` coercion
-functions.
+via the `new_yearmonth()`, `yearquarter()` and `year()`  functions but it is
+often easier to use the `as_yearmonth()`, `as_yearquarter()` and `as_year()`
+coercion functions.
 
 ```{r}
 # calculate the monthly number of cases
