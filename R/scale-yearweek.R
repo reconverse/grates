@@ -152,12 +152,12 @@ scale_type.grates_yearweek <- function(x) {
     brks <- function(x) {
         dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
         dat <- as.integer(floor(dat))
-        as.numeric(yearweek(dat, firstday = firstday)) - shift
+        as.numeric(new_yearweek(dat, firstday = firstday)) - shift
     }
 
     # format function
     fmt <- function(x) {
-        x <- yearweek(x + shift, firstday = firstday)
+        x <- new_yearweek(x + shift, firstday = firstday)
         if (is.null(format)) {
             format.grates_yearweek(x)
         } else {

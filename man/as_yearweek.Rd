@@ -73,5 +73,5 @@ as_yearweek("2019-05-03", firstday = 5L)
 
 }
 \seealso{
-\code{as.Date()} and \code{yearweek()}.
+\code{as.Date()} and \code{new_yearweek()}.
 }

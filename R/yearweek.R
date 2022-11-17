@@ -1,7 +1,8 @@
 #' Construct a yearweek object
 #'
 #' @description
-#' `yearweek()` is a constructor for `<grates_yearweek>` objects.
+#' `new_yearweek()` is a constructor for `<grates_yearweek>` objects aimed at
+#' developers.
 #'
 #' @details
 #' `<grates_yearweek>` objects are stored as the number of weeks
@@ -35,13 +36,13 @@
 #' day of the week they represent (e.g. `<grates_yearweek_monday>`).
 #'
 #' @examples
-#' yearweek(1:10)
+#' new_yearweek(1:10)
 #'
 #' @seealso
 #' `as_yearweek()`, `isoweek()` and `epiweek()`.
 #'
 #' @export
-yearweek <- function(x = integer(), firstday = 1L) {
+new_yearweek <- function(x = integer(), firstday = 1L) {
     if (!is.integer(x)) {
         if (is.double(x) && is.vector(x)) {
             x <- as.integer(floor(x))
@@ -66,7 +67,7 @@ yearweek <- function(x = integer(), firstday = 1L) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearweek
+#' @rdname new_yearweek
 #' @export
 is_yearweek <- function(xx) inherits(xx, "grates_yearweek")
 
@@ -135,7 +136,7 @@ vec_ptype_full.grates_yearweek_sunday <- function(x, ...) "yearweek-sun"
 #'
 #' Other values passed to as.Date().
 #'
-#' @inheritParams yearweek
+#' @inheritParams new_yearweek
 #'
 #' @return
 #' A `<grates_yearweek>` object.
@@ -146,7 +147,7 @@ vec_ptype_full.grates_yearweek_sunday <- function(x, ...) "yearweek-sun"
 #' as_yearweek("2019-05-03", firstday = 5L)
 #'
 #' @seealso
-#' `as.Date()` and `yearweek()`.
+#' `as.Date()` and `new_yearweek()`.
 #'
 #' @export
 as_yearweek <- function(x, ...) UseMethod("as_yearweek")
@@ -406,7 +407,7 @@ quantile.grates_yearweek <- function(x, type = 1, ...) {
     x <- unclass(x)
     firstday <- .firstday_from_class(x)
     x <- as.integer(quantile(x, type = type, ...))
-    yearweek(x, firstday = firstday)
+    new_yearweek(x, firstday = firstday)
 }
 
 # -------------------------------------------------------------------------
