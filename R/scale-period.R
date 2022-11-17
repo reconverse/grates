@@ -102,12 +102,12 @@ scale_x_grates_period <- function(..., n.breaks = 6L, format = "%Y-%m-%d", n, of
     brks <- function(x) {
         dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
         dat <- as.integer(floor(dat))
-        as.numeric(period(dat, n = n, offset = offset)) - shift
+        as.numeric(new_period(dat, n = n, offset = offset)) - shift
     }
 
     # format function
     fmt <- function(x) {
-        x <- period(x + shift, n = n, offset = offset)
+        x <- new_period(x + shift, n = n, offset = offset)
         x <- as.Date.grates_period(x)
         format(x, format)
     }

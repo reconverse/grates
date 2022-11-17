@@ -141,7 +141,7 @@ since the Unix Epoch (1970-01-01) and a specified offset. Here periods are taken
 to mean groupings of `n` consecutive days.
 
 Like with yearweek objects, period objects can be constructed directly via a 
-call to `period()` but more easily via the `as_period()` coercion function.
+call to `new_period()` but more easily via the `as_period()` coercion function.
 `as_period()` takes 3 arguments; `x`, the vector (normally a Date or POSIXt) you
 wish to group, `n`, the integer number of days you wish to group, and `offset`,
 the value you wish to start counting groups from relative to the Unix Epoch.

@@ -1,7 +1,8 @@
 #' Construct a period object
 #'
 #' @description
-#' `period()` is a constructor for `<grates_period>` objects.
+#' `new_period()` is a constructor for `<grates_period>` objects aimed at
+#' developers.
 #'
 #' @details
 #' `grates_period` objects are stored as the integer number, starting at 0L, of
@@ -36,10 +37,10 @@
 #'
 #' @examples
 #'
-#' period(1:10)
+#' new_period(1:10)
 #'
 #' @export
-period <- function(x = integer(), n = 1L, offset = 0L) {
+new_period <- function(x = integer(), n = 1L, offset = 0L) {
     if (!is.integer(x)) {
         if (is.double(x) && is.vector(x)) {
             x <- as.integer(floor(x))
@@ -62,7 +63,7 @@ period <- function(x = integer(), n = 1L, offset = 0L) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname period
+#' @rdname new_period
 #' @export
 is_period <- function(xx) inherits(xx, "grates_period")
 
@@ -561,9 +562,4 @@ Ops.grates_period <- function(e1, e2) {
 
 .new_period <- function(x=integer(), n, offset) {
     structure(x, n = n, offset = offset, class = "grates_period")
-}
-
-.is_valid_period_interval <- function(x, n) {
-    x <- x[!is.na(x)]
-    if (length(x)) all(diff(x) %% n == 0) else TRUE
 }

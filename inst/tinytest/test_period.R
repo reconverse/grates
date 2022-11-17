@@ -3,14 +3,14 @@ datesw <- seq.Date(from = as.Date("1970-01-01"), length.out = 4, by = 7)
 storage.mode(datesw) <- "double" # needed for R <= 4.1.3
 
 # constructor -------------------------------------------------------------
-expect_identical(as.Date(period(dat, n = 7)), datesw)
-expect_error(period(dat, n = -1L))
+expect_identical(as.Date(new_period(dat, n = 7)), datesw)
+expect_error(new_period(dat, n = -1L))
 
 
 # formatting --------------------------------------------------------------
 dat <- 0:3
 expect_identical(
-    format(period(dat, n = 7)),
+    format(new_period(dat, n = 7)),
     c(
         "1970-01-01 to 1970-01-07",
         "1970-01-08 to 1970-01-14",
@@ -19,7 +19,7 @@ expect_identical(
     )
 )
 
-expect_identical(format(period()), character())
+expect_identical(format(new_period()), character())
 
 
 # pre-epoch dates ---------------------------------------------------------
@@ -63,7 +63,7 @@ result <- as.POSIXct(
     as_period(nz, offset = as.integer(as.Date("2021-02-03")), n = 2),
     tz = "UTC"
 )
-    expected <- as.POSIXct(as.POSIXlt("2021-02-03", tz = "UTC"), tz = "UTC")
+expected <- as.POSIXct(as.POSIXlt("2021-02-03", tz = "UTC"), tz = "UTC")
 expect_identical(result, expected)
 
 # as_period.character
@@ -226,45 +226,45 @@ expect_error(!dat)
 
 # Math
 x <- as_period(as.Date("2021-01-05"), n = 2)
-dat <- c(x + 0:1, period(NA_integer_, n = 2L))
+dat <- c(x + 0:1, new_period(NA_integer_, n = 2L))
 expect_identical(is.nan(dat), c(FALSE, FALSE, FALSE))
 expect_identical(is.finite(dat), c(TRUE, TRUE, FALSE))
 expect_identical(is.infinite(dat), c(FALSE, FALSE, FALSE))
 expect_error(abs(dat))
 
 # miscellaneous -----------------------------------------------------------
-expect_identical(period(-1.5), period(-2L))
+expect_identical(new_period(-1.5), new_period(-2L))
 
 expect_identical(
     as.integer(as_period(Sys.Date(), offset = Sys.Date())),
     as.integer(Sys.Date())
 )
-expect_error(period("bob"), "`x` must be integer.", fixed = TRUE)
+expect_error(new_period("bob"), "`x` must be integer.", fixed = TRUE)
 expect_error(
-    period(0, 1.5),
+    new_period(0, 1.5),
     "`n` must be an integer of length 1.",
     fixed = TRUE
 )
 expect_error(
-    period(0, 0:1),
+    new_period(0, 0:1),
     "`n` must be an integer of length 1.",
     fixed = TRUE
 )
 
 expect_error(
-    period(0, -1),
+    new_period(0, -1),
     "`n` must be an integer >= 1.",
     fixed = TRUE
 )
 
 expect_error(
-    period(0, offset = 1.5),
+    new_period(0, offset = 1.5),
     "`offset` must be an integer of length 1.",
     fixed = TRUE
 )
 
 expect_error(
-    period(0, offset = 1:2),
+    new_period(0, offset = 1:2),
     "`offset` must be an integer of length 1.",
     fixed = TRUE
 )
@@ -326,7 +326,7 @@ expect_identical(unique(c(dat, dat)), dat)
 dat <- as_period(as.Date("1970-01-01"))
 expect_identical(
     seq(dat, dat + 6L, by = 2L),
-    period(c(0L, 2L, 4L, 6L))
+    new_period(c(0L, 2L, 4L, 6L))
 )
 expect_error(
     seq(dat, dat + 11, by = 2.5),
@@ -345,8 +345,8 @@ expect_error(
     "`to` must be a <grates_period> object of length 1.",
     fixed = TRUE
 )
-expect_identical(as.integer(period(100L)), 100L)
-expect_identical(as.double(period(100L)), 100)
+expect_identical(as.integer(new_period(100L)), 100L)
+expect_identical(as.double(new_period(100L)), 100)
 expect_identical(min(c(dat, dat+11)), dat)
 expect_identical(max(c(dat, dat+11)), dat+11)
 expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
