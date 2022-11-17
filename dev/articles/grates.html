@@ -122,11 +122,11 @@ periods from:</p>
 <li>1970-01-04 for <code>firstday</code> equal to 7 (Sunday)</li>
 </ul>
 <p>They can be constructed directly from integers via the
-<code>yearweek()</code> function but it is generally easier to use the
-<code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> generic. <code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> takes two
-arguments; <code>x</code>, the vector (normally a Date or POSIXt) you
-wish to group, and <code>firstday</code>, the day of the week you wish
-your weeks to start on.</p>
+<code><a href="../reference/new_yearweek.html">new_yearweek()</a></code> function but it is generally easier to use
+the <code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> generic. <code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> takes
+two arguments; <code>x</code>, the vector (normally a Date or POSIXt)
+you wish to group, and <code>firstday</code>, the day of the week you
+wish your weeks to start on.</p>
 <p>The <strong>epiweek</strong> class is similar to the yearweek class
 but, by definition, will always begin on a Sunday. They are stored as
 the integer number of weeks (again starting at 0L) since 1970-01-04 so
