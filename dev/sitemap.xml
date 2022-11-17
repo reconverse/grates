@@ -55,13 +55,13 @@
     <loc>http://www.reconverse.org/grates/dev/reference/index.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/dev/reference/isoweek.html</loc>
-  </url>
-  <url>
     <loc>http://www.reconverse.org/grates/dev/reference/month.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/dev/reference/new_epiweek.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/dev/reference/new_isoweek.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/dev/reference/new_yearweek.html</loc>
