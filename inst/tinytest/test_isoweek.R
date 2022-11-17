@@ -36,6 +36,10 @@ expected <- c(
 )
 expect_identical(as.character(dates_iso), expected)
 
+years <- as.integer(substr(expected, 1L, 4L))
+weeks <- as.integer(substr(expected, 7L, 8L))
+expect_identical(dates_iso, suppressWarnings(isoweek(years, weeks)))
+
 # POSIXlt -----------------------------------------------------------------
 nz <- as.POSIXlt("2021-01-03 02:00:00", tz = "NZ")
 utc <- as.POSIXlt("2020-12-28 00:00:00", tz = "UTC")
@@ -270,3 +274,11 @@ expect_error(
     "`any()` is not supported for <grates_isoweek> objects.",
     fixed = TRUE
 )
+
+# test the new constructor implementation
+dat <- as.Date("1900-01-01") + seq.int(from = 0L, to = 1200L * 365, by = 365L)
+expected <- as_isoweek(dat)
+tmp <- as.character(expected)
+years <- as.integer(substr(tmp, 1L, 4L))
+weeks <- as.integer(substr(tmp, 7L, 8L))
+expect_identical(isoweek(years, weeks), expected)

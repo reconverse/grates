@@ -33,6 +33,7 @@ epiyears <- c(2001, 2002, 2003, 2003, 2004, 2006, 2007, 2008, 2008, 2009,
 expected <- sprintf("%d-W%02d", epiyears, epiweeks)
 expected[length(expected)] <- NA_character_
 expect_identical(as.character(dates_epi), expected)
+expect_identical(dates_epi, suppressWarnings(epiweek(epiyears, epiweeks)))
 
 # POSIXlt -----------------------------------------------------------------
 nz <- as.POSIXlt("2021-01-03 02:00:00", tz = "NZ")
@@ -268,3 +269,11 @@ expect_error(
     "`any()` is not supported for <grates_epiweek> objects.",
     fixed = TRUE
 )
+
+# test the new constructor implementation
+dat <- as.Date("1900-01-01") + seq.int(from = 0L, to = 1200L * 365, by = 365L)
+expected <- as_epiweek(dat)
+tmp <- as.character(expected)
+years <- as.integer(substr(tmp, 1L, 4L))
+weeks <- as.integer(substr(tmp, 7L, 8L))
+expect_identical(epiweek(years, weeks), expected)

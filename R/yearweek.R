@@ -66,6 +66,98 @@ new_yearweek <- function(x = integer(), firstday = 1L) {
     .new_yearweek(x = x, firstday = firstday)
 }
 
+#' Constructor for yearweek objects
+#'
+#' @description
+#' `yearweek()` is a constructor for `<grates_yearweek>` objects. These are
+#' weeks whose first day can be specified by the user.
+#'
+#' @details
+#' For yearweek objects the first week of a "year" is considered to be the first
+#' yearweek containing 4 days of the given calendar year. This means that the
+#' calendar year will sometimes be different to that of the associated yearweek
+#' object.
+#'
+#' @note
+#' Internally #' `<grates_yearweek>` objects are stored as the number of weeks
+#' (starting at 0) #' from the date of the `firstday` nearest the Unix Epoch
+#' (1970-01-01). That is, the number of seven day periods from:
+#'
+#'     - 1969-12-29 for `firstday` equal to 1 (Monday)
+#'     - 1969-12-30 for `firstday` equal to 2 (Tuesday)
+#'     - 1969-12-31 for `firstday` equal to 3 (Wednesday)
+#'     - 1970-01-01 for `firstday` equal to 4 (Thursday)
+#'     - 1970-01-02 for `firstday` equal to 5 (Friday)
+#'     - 1970-01-03 for `firstday` equal to 6 (Saturday)
+#'     - 1970-01-04 for `firstday` equal to 7 (Sunday)
+#'
+#'
+#' @param year `[integer]`
+#'
+#' Vector representing the year associated with `week`.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @param week `[integer]`
+#'
+#' Vector representing the week associated with `year.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @inheritParams new_yearweek
+#'
+#'
+#' @return
+#' A `<grates_yearweek>` object with subclass corresponding to the first day of
+#' the week they represent (e.g. `<grates_yearweek_monday>`).
+#'
+#' @examples
+#' yearweek(year = 2000L, week = 3L)
+#'
+#' @seealso
+#' `as_yearweek()` and `new_yearweek()`.
+#'
+#' @export
+yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
+
+    # check year is integerish
+    if (!is.integer(year)) {
+        if (is.vector(year, "double")) {
+            year <- as.integer(floor(year))
+        } else {
+            stop("`year` must be integer.")
+        }
+    }
+
+    # check week is integerish
+    if (!is.integer(week)) {
+        if (is.vector(week, "double")) {
+            week <- as.integer(floor(week))
+        } else {
+            stop("`week` must be integer.")
+        }
+    }
+
+    # check compatible lengths
+    if (length(year) != length(week))
+        stop("`year` and `week` must be the same length.")
+
+    # check firstday
+    if (length(firstday) != 1L)
+        stop("`firstday` must be an integer of length 1.")
+
+    if (!is.integer(firstday)) {
+        if (!.is_whole(firstday))
+            stop("`firstday` must be an integer of length 1.")
+        firstday <- as.integer(firstday)
+    }
+
+    if (firstday < 1L || firstday > 7L || is.na(firstday))
+        stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
+
+    .yearweek(year = year, week = week, firstday = firstday)
+}
+
 # -------------------------------------------------------------------------
 #' @rdname new_yearweek
 #' @export
@@ -558,8 +650,36 @@ Ops.grates_yearweek <- function(e1, e2) {
 }
 
 # -------------------------------------------------------------------------
+.yearweek <- function(year, week, firstday) {
+    na_values <- is.na(year) | is.na(week)
+    invalid <- !logical(length(na_values))
+    if (any(!na_values))
+        invalid[!na_values] <- week[!na_values] > .last_week_in_year(year = year[!na_values], firstday = firstday)
+    if (any(invalid))
+        warning("Some entries invalid for given `year` and `week` values. Returning these as NA.", call. = FALSE)
+
+    out <- rep.int(NA_integer_, length(year))
+
+    if (any(!invalid)) {
+        year <- year[!invalid]
+        week <- week[!invalid]
+        # convert numeric values to date
+        jan4 <- strptime(sprintf("%d-01-04", year), format = "%Y-%m-%d", tz = "UTC")
+        wday <- jan4$wday
+        tmp <- jan4 - ((wday + 7L - firstday) %% 7) * 86400
+        tmp <- tmp + (week - 1) * 7L * 86400
+        res <- as.Date(tmp)
+        res <- as_yearweek.Date(res, firstday = firstday)
+        out[!invalid] <- res
+    }
+
+    .new_yearweek(out, firstday = firstday)
+}
+
+# -------------------------------------------------------------------------
 .last_week_in_year <- function(year = integer(), firstday = 1L) {
-    x <- as.Date(sprintf("%d-12-28", year))
+    #x <- as.Date(sprintf("%d-12-28", year))
+    x <- .Date(.days_before_year(year) + .days_before_yearmonth(year, 12L) - 719162L + 27L)
     wday <- strptime(sprintf("%d-12-28", year), format = "%Y-%m-%d", tz = "UTC")$wday
     wday <- 1L + (wday + (7L - firstday)) %% 7L
     midweek <- x + (4L - wday)

@@ -45,6 +45,66 @@ new_isoweek <- function(x = integer()) {
     .new_isoweek(x)
 }
 
+#' Constructor for isoweek objects
+#'
+#' @description
+#' `isoweek()` is a constructor for `<grates_isoweek>` objects.
+#'
+#' @details
+#' isoweeks are defined to start on a Monday and `<grates_isoweek>` objects are
+#' stored as the number of weeks (starting at 0) from the first Monday prior to
+#' the Unix Epoch (1970-01-01). That is, the number of seven day periods from
+#' 1969-12-29.
+#'
+#' Internally they have the same representation as a `<grates_yearweek_monday>`
+#' object so are akin to an alias but with a marginally more efficient
+#' implementation.
+#'
+#' @param year `[integer]`
+#'
+#' Vector representing the year associated with `week`.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @param week `[integer]`
+#'
+#' Vector representing the week associated with `year.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @return
+#' A `<grates_isoweek>` object.
+#'
+#' @examples
+#' isoweek(year = 2000L, week = 3L)
+#'
+#' @seealso
+#' `as_isoweek()` and `new_isoweek()`.
+#'
+#' @export
+isoweek <- function(year = integer(), week = integer()) {
+
+    # check year is integerish
+    if (!is.integer(year)) {
+        if (is.vector(year, "double")) {
+            year <- as.integer(floor(year))
+        } else {
+            stop("`year` must be integer.")
+        }
+    }
+
+    # check week is integerish
+    if (!is.integer(week)) {
+        if (is.vector(week, "double")) {
+            week <- as.integer(floor(week))
+        } else {
+            stop("`week` must be integer.")
+        }
+    }
+
+    .isoweek(year = year, week = week)
+}
+
 # -------------------------------------------------------------------------
 #' @rdname new_isoweek
 #' @export
@@ -392,7 +452,12 @@ Ops.grates_isoweek <- function(e1, e2) {
 # -------------------------------- INTERNALS ------------------------------ #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-
 .new_isoweek <- function(x) {
     structure(x, class = c("grates_isoweek"))
+}
+
+.isoweek <- function(year, week) {
+    out <- .yearweek(year = year, week = week, firstday = 1L)
+    class(out) <- "grates_isoweek"
+    out
 }

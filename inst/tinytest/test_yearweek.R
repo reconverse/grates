@@ -36,12 +36,18 @@ expected <- c(
 )
 expect_identical(as.character(dates_iso), expected)
 
+years <- as.integer(substr(expected, 1L, 4L))
+weeks <- as.integer(substr(expected, 7L, 8L))
+expect_identical(dates_iso, suppressWarnings(yearweek(years, weeks)))
+
 # Epi weeks (firstday sunday)
-dates_epi   <- as_yearweek(dates, 7)
 epiweeks <- c(1, 1, 1, 53, 52, 1, 1, 1, 53, 52, 52, 1, 1, 1, 53, 52, 1, 1, 1, NA)
 epiyears <- c(2001, 2002, 2003, 2003, 2004, 2006, 2007, 2008, 2008, 2009,
               2010, 2012, 2013, 2014, 2014, 2015, 2017, 2018, 2019, NA)
+
 dates_epi   <- as_yearweek(dates, 7)
+expect_identical(dates_epi, suppressWarnings(yearweek(epiyears, epiweeks, 7L)))
+
 expected <- sprintf("%d-W%02d", epiyears, epiweeks)
 expected[length(expected)] <- NA_character_
 expect_identical(as.character(dates_epi), expected)
@@ -388,4 +394,12 @@ expect_error(
     "`any()` is not supported for <grates_yearweek> objects.",
     fixed = TRUE
 )
+
+# test the new constructor implementation
+dat <- as.Date("1900-01-01") + seq.int(from = 0L, to = 1200L * 365, by = 365L)
+expected <- as_yearweek(dat, firstday = 3L)
+tmp <- as.character(expected)
+years <- as.integer(substr(tmp, 1L, 4L))
+weeks <- as.integer(substr(tmp, 7L, 8L))
+expect_identical(yearweek(years, weeks, 3L), expected)
 
