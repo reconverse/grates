@@ -60,6 +60,7 @@ Here periods are taken to mean groupings of \code{n} consecutive days.
 as_period("2019-05-03")
 as_period("2019-05-03", n = 2, offset = 1)
 as_period(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 10)
+as_period(as.Date("2020-03-02"), n = 2L, offset = as.Date("2020-03-01"))
 
 }
 \seealso{

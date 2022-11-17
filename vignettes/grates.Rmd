@@ -123,7 +123,6 @@ head(week_dat)
     ggplot(week_dat, aes(week, cases)) + 
     geom_col(width = 1, colour = "white") +
     theme_bw())
-
 ```
 
 We can have non-centred date labels on the x_axis by utilising the associated
@@ -146,14 +145,15 @@ call to `period()` but more easily via the `as_period()` coercion function.
 `as_period()` takes 3 arguments; `x`, the vector (normally a Date or POSIXt) you
 wish to group, `n`, the integer number of days you wish to group, and `offset`,
 the value you wish to start counting groups from relative to the Unix Epoch.
+For convenience, `offset` can be given as a date you want periods to be relative
+to (internally this date is converted to integer).
 
-For storage and calculation purposes, `offset` is scaled relative to `n`.
+Note that storage and calculation purposes, `offset` is scaled relative to `n`.
 I.e. `offset <- offset %% n` and values of `x` stored relative to this scaled
 offset.
 
 ```{r}
-
-# calculate the total number for across 14 day periods 0 offset.
+# calculate the total number for across 14 day periods with no offset.
 # note - 0L is the default value for the offset but we specify it explicitly
 # here for added clarity
 period_dat <- aggregate(
@@ -170,6 +170,12 @@ ggplot(period_dat, aes(period, cases)) +
     theme_bw( ) +
     theme(axis.text.x = element_text(angle = 45, hjust=1)) +
     xlab("")
+
+# using a date as an offset
+start <- as.Date("2020-01-03")
+dates <- start + 0:9
+offset <- as.Date("2020-01-01")
+data.frame(dates, period = as_period(dates, n = 7L, offset = offset))
 ```
 
 ## yearmonth, yearquarter and year {#yearxxx}
