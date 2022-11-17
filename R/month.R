@@ -94,12 +94,12 @@ print.grates_month <- function(x, format = "%Y-%b", sep = "to", ...) {
 #' @rdname print.grates_month
 #' @export
 format.grates_month <- function(x, format = "%Y-%b", sep = "to", ...) {
-    if (length(x) == 0) return(character(0))
+    if (length(x) == 0L) return(character(0L))
     out <- sprintf(
         "%s %s %s",
         format.Date(as.Date(x), format = format),
         sep,
-        format.Date(as.Date(x + 1) - 1, format = format)
+        format.Date(as.Date(x + 1L) - 1L, format = format)
     )
     out[is.na(x)] <- NA_character_
     out
