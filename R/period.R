@@ -99,15 +99,15 @@ print.grates_period <- function(x, format = "%Y-%m-%d", sep = "to", ...) {
 #' @rdname print.grates_period
 #' @export
 format.grates_period <- function(x, format = "%Y-%m-%d", sep = "to", ...) {
-    if (length(x) == 0) return(character(0))
+    if (length(x) == 0L) return(character(0L))
     n <- attr(x, "n")
     offset <- attr(x, "offset")
-    if (n > 1) {
+    if (n > 1L) {
         out <- sprintf(
             "%s %s %s",
             format.Date(as.Date(x), format = format),
             sep,
-            format.Date(as.Date(x + 1) - 1, format = format)
+            format.Date(as.Date(x + 1L) - 1L, format = format)
         )
     } else {
         out <- format.Date(as.Date(x + offset), format = format)
