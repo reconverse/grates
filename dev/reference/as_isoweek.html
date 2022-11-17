@@ -69,16 +69,13 @@
 <span><span class="fu">as_isoweek</span><span class="op">(</span><span class="va">x</span>, <span class="va">format</span>, tryFormats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"%Y-%m-%d"</span>, <span class="st">"%Y/%m/%d"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for factor</span></span>
-<span><span class="fu">as_isoweek</span><span class="op">(</span><span class="va">x</span>, format <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S3 method for factor</span></span>
-<span><span class="fu">as_isoweek</span><span class="op">(</span><span class="va">x</span>, format <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">as_isoweek</span><span class="op">(</span><span class="va">x</span>, <span class="va">format</span>, tryFormats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"%Y-%m-%d"</span>, <span class="st">"%Y/%m/%d"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
-<dd><p>An <span style="R">R</span> object.</p></dd>
+<dd><p><span style="R">R</span> object.</p></dd>
 
 
 <dt>...</dt>
@@ -86,14 +83,16 @@
 
 
 <dt>format</dt>
-<dd><p><code>[character]</code>
-If NULL, then it attempts to pass character values of the form 'YYYY-Www',
-otherwise passed through to <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date()</a></code> (default behaviour).</p></dd>
+<dd><p><code>[character]</code></p>
+<p>Passed to as.Date().</p>
+<p>If not specified, it will try tryFormats one by one on the first non-NA
+element, and give an error if none works. Otherwise, the processing is via
+<code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime()</a></code> whose help page describes available conversion specifications.</p></dd>
 
 
 <dt>tryFormats</dt>
-<dd><p><code>[character]</code>
-Passed through to <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date()</a></code></p></dd>
+<dd><p><code>[character]</code></p>
+<p>Format strings to try if format is not specified.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -123,9 +122,6 @@ Passed through to <code><a href="https://rdrr.io/r/base/as.Date.html" class="ext
 <span class="r-in"><span><span class="fu">as_isoweek</span><span class="op">(</span><span class="st">"2019-05-03"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;grates_isoweek[1]&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2019-W18"</span>
-<span class="r-in"><span><span class="fu">as_isoweek</span><span class="op">(</span><span class="st">"2021-W03"</span>, format <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;grates_isoweek[1]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2021-W03"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
