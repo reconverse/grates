@@ -27,7 +27,7 @@
 #' @export
 new_yearquarter <- function(x = integer()) {
     if (!is.integer(x)) {
-        if (is.double(x) && is.vector(x)) {
+        if (is.vector(x, "double")) {
             x <- as.integer(floor(x))
         } else {
             stop("`x` must be integer.")

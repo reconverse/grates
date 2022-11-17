@@ -38,7 +38,7 @@
 #' @export
 new_month <- function(x = integer(), n) {
     if (!is.integer(x)) {
-        if (is.double(x) && is.vector(x)) {
+        if (is.vector(x, "double")) {
             x <- as.integer(floor(x))
         } else {
             stop("`x` must be integer.")
