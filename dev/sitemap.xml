@@ -46,6 +46,9 @@
     <loc>http://www.reconverse.org/grates/dev/reference/as_yearweek.html</loc>
   </url>
   <url>
+    <loc>http://www.reconverse.org/grates/dev/reference/epiweek.html</loc>
+  </url>
+  <url>
     <loc>http://www.reconverse.org/grates/dev/reference/grates-defunct.html</loc>
   </url>
   <url>
@@ -53,6 +56,9 @@
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/dev/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/dev/reference/isoweek.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/dev/reference/new_epiweek.html</loc>
@@ -119,5 +125,8 @@
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/dev/reference/year.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/dev/reference/yearweek.html</loc>
   </url>
 </urlset>

@@ -123,10 +123,13 @@ periods from:</p>
 </ul>
 <p>They can be constructed directly from integers via the
 <code><a href="../reference/new_yearweek.html">new_yearweek()</a></code> function but it is generally easier to use
-the <code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> generic. <code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> takes
+the either the <code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> coercion function or the
+<code><a href="../reference/yearweek.html">yearweek()</a></code> constructor. <code><a href="../reference/as_yearweek.html">as_yearweek()</a></code> takes
 two arguments; <code>x</code>, the vector (normally a Date or POSIXt)
 you wish to group, and <code>firstday</code>, the day of the week you
-wish your weeks to start on.</p>
+wish your weeks to start on. <code><a href="../reference/yearweek.html">yearweek()</a></code> takes three
+arguments; <code>year</code> and <code>week</code> integer vectors and,
+again, a <code>firstday</code> value.</p>
 <p>The <strong>epiweek</strong> class is similar to the yearweek class
 but, by definition, will always begin on a Sunday. They are stored as
 the integer number of weeks (again starting at 0L) since 1970-01-04 so
@@ -146,8 +149,8 @@ are stored as the integer number of weeks since 1969-12-29.</p>
 <span><span class="co">#&gt; [1] "Friday"</span></span>
 <span><span class="va">dates</span> <span class="op">&lt;-</span> <span class="va">first</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">9</span></span>
 <span></span>
-<span><span class="co"># Below we use a Friday-week grouping (firstday = 5)</span></span>
-<span><span class="va">weeks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="va">dates</span>, firstday <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co"># Below we use a Friday-week grouping</span></span>
+<span><span class="va">weeks</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_yearweek.html">as_yearweek</a></span><span class="op">(</span><span class="va">dates</span>, firstday <span class="op">=</span> <span class="fl">5L</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">dates</span>, <span class="va">weeks</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;         dates    weeks</span></span>
 <span><span class="co">#&gt; 1  2021-01-01 2021-W01</span></span>
@@ -160,6 +163,11 @@ are stored as the integer number of weeks since 1969-12-29.</p>
 <span><span class="co">#&gt; 8  2021-01-08 2021-W02</span></span>
 <span><span class="co">#&gt; 9  2021-01-09 2021-W02</span></span>
 <span><span class="co">#&gt; 10 2021-01-10 2021-W02</span></span>
+<span></span>
+<span><span class="co"># we can also use the constructor function if we already have weeks and years</span></span>
+<span><span class="fu"><a href="../reference/yearweek.html">yearweek</a></span><span class="op">(</span>year <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2020L</span>, <span class="fl">2021L</span><span class="op">)</span>, week <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">10L</span><span class="op">)</span>, firstday <span class="op">=</span> <span class="fl">5L</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;grates_yearweek_friday[2]&gt;</span></span>
+<span><span class="co">#&gt; [1] "2020-W01" "2021-W10"</span></span>
 <span></span>
 <span><span class="co"># epiweeks always start on a Sunday</span></span>
 <span><span class="op">(</span><span class="va">epiwk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_epiweek.html">as_epiweek</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
