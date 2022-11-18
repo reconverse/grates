@@ -396,7 +396,7 @@ expect_error(
 )
 
 # test the new constructor implementation
-dat <- as.Date("1900-01-01") + seq.int(from = 0L, to = 1200L * 365, by = 365L)
+dat <- as.Date("1900-01-01") + seq.int(from = 0L, to = 200L * 365, by = 180L)
 expected <- as_yearweek(dat, firstday = 3L)
 tmp <- as.character(expected)
 years <- as.integer(substr(tmp, 1L, 4L))
