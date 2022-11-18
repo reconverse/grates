@@ -25,11 +25,15 @@ some function parameters altered (see details below):
 * `as_yearweek()` no longer parsers character strings of the form "YYYY-Www"
   (e.g. "2020-W01").
   
-* Direct constructors `month()`, `yearweek()`, `yearquarter()` and `period()`
-  now begin with a `new_` prefix (i.e `new_month()`, `new_yearweek()`,
-  `new_yearquarter()` and `new_period()`). This is to distinguish them from
-  more user friendly constructors that we have now introduced (see the "new
-  functions" section below).
+* Constructors `yearweek()` and `isoweek()` and `epiweek()` now
+  allow construction of grates objects directly from year and week integer
+  vectors. `yearmonth()` and `yearquarter()` constructors have been similarly
+  changed to allow construction from year and month/quarter integer vectors.
+  
+* The old incarnation of direct constructors now begin with a `new_` prefix
+  (e.g. `new_month()`, `new_yearweek()`, `new_epiweek()`, ...). This is to
+  distinguish them from more user friendly constructors that we have introduced
+  (see above).
 
 ## new functions and classes
 
@@ -41,11 +45,6 @@ some function parameters altered (see details below):
   `<grates_epiweek>` respectively) and associated functions. Internally these
   are similar to the corresponding `<grates_yearweek>` objects but with a
   marginally more efficient implementation.
-  
-* Constructors `yearweek()` and `isoweek()` and `epiweek()` now
-  allow construction of grates objects directly from year and week integer
-  vectors. The old incarnation of these functions now begin with a prefix,
-  `new_` (see "breaking changes" section above for details).
 
 ## bug fixes
 
