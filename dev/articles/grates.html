@@ -292,12 +292,8 @@ stored relative to this scaled offset.</p>
 <strong>year</strong> objects are stored as the integer number of
 months/quarters/years (starting at 0L) since the Unix Epoch
 (1970-01-01).</p>
-<p>As with all grates objects they they can be constructed directly from
-integers via the <code><a href="../reference/new_yearmonth.html">new_yearmonth()</a></code>,
-<code><a href="../reference/new_yearquarter.html">new_yearquarter()</a></code> and <code><a href="../reference/year.html">year()</a></code> functions but it
-is often easier to use the <code><a href="../reference/as_yearmonth.html">as_yearmonth()</a></code>,
-<code><a href="../reference/as_yearquarter.html">as_yearquarter()</a></code> and <code><a href="../reference/as_year.html">as_year()</a></code> coercion
-functions.</p>
+<p>Similar to other grates objects we provide both coercion and
+construction functions.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate the monthly number of cases</span></span>
 <span><span class="op">(</span><span class="va">month_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span></span>
@@ -374,6 +370,18 @@ functions.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">45</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <p><img src="grates_files/figure-html/unnamed-chunk-6-4.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Construction functions can also be used</span></span>
+<span><span class="fu"><a href="../reference/yearmonth.html">yearmonth</a></span><span class="op">(</span><span class="fl">2022L</span>, <span class="fl">11L</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;grates_yearmonth[1]&gt;</span></span>
+<span><span class="co">#&gt; [1] "2022-Nov"</span></span>
+<span><span class="fu"><a href="../reference/yearquarter.html">yearquarter</a></span><span class="op">(</span><span class="fl">2022L</span>, <span class="fl">4L</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;grates_yearquarter[1]&gt;</span></span>
+<span><span class="co">#&gt; [1] "2022-Q4"</span></span>
+<span><span class="fu"><a href="../reference/year.html">year</a></span><span class="op">(</span><span class="fl">2022L</span><span class="op">)</span></span>
+<span><span class="co">#&gt; &lt;grates_year[1]&gt;</span></span>
+<span><span class="co">#&gt; [1] 2022</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="month">month<a class="anchor" aria-label="anchor" href="#month"></a>
@@ -387,7 +395,7 @@ coercion via the <code><a href="../reference/as_month.html">as_month()</a></code
 <code><a href="../reference/as_period.html">as_period()</a></code> takes 2 arguments; <code>x</code>, the vector
 (normally a Date or POSIXt) you wish to group, <code>n</code>, the
 integer number of months you wish to group.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate the bimonthly number of cases</span></span>
 <span><span class="op">(</span><span class="va">bimonth_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cases <span class="op">=</span> <span class="va">dat</span><span class="op">)</span>,</span>
@@ -415,7 +423,7 @@ integer number of months you wish to group.</p>
 is different to that of the yearweek, yearmonth, yearquarter and year
 scales where labels are centred by default. To obtain centred labels you
 must explicitly set the format to NULL in the scale:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">month_plot</span> <span class="op">+</span> <span class="fu"><a href="../reference/scale_x_grates_yearmonth.html">scale_x_grates_yearmonth</a></span><span class="op">(</span>format <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 <p><img src="grates_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
@@ -428,7 +436,7 @@ operations to ensure logical and consistent behaviour. Where things
 break down we try to provide detailed messaging explaining why errors
 have occurred. Whilst this behviour is implemented for all grates
 objects, below we illustrate how it manifests with epiweek objects.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># use the unique epiweeks from the earlier example</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">week_dat</span><span class="op">$</span><span class="va">week</span></span>
 <span></span>

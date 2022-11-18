@@ -127,6 +127,12 @@
     <loc>http://www.reconverse.org/grates/dev/reference/year.html</loc>
   </url>
   <url>
+    <loc>http://www.reconverse.org/grates/dev/reference/yearmonth.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/dev/reference/yearquarter.html</loc>
+  </url>
+  <url>
     <loc>http://www.reconverse.org/grates/dev/reference/yearweek.html</loc>
   </url>
 </urlset>
