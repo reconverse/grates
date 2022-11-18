@@ -246,3 +246,11 @@ expect_error(
     "`any()` is not supported for <grates_yearmonth> objects.",
     fixed = TRUE
 )
+
+# test the new constructor implementation
+dat <- as.Date("1900-01-01") + seq.int(from = 0L, to = 200L * 365, by = 180L)
+expected <- as_yearmonth(dat)
+tmp <- as.character(dat)
+years <- as.integer(substr(tmp, 1L, 4L))
+months <- as.integer(substr(tmp, 6L, 7L))
+expect_identical(yearmonth(years, months), expected)

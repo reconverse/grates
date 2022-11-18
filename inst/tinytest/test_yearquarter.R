@@ -207,3 +207,11 @@ expect_identical(is.nan(dat), c(FALSE, FALSE, FALSE))
 expect_identical(is.finite(dat), c(TRUE, TRUE, FALSE))
 expect_identical(is.infinite(dat), c(FALSE, FALSE, FALSE))
 expect_error(abs(dat))
+
+# test the new constructor implementation
+dat <- as.Date("1900-01-01") + seq.int(from = 0L, to = 200L * 365, by = 180L)
+expected <- as_yearquarter(dat)
+tmp <- as.character(dat)
+years <- as.integer(substr(tmp, 1L, 4L))
+months <- as.integer(substr(tmp, 6L, 7L))
+expect_identical(yearquarter(years, ((months - 1L) %/% 3L) + 1L), expected)

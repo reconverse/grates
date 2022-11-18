@@ -37,6 +37,74 @@ new_yearquarter <- function(x = integer()) {
     .new_yearquarter(x = x)
 }
 
+#' Constructor for yearquarter objects
+#'
+#' @description
+#' `yearquarter()` is a constructor for `<grates_yearquarter>` objects.
+#'
+#' @details
+#' `<grates_yearquarter>` objects are stored as the number of quarters (starting
+#' at 0) since the Unix Epoch (1970-01-01).
+#'
+#' @param year `[integer]`
+#'
+#' Vector representing the year associated with `quarter`.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @param quarter `[integer]`
+#'
+#' Vector representing the quarter associated with `year.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @return
+#' A `<grates_yearquarter>` object.
+#'
+#' @examples
+#' yearquarter(year = 2000L, quarter = 3L)
+#'
+#' @seealso
+#' `as_yearquarter()` and `new_yearquarter()`.
+#'
+#' @export
+yearquarter <- function(year = integer(), quarter = integer()) {
+
+    # check year is integerish
+    if (!is.integer(year)) {
+        if (is.vector(year, "double")) {
+            year <- as.integer(floor(year))
+        } else {
+            stop("`year` must be integer.")
+        }
+    }
+
+    # check quarter is integerish
+    if (!is.integer(quarter)) {
+        if (is.vector(quarter, "double")) {
+            quarter <- as.integer(floor(quarter))
+        } else {
+            stop("`quarter` must be integer.")
+        }
+    }
+
+    # check compatible lengths
+    if (length(year) != length(quarter))
+        stop("`year` and `quarter` must be the same length.")
+
+    # check quarter bounded above and below
+    idx <- quarter < 1L | quarter > 4L
+    if (any(idx, na.rm = TRUE)) {
+        first <- which.max(idx)
+        stop(sprintf(
+            "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry %d is not (it equals %d).",
+            first, quarter[first]
+        ))
+    }
+
+    .yearquarter(year = year, quarter = quarter)
+}
+
 # -------------------------------------------------------------------------
 #' @rdname new_yearquarter
 #' @export
@@ -399,3 +467,9 @@ Ops.grates_yearquarter <- function(e1, e2) {
 # ------------------------------------------------------------------------- #
 
 .new_yearquarter <- function(x = integer()) structure(x, class = "grates_yearquarter")
+
+.yearquarter <- function(year, quarter) {
+    month <- (quarter * 3L) - 2L
+    tmp <- (year - 1970L) * 12L + (month - 1L)
+    .new_yearquarter(tmp %/% 3L)
+}

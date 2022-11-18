@@ -43,6 +43,74 @@ new_yearmonth <- function(x = integer()) {
     .new_yearmonth(x = x)
 }
 
+#' Constructor for yearmonth objects
+#'
+#' @description
+#' `yearmonth()` is a constructor for `<grates_yearmonth>` objects.
+#'
+#' @details
+#' `<grates_yearmonth>` objects are stored as the number of months (starting at
+#' 0) since the Unix Epoch (1970-01-01).
+#'
+#' @param year `[integer]`
+#'
+#' Vector representing the year associated with `month`.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @param month `[integer]`
+#'
+#' Vector representing the month associated with `year.
+#'
+#' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @return
+#' A `<grates_yearmonth>` object.
+#'
+#' @examples
+#' yearmonth(year = 2000L, month = 3L)
+#'
+#' @seealso
+#' `as_yearmonth()` and `new_yearmonth()`.
+#'
+#' @export
+yearmonth <- function(year = integer(), month = integer()) {
+
+    # check year is integerish
+    if (!is.integer(year)) {
+        if (is.vector(year, "double")) {
+            year <- as.integer(floor(year))
+        } else {
+            stop("`year` must be integer.")
+        }
+    }
+
+    # check month is integerish
+    if (!is.integer(month)) {
+        if (is.vector(month, "double")) {
+            month <- as.integer(floor(month))
+        } else {
+            stop("`month` must be integer.")
+        }
+    }
+
+    # check compatible lengths
+    if (length(year) != length(month))
+        stop("`year` and `month` must be the same length.")
+
+    # check month bounded above and below
+    idx <- month < 1L | month > 12L
+    if (any(idx, na.rm = TRUE)) {
+        first <- which.max(idx)
+        stop(sprintf(
+            "Months must be integer and between 1 and 12 (inclusive) or NA. Entry %d is not (it equals %d).",
+            first, month[first]
+        ))
+    }
+
+    .yearmonth(year = year, month = month)
+}
+
 # -------------------------------------------------------------------------
 #' @rdname new_yearmonth
 #' @export
@@ -410,3 +478,8 @@ Ops.grates_yearmonth <- function(e1, e2) {
 # ------------------------------------------------------------------------- #
 
 .new_yearmonth <- function(x = integer()) structure(x, class = "grates_yearmonth")
+
+.yearmonth <- function(year, month) {
+    out <- (year - 1970L) * 12L + (month - 1L)
+    .new_yearmonth(out)
+}

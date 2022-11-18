@@ -190,10 +190,8 @@ data.frame(dates, period = as_period(dates, n = 7L, offset = offset))
 number of months/quarters/years (starting at 0L) since the Unix Epoch
 (1970-01-01). 
 
-As with all grates objects they they can be constructed directly from integers
-via the `new_yearmonth()`, `new_yearquarter()` and `year()`  functions but it is
-often easier to use the `as_yearmonth()`, `as_yearquarter()` and `as_year()`
-coercion functions.
+Similar to other grates objects we provide both coercion and construction
+functions.
 
 ```{r}
 # calculate the monthly number of cases
@@ -239,6 +237,11 @@ ggplot(year_dat, aes(year, cases)) +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 45, hjust=1)) +
     xlab("")
+
+# Construction functions can also be used
+yearmonth(2022L, 11L)
+yearquarter(2022L, 4L)
+year(2022L)
 ```
 
 ## month {#month}
