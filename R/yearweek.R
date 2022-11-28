@@ -79,8 +79,8 @@ new_yearweek <- function(x = integer(), firstday = 1L) {
 #' object.
 #'
 #' @note
-#' Internally #' `<grates_yearweek>` objects are stored as the number of weeks
-#' (starting at 0) #' from the date of the `firstday` nearest the Unix Epoch
+#' Internally `<grates_yearweek>` objects are stored as the number of weeks
+#' (starting at 0) from the date of the `firstday` nearest the Unix Epoch
 #' (1970-01-01). That is, the number of seven day periods from:
 #'
 #'     - 1969-12-29 for `firstday` equal to 1 (Monday)
