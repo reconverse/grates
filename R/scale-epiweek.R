@@ -39,7 +39,7 @@ scale_x_grates_epiweek <- function(..., n.breaks = 6L, format = NULL) {
 }
 
 # -------------------------------------------------------------------------
-scale_type.grates_epiweek <- function(x) "grates_epiweek"
+scale_type.grates_epiweek <- function(x) {"grates_epiweek"}
 
 # -------------------------------------------------------------------------
 .grates_epiweek_trans <- function(n.breaks, format) {

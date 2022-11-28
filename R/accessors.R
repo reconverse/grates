@@ -11,6 +11,7 @@
 #' @name grouped_date_accessors
 NULL
 
+# -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
 get_firstday <- function(x, ...) {
@@ -21,48 +22,43 @@ get_firstday <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_firstday.default <- function(x, ...) {
-    stop(
-        sprintf(
-            "Not implemented for class [%s].",
-            paste(class(x), collapse = ", ")
-        )
-    )
+    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
 }
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_firstday.grates_yearweek_monday <- function(x, ...) 1L
+get_firstday.grates_yearweek_monday <- function(x, ...) {1L}
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_firstday.grates_yearweek_tuesday <- function(x, ...) 2L
+get_firstday.grates_yearweek_tuesday <- function(x, ...) {2L}
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_firstday.grates_yearweek_wednesday <- function(x, ...) 3L
+get_firstday.grates_yearweek_wednesday <- function(x, ...) {3L}
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_firstday.grates_yearweek_thursday <- function(x, ...) 4L
+get_firstday.grates_yearweek_thursday <- function(x, ...) {4L}
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_firstday.grates_yearweek_friday <- function(x, ...) 5L
+get_firstday.grates_yearweek_friday <- function(x, ...) {5L}
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_firstday.grates_yearweek_saturday <- function(x, ...) 6L
+get_firstday.grates_yearweek_saturday <- function(x, ...) {6L}
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_firstday.grates_yearweek_sunday <- function(x, ...) 7L
+get_firstday.grates_yearweek_sunday <- function(x, ...) {7L}
 
 # -------------------------------------------------------------------------
 #' @name grouped_date_accessors
@@ -75,12 +71,7 @@ get_week <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_week.default <- function(x, ...) {
-    stop(
-        sprintf(
-            "Not implemented for class [%s].",
-            paste(class(x), collapse = ", ")
-        )
-    )
+    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
 }
 
 # -------------------------------------------------------------------------
@@ -113,12 +104,7 @@ get_year <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_year.default <- function(x, ...) {
-    stop(
-        sprintf(
-            "Not implemented for class [%s].",
-            paste(class(x), collapse = ", ")
-        )
-    )
+    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
 }
 
 # -------------------------------------------------------------------------
@@ -180,23 +166,22 @@ get_n <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_n.default <- function(x, ...) {
-    stop(
-        sprintf(
-            "Not implemented for class [%s].",
-            paste(class(x), collapse = ", ")
-        )
-    )
+    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
 }
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_n.grates_month <- function(x, ...) attr(x, "n")
+get_n.grates_month <- function(x, ...) {
+    attr(x, "n")
+}
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_n.grates_period <- function(x, ...) attr(x, "n")
+get_n.grates_period <- function(x, ...) {
+    attr(x, "n")
+}
 
 # -------------------------------------------------------------------------
 #' @name grouped_date_accessors
@@ -209,15 +194,12 @@ get_offset <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_offset.default <- function(x, ...) {
-    stop(
-        sprintf(
-            "Not implemented for class [%s].",
-            paste(class(x), collapse = ", ")
-        )
-    )
+    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
 }
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_offset.grates_period <- function(x, ...) attr(x, "offset")
+get_offset.grates_period <- function(x, ...) {
+    attr(x, "offset")
+}

@@ -161,7 +161,9 @@ yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
 # -------------------------------------------------------------------------
 #' @rdname new_yearweek
 #' @export
-is_yearweek <- function(xx) inherits(xx, "grates_yearweek")
+is_yearweek <- function(xx) {
+    inherits(xx, "grates_yearweek")
+}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -188,15 +190,15 @@ print.grates_yearweek <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-vec_ptype_abbr.grates_yearweek <- function(x, ...) "yrwk"
-vec_ptype_full.grates_yearweek <- function(x, ...) "yearweek"
-vec_ptype_full.grates_yearweek_monday <- function(x, ...) "yearweek-mon"
-vec_ptype_full.grates_yearweek_tuesday <- function(x, ...) "yearweek-tue"
-vec_ptype_full.grates_yearweek_wednesday <- function(x, ...) "yearweek-wed"
-vec_ptype_full.grates_yearweek_thursday <- function(x, ...) "yearweek-thu"
-vec_ptype_full.grates_yearweek_friday <- function(x, ...) "yearweek-fri"
-vec_ptype_full.grates_yearweek_saturday <- function(x, ...) "yearweek-sat"
-vec_ptype_full.grates_yearweek_sunday <- function(x, ...) "yearweek-sun"
+vec_ptype_abbr.grates_yearweek <- function(x, ...) {"yrwk"}
+vec_ptype_full.grates_yearweek <- function(x, ...) {"yearweek"}
+vec_ptype_full.grates_yearweek_monday <- function(x, ...) {"yearweek-mon"}
+vec_ptype_full.grates_yearweek_tuesday <- function(x, ...) {"yearweek-tue"}
+vec_ptype_full.grates_yearweek_wednesday <- function(x, ...) {"yearweek-wed"}
+vec_ptype_full.grates_yearweek_thursday <- function(x, ...) {"yearweek-thu"}
+vec_ptype_full.grates_yearweek_friday <- function(x, ...) {"yearweek-fri"}
+vec_ptype_full.grates_yearweek_saturday <- function(x, ...) {"yearweek-sat"}
+vec_ptype_full.grates_yearweek_sunday <- function(x, ...) {"yearweek-sun"}
 
 # -------------------------------------------------------------------------
 #' Coerce to a yearweek object
@@ -242,18 +244,15 @@ vec_ptype_full.grates_yearweek_sunday <- function(x, ...) "yearweek-sun"
 #' `as.Date()` and `new_yearweek()`.
 #'
 #' @export
-as_yearweek <- function(x, ...) UseMethod("as_yearweek")
+as_yearweek <- function(x, ...) {
+    UseMethod("as_yearweek")
+}
 
 # -------------------------------------------------------------------------
 #' @rdname as_yearweek
 #' @export
 as_yearweek.default <- function(x, ...) {
-    stop(
-        sprintf(
-            "Not implemented for class [%s].",
-            paste(class(x), collapse = ", ")
-        )
-    )
+    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
 }
 
 # -------------------------------------------------------------------------
@@ -317,7 +316,7 @@ as_yearweek.factor <- function(
 #' @export
 `[.grates_yearweek` <- function(x, ..., drop = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -325,7 +324,7 @@ as_yearweek.factor <- function(
 #' @export
 `[[.grates_yearweek` <- function(x, ..., drop = TRUE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -339,7 +338,7 @@ as_yearweek.factor <- function(
     if (isTRUE(fdx != fdv))
         stop("Incompatible first day of the week.")
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -351,7 +350,7 @@ as_yearweek.factor <- function(
 #' @export
 rep.grates_yearweek <- function(x, ...) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -359,7 +358,7 @@ rep.grates_yearweek <- function(x, ...) {
 #' @export
 unique.grates_yearweek <- function(x, incomparables = FALSE, ...) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -402,11 +401,15 @@ seq.grates_yearweek <- function(from, to, by = 1L, ...) {
 
 # -------------------------------------------------------------------------
 #' @export
-as.integer.grates_yearweek <- function(x, ...) unclass(x)
+as.integer.grates_yearweek <- function(x, ...) {
+    unclass(x)
+}
 
 # -------------------------------------------------------------------------
 #' @export
-as.double.grates_yearweek <- function(x, ...) as.double(unclass(x))
+as.double.grates_yearweek <- function(x, ...) {
+    as.double(unclass(x))
+}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -437,11 +440,15 @@ as.POSIXlt.grates_yearweek <- function(x, tz = "UTC", ...) {
 
 # -------------------------------------------------------------------------
 #' @export
-as.character.grates_yearweek <- function(x, ...) format.grates_yearweek(x)
+as.character.grates_yearweek <- function(x, ...) {
+    format.grates_yearweek(x)
+}
 
 # -------------------------------------------------------------------------
 #' @export
-as.list.grates_yearweek <- function(x, ...) lapply(unclass(x), `class<-`, class(x))
+as.list.grates_yearweek <- function(x, ...) {
+    lapply(unclass(x), `class<-`, class(x))
+}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -451,7 +458,7 @@ as.data.frame.grates_yearweek <- as.data.frame.vector
 #' @export
 min.grates_yearweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -459,7 +466,7 @@ min.grates_yearweek <- function(x, ..., na.rm = FALSE) {
 #' @export
 max.grates_yearweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -467,30 +474,20 @@ max.grates_yearweek <- function(x, ..., na.rm = FALSE) {
 #' @export
 range.grates_yearweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
 # -------------------------------------------------------------------------
 #' @export
 Summary.grates_yearweek <- function(..., na.rm = FALSE) {
-    stop(
-        sprintf(
-            "`%s()` is not supported for <grates_yearweek> objects.",
-            .Generic
-        )
-    )
+    stopf("`%s()` is not supported for <grates_yearweek> objects.", .Generic)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 Math.grates_yearweek <- function(x, ...) {
-    stop(
-        sprintf(
-            "`%s()` is not supported for <grates_yearweek> objects.",
-            .Generic
-        )
-    )
+    stopf("`%s()` is not supported for <grates_yearweek> objects.", .Generic)
 }
 
 # -------------------------------------------------------------------------
@@ -569,9 +566,7 @@ Ops.grates_yearweek <- function(e1, e2) {
 
 
         },
-        stop(
-            sprintf("%s is not compatible with <grates_yearweek> objects.", op)
-        )
+        stopf("%s is not compatible with <grates_yearweek> objects.", op)
     )
 }
 

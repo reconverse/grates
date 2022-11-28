@@ -1,4 +1,4 @@
-scale_type.grates_yearquarter <- function(x) "grates_yearquarter"
+scale_type.grates_yearquarter <- function(x) {"grates_yearquarter"}
 
 #' yearquarter scale
 #'

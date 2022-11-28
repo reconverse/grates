@@ -65,7 +65,9 @@ new_period <- function(x = integer(), n = 1L, offset = 0L) {
 # -------------------------------------------------------------------------
 #' @rdname new_period
 #' @export
-is_period <- function(xx) inherits(xx, "grates_period")
+is_period <- function(xx) {
+    inherits(xx, "grates_period")
+}
 
 # -------------------------------------------------------------------------
 #' Print a period object
@@ -118,8 +120,8 @@ format.grates_period <- function(x, format = "%Y-%m-%d", sep = "to", ...) {
 }
 
 # -------------------------------------------------------------------------
-vec_ptype_abbr.grates_period <- function(x, ...) "period"
-vec_ptype_full.grates_period <- function(x, ...) "grates_period"
+vec_ptype_abbr.grates_period <- function(x, ...) {"period"}
+vec_ptype_full.grates_period <- function(x, ...) {"grates_period"}
 
 # -------------------------------------------------------------------------
 #' Coerce an object to period
@@ -167,18 +169,15 @@ vec_ptype_full.grates_period <- function(x, ...) "grates_period"
 #' `as.Date()`
 #'
 #' @export
-as_period <- function(x, n, ...) UseMethod("as_period")
+as_period <- function(x, n, ...) {
+    UseMethod("as_period")
+}
 
 # -------------------------------------------------------------------------
 #' @rdname as_period
 #' @export
 as_period.default <- function(x, n = 1L, offset = 0L, ...) {
-    stop(
-        sprintf(
-            "Not implemented for class [%s].",
-            paste(class(x), collapse = ", ")
-        )
-    )
+    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
 }
 
 # -------------------------------------------------------------------------
@@ -256,7 +255,7 @@ as_period.factor <- function(x, n = 1L, offset = 0L, ...) {
 #' @export
 `[.grates_period` <- function(x, ..., drop = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     attr(out, "n") <- attr(x, "n")
     attr(out, "offset") <- attr(x, "offset")
     out
@@ -266,7 +265,7 @@ as_period.factor <- function(x, n = 1L, offset = 0L, ...) {
 #' @export
 `[[.grates_period` <- function(x, ..., drop = TRUE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     attr(out, "n") <- attr(x, "n")
     attr(out, "offset") <- attr(x, "offset")
     out
@@ -289,7 +288,7 @@ as_period.factor <- function(x, n = 1L, offset = 0L, ...) {
         stop("Incompatible offsets.")
 
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     attr(out, "n") <- nx
     attr(out, "offset") <- offsetx
     out
@@ -303,7 +302,7 @@ as_period.factor <- function(x, n = 1L, offset = 0L, ...) {
 #' @export
 rep.grates_period <- function(x, ...) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     attr(out, "n") <- attr(x, "n")
     attr(out, "offset") <- attr(x, "offset")
     out
@@ -313,7 +312,7 @@ rep.grates_period <- function(x, ...) {
 #' @export
 unique.grates_period <- function(x, incomparables = FALSE, ...) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     attr(out, "n") <- attr(x, "n")
     attr(out, "offset") <- attr(x, "offset")
     out
@@ -400,7 +399,9 @@ as.POSIXlt.grates_period <- function(x, tz = "UTC", ...) {
 
 # -------------------------------------------------------------------------
 #' @export
-as.character.grates_period <- function(x, ...) format.grates_period(x)
+as.character.grates_period <- function(x, ...) {
+    format.grates_period(x)
+}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -408,7 +409,7 @@ as.list.grates_period <- function(x, ...) {
     lapply(
         as.integer(x),
         function(y) {
-            class(y) <- oldClass(x)
+            class(y) <- class(x)
             attr(y, "n") <- attr(x, "n")
             attr(y, "offset") <- attr(x, "offset")
             y
@@ -424,7 +425,7 @@ as.data.frame.grates_period <- as.data.frame.vector
 #' @export
 min.grates_period <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     attr(out, "n") <- attr(x, "n")
     attr(out, "offset") <- attr(x, "offset")
     out
@@ -434,7 +435,7 @@ min.grates_period <- function(x, ..., na.rm = FALSE) {
 #' @export
 max.grates_period <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     attr(out, "n") <- attr(x, "n")
     attr(out, "offset") <- attr(x, "offset")
     out
@@ -444,7 +445,7 @@ max.grates_period <- function(x, ..., na.rm = FALSE) {
 #' @export
 range.grates_period <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     attr(out, "n") <- attr(x, "n")
     attr(out, "offset") <- attr(x, "offset")
     out
@@ -453,23 +454,13 @@ range.grates_period <- function(x, ..., na.rm = FALSE) {
 # -------------------------------------------------------------------------
 #' @export
 Summary.grates_period <- function(..., na.rm = FALSE) {
-    stop(
-        sprintf(
-            "`%s()` is not supported for <grates_period> objects.",
-            .Generic
-        )
-    )
+    stopf("`%s()` is not supported for <grates_period> objects.", .Generic)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 Math.grates_period <- function(x, ...) {
-    stop(
-        sprintf(
-            "`%s()` is not supported for <grates_period> objects.",
-            .Generic
-        )
-    )
+    stopf("`%s()` is not supported for <grates_period> objects.", .Generic)
 }
 
 # -------------------------------------------------------------------------
@@ -549,7 +540,7 @@ Ops.grates_period <- function(e1, e2) {
                 stop("Can only subtract whole numbers and other <grates_period> objects from <grates_period> objects.")
             }
         },
-        stop(sprintf("%s is not compatible with <grates_period> objects.", op))
+        stopf("%s is not compatible with <grates_period> objects.", op)
     )
 }
 

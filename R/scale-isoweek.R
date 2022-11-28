@@ -39,7 +39,7 @@ scale_x_grates_isoweek <- function(..., n.breaks = 6L, format = NULL) {
 }
 
 # -------------------------------------------------------------------------
-scale_type.grates_isoweek <- function(x) "grates_isoweek"
+scale_type.grates_isoweek <- function(x) {"grates_isoweek"}
 
 # -------------------------------------------------------------------------
 .grates_isoweek_trans <- function(n.breaks, format) {

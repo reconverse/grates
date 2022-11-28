@@ -1,4 +1,4 @@
-scale_type.grates_yearmonth <- function(x) "grates_yearmonth"
+scale_type.grates_yearmonth <- function(x) {"grates_yearmonth"}
 
 #' yearmonth scale
 #'

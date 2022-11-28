@@ -108,19 +108,25 @@ epiweek <- function(year = integer(), week = integer()) {
 # -------------------------------------------------------------------------
 #' @rdname new_epiweek
 #' @export
-is_epiweek <- function(xx) inherits(xx, "grates_epiweek")
+is_epiweek <- function(xx) {
+    inherits(xx, "grates_epiweek")
+}
 
 # -------------------------------------------------------------------------
 #' @export
-format.grates_epiweek <- function(x, ...) format.grates_yearweek(x, ...)
+format.grates_epiweek <- function(x, ...) {
+    format.grates_yearweek(x, ...)
+}
 
 # -------------------------------------------------------------------------
 #' @export
-print.grates_epiweek <- function(x, ...) print.grates_yearweek(x, ...)
+print.grates_epiweek <- function(x, ...) {
+    print.grates_yearweek(x, ...)
+}
 
 # -------------------------------------------------------------------------
-vec_ptype_abbr.grates_epiweek <- function(x, ...) "epiwk"
-vec_ptype_full.grates_epiweek <- function(x, ...) "epiweek"
+vec_ptype_abbr.grates_epiweek <- function(x, ...) {"epiwk"}
+vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
 
 # -------------------------------------------------------------------------
 #' Coerce to a epiweek object
@@ -162,18 +168,15 @@ vec_ptype_full.grates_epiweek <- function(x, ...) "epiweek"
 #' `new_epiweek()` and `as.Date()`.
 #'
 #' @export
-as_epiweek <- function(x, ...) UseMethod("as_epiweek")
+as_epiweek <- function(x, ...) {
+    UseMethod("as_epiweek")
+}
 
 # -------------------------------------------------------------------------
 #' @rdname as_epiweek
 #' @export
 as_epiweek.default <- function(x, ...) {
-    stop(
-        sprintf(
-            "Not implemented for class [%s].",
-            paste(class(x), collapse = ", ")
-        )
-    )
+    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
 }
 
 # -------------------------------------------------------------------------
@@ -224,7 +227,7 @@ as_epiweek.factor <- function(
 #' @export
 `[.grates_epiweek` <- function(x, ..., drop = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -232,7 +235,7 @@ as_epiweek.factor <- function(
 #' @export
 `[[.grates_epiweek` <- function(x, ..., drop = TRUE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -242,7 +245,7 @@ as_epiweek.factor <- function(
     if (!inherits(value, "grates_epiweek"))
         stop("Can only assign <grates_epiweek> objects in to an <grates_epiweek> object.")
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -254,7 +257,7 @@ as_epiweek.factor <- function(
 #' @export
 rep.grates_epiweek <- function(x, ...) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -262,7 +265,7 @@ rep.grates_epiweek <- function(x, ...) {
 #' @export
 unique.grates_epiweek <- function(x, incomparables = FALSE, ...) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -297,11 +300,15 @@ seq.grates_epiweek <- function(from, to, by = 1L, ...) {
 
 # -------------------------------------------------------------------------
 #' @export
-as.integer.grates_yearweek <- function(x, ...) unclass(x)
+as.integer.grates_yearweek <- function(x, ...) {
+    unclass(x)
+}
 
 # -------------------------------------------------------------------------
 #' @export
-as.double.grates_yearweek <- function(x, ...) as.double(unclass(x))
+as.double.grates_yearweek <- function(x, ...) {
+    as.double(unclass(x))
+}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -329,11 +336,15 @@ as.POSIXlt.grates_epiweek <- function(x, tz = "UTC", ...) {
 
 # -------------------------------------------------------------------------
 #' @export
-as.character.grates_epiweek <- function(x, ...) format.grates_epiweek(x)
+as.character.grates_epiweek <- function(x, ...) {
+    format.grates_epiweek(x)
+}
 
 # -------------------------------------------------------------------------
 #' @export
-as.list.grates_epiweek <- function(x, ...) lapply(unclass(x), `class<-`, class(x))
+as.list.grates_epiweek <- function(x, ...) {
+    lapply(unclass(x), `class<-`, class(x))
+}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -343,7 +354,7 @@ as.data.frame.grates_epiweek <- as.data.frame.vector
 #' @export
 min.grates_epiweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -351,7 +362,7 @@ min.grates_epiweek <- function(x, ..., na.rm = FALSE) {
 #' @export
 max.grates_epiweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -359,30 +370,20 @@ max.grates_epiweek <- function(x, ..., na.rm = FALSE) {
 #' @export
 range.grates_epiweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
 # -------------------------------------------------------------------------
 #' @export
 Summary.grates_epiweek <- function(..., na.rm = FALSE) {
-    stop(
-        sprintf(
-            "`%s()` is not supported for <grates_epiweek> objects.",
-            .Generic
-        )
-    )
+    stopf("`%s()` is not supported for <grates_epiweek> objects.", .Generic)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 Math.grates_epiweek <- function(x, ...) {
-    stop(
-        sprintf(
-            "`%s()` is not supported for <grates_epiweek> objects.",
-            .Generic
-        )
-    )
+    stopf("`%s()` is not supported for <grates_epiweek> objects.", .Generic)
 }
 
 # -------------------------------------------------------------------------
@@ -439,9 +440,7 @@ Ops.grates_epiweek <- function(e1, e2) {
                 stop("Can only subtract whole numbers and other <grates_epiweek> objects from <grates_epiweek> objects.")
             }
         },
-        stop(
-            sprintf("%s is not compatible with <grates_epiweek> objects.", op)
-        )
+        stopf("%s is not compatible with <grates_epiweek> objects.", op)
     )
 }
 

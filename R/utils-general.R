@@ -2,10 +2,18 @@
 NULL
 
 # ------------------------------------------------------------------------- #
+stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
+    .call <- if (isTRUE(.use_call)) .call[1L] else NULL
+    msg <- sprintf(fmt, ...)
+    err <- simpleError(msg, .call)
+    stop(err)
+}
+
+# ------------------------------------------------------------------------- #
 # check for suggested packages
 check_suggests <- function(package) {
     if (!requireNamespace(package, quietly = TRUE))
-        stop(sprintf("Suggested package '%s' not present.", package))
+        stopf("Suggested package '%s' not present.", package)
 }
 
 # ------------------------------------------------------------------------- #

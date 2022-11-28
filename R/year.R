@@ -35,7 +35,9 @@ year <- function(x = integer()) {
 # -------------------------------------------------------------------------
 #' @rdname year
 #' @export
-is_year <- function(object) inherits(object, "grates_year")
+is_year <- function(object) {
+    inherits(object, "grates_year")
+}
 
 # -------------------------------------------------------------------------
 #' Print a year-quarter object
@@ -71,8 +73,8 @@ format.grates_year <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-vec_ptype_abbr.grates_year <- function(x, ...) "year"
-vec_ptype_full.grates_year <- function(x, ...) "grates_year"
+vec_ptype_abbr.grates_year <- function(x, ...) {"year"}
+vec_ptype_full.grates_year <- function(x, ...) {"grates_year"}
 
 # -------------------------------------------------------------------------
 #' Coerce an object to year-quarter
@@ -103,18 +105,15 @@ vec_ptype_full.grates_year <- function(x, ...) "grates_year"
 #' `as.Date()`
 #'
 #' @export
-as_year <- function(x, ...) UseMethod("as_year")
+as_year <- function(x, ...) {
+    UseMethod("as_year")
+}
 
 # -------------------------------------------------------------------------
 #' @rdname as_year
 #' @export
 as_year.default <- function(x, ...) {
-    stop(
-        sprintf(
-            "Not implemented for class [%s].",
-            paste(class(x), collapse = ", ")
-        )
-    )
+    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
 }
 
 # -------------------------------------------------------------------------
@@ -158,7 +157,7 @@ as_year.factor <- function(x, ...) {
 #' @export
 `[.grates_year` <- function(x, ..., drop = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -166,7 +165,7 @@ as_year.factor <- function(x, ...) {
 #' @export
 `[[.grates_year` <- function(x, ..., drop = TRUE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -176,7 +175,7 @@ as_year.factor <- function(x, ...) {
     if (!inherits(value, "grates_year"))
         stop("Can only assign <grates_year> objects in to an <grates_year> object.")
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -188,7 +187,7 @@ as_year.factor <- function(x, ...) {
 #' @export
 rep.grates_year <- function(x, ...) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -196,7 +195,7 @@ rep.grates_year <- function(x, ...) {
 #' @export
 unique.grates_year <- function(x, incomparables = FALSE, ...) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -231,11 +230,15 @@ seq.grates_year <- function(from, to, by = 1L, ...) {
 
 # -------------------------------------------------------------------------
 #' @export
-as.integer.grates_year <- function(x, ...) unclass(x)
+as.integer.grates_year <- function(x, ...) {
+    unclass(x)
+}
 
 # -------------------------------------------------------------------------
 #' @export
-as.double.grates_year <- function(x, ...) as.double(unclass(x))
+as.double.grates_year <- function(x, ...) {
+    as.double(unclass(x))
+}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -264,11 +267,15 @@ as.POSIXlt.grates_year <- function(x, tz = "UTC", ...) {
 
 # -------------------------------------------------------------------------
 #' @export
-as.character.grates_year <- function(x, ...) format.grates_year(x)
+as.character.grates_year <- function(x, ...) {
+    format.grates_year(x)
+}
 
 # -------------------------------------------------------------------------
 #' @export
-as.list.grates_year <- function(x, ...) lapply(unclass(x), `class<-`, class(x))
+as.list.grates_year <- function(x, ...) {
+    lapply(unclass(x), `class<-`, class(x))
+}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -278,7 +285,7 @@ as.data.frame.grates_year <- as.data.frame.vector
 #' @export
 min.grates_year <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -286,7 +293,7 @@ min.grates_year <- function(x, ..., na.rm = FALSE) {
 #' @export
 max.grates_year <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -294,24 +301,20 @@ max.grates_year <- function(x, ..., na.rm = FALSE) {
 #' @export
 range.grates_year <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
 # -------------------------------------------------------------------------
 #' @export
 Summary.grates_year <- function(..., na.rm = FALSE) {
-    stop(
-        sprintf("`%s()` is not supported for <grates_year> objects.", .Generic)
-    )
+    stopf("`%s()` is not supported for <grates_year> objects.", .Generic)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 Math.grates_year <- function(x, ...) {
-    stop(
-        sprintf("`%s()` is not supported for <grates_year> objects.", .Generic)
-    )
+    stopf("`%s()` is not supported for <grates_year> objects.", .Generic)
 }
 
 # -------------------------------------------------------------------------
@@ -362,7 +365,7 @@ Ops.grates_year <- function(e1, e2) {
                 stop("Can only subtract whole numbers and other <grates_year> objects from <grates_year> objects.")
             }
         },
-        stop(sprintf("%s is not compatible with <grates_year> objects.", op))
+        stopf("%s is not compatible with <grates_year> objects.", op)
     )
 }
 
@@ -372,4 +375,6 @@ Ops.grates_year <- function(e1, e2) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-.new_year <- function(x = integer()) structure(x, class = "grates_year")
+.new_year <- function(x = integer()) {
+    structure(x, class = "grates_year")
+}

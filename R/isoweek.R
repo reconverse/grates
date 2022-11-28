@@ -108,19 +108,25 @@ isoweek <- function(year = integer(), week = integer()) {
 # -------------------------------------------------------------------------
 #' @rdname new_isoweek
 #' @export
-is_isoweek <- function(xx) inherits(xx, "grates_isoweek")
+is_isoweek <- function(xx) {
+    inherits(xx, "grates_isoweek")
+}
 
 # -------------------------------------------------------------------------
 #' @export
-format.grates_isoweek <- function(x, ...) format.grates_yearweek(x, ...)
+format.grates_isoweek <- function(x, ...) {
+    format.grates_yearweek(x, ...)
+}
 
 # -------------------------------------------------------------------------
 #' @export
-print.grates_isoweek <- function(x, ...) print.grates_yearweek(x, ...)
+print.grates_isoweek <- function(x, ...) {
+    print.grates_yearweek(x, ...)
+}
 
 # -------------------------------------------------------------------------
-vec_ptype_abbr.grates_isoweek <- function(x, ...) "isowk"
-vec_ptype_full.grates_isoweek <- function(x, ...) "isoweek"
+vec_ptype_abbr.grates_isoweek <- function(x, ...) {"isowk"}
+vec_ptype_full.grates_isoweek <- function(x, ...) {"isoweek"}
 
 # -------------------------------------------------------------------------
 #' Coerce to a isoweek object
@@ -162,18 +168,15 @@ vec_ptype_full.grates_isoweek <- function(x, ...) "isoweek"
 #' `new_isoweek()` and `as.Date()`.
 #'
 #' @export
-as_isoweek <- function(x, ...) UseMethod("as_isoweek")
+as_isoweek <- function(x, ...) {
+    UseMethod("as_isoweek")
+}
 
 # -------------------------------------------------------------------------
 #' @rdname as_isoweek
 #' @export
 as_isoweek.default <- function(x, ...) {
-    stop(
-        sprintf(
-            "Not implemented for class [%s].",
-            paste(class(x), collapse = ", ")
-        )
-    )
+    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
 }
 
 # -------------------------------------------------------------------------
@@ -224,7 +227,7 @@ as_isoweek.factor <- function(
 #' @export
 `[.grates_isoweek` <- function(x, ..., drop = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -232,18 +235,18 @@ as_isoweek.factor <- function(
 #' @export
 `[[.grates_isoweek` <- function(x, ..., drop = TRUE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
 # -------------------------------------------------------------------------
 #' @export
 `[<-.grates_isoweek` <- function(x, ..., value) {
-    old_class <- oldClass(x)
+    old_class <- class(x)
     if (!inherits(value, "grates_isoweek"))
         stop("Can only assign <grates_isoweek> objects in to an <grates_isoweek> object.")
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -255,7 +258,7 @@ as_isoweek.factor <- function(
 #' @export
 rep.grates_isoweek <- function(x, ...) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -263,7 +266,7 @@ rep.grates_isoweek <- function(x, ...) {
 #' @export
 unique.grates_isoweek <- function(x, incomparables = FALSE, ...) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -330,11 +333,15 @@ as.POSIXlt.grates_isoweek <- function(x, tz = "UTC", ...) {
 
 # -------------------------------------------------------------------------
 #' @export
-as.character.grates_isoweek <- function(x, ...) format.grates_isoweek(x)
+as.character.grates_isoweek <- function(x, ...) {
+    format.grates_isoweek(x)
+}
 
 # -------------------------------------------------------------------------
 #' @export
-as.list.grates_isoweek <- function(x, ...) lapply(unclass(x), `class<-`, class(x))
+as.list.grates_isoweek <- function(x, ...) {
+    lapply(unclass(x), `class<-`, class(x))
+}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -344,7 +351,7 @@ as.data.frame.grates_isoweek <- as.data.frame.vector
 #' @export
 min.grates_isoweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -352,7 +359,7 @@ min.grates_isoweek <- function(x, ..., na.rm = FALSE) {
 #' @export
 max.grates_isoweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
@@ -360,30 +367,20 @@ max.grates_isoweek <- function(x, ..., na.rm = FALSE) {
 #' @export
 range.grates_isoweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- oldClass(x)
+    class(out) <- class(x)
     out
 }
 
 # -------------------------------------------------------------------------
 #' @export
 Summary.grates_isoweek <- function(..., na.rm = FALSE) {
-    stop(
-        sprintf(
-            "`%s()` is not supported for <grates_isoweek> objects.",
-            .Generic
-        )
-    )
+    stopf("`%s()` is not supported for <grates_isoweek> objects.", .Generic)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 Math.grates_isoweek <- function(x, ...) {
-    stop(
-        sprintf(
-            "`%s()` is not supported for <grates_isoweek> objects.",
-            .Generic
-        )
-    )
+    stopf("`%s()` is not supported for <grates_isoweek> objects.", .Generic)
 }
 
 # -------------------------------------------------------------------------
@@ -440,9 +437,7 @@ Ops.grates_isoweek <- function(e1, e2) {
                 stop("Can only subtract whole numbers and other <grates_isoweek> objects from <grates_isoweek> objects.")
             }
         },
-        stop(
-            sprintf("%s is not compatible with <grates_isoweek> objects.", op)
-        )
+        stopf("%s is not compatible with <grates_isoweek> objects.", op)
     )
 }
 
