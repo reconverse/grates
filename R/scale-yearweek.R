@@ -125,7 +125,18 @@ scale_x_grates_yearweek_epiweek <- function(..., n.breaks = 6, format = NULL) {
 # When adding a geom, ggplot2 will look for a relevant method to the generic
 # scale_type.  It will then dispatch based on the output of this function to
 # one of scale_x_yearweek_xxx defined below.
+# registered in .onLoad() (see zzz.R)
 scale_type.grates_yearweek <- function(x) {
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
+    #        gets resolved
+    if (!"grates" %in% .packages())
+        stop("<grates_yearweek> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+
     if (inherits(x, "grates_yearweek_monday"))
         return("grates_yearweek_monday")
     if (inherits(x, "grates_yearweek_tuesday"))

@@ -1,4 +1,17 @@
-scale_type.grates_year <- function(x) {"grates_year"}
+scale_type.grates_year <- function(x) {
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
+    #        gets resolved
+    if (!"grates" %in% .packages())
+        stop("<grates_year> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+
+    "grates_year"
+
+}
 
 #' year scale
 #'

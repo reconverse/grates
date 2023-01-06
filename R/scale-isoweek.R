@@ -39,7 +39,19 @@ scale_x_grates_isoweek <- function(..., n.breaks = 6L, format = NULL) {
 }
 
 # -------------------------------------------------------------------------
-scale_type.grates_isoweek <- function(x) {"grates_isoweek"}
+scale_type.grates_isoweek <- function(x) {
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
+    #        gets resolved
+    if (!"grates" %in% .packages())
+        stop("<grates_isoweek> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+
+    "grates_isoweek"
+}
 
 # -------------------------------------------------------------------------
 .grates_isoweek_trans <- function(n.breaks, format) {

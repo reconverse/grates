@@ -1,6 +1,16 @@
 grates_period_env <-  new.env(parent = emptyenv())
 
 scale_type.grates_period <- function(x) {
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
+    #        gets resolved
+    if (!"grates" %in% .packages())
+        stop("<grates_period> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+
     grates_period_env$n <- attr(x, "n")
     grates_period_env$offset <- attr(x, "offset")
     "grates_period"

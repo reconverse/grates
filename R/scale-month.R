@@ -1,6 +1,16 @@
 grates_month_env <-  new.env(parent = emptyenv())
 
 scale_type.grates_month <- function(x) {
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
+    #        gets resolved
+    if (!"grates" %in% .packages())
+        stop("<grates_month> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+
     grates_month_env$n <- attr(x, "n")
     "grates_month"
 }

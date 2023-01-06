@@ -39,7 +39,19 @@ scale_x_grates_epiweek <- function(..., n.breaks = 6L, format = NULL) {
 }
 
 # -------------------------------------------------------------------------
-scale_type.grates_epiweek <- function(x) {"grates_epiweek"}
+scale_type.grates_epiweek <- function(x) {
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
+    #        gets resolved
+    if (!"grates" %in% .packages())
+        stop("<grates_epiweek> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+
+    "grates_epiweek"
+}
 
 # -------------------------------------------------------------------------
 .grates_epiweek_trans <- function(n.breaks, format) {
