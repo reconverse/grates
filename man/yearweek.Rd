@@ -38,8 +38,8 @@ calendar year will sometimes be different to that of the associated yearweek
 object.
 }
 \note{
-Internally #' \verb{<grates_yearweek>} objects are stored as the number of weeks
-(starting at 0) #' from the date of the \code{firstday} nearest the Unix Epoch
+Internally \verb{<grates_yearweek>} objects are stored as the number of weeks
+(starting at 0) from the date of the \code{firstday} nearest the Unix Epoch
 (1970-01-01). That is, the number of seven day periods from:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{- 1969-12-29 for `firstday` equal to 1 (Monday)
