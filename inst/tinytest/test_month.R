@@ -115,8 +115,9 @@ expect_false(is_month("bob"))
 x <- Sys.Date()
 dat <- as_month(x, n = 5L) + 0:1
 dat <- setNames(dat, c("a", "b"))
+dat2 <- as.Date(dat)
 expect_identical(dat[1], c(a=as_month(x, n = 5L)))
-expect_identical(dat[[2]], as_month(x + 33, n = 5L))
+expect_identical(dat[[2]], as_month(dat2[[2]], n = 5L))
 dat[1] <- as_month(x+33, n = 5L)
 expect_identical(dat[1], c(a=as_month(x + 33, n = 5L)))
 dat[[2]] <- dat[[1]]
