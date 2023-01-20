@@ -143,7 +143,7 @@ vec_ptype_full.grates_period <- function(x, ...) {"grates_period"}
 #' Value you wish to start counting periods from relative to the Unix Epoch:
 #' - For integer values this is stored scaled by `n`
 #'   (`offset <- as.integer(offset) %% n`).
-#' - For date values for periods this is first converted to an integer offset
+#' - For date values this is first converted to an integer offset
 #'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
 #'
 #' @param ...

@@ -41,7 +41,7 @@ Value you wish to start counting periods from relative to the Unix Epoch:
 \itemize{
 \item For integer values this is stored scaled by \code{n}
 (\code{offset <- as.integer(offset) \%\% n}).
-\item For date values for periods this is first converted to an integer offset
+\item For date values this is first converted to an integer offset
 (\code{offset <- floor(as.numeric(offset))}) and then scaled via \code{n} as above.
 }}
 }
