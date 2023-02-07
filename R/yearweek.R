@@ -209,14 +209,17 @@ vec_ptype_full.grates_yearweek_sunday <- function(x, ...) {"yearweek-sun"}
 #' @details
 #'
 #' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
-#' - Character objects are first coerced to date via `as.Date()`.
+#' - Character objects are first coerced to date via `as.Date()` unless
+#'   `format = "yearweek"` in which case input is assumed to be in the form
+#'   "YYYY-Wxx" and parsed accordingly.
 #'
 #' @param x
 #' \R object.
 #'
 #' @param format `[character]`
 #'
-#' Passed to as.Date().
+#' Passed to as.Date() unless `format = "yearweek"` in which case input is
+#' assumed to be in the form "YYYY-Wxx".
 #'
 #' If not specified, it will try tryFormats one by one on the first non-NA
 #' element, and give an error if none works. Otherwise, the processing is via
@@ -239,6 +242,7 @@ vec_ptype_full.grates_yearweek_sunday <- function(x, ...) {"yearweek-sun"}
 #' as_yearweek(Sys.Date())
 #' as_yearweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 #' as_yearweek("2019-05-03", firstday = 5L)
+#' as_yearweek("2019-W12", format = "yearweek")
 #'
 #' @seealso
 #' `as.Date()` and `new_yearweek()`.
@@ -294,6 +298,19 @@ as_yearweek.character <- function(
     tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
     ...
 ) {
+    if (!missing(format)) {
+        if (length(format) > 1L)
+            stop("If specified, `format` must be of length 1.")
+
+        if (format == "yearweek") {
+            years <- sub("^([0-9]{4}).*","\\1", x, perl=TRUE)
+            years <- suppressWarnings(as.integer(years))
+            weeks <- sub(".*-[wW]([0-9]{1,2}$)","\\1", x, perl=TRUE)
+            weeks <- suppressWarnings(as.integer(weeks))
+            out <- yearweek(year = years, week = weeks, firstday = firstday)
+            return(out)
+        }
+    }
     out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
     as_yearweek.Date(out, firstday = firstday)
 }

@@ -34,6 +34,10 @@ expected <- sprintf("%d-W%02d", epiyears, epiweeks)
 expected[length(expected)] <- NA_character_
 expect_identical(as.character(dates_epi), expected)
 expect_identical(dates_epi, suppressWarnings(epiweek(epiyears, epiweeks)))
+expect_identical(
+    suppressWarnings(as_epiweek(as.character(dates_epi), format = "yearweek")),
+    dates_epi
+)
 
 # POSIXlt -----------------------------------------------------------------
 nz <- as.POSIXlt("2021-01-03 02:00:00", tz = "NZ")
@@ -71,6 +75,13 @@ expect_error(as_epiweek("bob"))
 expect_error(
     as_epiweek(TRUE),
     "Not implemented for class [logical].",
+    fixed = TRUE
+)
+
+# as_epiweek warnings -----------------------------------------------------
+expect_warning(
+    as_epiweek("bob", format = "yearweek"),
+    "Some entries invalid for given `year` and `week` values. Returning these as NA.",
     fixed = TRUE
 )
 

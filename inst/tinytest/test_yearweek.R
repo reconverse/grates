@@ -35,6 +35,10 @@ expected <- c(
     "2015-W53", "2016-W52", "2018-W01", "2019-W01", NA
 )
 expect_identical(as.character(dates_iso), expected)
+expect_identical(
+    suppressWarnings(as_yearweek(as.character(dates_iso), format = "yearweek")),
+    dates_iso
+)
 
 years <- as.integer(substr(expected, 1L, 4L))
 weeks <- as.integer(substr(expected, 7L, 8L))
@@ -135,6 +139,13 @@ expect_error(
 )
 
 expect_error(as_yearweek("bob"))
+
+# as_yearweek warnings -----------------------------------------------------
+expect_warning(
+    as_yearweek("bob", format = "yearweek"),
+    "Some entries invalid for given `year` and `week` values. Returning these as NA.",
+    fixed = TRUE
+)
 
 # as.POSIXct --------------------------------------------------------------
 dat <- "2021-01-04"

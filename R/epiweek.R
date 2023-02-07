@@ -136,13 +136,17 @@ vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
 #'
 #' @details
 #' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
+#' - Character objects are first coerced to date via `as.Date()` unless
+#'   `format = "yearweek"` in which case input is assumed to be in the form
+#'   "YYYY-Wxx" and parsed accordingly.
 #'
 #' @param x
 #' \R object.
 #'
 #' @param format `[character]`
 #'
-#' Passed to as.Date().
+#' Passed to as.Date() unless `format = "yearweek"` in which case input is
+#' assumed to be in the form "YYYY-Wxx".
 #'
 #' If not specified, it will try tryFormats one by one on the first non-NA
 #' element, and give an error if none works. Otherwise, the processing is via
@@ -163,6 +167,7 @@ vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
 #' as_epiweek(Sys.Date())
 #' as_epiweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 #' as_epiweek("2019-05-03")
+#' as_epiweek("2019-W12", format = "yearweek")
 #'
 #' @seealso
 #' `new_epiweek()` and `as.Date()`.
@@ -206,6 +211,20 @@ as_epiweek.character <- function(
     tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
     ...
 ) {
+    if (!missing(format)) {
+        if (length(format) > 1L)
+            stop("If specified, `format` must be of length 1.")
+
+        if (format == "yearweek") {
+            years <- sub("^([0-9]{4}).*","\\1", x, perl=TRUE)
+            years <- suppressWarnings(as.integer(years))
+            weeks <- sub(".*-[wW]([0-9]{1,2}$)","\\1", x, perl=TRUE)
+            weeks <- suppressWarnings(as.integer(weeks))
+            out <- epiweek(year = years, week = weeks)
+            return(out)
+        }
+    }
+
     out <- as.Date(x, format = format, tryFormats = tryFormats,...)
     as_epiweek.Date(out)
 }

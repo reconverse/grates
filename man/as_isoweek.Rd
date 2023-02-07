@@ -28,7 +28,8 @@ as_isoweek(x, ...)
 
 \item{format}{\verb{[character]}
 
-Passed to as.Date().
+Passed to as.Date() unless \code{format = "yearweek"} in which case input is
+assumed to be in the form "YYYY-Wxx".
 
 If not specified, it will try tryFormats one by one on the first non-NA
 element, and give an error if none works. Otherwise, the processing is via
@@ -47,12 +48,16 @@ Generic for conversion to \verb{<grates_isoweek>}
 \details{
 \itemize{
 \item Date, POSIXct, and POSIXlt are converted with the timezone respected.
+\item Character objects are first coerced to date via \code{as.Date()} unless
+\code{format = "yearweek"} in which case input is assumed to be in the form
+"YYYY-Wxx" and parsed accordingly.
 }
 }
 \examples{
 as_isoweek(Sys.Date())
 as_isoweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 as_isoweek("2019-05-03")
+as_isoweek("2019-W12", format = "yearweek")
 
 }
 \seealso{
