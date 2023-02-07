@@ -84,7 +84,8 @@
 
 <dt>format</dt>
 <dd><p><code>[character]</code></p>
-<p>Passed to as.Date().</p>
+<p>Passed to as.Date() unless <code>format = "yearweek"</code> in which case input is
+assumed to be in the form "YYYY-Wxx".</p>
 <p>If not specified, it will try tryFormats one by one on the first non-NA
 element, and give an error if none works. Otherwise, the processing is via
 <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime()</a></code> whose help page describes available conversion specifications.</p></dd>
@@ -105,6 +106,9 @@ element, and give an error if none works. Otherwise, the processing is via
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     
 <ul><li><p>Date, POSIXct, and POSIXlt are converted with the timezone respected.</p></li>
+<li><p>Character objects are first coerced to date via <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date()</a></code> unless
+<code>format = "yearweek"</code> in which case input is assumed to be in the form
+"YYYY-Wxx" and parsed accordingly.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -115,13 +119,16 @@ element, and give an error if none works. Otherwise, the processing is via
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">as_epiweek</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;grates_epiweek[1]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-W03"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2023-W06"</span>
 <span class="r-in"><span><span class="fu">as_epiweek</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2019-03-04 01:01:01"</span>, tz <span class="op">=</span> <span class="st">"America/New_York"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;grates_epiweek[1]&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2019-W10"</span>
 <span class="r-in"><span><span class="fu">as_epiweek</span><span class="op">(</span><span class="st">"2019-05-03"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;grates_epiweek[1]&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2019-W18"</span>
+<span class="r-in"><span><span class="fu">as_epiweek</span><span class="op">(</span><span class="st">"2019-W12"</span>, format <span class="op">=</span> <span class="st">"yearweek"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;grates_epiweek[1]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2019-W12"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
