@@ -3,7 +3,7 @@
 \name{new_yearweek}
 \alias{new_yearweek}
 \alias{is_yearweek}
-\title{Construct a yearweek object}
+\title{Minimal constructor for a yearweek object}
 \usage{
 new_yearweek(x = integer(), firstday = 1L)
 

@@ -13,10 +13,13 @@ scale_type.grates_yearmonth <- function(x) {
 
 }
 
+# -------------------------------------------------------------------------
 #' yearmonth scale
 #'
+# -------------------------------------------------------------------------
 #' ggplot2 scale for a yearmonth vector.
 #'
+# -------------------------------------------------------------------------
 #' @param n.breaks `[integer]`
 #'
 #' Approximate number of breaks calculated using `scales::breaks_pretty`
@@ -33,9 +36,11 @@ scale_type.grates_yearmonth <- function(x) {
 #'
 #' Not currently used.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A scale for use with ggplot2.
 #'
+# -------------------------------------------------------------------------
 #' @export
 scale_x_grates_yearmonth <- function(..., n.breaks = 6L, format = NULL) {
 

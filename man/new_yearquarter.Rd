@@ -3,7 +3,7 @@
 \name{new_yearquarter}
 \alias{new_yearquarter}
 \alias{is_yearquarter}
-\title{Construct a yearquarter object}
+\title{Minimal constructor for a yearquarter object}
 \usage{
 new_yearquarter(x = integer())
 

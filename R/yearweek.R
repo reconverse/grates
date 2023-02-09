@@ -1,10 +1,11 @@
-#' Construct a yearweek object
+# -------------------------------------------------------------------------
+#' Minimal constructor for a yearweek object
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `new_yearweek()` is a constructor for `<grates_yearweek>` objects aimed at
 #' developers.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' `<grates_yearweek>` objects are stored as the number of weeks
 #' (starting at 0) from the date of the `firstday` nearest the Unix Epoch
 #' (1970-01-01). That is, the number of seven day periods from:
@@ -31,16 +32,20 @@
 #'
 #' \R object.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_yearweek>` object with subclass corresponding to the first
 #' day of the week they represent (e.g. `<grates_yearweek_monday>`).
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' new_yearweek(1:10)
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `as_yearweek()`, `new_isoweek()` and `new_epiweek()`.
 #'
+# -------------------------------------------------------------------------
 #' @export
 new_yearweek <- function(x = integer(), firstday = 1L) {
     if (!is.integer(x)) {
@@ -66,18 +71,20 @@ new_yearweek <- function(x = integer(), firstday = 1L) {
     .new_yearweek(x = x, firstday = firstday)
 }
 
+# -------------------------------------------------------------------------
 #' Constructor for yearweek objects
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `yearweek()` is a constructor for `<grates_yearweek>` objects. These are
 #' weeks whose first day can be specified by the user.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' For yearweek objects the first week of a "year" is considered to be the first
 #' yearweek containing 4 days of the given calendar year. This means that the
 #' calendar year will sometimes be different to that of the associated yearweek
 #' object.
 #'
+# -------------------------------------------------------------------------
 #' @note
 #' Internally `<grates_yearweek>` objects are stored as the number of weeks
 #' (starting at 0) from the date of the `firstday` nearest the Unix Epoch
@@ -91,7 +98,7 @@ new_yearweek <- function(x = integer(), firstday = 1L) {
 #'     - 1970-01-03 for `firstday` equal to 6 (Saturday)
 #'     - 1970-01-04 for `firstday` equal to 7 (Sunday)
 #'
-#'
+# -------------------------------------------------------------------------
 #' @param year `[integer]`
 #'
 #' Vector representing the year associated with `week`.
@@ -106,17 +113,20 @@ new_yearweek <- function(x = integer(), firstday = 1L) {
 #'
 #' @inheritParams new_yearweek
 #'
-#'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_yearweek>` object with subclass corresponding to the first day of
 #' the week they represent (e.g. `<grates_yearweek_monday>`).
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' yearweek(year = 2000L, week = 3L)
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `as_yearweek()` and `new_yearweek()`.
 #'
+# -------------------------------------------------------------------------
 #' @export
 yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
 

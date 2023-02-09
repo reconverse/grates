@@ -1,10 +1,11 @@
-#' Construct a isoweek object
+# -------------------------------------------------------------------------
+#' Minimal constructor for an isoweek object
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `new_isoweek()` is a constructor for `<grates_isoweek>` objects aimed at
 #' developers.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' isoweeks are defined to start on a Monday and `<grates_isoweek>` objects are
 #' stored as the number of weeks (starting at 0) from the first Monday prior to
 #' the Unix Epoch (1970-01-01). That is, the number of seven day periods from
@@ -14,6 +15,7 @@
 #' object so are akin to an alias but with a marginally more efficient
 #' implementation.
 #'
+# -------------------------------------------------------------------------
 #' @param x `[integer]`
 #'
 #' Vector representing the number of weeks.
@@ -24,15 +26,19 @@
 #'
 #' \R object.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_isoweek>` object.
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `new_yearweek()` and `new_epiweek()`.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' new_isoweek(1:10)
 #'
+# -------------------------------------------------------------------------
 #' @export
 new_isoweek <- function(x = integer()) {
     if (!is.integer(x)) {
@@ -45,12 +51,13 @@ new_isoweek <- function(x = integer()) {
     .new_isoweek(x)
 }
 
+# -------------------------------------------------------------------------
 #' Constructor for isoweek objects
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `isoweek()` is a constructor for `<grates_isoweek>` objects.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' isoweeks are defined to start on a Monday and `<grates_isoweek>` objects are
 #' stored as the number of weeks (starting at 0) from the first Monday prior to
 #' the Unix Epoch (1970-01-01). That is, the number of seven day periods from
@@ -60,6 +67,7 @@ new_isoweek <- function(x = integer()) {
 #' object so are akin to an alias but with a marginally more efficient
 #' implementation.
 #'
+# -------------------------------------------------------------------------
 #' @param year `[integer]`
 #'
 #' Vector representing the year associated with `week`.
@@ -72,15 +80,19 @@ new_isoweek <- function(x = integer()) {
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_isoweek>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' isoweek(year = 2000L, week = 3L)
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `as_isoweek()` and `new_isoweek()`.
 #'
+# -------------------------------------------------------------------------
 #' @export
 isoweek <- function(year = integer(), week = integer()) {
 
@@ -131,15 +143,16 @@ vec_ptype_full.grates_isoweek <- function(x, ...) {"isoweek"}
 # -------------------------------------------------------------------------
 #' Coerce to a isoweek object
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' Generic for conversion to `<grates_isoweek>`
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
 #' - Character objects are first coerced to date via `as.Date()` unless
 #'   `format = "yearweek"` in which case input is assumed to be in the form
 #'   "YYYY-Wxx" and parsed accordingly.
 #'
+# -------------------------------------------------------------------------
 #' @param x
 #' \R object.
 #'
@@ -160,18 +173,22 @@ vec_ptype_full.grates_isoweek <- function(x, ...) {"isoweek"}
 #'
 #' Other values passed to as.Date().
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_isoweek>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' as_isoweek(Sys.Date())
 #' as_isoweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 #' as_isoweek("2019-05-03")
 #' as_isoweek("2019-W12", format = "yearweek")
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `new_isoweek()` and `as.Date()`.
 #'
+# -------------------------------------------------------------------------
 #' @export
 as_isoweek <- function(x, ...) {
     UseMethod("as_isoweek")

@@ -1,13 +1,15 @@
-#' Construct a yearquarter object
+# -------------------------------------------------------------------------
+#' Minimal constructor for a yearquarter object
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `new_yearquarter()` is a constructor for `<grates_yearquarter>` objects aimed
 #' at developers.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' `<yearquarter>` objects are stored as the number of quarters (starting at 0)
 #' since the Unix Epoch (1970-01-01).
 #'
+# -------------------------------------------------------------------------
 #' @param x `[integer]`
 #'
 #' Vector representing the number of quarters.
@@ -18,12 +20,15 @@
 #'
 #' \R object.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_yearquarter>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' new_yearquarter(1:10)
 #'
+# -------------------------------------------------------------------------
 #' @export
 new_yearquarter <- function(x = integer()) {
     if (!is.integer(x)) {
@@ -37,15 +42,17 @@ new_yearquarter <- function(x = integer()) {
     .new_yearquarter(x = x)
 }
 
+# -------------------------------------------------------------------------
 #' Constructor for yearquarter objects
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `yearquarter()` is a constructor for `<grates_yearquarter>` objects.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' `<grates_yearquarter>` objects are stored as the number of quarters (starting
 #' at 0) since the Unix Epoch (1970-01-01).
 #'
+# -------------------------------------------------------------------------
 #' @param year `[integer]`
 #'
 #' Vector representing the year associated with `quarter`.
@@ -58,15 +65,19 @@ new_yearquarter <- function(x = integer()) {
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_yearquarter>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' yearquarter(year = 2000L, quarter = 3L)
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `as_yearquarter()` and `new_yearquarter()`.
 #'
+# -------------------------------------------------------------------------
 #' @export
 yearquarter <- function(year = integer(), quarter = integer()) {
 
@@ -115,13 +126,8 @@ is_yearquarter <- function(xx) {
 # -------------------------------------------------------------------------
 #' Print a year-quarter object
 #'
-#' @param x
-#'
-#' A `<grates_yearquarter>` object.
-#'
-#' @param ...
-#'
-#' Not currently used.
+#' @param x A `<grates_yearquarter>` object.
+#' @param ... Not currently used.
 #'
 #' @export
 print.grates_yearquarter <- function(x, ...) {

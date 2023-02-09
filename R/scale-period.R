@@ -1,25 +1,12 @@
 grates_period_env <-  new.env(parent = emptyenv())
 
-scale_type.grates_period <- function(x) {
-
-    # -------------------------------------------------------------------------
-    # -------------------------------------------------------------------------
-    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
-    #        gets resolved
-    if (!"grates" %in% .packages())
-        stop("<grates_period> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
-    # -------------------------------------------------------------------------
-    # -------------------------------------------------------------------------
-
-    grates_period_env$n <- attr(x, "n")
-    grates_period_env$offset <- attr(x, "offset")
-    "grates_period"
-}
-
+# -------------------------------------------------------------------------
 #' period scale
 #'
+# -------------------------------------------------------------------------
 #' ggplot2 scale for an `<grates_period>` vector.
 #'
+# -------------------------------------------------------------------------
 #' @param n.breaks `[integer]`
 #'
 #' Approximate number of breaks calculated using `scales::breaks_pretty`
@@ -44,9 +31,11 @@ scale_type.grates_period <- function(x) {
 #'
 #' Not currently used.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A scale for use with ggplot2.
 #'
+# -------------------------------------------------------------------------
 #' @export
 scale_x_grates_period <- function(..., n.breaks = 6L, format = "%Y-%m-%d", n, offset) {
 
@@ -104,6 +93,27 @@ scale_x_grates_period <- function(..., n.breaks = 6L, format = "%Y-%m-%d", n, of
 }
 
 # -------------------------------------------------------------------------
+scale_type.grates_period <- function(x) {
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
+    #        gets resolved
+    if (!"grates" %in% .packages())
+        stop("<grates_period> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+
+    grates_period_env$n <- attr(x, "n")
+    grates_period_env$offset <- attr(x, "offset")
+    "grates_period"
+}
+
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
+# -------------------------------- INTERNALS ------------------------------ #
+# ------------------------------------------------------------------------- #
+# ------------------------------------------------------------------------- #
 .grates_period_trans <- function(n.breaks, format, n, offset) {
 
     shift <- 0.5

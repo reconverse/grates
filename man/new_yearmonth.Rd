@@ -3,7 +3,7 @@
 \name{new_yearmonth}
 \alias{new_yearmonth}
 \alias{is_yearmonth}
-\title{Construct a yearmonth object}
+\title{Minimal constructor for a yearmonth object}
 \usage{
 new_yearmonth(x = integer())
 

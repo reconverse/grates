@@ -31,7 +31,7 @@
 \alias{get_offset}
 \alias{get_offset.default}
 \alias{get_offset.grates_period}
-\title{Accessors for grouped date objects}
+\title{Accessors for grate objects}
 \usage{
 get_firstday(x, ...)
 
@@ -96,6 +96,16 @@ get_offset(x, ...)
 
 \item{...}{Not currently used}
 }
+\value{
+Requested value or an error if no method available.
+}
 \description{
-Accessors for grouped date objects
+Generics and methods for accessing information about grouped date objects.
+}
+\examples{
+dates <- as.Date("2020-01-01") + 1:14
+dat <- as_isoweek(dates)
+get_week(dat)
+get_year(dat)
+
 }

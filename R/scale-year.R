@@ -1,22 +1,10 @@
-scale_type.grates_year <- function(x) {
-
-    # -------------------------------------------------------------------------
-    # -------------------------------------------------------------------------
-    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
-    #        gets resolved
-    if (!"grates" %in% .packages())
-        stop("<grates_year> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
-    # -------------------------------------------------------------------------
-    # -------------------------------------------------------------------------
-
-    "grates_year"
-
-}
-
+# -------------------------------------------------------------------------
 #' year scale
 #'
+# -------------------------------------------------------------------------
 #' ggplot2 scale for year vector.
 #'
+# -------------------------------------------------------------------------
 #' @param n.breaks `[integer]`
 #'
 #' Approximate number of breaks calculated using `scales::breaks_pretty`
@@ -33,9 +21,11 @@ scale_type.grates_year <- function(x) {
 #'
 #' Not currently used.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A scale for use with ggplot2.
 #'
+# -------------------------------------------------------------------------
 #' @export
 scale_x_grates_year <- function(..., n.breaks = 6L, format = NULL) {
 
@@ -48,6 +38,22 @@ scale_x_grates_year <- function(..., n.breaks = 6L, format = NULL) {
             format = format
         )
     )
+}
+
+# -------------------------------------------------------------------------
+scale_type.grates_year <- function(x) {
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
+    #        gets resolved
+    if (!"grates" %in% .packages())
+        stop("<grates_year> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+
+    "grates_year"
+
 }
 
 # ------------------------------------------------------------------------- #

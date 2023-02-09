@@ -1,10 +1,11 @@
-#' Construct a yearmonth object
+# -------------------------------------------------------------------------
+#' Minimal constructor for a yearmonth object
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `new_yearmonth()` is a constructor for `<grates_yearmonth>` objects aimed at
 #' developers.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' `<grates_yearmonth>` objects are stored as the number of months (starting at
 #' 0) since the Unix Epoch (1970-01-01). Precision is only to the month level
 #' (i.e. the day of the month is always dropped).
@@ -19,17 +20,21 @@
 #'
 #' \R object
 #'
+# -------------------------------------------------------------------------
 #' @references
 #' The algorithm to convert between dates and months relative to the UNIX Epoch
 #' comes from the work of Davis Vaughan in the unreleased
 #' [datea](https://github.com/DavisVaughan/datea/) package
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_yearmonth>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' new_yearmonth(1:10)
 #'
+# -------------------------------------------------------------------------
 #' @export
 new_yearmonth <- function(x = integer()) {
     if (!is.integer(x)) {
@@ -43,15 +48,17 @@ new_yearmonth <- function(x = integer()) {
     .new_yearmonth(x = x)
 }
 
+# -------------------------------------------------------------------------
 #' Constructor for yearmonth objects
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `yearmonth()` is a constructor for `<grates_yearmonth>` objects.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' `<grates_yearmonth>` objects are stored as the number of months (starting at
 #' 0) since the Unix Epoch (1970-01-01).
 #'
+# -------------------------------------------------------------------------
 #' @param year `[integer]`
 #'
 #' Vector representing the year associated with `month`.
@@ -64,15 +71,19 @@ new_yearmonth <- function(x = integer()) {
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_yearmonth>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' yearmonth(year = 2000L, month = 3L)
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `as_yearmonth()` and `new_yearmonth()`.
 #'
+# -------------------------------------------------------------------------
 #' @export
 yearmonth <- function(year = integer(), month = integer()) {
 
@@ -121,17 +132,9 @@ is_yearmonth <- function(xx) {
 # -------------------------------------------------------------------------
 #' Print a year-month object
 #'
-#' @param x
-#'
-#' A `<grates_yearmonth>` object.
-#'
-#' @param format
-#'
-#' The format to use for printing.
-#'
-#' @param ...
-#'
-#' Not currently used.
+#' @param x A `<grates_yearmonth>` object.
+#' @param format The format to use for printing.
+#' @param ... Not currently used.
 #'
 #' @export
 print.grates_yearmonth <- function(x, format = "%Y-%b", ...) {
@@ -161,11 +164,12 @@ vec_ptype_full.grates_yearmonth <- function(x, ...) {"grates_yearmonth"}
 # -------------------------------------------------------------------------
 #' Coerce an object to year-month
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `as_yearmonth()` is a generic for coercing input in to `<grates_yearmonth>`.
 #' Character input is first parsed using `as.Date()`. POSIXct and POSIXlt are
 #' all converted, with the timezone respected.
 #'
+# -------------------------------------------------------------------------
 #' @param x
 #'
 #' \R object.
@@ -175,26 +179,32 @@ vec_ptype_full.grates_yearmonth <- function(x, ...) {"grates_yearmonth"}
 #' Only used For character input where additional arguments are passed through
 #' to `as.Date()`.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_yearmonth>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' as_yearmonth(Sys.Date())
 #' as_yearmonth(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), interval = 2)
 #' as_yearmonth("2019-05-03")
 #'
+# -------------------------------------------------------------------------
 #' @note
 #' Internally `<grates_yearmonth>` objects are stored as the number of
 #' months (starting at 0) since the Unix Epoch (1970-01-01). Precision is only
 #' to the month level (i.e. the day of the month is always dropped).
 #'
+# -------------------------------------------------------------------------
 #' @references The algorithm to convert between dates and months relative to the
 #' UNIX Epoch comes from the work of Davis Vaughan in the unreleased
 #' [datea](https://github.com/DavisVaughan/datea/) package.
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `as.Date()`
 #'
+# -------------------------------------------------------------------------
 #' @export
 as_yearmonth <- function(x, ...) {
     UseMethod("as_yearmonth")

@@ -1,10 +1,11 @@
-#' Construct a period object
+# -------------------------------------------------------------------------
+#' Minimal constructor for a period object
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `new_period()` is a constructor for `<grates_period>` objects aimed at
 #' developers.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' `grates_period` objects are stored as the integer number, starting at 0L, of
 #' periods since the Unix Epoch (1970-01-01) and a specified offset. Here
 #' periods are taken to mean groupings of `n` consecutive days.
@@ -13,6 +14,7 @@
 #' I.e. `offset <- offset %% n` and values of `x` stored relative to this scaled
 #' offset.
 #'
+# -------------------------------------------------------------------------
 #' @param x `[integer]`
 #'
 #' Vector representing the number of periods since the Unix Epoch (1970-01-01)
@@ -32,13 +34,15 @@
 #'
 #' Value you wish to start counting groups from relative to the Unix Epoch.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_period>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
-#'
 #' new_period(1:10)
 #'
+# -------------------------------------------------------------------------
 #' @export
 new_period <- function(x = integer(), n = 1L, offset = 0L) {
     if (!is.integer(x)) {
@@ -72,6 +76,7 @@ is_period <- function(xx) {
 # -------------------------------------------------------------------------
 #' Print a period object
 #'
+# -------------------------------------------------------------------------
 #' @param x
 #'
 #' A `<grates_period>` object.
@@ -88,6 +93,7 @@ is_period <- function(xx) {
 #' @param ...
 #' Not currently used.
 #'
+# -------------------------------------------------------------------------
 #' @export
 print.grates_period <- function(x, format = "%Y-%m-%d", sep = "to", ...) {
     # replicate the header as in vctrs
@@ -126,8 +132,10 @@ vec_ptype_full.grates_period <- function(x, ...) {"grates_period"}
 # -------------------------------------------------------------------------
 #' Coerce an object to period
 #'
+# -------------------------------------------------------------------------
 #' `as_period()` is a generic for coercing input in to `<grates_period>`.
 #'
+# -------------------------------------------------------------------------
 #' @param x
 #'
 #' An \R object:
@@ -151,23 +159,28 @@ vec_ptype_full.grates_period <- function(x, ...) {"grates_period"}
 #' Only used For character input where additional arguments are passed through
 #' to `as.Date()`.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_period>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' as_period("2019-05-03")
 #' as_period("2019-05-03", n = 2, offset = 1)
 #' as_period(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 10)
 #' as_period(as.Date("2020-03-02"), n = 2L, offset = as.Date("2020-03-01"))
 #'
+# -------------------------------------------------------------------------
 #' @note
 #' Internally `grates_period` objects are stored as the integer number, starting
 #' at 0L, of periods since the Unix Epoch (1970-01-01) and a specified offset.
 #' Here periods are taken to mean groupings of `n` consecutive days.
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `as.Date()`
 #'
+# -------------------------------------------------------------------------
 #' @export
 as_period <- function(x, n, ...) {
     UseMethod("as_period")

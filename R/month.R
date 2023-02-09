@@ -1,14 +1,16 @@
-#' Construct a month object
+# -------------------------------------------------------------------------
+#' Minimal Constructor for a month object
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `new_month()` is a constructor for `<grates_month>` objects aimed at
 #' developers.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' `grates_month` objects are stored as the integer number (starting at 0), of
 #' n-month groups since the Unix Epoch (1970-01-01). Here n-months is taken to
 #' mean a 'grouping of n consecutive months'.
 #'
+# -------------------------------------------------------------------------
 #' @param x `[integer]`
 #'
 #' Vector representing the number of n-months since the Unix Epoch (1970-01-01).
@@ -24,17 +26,21 @@
 #'
 #' \R object.
 #'
+# -------------------------------------------------------------------------
 #' @references
 #' The algorithm to convert between dates and months relative to the UNIX Epoch
 #' comes from the work of Davis Vaughan in the unreleased
 #' [datea](https://github.com/DavisVaughan/datea/) package.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_month>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' new_month(1:10, 2L)
 #'
+# -------------------------------------------------------------------------
 #' @export
 new_month <- function(x = integer(), n) {
     if (!is.integer(x)) {
@@ -66,6 +72,7 @@ is_month <- function(xx) {
 # -------------------------------------------------------------------------
 #' Print a month object
 #'
+# -------------------------------------------------------------------------
 #' @param x
 #'
 #' A `<grates_month>` object.
@@ -83,6 +90,7 @@ is_month <- function(xx) {
 #'
 #' Not currently used.
 #'
+# -------------------------------------------------------------------------
 #' @export
 print.grates_month <- function(x, format = "%Y-%b", sep = "to", ...) {
     # replicate the header as in vctrs
@@ -115,9 +123,10 @@ vec_ptype_full.grates_month <- function(x, ...) {"grates_month"}
 # -------------------------------------------------------------------------
 #' Coerce an object to month
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `as_month()` is a generic for coercing input in to `<grates_month>`.
 #'
+# -------------------------------------------------------------------------
 #' @param x An \R object.
 #'
 #' Character input is first parsed using `as.Date()`.
@@ -128,33 +137,39 @@ vec_ptype_full.grates_month <- function(x, ...) {"grates_month"}
 #'
 #' Number of months that are being grouped. Must be greater than 1 (use
 #' `as_yearmonth()` for this case).
-
+#'
 #' @param ...
 #'
 #' Only used For character input where additional arguments are passed through
 #' to `as.Date()`.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_month>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' as_month("2019-05-03", n = 4L)
 #' as_month(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 2)
 #'
+# -------------------------------------------------------------------------
 #' @note
 #' Internally `grates_month` objects are stored as the position, starting at 0,
 #' of n-month groups since the Unix Epoch (1970-01-01). Here n-months is taken
 #' to mean a 'grouping of n consecutive months'. Precision is only to the month
 #' level (i.e. the day of the  month is always dropped).
 #'
+# -------------------------------------------------------------------------
 #' @references
 #' The algorithm to convert between dates and months relative to the UNIX Epoch
 #' comes from the work of Davis Vaughan in the unreleased
 #' [datea](https://github.com/DavisVaughan/datea/) package.
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `as.Date()`
 #'
+# -------------------------------------------------------------------------
 #' @export
 as_month <- function(x, n, ...) {
     UseMethod("as_month")

@@ -3,7 +3,7 @@
 \name{new_isoweek}
 \alias{new_isoweek}
 \alias{is_isoweek}
-\title{Construct a isoweek object}
+\title{Minimal constructor for an isoweek object}
 \usage{
 new_isoweek(x = integer())
 

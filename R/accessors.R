@@ -1,12 +1,18 @@
-#' Accessors for grouped date objects
+#' Accessors for grate objects
 #'
-#' @param x
+#' Generics and methods for accessing information about grouped date objects.
 #'
-#' \R object
+#' @param x \R object
+#' @param ... Not currently used
 #'
-#' @param ...
+#' @return
+#' Requested value or an error if no method available.
 #'
-#' Not currently used
+#' @examples
+#' dates <- as.Date("2020-01-01") + 1:14
+#' dat <- as_isoweek(dates)
+#' get_week(dat)
+#' get_year(dat)
 #'
 #' @name grouped_date_accessors
 NULL

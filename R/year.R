@@ -1,8 +1,10 @@
+# -------------------------------------------------------------------------
 #' Construct a year object
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `year()` is a constructor for `<grates_year>` objects.
 #'
+# -------------------------------------------------------------------------
 #' @param x `[integer]`
 #'
 #' Vector representing the years.
@@ -13,12 +15,15 @@
 #'
 #' \R object.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_year>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' year(2011:2020)
 #'
+# -------------------------------------------------------------------------
 #' @export
 year <- function(x = integer()) {
     if (!is.integer(x)) {
@@ -42,13 +47,8 @@ is_year <- function(object) {
 # -------------------------------------------------------------------------
 #' Print a year-quarter object
 #'
-#' @param x
-#'
-#' A `<grates_year>` object.
-#'
-#' @param ...
-#'
-#' Not currently used.
+#' @param x A `<grates_year>` object.
+#' @param ... Not currently used.
 #'
 #' @export
 print.grates_year <- function(x, ...) {
@@ -79,9 +79,10 @@ vec_ptype_full.grates_year <- function(x, ...) {"grates_year"}
 # -------------------------------------------------------------------------
 #' Coerce an object to year-quarter
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `as_year()` is a generic for coercing input in to `<grates_year>`.
 #'
+# -------------------------------------------------------------------------
 #' @param x \R object.
 #'
 #' Character input is first parsed using `as.Date()`.
@@ -93,17 +94,21 @@ vec_ptype_full.grates_year <- function(x, ...) {"grates_year"}
 #' Only used For character input where additional arguments are passed through
 #' to `as.Date()`.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_year>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' as_year(Sys.Date())
 #' as_year(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), interval = 2)
 #' as_year("2019-05-03")
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `as.Date()`
 #'
+# -------------------------------------------------------------------------
 #' @export
 as_year <- function(x, ...) {
     UseMethod("as_year")

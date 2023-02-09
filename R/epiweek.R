@@ -1,10 +1,11 @@
-#' Construct a epiweek object
+# -------------------------------------------------------------------------
+#' Minimal constructor for an epiweek object
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `new_epiweek()` is a constructor for `<grates_epiweek>` objects aimed at
 #' developers.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' Epiweeks are defined to start on a Sunday and `<grates_epiweek>` objects are
 #' stored as the number of weeks (starting at 0) from the first Sunday after the
 #' Unix Epoch (1970-01-01). That is, the number of seven day periods from
@@ -14,6 +15,7 @@
 #' object so are akin to an alias but with a marginally more efficient
 #' implementation.
 #'
+# -------------------------------------------------------------------------
 #' @param x `[integer]`
 #'
 #' Vector representing the number of weeks.
@@ -24,15 +26,19 @@
 #'
 #' \R object.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_epiweek>` object.
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `new_yearweek()` and `new_isoweek()`.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' new_epiweek(1:10)
 #'
+# -------------------------------------------------------------------------
 #' @export
 new_epiweek <- function(x = integer()) {
     if (!is.integer(x)) {
@@ -45,12 +51,14 @@ new_epiweek <- function(x = integer()) {
     .new_epiweek(x)
 }
 
+
+# -------------------------------------------------------------------------
 #' Constructor for epiweek objects
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' `epiweek()` is a constructor for `<grates_epiweek>` objects.
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' Epiweeks are defined to start on a Sunday and `<grates_epiweek>` objects are
 #' stored as the number of weeks (starting at 0) from the first Sunday after the
 #' Unix Epoch (1970-01-01). That is, the number of seven day periods from
@@ -60,6 +68,7 @@ new_epiweek <- function(x = integer()) {
 #' object so are akin to an alias but with a marginally more efficient
 #' implementation.
 #'
+# -------------------------------------------------------------------------
 #' @param year `[integer]`
 #'
 #' Vector representing the year associated with `week`.
@@ -72,15 +81,19 @@ new_epiweek <- function(x = integer()) {
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_epiweek>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' epiweek(year = 2000L, week = 3L)
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `as_epiweek()` and `new_epiweek()`.
 #'
+# -------------------------------------------------------------------------
 #' @export
 epiweek <- function(year = integer(), week = integer()) {
 
@@ -131,15 +144,16 @@ vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
 # -------------------------------------------------------------------------
 #' Coerce to a epiweek object
 #'
-#' @description
+# -------------------------------------------------------------------------
 #' Generic for conversion to `<grates_epiweek>`
 #'
-#' @details
+# -------------------------------------------------------------------------
 #' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
 #' - Character objects are first coerced to date via `as.Date()` unless
 #'   `format = "yearweek"` in which case input is assumed to be in the form
 #'   "YYYY-Wxx" and parsed accordingly.
 #'
+# -------------------------------------------------------------------------
 #' @param x
 #' \R object.
 #'
@@ -160,18 +174,22 @@ vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
 #'
 #' Other values passed to as.Date().
 #'
+# -------------------------------------------------------------------------
 #' @return
 #' A `<grates_epiweek>` object.
 #'
+# -------------------------------------------------------------------------
 #' @examples
 #' as_epiweek(Sys.Date())
 #' as_epiweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 #' as_epiweek("2019-05-03")
 #' as_epiweek("2019-W12", format = "yearweek")
 #'
+# -------------------------------------------------------------------------
 #' @seealso
 #' `new_epiweek()` and `as.Date()`.
 #'
+# -------------------------------------------------------------------------
 #' @export
 as_epiweek <- function(x, ...) {
     UseMethod("as_epiweek")

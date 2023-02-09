@@ -3,7 +3,7 @@
 \name{new_period}
 \alias{new_period}
 \alias{is_period}
-\title{Construct a period object}
+\title{Minimal constructor for a period object}
 \usage{
 new_period(x = integer(), n = 1L, offset = 0L)
 
@@ -44,7 +44,6 @@ I.e. \code{offset <- offset \%\% n} and values of \code{x} stored relative to th
 offset.
 }
 \examples{
-
 new_period(1:10)
 
 }

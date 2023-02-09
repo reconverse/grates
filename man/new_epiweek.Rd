@@ -3,7 +3,7 @@
 \name{new_epiweek}
 \alias{new_epiweek}
 \alias{is_epiweek}
-\title{Construct a epiweek object}
+\title{Minimal constructor for an epiweek object}
 \usage{
 new_epiweek(x = integer())
 

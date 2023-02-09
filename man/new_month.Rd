@@ -3,7 +3,7 @@
 \name{new_month}
 \alias{new_month}
 \alias{is_month}
-\title{Construct a month object}
+\title{Minimal Constructor for a month object}
 \usage{
 new_month(x = integer(), n)
 

@@ -1,24 +1,12 @@
 grates_month_env <-  new.env(parent = emptyenv())
 
-scale_type.grates_month <- function(x) {
-
-    # -------------------------------------------------------------------------
-    # -------------------------------------------------------------------------
-    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
-    #        gets resolved
-    if (!"grates" %in% .packages())
-        stop("<grates_month> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
-    # -------------------------------------------------------------------------
-    # -------------------------------------------------------------------------
-
-    grates_month_env$n <- attr(x, "n")
-    "grates_month"
-}
-
+# -------------------------------------------------------------------------
 #' month scale
 #'
+# -------------------------------------------------------------------------
 #' ggplot2 scale for a month vector.
 #'
+# -------------------------------------------------------------------------
 #' @param n.breaks `[integer]`
 #'
 #' Approximate number of breaks calculated using `scales::breaks_pretty`
@@ -50,7 +38,11 @@ scale_type.grates_month <- function(x) {
 #'
 #' Not currently used.
 #'
-#' @return A scale for use with ggplot2.
+# -------------------------------------------------------------------------
+#' @return
+#' A scale for use with ggplot2.
+#'
+# -------------------------------------------------------------------------
 #' @export
 scale_x_grates_month <- function(
         ...,
@@ -90,6 +82,22 @@ scale_x_grates_month <- function(
             n = n
         )
     )
+}
+
+# ------------------------------------------------------------------------- #
+scale_type.grates_month <- function(x) {
+
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+    # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
+    #        gets resolved
+    if (!"grates" %in% .packages())
+        stop("<grates_month> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
+
+    grates_month_env$n <- attr(x, "n")
+    "grates_month"
 }
 
 # ------------------------------------------------------------------------- #
