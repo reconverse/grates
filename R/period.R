@@ -495,7 +495,7 @@ Ops.grates_period <- function(e1, e2) {
             n2 <- attr(e2, "n")
             offset1 <- attr(e1, "offset")
             offset2 <- attr(e2, "offset")
-            if (isTRUE(all.equal(n1, n2) && all.equal(offset1, offset2))) {
+            if (isTRUE(all.equal(n1, n2)) && isTRUE(all.equal(offset1, offset2))) {
                 return(NextMethod())
             } else if (op == "==") {
                 return(FALSE)
