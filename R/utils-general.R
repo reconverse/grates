@@ -11,13 +11,10 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
 
 # ------------------------------------------------------------------------- #
 # check for suggested packages
-check_suggests <- function(package) {
+.check_suggests <- function(package) {
     if (!requireNamespace(package, quietly = TRUE))
         stopf("Suggested package '%s' not present.", package)
 }
-
-# ------------------------------------------------------------------------- #
-.is_boolean <- function(x) is.logical(x) && length(x) == 1L && !is.na(x)
 
 # ------------------------------------------------------------------------- #
 .is_scalar_whole <- function(x, tol = .Machine$double.eps^0.5) {

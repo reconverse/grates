@@ -35,8 +35,8 @@
 #' @export
 scale_x_grates_yearweek <- function(..., n.breaks = 6L, firstday, format = NULL) {
 
-    check_suggests("ggplot2")
-    check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
+    .check_suggests("ggplot2")
+    .check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
 
     if (missing(firstday))
         stop("Please provide a value of `firstday` corresponding to the given data.")

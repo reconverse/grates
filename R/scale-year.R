@@ -29,8 +29,8 @@
 #' @export
 scale_x_grates_year <- function(..., n.breaks = 6L, format = NULL) {
 
-    check_suggests("ggplot2")
-    check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
+    .check_suggests("ggplot2")
+    .check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
 
     ggplot2::scale_x_continuous(
         trans = .grates_year_trans(

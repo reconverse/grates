@@ -39,8 +39,8 @@ grates_period_env <-  new.env(parent = emptyenv())
 #' @export
 scale_x_grates_period <- function(..., n.breaks = 6L, format = "%Y-%m-%d", n, offset) {
 
-    check_suggests("ggplot2")
-    check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
+    .check_suggests("ggplot2")
+    .check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
 
     if (...length()) {
         dot_names <- names(list(...))

@@ -53,8 +53,8 @@ scale_x_grates_month <- function(
         n
 ) {
 
-    check_suggests("ggplot2")
-    check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
+    .check_suggests("ggplot2")
+    .check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
 
     if (missing(n))
         n <- grates_month_env$n
