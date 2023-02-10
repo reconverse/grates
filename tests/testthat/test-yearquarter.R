@@ -222,4 +222,51 @@ test_that("yearquarter operators and math work", {
 
 })
 
+test_that("yearquarter, miscellaneous work", {
+    expect_identical(new_yearquarter(-1.5), new_yearquarter(-2L))
+    expect_error(new_yearquarter("bob"), "`x` must be integer.", fixed = TRUE)
+    expect_error(
+        as_yearquarter(NA_character_),
+        "Unable to parse any entries of `x` as Dates.",
+        fixed = TRUE
+    )
+    dat <- as.Date("2020-01-20")
+    dat <- c(dat, dat - 40L)
+    dat <- as_yearquarter(dat)
+    expect_identical(rep(dat, 2L), c(dat, dat))
+    expect_identical(rep(dat, each = 2L), c(dat[[1]], dat[[1]], dat[[2]], dat[[2]]))
+    expect_identical(unique(c(dat, dat)), dat)
+    dat <- as_yearquarter(as.Date("1970-01-01"))
+    expect_identical(
+        seq(dat, dat + 11, by = 2L),
+        new_yearquarter(c(0L, 2L, 4L, 6L, 8L, 10L))
+    )
+    expect_error(
+        seq(dat, dat + 11, by = 2.5),
+        "`by` must be an integer of length 1.",
+        fixed = TRUE
+    )
+    expect_error(
+        seq(dat, as.integer(dat + 11), by = 2.5),
+        "`to` must be a <grates_yearquarter> object of length 1.",
+        fixed = TRUE
+    )
+    expect_identical(as.integer(new_yearquarter(100L)), 100L)
+    expect_identical(as.double(new_yearquarter(100L)), 100)
+    expect_identical(min(c(dat, dat+11)), dat)
+    expect_identical(max(c(dat, dat+11)), dat+11)
+    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
+    expect_error(
+        any(dat),
+        "`any()` is not supported for <grates_yearquarter> objects.",
+        fixed = TRUE
+    )
+
+    expect_identical(yearquarter(1L,1L),yearquarter(1.5,1.5))
+    expect_error(yearquarter(1L), "`year` and `quarter` must be the same length.", fixed = TRUE)
+    expect_error(yearquarter(year = character()), "`year` must be integer.", fixed = TRUE)
+    expect_error(yearquarter(quarter = character()), "`quarter` must be integer.")
+    expect_error(yearquarter(1L,0L), "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry 1 is not (it equals 0).", fixed = TRUE)
+    expect_error(yearquarter(1L,5L), "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry 1 is not (it equals 5).", fixed = TRUE)
+})
 

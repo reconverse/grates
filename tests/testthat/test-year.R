@@ -217,3 +217,47 @@ test_that("year operators and math work", {
     expect_identical(is.infinite(dat), c(FALSE, FALSE, FALSE))
     expect_error(abs(dat))
 })
+
+test_that("year, miscellaneous work", {
+    expect_identical(year(-1.5), year(-2L))
+    expect_error(year("bob"), "`x` must be integer.", fixed = TRUE)
+    expect_error(
+        as_year(NA_character_),
+        "Unable to parse any entries of `x` as Dates.",
+        fixed = TRUE
+    )
+    dat <- as.Date("2020-01-20")
+    dat <- c(dat, dat - 40L)
+    dat <- as_year(dat)
+    expect_identical(rep(dat, 2L), c(dat, dat))
+    expect_identical(rep(dat, each = 2L), c(dat[[1]], dat[[1]], dat[[2]], dat[[2]]))
+    expect_identical(unique(c(dat, dat)), dat)
+    dat <- as_year(as.Date("1970-01-01"))
+    expect_identical(
+        seq(dat, dat + 11, by = 2L),
+        year(c(1970L, 1972L, 1974L, 1976L, 1978L, 1980L))
+    )
+    expect_error(
+        seq(dat, dat + 11, by = 2.5),
+        "`by` must be an integer of length 1.",
+        fixed = TRUE
+    )
+    expect_error(
+        seq(dat, as.integer(dat + 11), by = 2.5),
+        "`to` must be a <grates_year> object of length 1.",
+        fixed = TRUE
+    )
+    expect_identical(as.integer(year(100L)), 100L)
+    expect_identical(as.double(year(100L)), 100)
+    expect_identical(min(c(dat, dat+11)), dat)
+    expect_identical(max(c(dat, dat+11)), dat+11)
+    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
+    expect_error(
+        any(dat),
+        "`any()` is not supported for <grates_year> objects.",
+        fixed = TRUE
+    )
+
+
+})
+

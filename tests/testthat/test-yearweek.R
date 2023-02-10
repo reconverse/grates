@@ -195,6 +195,36 @@ test_that("yearweek, accessors", {
     expect_error(get_year("bob"))
     expect_error(get_week("bob"))
     expect_error(get_firstday("bob"))
+
+    expect_identical(
+        get_firstday(as_yearweek(as.Date("2020-12-28"), firstday = 2L)),
+        2L
+    )
+
+    expect_identical(
+        get_firstday(as_yearweek(as.Date("2020-12-28"), firstday = 3L)),
+        3L
+    )
+
+    expect_identical(
+        get_firstday(as_yearweek(as.Date("2020-12-28"), firstday = 4L)),
+        4L
+    )
+
+    expect_identical(
+        get_firstday(as_yearweek(as.Date("2020-12-28"), firstday = 5L)),
+        5L
+    )
+
+    expect_identical(
+        get_firstday(as_yearweek(as.Date("2020-12-28"), firstday = 6L)),
+        6L
+    )
+
+    expect_identical(
+        get_firstday(as_yearweek(as.Date("2020-12-28"), firstday = 7L)),
+        7L
+    )
 })
 
 test_that("yearweek, is_yearweek works", {
@@ -418,4 +448,13 @@ test_that("yearweek, miscellaneous work", {
         "`any()` is not supported for <grates_yearweek> objects.",
         fixed = TRUE
     )
+
+    expect_identical(yearweek(1L,1L),yearweek(1.5,1.5))
+    expect_error(yearweek(1L), "`year` and `week` must be the same length.", fixed = TRUE)
+    expect_error(yearweek(year = character()), "`year` must be integer.", fixed = TRUE)
+    expect_error(yearweek(week = character()), "`week` must be integer.")
+    expect_error(yearweek(firstday=1:2), "`firstday` must be an integer of length 1.", fixed = TRUE)
+    expect_error(yearweek(firstday=""), "`firstday` must be an integer of length 1.", fixed = TRUE)
+    expect_error(yearweek(firstday=8L), "`firstday` must be an integer between 1 (Monday) and 7 (Sunday).", fixed = TRUE)
+    expect_identical(yearweek(firstday = 1.0), yearweek(firstday = 1L))
 })

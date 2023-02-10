@@ -297,4 +297,8 @@ test_that("isoweek, miscellaneous work", {
         "`any()` is not supported for <grates_isoweek> objects.",
         fixed = TRUE
     )
+    expect_identical(isoweek(1L,1L),isoweek(1.5,1.5))
+    expect_error(isoweek(1L), "`year` and `week` must be the same length.", fixed = TRUE)
+    expect_error(isoweek(year = character()), "`year` must be integer.", fixed = TRUE)
+    expect_error(isoweek(week = character()), "`week` must be integer.", fixed = TRUE)
 })

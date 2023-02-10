@@ -298,4 +298,8 @@ test_that("epiweek, miscellaneous work", {
         fixed = TRUE
     )
 
+    expect_identical(epiweek(1L,1L),epiweek(1.5,1.5))
+    expect_error(epiweek(1L), "`year` and `week` must be the same length.", fixed = TRUE)
+    expect_error(epiweek(year = character()), "`year` must be integer.", fixed = TRUE)
+    expect_error(epiweek(week = character()), "`week` must be integer.", fixed = TRUE)
 })

@@ -357,5 +357,37 @@ test_that("period, miscellaneous work", {
         "`any()` is not supported for <grates_period> objects.",
         fixed = TRUE
     )
+    expect_error(
+        as_period("2020-01-01", origin = as.Date("2020-01-01")),
+        "The `origin` argument is now defunct. Please use `offset`.",
+        fixed = TRUE
+    )
+    expect_error(
+        as_period(NA_character_),
+        "Unable to parse any entries of `x` as Dates.",
+        fixed = TRUE
+    )
+    expect_error(
+        c(as_period(Sys.Date(), n = 2L), as_period(Sys.Date(), n = 3L)),
+        "Unable to combine <grates_period> objects with different groupings.",
+        fixed = TRUE
+    )
+    expect_error(
+        c(as_period("2020-01-01", n = 2L, offset = 1L), as_period("2020-01-01", n = 2L, offset = 0L)),
+        "Unable to combine <grates_period> objects with different offsets.",
+        fixed = TRUE
+    )
+    expect_false(c(as_period(Sys.Date(), n = 2L) == as_period(Sys.Date(), n = 3L)))
+    expect_true(c(as_period(Sys.Date(), n = 2L) != as_period(Sys.Date(), n = 3L)))
+
+    dat1 <- as_period(Sys.Date(), n = 2L)
+    dat2 <- dat1 + 1L
+    expect_identical(dat2 - dat1, 1L)
+
+    expect_error(
+        as_period(Sys.Date(), n = 2L) - as_period(Sys.Date(), n = 3L),
+        "<grates_period> objects must have the same period grouping and offset to perform subtraction.",
+        fixed = TRUE
+    )
 
 })

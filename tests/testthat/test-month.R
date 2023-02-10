@@ -49,6 +49,11 @@ test_that("month, POSIXlt coercion works", {
     )
 })
 
+test_that("month, accessor works", {
+    dat <- as.Date("2021-01-01")
+    expect_identical(get_n(as_month(dat, n = 5L)), 5L)
+})
+
 test_that("month, POSIXct coercion works", {
     nz <- as.POSIXct(as.POSIXlt("2021-01-04", tz = "NZ"))
     dat <- as_month(nz, n = 2L)
@@ -225,5 +230,83 @@ test_that("month operators and math work", {
     expect_identical(is.infinite(dat), c(FALSE, FALSE, FALSE))
     expect_error(abs(dat))
 
+})
+
+test_that("month, miscellaneous work", {
+    expect_identical(new_month(-1.5, n = 2L), new_month(-2L, n = 2L))
+    expect_error(new_month("bob", n = 2L), "`x` must be integer.", fixed = TRUE)
+    expect_error(
+        as_month(NA_character_, n = 2L),
+        "Unable to parse any entries of `x` as Dates.",
+        fixed = TRUE
+    )
+    dat <- Sys.Date()
+    dat <- c(dat, dat - 90L)
+    dat <- as_month(dat, 2L)
+    expect_identical(rep(dat, 2L), c(dat, dat))
+    expect_identical(rep(dat, each = 2L), c(dat[[1]], dat[[1]], dat[[2]], dat[[2]]))
+    expect_identical(unique(c(dat, dat)), dat)
+    dat <- as_month(as.Date("1970-01-01"), n = 3L)
+    expect_identical(
+        seq(dat, dat + 11, by = 2L),
+        new_month(c(0L, 2L, 4L, 6L, 8L, 10L), n = 3L)
+    )
+    expect_error(
+        seq(dat, dat + 11, by = 2.5),
+        "`by` must be an integer of length 1.",
+        fixed = TRUE
+    )
+    expect_error(
+        seq(dat, as.integer(dat + 11), by = 2.5),
+        "`to` must be a <grates_month> object of length 1.",
+        fixed = TRUE
+    )
+    expect_identical(as.integer(new_month(100L, n = 5L)), 100L)
+    expect_identical(as.double(new_month(100L, n = 2L)), 100)
+    expect_identical(min(c(dat, dat+11)), dat)
+    expect_identical(max(c(dat, dat+11)), dat+11)
+    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
+    expect_error(
+        any(dat),
+        "`any()` is not supported for <grates_month> objects.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        new_month(1L, n = 1.5),
+        "`n` must be an integer of length 1.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        new_month(1L, n = 1:2),
+        "`n` must be an integer of length 1.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        new_month(1L, n = 1L),
+        "`n` must be greater than 1. If single month groupings are required please use `yearmonth()`.",
+        fixed = TRUE
+    )
+
+    expect_error(
+        c(as_month(Sys.Date(), n = 2L), as_month(Sys.Date(), n = 3L)),
+        "Unable to combine <grates_month> objects with different groupings.",
+        fixed = TRUE
+    )
+
+    expect_false(c(as_month(Sys.Date(), n = 2L) == as_month(Sys.Date(), n = 3L)))
+    expect_true(c(as_month(Sys.Date(), n = 2L) != as_month(Sys.Date(), n = 3L)))
+
+    dat1 <- as_month(Sys.Date(), n = 2L)
+    dat2 <- dat1 + 1L
+    expect_identical(dat2 - dat1, 1L)
+
+    expect_error(
+        as_month(Sys.Date(), n = 2L) - as_month(Sys.Date(), n = 3L),
+        "<grates_month> objects must have the same month grouping to perform subtraction.",
+        fixed = TRUE
+    )
 })
 
