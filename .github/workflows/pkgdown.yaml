@@ -3,20 +3,45 @@
 on:
   push:
     branches: [main, master]
+    paths:
+      - 'README.Rmd'
+      - 'README.md'
+      - 'index.Rmd'
+      - 'index.md'
+      - 'man/**'
+      - 'vignettes/**'
+      - '_pkgdown.yml'
+      - 'pkgdown/**'
+      - 'DESCRIPTION'
+      - '.Rbuildignore'
+      - '.github/**'
   pull_request:
     branches: [main, master]
+    paths:
+      - 'README.Rmd'
+      - 'README.md'
+      - 'index.Rmd'
+      - 'index.md'
+      - 'man/**'
+      - 'vignettes/**'
+      - '_pkgdown.yml'
+      - 'pkgdown/**'
+      - 'DESCRIPTION'
+      - '.Rbuildignore'
+      - '.github/**'
   release:
     types: [published]
   workflow_dispatch:
 
 name: pkgdown
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   pkgdown:
     runs-on: ubuntu-latest
-    # Only restrict concurrency for non-PR jobs
-    concurrency:
-      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
@@ -39,7 +64,7 @@ jobs:
 
       - name: Deploy to GitHub pages 🚀
         if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           clean: false
           branch: gh-pages
