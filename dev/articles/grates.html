@@ -81,12 +81,12 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The goal of grates is to make it easy to group dates across a range
+<p>The goal of {grates} is to make it easy to group dates across a range
 of different time intervals. It defines a collection of classes and
 associated methods that, together, formalise the concept of grouped
 dates and are intuitive to use. To assist in formatting plots of grates
 objects we also provides x-axis scales that can be used in conjunction
-with <a href="https://cran.r-project.org/package=ggplot2" class="external-link">ggplot2</a>
+with <a href="https://cran.r-project.org/package=ggplot2" class="external-link">{ggplot2}</a>
 output. Currently implemented classes are:</p>
 <ul>
 <li><p><a href="#yearweek">grates_yearweek</a>;</p></li>
@@ -99,8 +99,8 @@ output. Currently implemented classes are:</p>
 <li><p><a href="#month">grates_month</a></p></li>
 </ul>
 <p>The underlying implementation for these objects build upon ideas of
-Davis Vaughan and the unreleased <a href="https://github.com/DavisVaughan/datea/" class="external-link">datea</a> package as well
-as Zhian Kamvar and the <a href="https://cran.r-project.org/package=aweek" class="external-link">aweek</a> package.</p>
+Davis Vaughan and the unreleased <a href="https://github.com/DavisVaughan/datea/" class="external-link">{datea}</a> package as
+well as Zhian Kamvar and the <a href="https://cran.r-project.org/package=aweek" class="external-link">{aweek}</a> package.</p>
 </div>
 <div class="section level2">
 <h2 id="grates-objects">grates objects<a class="anchor" aria-label="anchor" href="#grates-objects"></a>
@@ -172,17 +172,17 @@ are stored as the integer number of weeks since 1969-12-29.</p>
 <span><span class="co"># epiweeks always start on a Sunday</span></span>
 <span><span class="op">(</span><span class="va">epiwk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_epiweek.html">as_epiweek</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_epiweek[1]&gt;</span></span>
-<span><span class="co">#&gt; [1] "2023-W07"</span></span>
+<span><span class="co">#&gt; [1] "2023-W10"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">weekdays</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">epiwk</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Sunday"</span></span>
 <span></span>
 <span><span class="co"># isoweeks always start on a Sunday</span></span>
 <span><span class="op">(</span><span class="va">isowk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_isoweek.html">as_isoweek</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_isoweek[1]&gt;</span></span>
-<span><span class="co">#&gt; [1] "2023-W07"</span></span>
+<span><span class="co">#&gt; [1] "2023-W10"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">weekdays</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">isowk</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Monday"</span></span></code></pre></div>
-<p>By default plots (using ggplot2) will centre yearweek (epiweek /
+<p>By default plots (using {ggplot2}) will centre yearweek (epiweek /
 isoweek) labels:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
