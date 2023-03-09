@@ -19,12 +19,12 @@ knitr::opts_chunk$set(
 
 # Overview
 
-The goal of grates is to make it easy to group dates across a range of different
+The goal of {grates} is to make it easy to group dates across a range of different
 time intervals. It defines a collection of classes and associated methods that,
 together, formalise the concept of grouped dates and are intuitive to use. To
 assist in formatting plots of grates objects we also provides x-axis scales that
 can be used in conjunction with
-[ggplot2](https://cran.r-project.org/package=ggplot2) output. Currently
+[{ggplot2}](https://cran.r-project.org/package=ggplot2) output. Currently
 implemented classes are:
 
 - [grates_yearweek](#yearweek);
@@ -40,9 +40,9 @@ implemented classes are:
 - [grates_month](#month)
 
 The underlying implementation for these objects build upon ideas of Davis
-Vaughan and the unreleased [datea](https://github.com/DavisVaughan/datea/)
+Vaughan and the unreleased [{datea}](https://github.com/DavisVaughan/datea/)
 package as well as Zhian Kamvar and the
-[aweek](https://cran.r-project.org/package=aweek) package.
+[{aweek}](https://cran.r-project.org/package=aweek) package.
 
 
 # grates objects
@@ -105,7 +105,7 @@ weekdays(as.Date(epiwk))
 weekdays(as.Date(isowk))
 ```
 
-By default plots (using ggplot2) will centre yearweek (epiweek / isoweek)
+By default plots (using {ggplot2}) will centre yearweek (epiweek / isoweek)
 labels:
 
 ```{r}
