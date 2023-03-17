@@ -10,10 +10,10 @@
     <loc>http://www.reconverse.org/grates/LICENSE.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/articles/index.html</loc>
+    <loc>http://www.reconverse.org/grates/articles/grates.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/articles/introduction.html</loc>
+    <loc>http://www.reconverse.org/grates/articles/index.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/authors.html</loc>
@@ -25,7 +25,10 @@
     <loc>http://www.reconverse.org/grates/news/index.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/as_int_period.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/as_epiweek.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/as_isoweek.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/reference/as_month.html</loc>
@@ -34,67 +37,76 @@
     <loc>http://www.reconverse.org/grates/reference/as_period.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/as_quarter.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/as_year.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/as_year.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/as_yearmonth.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/as_yearquarter.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/reference/as_yearweek.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/clock_locale.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/epiweek.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/format.grates_int_period.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/grates-defunct.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/format.grates_month.html</loc>
-  </url>
-  <url>
-    <loc>http://www.reconverse.org/grates/reference/format.grates_period.html</loc>
-  </url>
-  <url>
-    <loc>http://www.reconverse.org/grates/reference/format.grates_quarter.html</loc>
-  </url>
-  <url>
-    <loc>http://www.reconverse.org/grates/reference/format.grates_year.html</loc>
-  </url>
-  <url>
-    <loc>http://www.reconverse.org/grates/reference/format.grates_yearweek.html</loc>
-  </url>
-  <url>
-    <loc>http://www.reconverse.org/grates/reference/grates-package.html</loc>
-  </url>
-  <url>
-    <loc>http://www.reconverse.org/grates/reference/grates-vctrs.html</loc>
-  </url>
-  <url>
-    <loc>http://www.reconverse.org/grates/reference/grates_accessors.html</loc>
-  </url>
-  <url>
-    <loc>http://www.reconverse.org/grates/reference/hidden-scales.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/grouped_date_accessors.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/reference/index.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/int_period.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/isoweek.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/is_grate.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/new_epiweek.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/month.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/new_isoweek.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/period.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/new_month.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/quarter.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/new_period.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/scale_x_grates_int_period.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/new_yearmonth.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/new_yearquarter.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/new_yearweek.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/print.grates_month.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/print.grates_period.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/print.grates_year.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/print.grates_yearmonth.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/print.grates_yearquarter.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/s3_register.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/scale_x_grates_epiweek.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/scale_x_grates_isoweek.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/reference/scale_x_grates_month.html</loc>
@@ -103,16 +115,25 @@
     <loc>http://www.reconverse.org/grates/reference/scale_x_grates_period.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/scale_x_grates_quarter.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/scale_x_grates_year.html</loc>
   </url>
   <url>
-    <loc>http://www.reconverse.org/grates/reference/scale_x_grates_year.html</loc>
+    <loc>http://www.reconverse.org/grates/reference/scale_x_grates_yearmonth.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/scale_x_grates_yearquarter.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/reference/scale_x_grates_yearweek.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/reference/year.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/yearmonth.html</loc>
+  </url>
+  <url>
+    <loc>http://www.reconverse.org/grates/reference/yearquarter.html</loc>
   </url>
   <url>
     <loc>http://www.reconverse.org/grates/reference/yearweek.html</loc>
