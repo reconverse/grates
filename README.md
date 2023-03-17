@@ -7,7 +7,7 @@
 
 [![Codecov test
 coverage](https://codecov.io/gh/reconverse/grates/branch/main/graph/badge.svg)](https://app.codecov.io/gh/reconverse/grates?branch=main)
-[![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-maturing.svg)](https://www.reconverse.org/lifecycle.html#maturing)
+[![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-stable.svg)](https://www.reconverse.org/lifecycle.html#stable)
 [![R-CMD-check](https://github.com/reconverse/grates/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/reconverse/grates/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
