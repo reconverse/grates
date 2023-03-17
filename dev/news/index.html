@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">grates</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.9.9.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.0.0.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,9 +49,12 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="grates-development-version">grates (development version)<a class="anchor" aria-label="anchor" href="#grates-development-version"></a></h2>
-<p>For the first major release of grates a significant refactor of grates has been undertaken that builds upon lessons learnt over the last two years. Whilst we have tried to limit breaking changes some functionality has been removed and some function parameters altered (see details below):</p>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.0.0" id="grates-100">grates 1.0.0<a class="anchor" aria-label="anchor" href="#grates-100"></a></h2>
+<p>For the first major release of grates a significant refactor has been undertaken that builds upon lessons learnt over the last two years. Whilst we have tried to limit breaking changes some functionality has been removed and some function parameters altered (see details below):</p>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-1-0-0">breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0-0"></a></h3>
 <ul><li><p><code>&lt;grates_month&gt;</code> objects are now always stored relative to the UNIX epoch. This is equivalent to setting <code>origin = 0</code> in the previous release. Calling the function with an <code>origin</code> argument will now error.</p></li>
 <li><p>Trying to create a <code>&lt;grates_month&gt;</code> object with <code>n</code> set to 1 will now error. Uses are encouraged to use <code>&lt;grates_yearmonth&gt;</code> for this case.</p></li>
 <li><p><code>&lt;grates_int_period&gt;</code> is now a defunct as it did not fit with the scope of the package (i.e grouped dates, not grouped integers). In particular the <code><a href="../reference/grates-defunct.html">int_period()</a></code>, <code><a href="../reference/grates-defunct.html">as_int_period()</a></code> and <code><a href="../reference/grates-defunct.html">is_int_period()</a></code> will now error on use.</p></li>
@@ -61,17 +64,17 @@
 <li><p>The old incarnation of direct constructors now begin with a <code>new_</code> prefix (e.g. <code><a href="../reference/new_month.html">new_month()</a></code>, <code><a href="../reference/new_yearweek.html">new_yearweek()</a></code>, <code><a href="../reference/new_epiweek.html">new_epiweek()</a></code>, …). This is to distinguish them from more user friendly constructors that we have introduced (see above).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-functions-and-classes-development-version">new functions and classes<a class="anchor" aria-label="anchor" href="#new-functions-and-classes-development-version"></a></h3>
+<h3 id="new-functions-and-classes-1-0-0">new functions and classes<a class="anchor" aria-label="anchor" href="#new-functions-and-classes-1-0-0"></a></h3>
 <ul><li><p>A new <code>yearmonth</code> class (<code>&lt;grates_yearmonth&gt;</code>) and associated functions have been introduced. This object is similar to what was previously obtained via a call of <code>month(x, n = 1L, origin = 0L)</code> (now defunct - see above).</p></li>
 <li><p>New <code>isoweek</code> and <code>epiweek</code> classes (<code>&lt;grates_isoweek&gt;</code> and <code>&lt;grates_epiweek&gt;</code> respectively) and associated functions. Internally these are similar to the corresponding <code>&lt;grates_yearweek&gt;</code> objects but with a marginally more efficient implementation.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-development-version">bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-development-version"></a></h3>
+<h3 id="bug-fixes-1-0-0">bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-0-0"></a></h3>
 <ul><li>
 <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">is.numeric()</a></code> methods for grates objects previously returned FALSE. Calls to these methods now dispatch to the default implementation based on the underlying type and should now return TRUE.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="miscellaneous-development-version">miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-development-version"></a></h3>
+<h3 id="miscellaneous-1-0-0">miscellaneous<a class="anchor" aria-label="anchor" href="#miscellaneous-1-0-0"></a></h3>
 <ul><li>Hard dependencies on <a href="https://CRAN.R-project.org/package=clock" class="external-link">clock</a> and <a href="https://CRAN.R-project.org/package=vctrs" class="external-link">vctrs</a> have now been removed.</li>
 </ul></div>
 </div>
