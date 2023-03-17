@@ -1,9 +1,9 @@
-# grates (development version)
+# grates 1.0.0
 
-For the first major release of grates a significant refactor of grates has been
-undertaken that builds upon lessons learnt over the last two years. Whilst we
-have tried to limit breaking changes some functionality has been removed and
-some function parameters altered (see details below):
+For the first major release of grates a significant refactor has been undertaken
+that builds upon lessons learnt over the last two years. Whilst we have tried to
+limit breaking changes some functionality has been removed and some function
+parameters altered (see details below):
 
 ## breaking changes
 
