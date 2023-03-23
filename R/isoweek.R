@@ -115,8 +115,9 @@ isoweek <- function(year = integer(), week = integer()) {
     }
 
     # check compatible lengths
-    if (length(year) != length(week))
-        stop("`year` and `week` must be the same length.")
+    tmp <- .recycle(year, week)
+    year <- tmp[[1L]]
+    week <- tmp[[2L]]
 
     .isoweek(year = year, week = week)
 }

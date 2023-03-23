@@ -48,3 +48,35 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
     x <- x * 86400 # multiply by seconds in day (24 * 60 * 60)
     as.POSIXlt(x, tz = "UTC", origin = .POSIXct(xx = 0, tz = "UTC"))
 }
+
+# -------------------------------------------------------------------------
+.recycle <- function(x, y) {
+    lx <- length(x)
+    ly <- length(y)
+    if (lx == ly)
+        return(list(x,y))
+
+    if (lx == 0 || ly == 0L) {
+        x <- deparse(substitute(x))
+        y <- deparse(substitute(y))
+        msg <- "Cannot recycle a vector of length 0:"
+        msgxy <- sprintf("`%s` is of length %d and `%s` is of length %d." , x, lx, y, ly)
+        msg <- paste(msg, msgxy, sep = "\n")
+        stopf(msg, .call = sys.call(-1L))
+    }
+
+    if (lx == 1L) {
+        x <- rep.int(x, ly)
+    } else if (ly == 1L) {
+        y <- rep.int(y, lx)
+    } else {
+        x <- deparse(substitute(x))
+        y <- deparse(substitute(y))
+        msg <- "Can only recycle vectors of length 1:"
+        msgxy <- sprintf("`%s` is of length %d and `%s` is of length %d." , x, lx, y, ly)
+        msg <- paste(msg, msgxy, sep = "\n")
+        stopf(msg, .call = sys.call(-1L))
+    }
+
+    list(x, y)
+}

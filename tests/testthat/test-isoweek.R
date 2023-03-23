@@ -298,7 +298,8 @@ test_that("isoweek, miscellaneous work", {
         fixed = TRUE
     )
     expect_identical(isoweek(1L,1L),isoweek(1.5,1.5))
-    expect_error(isoweek(1L), "`year` and `week` must be the same length.", fixed = TRUE)
+    expect_error(epiweek(1L), "Cannot recycle a vector of length 0:", fixed = TRUE)
+    expect_error(epiweek(1:2,1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
     expect_error(isoweek(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(isoweek(week = character()), "`week` must be integer.", fixed = TRUE)
 })

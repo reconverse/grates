@@ -99,10 +99,6 @@ yearquarter <- function(year = integer(), quarter = integer()) {
         }
     }
 
-    # check compatible lengths
-    if (length(year) != length(quarter))
-        stop("`year` and `quarter` must be the same length.")
-
     # check quarter bounded above and below
     idx <- quarter < 1L | quarter > 4L
     if (any(idx, na.rm = TRUE)) {
@@ -112,6 +108,11 @@ yearquarter <- function(year = integer(), quarter = integer()) {
             first, quarter[first]
         )
     }
+
+    # check compatible lengths
+    tmp <- .recycle(year, quarter)
+    year <- tmp[[1L]]
+    quarter <- tmp[[2L]]
 
     .yearquarter(year = year, quarter = quarter)
 }

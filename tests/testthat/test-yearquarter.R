@@ -263,7 +263,8 @@ test_that("yearquarter, miscellaneous work", {
     )
 
     expect_identical(yearquarter(1L,1L),yearquarter(1.5,1.5))
-    expect_error(yearquarter(1L), "`year` and `quarter` must be the same length.", fixed = TRUE)
+    expect_error(yearquarter(1L), "Cannot recycle a vector of length 0:", fixed = TRUE)
+    expect_error(yearquarter(1:2,1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
     expect_error(yearquarter(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(yearquarter(quarter = character()), "`quarter` must be integer.")
     expect_error(yearquarter(1L,0L), "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry 1 is not (it equals 0).", fixed = TRUE)

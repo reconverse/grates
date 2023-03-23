@@ -450,7 +450,8 @@ test_that("yearweek, miscellaneous work", {
     )
 
     expect_identical(yearweek(1L,1L),yearweek(1.5,1.5))
-    expect_error(yearweek(1L), "`year` and `week` must be the same length.", fixed = TRUE)
+    expect_error(yearweek(1L), "Cannot recycle a vector of length 0:", fixed = TRUE)
+    expect_error(yearweek(1:2,1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
     expect_error(yearweek(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(yearweek(week = character()), "`week` must be integer.")
     expect_error(yearweek(firstday=1:2), "`firstday` must be an integer of length 1.", fixed = TRUE)
