@@ -260,7 +260,8 @@ test_that("yearmonth, miscellaneous work", {
     )
 
     expect_identical(yearmonth(1L,1L),yearmonth(1.5,1.5))
-    expect_error(yearmonth(1L), "`year` and `month` must be the same length.", fixed = TRUE)
+    expect_error(yearmonth(1L), "Cannot recycle a vector of length 0:", fixed = TRUE)
+    expect_error(yearmonth(1:2,1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
     expect_error(yearmonth(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(yearmonth(month = character()), "`month` must be integer.")
     expect_error(yearmonth(1L,0L), "Months must be integer and between 1 and 12 (inclusive) or NA. Entry 1 is not (it equals 0).", fixed = TRUE)

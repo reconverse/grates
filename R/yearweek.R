@@ -148,10 +148,6 @@ yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
         }
     }
 
-    # check compatible lengths
-    if (length(year) != length(week))
-        stop("`year` and `week` must be the same length.")
-
     # check firstday
     if (length(firstday) != 1L)
         stop("`firstday` must be an integer of length 1.")
@@ -164,6 +160,11 @@ yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
 
     if (firstday < 1L || firstday > 7L || is.na(firstday))
         stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
+
+    # check compatible lengths
+    tmp <- .recycle(year, week)
+    year <- tmp[[1L]]
+    week <- tmp[[2L]]
 
     .yearweek(year = year, week = week, firstday = firstday)
 }

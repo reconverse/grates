@@ -105,10 +105,6 @@ yearmonth <- function(year = integer(), month = integer()) {
         }
     }
 
-    # check compatible lengths
-    if (length(year) != length(month))
-        stop("`year` and `month` must be the same length.")
-
     # check month bounded above and below
     idx <- month < 1L | month > 12L
     if (any(idx, na.rm = TRUE)) {
@@ -118,6 +114,11 @@ yearmonth <- function(year = integer(), month = integer()) {
             first, month[first]
         )
     }
+
+    # check compatible lengths
+    tmp <- .recycle(year, month)
+    year <- tmp[[1L]]
+    month <- tmp[[2L]]
 
     .yearmonth(year = year, month = month)
 }
