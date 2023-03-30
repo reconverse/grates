@@ -1,7 +1,7 @@
-# grates (development version)
+# grates 1.0.1
 
-* Constructors `yearweek()`, `epiweek()`, `isoweek()`, `yearmonth()` and
-  `yearquarter()` now recycle inputs of length 1.
+* Fix erroneous tests flagged by CRAN.
+* No user facing changes.
 
 # grates 1.0.0
 

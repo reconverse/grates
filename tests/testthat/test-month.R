@@ -122,7 +122,7 @@ test_that("month, is_month works", {
 })
 
 test_that("month, subsetting works", {
-    x <- Sys.Date()
+    x <- as.Date("2023-02-15")
     dat <- as_month(x, n = 5L) + 0:1
     dat <- setNames(dat, c("a", "b"))
     dat2 <- as.Date(dat)

@@ -112,7 +112,7 @@ test_that("yearmonth, is_yearmonth works", {
 })
 
 test_that("yearmonth, subsetting works", {
-    x <- Sys.Date()
+    x <- as.Date("2023-02-15")
     dat <- as_yearmonth(x) + 0:1
     dat <- setNames(dat, c("a", "b"))
     expect_identical(dat[1], c(a=as_yearmonth(x)))
