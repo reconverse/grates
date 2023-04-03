@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">grates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -171,14 +171,14 @@ are stored as the integer number of weeks since 1969-12-29.</p>
 <span><span class="co"># epiweeks always start on a Sunday</span></span>
 <span><span class="op">(</span><span class="va">epiwk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_epiweek.html">as_epiweek</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_epiweek[1]&gt;</span></span>
-<span><span class="co">#&gt; [1] "2023-W11"</span></span>
+<span><span class="co">#&gt; [1] "2023-W14"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">weekdays</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">epiwk</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Sunday"</span></span>
 <span></span>
 <span><span class="co"># isoweeks always start on a Sunday</span></span>
 <span><span class="op">(</span><span class="va">isowk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_isoweek.html">as_isoweek</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_isoweek[1]&gt;</span></span>
-<span><span class="co">#&gt; [1] "2023-W11"</span></span>
+<span><span class="co">#&gt; [1] "2023-W14"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">weekdays</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">isowk</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Monday"</span></span></code></pre></div>
 <p>By default plots (using {ggplot2}) will centre yearweek (epiweek /
