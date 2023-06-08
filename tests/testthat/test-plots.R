@@ -289,7 +289,12 @@ test_that("period plotting works", {
             ggplot2::theme_bw() +
             ggplot2::xlab("")
 
+    br <- as_period(c("2014-08-28", "2015-01-15"), n = 14)
+    two_weeks_breaks <- two_weeks +
+        scale_x_grates_period(breaks = br, n = 14, offset = 0)
+
     expect_snapshot_plot("two_weeks", two_weeks)
+    expect_snapshot_plot("two_weeks_breaks", two_weeks_breaks)
 
     twentyeight_days <-
         dat |>
@@ -303,7 +308,13 @@ test_that("period plotting works", {
             scale_x_grates_period(n.breaks = 7L, n = 28, offset = 0L) +
             ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
 
+    br <- as_period("2014-06-19", n = 28) + c(0,2,4)
+    twentyeight_days_breaks <- twentyeight_days +
+        scale_x_grates_period(breaks = br, n=28, offset = 0) +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
+
     expect_snapshot_plot("twentyeight_days", twentyeight_days)
+    expect_snapshot_plot("twentyeight_days_breaks", twentyeight_days_breaks)
 
 
 })

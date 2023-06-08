@@ -7,10 +7,16 @@ grates_period_env <-  new.env(parent = emptyenv())
 #' ggplot2 scale for an `<grates_period>` vector.
 #'
 # -------------------------------------------------------------------------
+#' @param breaks
+#'
+#' A `<grates_period>` vector of the desired breaks.
+#'
 #' @param n.breaks `[integer]`
 #'
 #' Approximate number of breaks calculated using `scales::breaks_pretty`
 #' (default 6L).
+#'
+#' Will only have an effect if `breaks = waiver()`.
 #'
 #' @param format
 #'
@@ -37,7 +43,7 @@ grates_period_env <-  new.env(parent = emptyenv())
 #'
 # -------------------------------------------------------------------------
 #' @export
-scale_x_grates_period <- function(..., n.breaks = 6L, format = "%Y-%m-%d", n, offset) {
+scale_x_grates_period <- function(..., breaks = ggplot2::waiver(), n.breaks = 6L, format = "%Y-%m-%d", n, offset) {
 
     .check_suggests("ggplot2")
     .check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
@@ -84,6 +90,7 @@ scale_x_grates_period <- function(..., n.breaks = 6L, format = "%Y-%m-%d", n, of
 
     ggplot2::scale_x_continuous(
         trans = .grates_period_trans(
+            breaks = breaks,
             n.breaks = n.breaks,
             n = n,
             offset = offset,
@@ -114,15 +121,20 @@ scale_type.grates_period <- function(x) {
 # -------------------------------- INTERNALS ------------------------------ #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-.grates_period_trans <- function(n.breaks, format, n, offset) {
+.grates_period_trans <- function(breaks, n.breaks, format, n, offset) {
 
     shift <- 0.5
 
     # breaks function
     brks <- function(x) {
-        dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
-        dat <- as.integer(floor(dat))
-        as.numeric(new_period(dat, n = n, offset = offset)) - shift
+        if (!inherits(breaks,"waiver")) {
+            dat <- as.numeric(breaks)
+        } else {
+            dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
+            dat <- as.integer(floor(dat))
+            dat <- as.numeric(new_period(dat, n = n, offset = offset))
+        }
+        dat - shift
     }
 
     # format function

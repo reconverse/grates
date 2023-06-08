@@ -4,15 +4,26 @@
 \alias{scale_x_grates_period}
 \title{period scale}
 \usage{
-scale_x_grates_period(..., n.breaks = 6L, format = "\%Y-\%m-\%d", n, offset)
+scale_x_grates_period(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  format = "\%Y-\%m-\%d",
+  n,
+  offset
+)
 }
 \arguments{
 \item{...}{Not currently used.}
 
+\item{breaks}{A \verb{<grates_period>} vector of the desired breaks.}
+
 \item{n.breaks}{\verb{[integer]}
 
 Approximate number of breaks calculated using \code{scales::breaks_pretty}
-(default 6L).}
+(default 6L).
+
+Will only have an effect if \code{breaks = waiver()}.}
 
 \item{format}{Format to use for dates.
 
