@@ -1,5 +1,8 @@
 # grates (development version)
 
+* The scale functions (e.g. `scale_x_grates_isoweek()`) gain a `breaks`
+  argument to allow exact specification of breaks.
+
 # grates 1.0.1
 
 * Fix erroneous tests flagged by CRAN.
