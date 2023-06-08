@@ -66,6 +66,11 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          clean: false
+          # We clean on releases because we want to remove old vignettes,
+          # figures, etc. that have been deleted from the `main` branch.
+          # But we clean ONLY on releases because we want to be able to keep
+          # both the 'stable' and 'dev' websites.
+          # Also discussed in https://github.com/r-lib/actions/issues/484
+          clean: ${{ github.event_name == 'release' }}
           branch: gh-pages
           folder: docs
