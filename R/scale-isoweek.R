@@ -13,7 +13,7 @@
 #' Approximate number of breaks calculated using `scales::breaks_pretty`
 #' (default 6L).
 #'
-#' Will only have an effect if breaks = waiver().
+#' Will only have an effect if `breaks = waiver()`.
 #'
 #' @param format
 #'

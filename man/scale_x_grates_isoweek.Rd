@@ -21,7 +21,7 @@ scale_x_grates_isoweek(
 Approximate number of breaks calculated using \code{scales::breaks_pretty}
 (default 6L).
 
-Will only have an effect if breaks = waiver().}
+Will only have an effect if \code{breaks = waiver()}.}
 
 \item{format}{Format to use if "Date" scales are required.
 

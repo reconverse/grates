@@ -5,10 +5,16 @@
 #' ggplot2 scale for an `<grates_epiweek>` vector.
 #'
 # -------------------------------------------------------------------------
+#' @param breaks
+#'
+#' A `<grates_epiweek>` vector of the desired breaks.
+#'
 #' @param n.breaks `[integer]`
 #'
 #' Approximate number of breaks calculated using `scales::breaks_pretty`
 #' (default 6L).
+#'
+#' Will only have an effect if `breaks = waiver()`.
 #'
 #' @param format
 #'
@@ -29,7 +35,7 @@
 #'
 # -------------------------------------------------------------------------
 #' @export
-scale_x_grates_epiweek <- function(..., n.breaks = 6L, format = NULL) {
+scale_x_grates_epiweek <- function(..., breaks = ggplot2::waiver(), n.breaks = 6L, format = NULL) {
 
     .check_suggests("ggplot2")
     .check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
@@ -37,6 +43,7 @@ scale_x_grates_epiweek <- function(..., n.breaks = 6L, format = NULL) {
 
     ggplot2::scale_x_continuous(
         trans = .grates_epiweek_trans(
+            breaks = breaks,
             n.breaks = n.breaks,
             format = format
         )
@@ -63,15 +70,20 @@ scale_type.grates_epiweek <- function(x) {
 # -------------------------------- INTERNALS ------------------------------ #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-.grates_epiweek_trans <- function(n.breaks, format) {
+.grates_epiweek_trans <- function(breaks, n.breaks, format) {
 
     shift <- if (is.null(format)) 0 else 0.5
 
     # breaks function
     brks <- function(x) {
-        dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
-        dat <- as.integer(floor(dat))
-        as.numeric(new_epiweek(dat)) - shift
+        if (!inherits(breaks,"waiver")) {
+            dat <- as.numeric(breaks)
+        } else {
+            dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
+            dat <- as.integer(floor(dat))
+            dat <- as.numeric(new_isoweek(dat))
+        }
+        dat - shift
     }
 
     # format function

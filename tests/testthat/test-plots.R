@@ -101,8 +101,20 @@ test_that("epiweek plotting works", {
         ggplot2::theme_bw() +
         ggplot2::xlab("")
 
+    epiweek_breaks <- epiweek +
+        scale_x_grates_epiweek(breaks = epiweek(year = 2014, week = c(35, 45)))
+
+    epiweek_breaks_dates <- epiweek +
+        scale_x_grates_epiweek(
+            breaks = epiweek(year = 2014:2015, week = c(35, 3)),
+            format = "%Y-%m-%d"
+        ) +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
+
 
     expect_snapshot_plot("epiweek", epiweek)
+    expect_snapshot_plot("epiweek_breaks", epiweek_breaks)
+    expect_snapshot_plot("epiweek_breaks_dates", epiweek_breaks_dates)
 })
 
 test_that("yearmonth plotting works", {
