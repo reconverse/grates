@@ -296,7 +296,7 @@ x <- week_dat$week
 # min, max and range
 (minx <- min(x))
 (maxx <- max(x))
-rangex <- range(x)
+(rangex <- range(x))
 
 # seq method works if both `from` and `to` are epiweeks
 seq(from = minx, to = maxx, by = 6L)
