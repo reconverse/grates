@@ -176,6 +176,9 @@ test_that("yearquarter plotting works", {
             ggplot2::theme_bw() +
             ggplot2::xlab("")
 
+    quarter_breaks <- quarter +
+        scale_x_grates_yearquarter(breaks = yearquarter(2014, 1) + 0:4)
+
     quarter2 <-
         ggplot2::ggplot(quarter_dat, ggplot2::aes(date, cases)) +
         ggplot2::geom_col(width = 1, colour = "white") +
@@ -183,8 +186,13 @@ test_that("yearquarter plotting works", {
         ggplot2::theme_bw() +
         ggplot2::xlab("")
 
+    quarter2_breaks <- quarter2 +
+        scale_x_grates_yearquarter(breaks = yearquarter(2014, 1) + 0:5, format = "%Y-%m-%d")
+
     expect_snapshot_plot("yearquarter", quarter)
+    expect_snapshot_plot("yearquarter_breaks", quarter_breaks)
     expect_snapshot_plot("yearquarter2", quarter2)
+    expect_snapshot_plot("yearquarter2_breaks", quarter2_breaks)
 })
 
 
