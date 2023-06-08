@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">grates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,12 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_x_grates_yearmonth</span><span class="op">(</span><span class="va">...</span>, n.breaks <span class="op">=</span> <span class="fl">6L</span>, format <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_x_grates_yearmonth</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  n.breaks <span class="op">=</span> <span class="fl">6L</span>,</span>
+<span>  format <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -63,10 +68,15 @@
 <dd><p>Not currently used.</p></dd>
 
 
+<dt>breaks</dt>
+<dd><p>A <code>&lt;grates_yearmonth&gt;</code> vector of the desired breaks.</p></dd>
+
+
 <dt>n.breaks</dt>
 <dd><p><code>[integer]</code></p>
 <p>Approximate number of breaks calculated using <code><a href="https://scales.r-lib.org/reference/breaks_pretty.html" class="external-link">scales::breaks_pretty</a></code>
-(default 6L).</p></dd>
+(default 6L).</p>
+<p>Will only have an effect if <code>breaks = waiver()</code>.</p></dd>
 
 
 <dt>format</dt>
