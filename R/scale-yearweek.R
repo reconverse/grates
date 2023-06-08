@@ -5,10 +5,16 @@
 #' ggplot2 scale for an `<grates_yearweek>` vector.
 #'
 # -------------------------------------------------------------------------
+#' @param breaks
+#'
+#' A `<grates_yearweek>` vector of the desired breaks.
+#'
 #' @param n.breaks `[integer]`
 #'
 #' Approximate number of breaks calculated using `scales::breaks_pretty`
 #' (default 6L).
+#'
+#' Will only have an effect if `breaks = waiver()`.
 #'
 #' @param format
 #'
@@ -33,7 +39,13 @@
 #'
 # -------------------------------------------------------------------------
 #' @export
-scale_x_grates_yearweek <- function(..., n.breaks = 6L, firstday, format = NULL) {
+scale_x_grates_yearweek <- function(
+    ...,
+    breaks = ggplot2::waiver(),
+    n.breaks = 6L,
+    firstday,
+    format = NULL
+) {
 
     .check_suggests("ggplot2")
     .check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
@@ -56,6 +68,7 @@ scale_x_grates_yearweek <- function(..., n.breaks = 6L, firstday, format = NULL)
 
     ggplot2::scale_x_continuous(
         trans = .grates_yearweek_trans(
+            breaks = breaks,
             n.breaks = n.breaks,
             firstday = firstday,
             format = format
@@ -66,64 +79,64 @@ scale_x_grates_yearweek <- function(..., n.breaks = 6L, firstday, format = NULL)
 # -------------------------------------------------------------------------
 #' @export
 #' @rdname scale_x_grates_yearweek
-scale_x_grates_yearweek_monday <- function(..., n.breaks = 6, format = NULL) {
-    scale_x_grates_yearweek(..., n.breaks = n.breaks, firstday = 1L, format = format)
+scale_x_grates_yearweek_monday <- function(..., breaks = ggplot2::waiver(), n.breaks = 6, format = NULL) {
+    scale_x_grates_yearweek(..., breaks = breaks, n.breaks = n.breaks, firstday = 1L, format = format)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 #' @rdname scale_x_grates_yearweek
-scale_x_grates_yearweek_isoweek <- function(..., n.breaks = 6, format = NULL) {
-    scale_x_grates_yearweek(..., n.breaks = n.breaks, firstday = 1L, format = format)
+scale_x_grates_yearweek_isoweek <- function(..., breaks = ggplot2::waiver(), n.breaks = 6, format = NULL) {
+    scale_x_grates_yearweek(..., breaks = breaks, n.breaks = n.breaks, firstday = 1L, format = format)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 #' @rdname scale_x_grates_yearweek
-scale_x_grates_yearweek_tuesday <- function(..., n.breaks = 6, format = NULL) {
-    scale_x_grates_yearweek(..., n.breaks = n.breaks, firstday = 2L, format = format)
+scale_x_grates_yearweek_tuesday <- function(..., breaks = ggplot2::waiver(), n.breaks = 6, format = NULL) {
+    scale_x_grates_yearweek(..., breaks = breaks, n.breaks = n.breaks, firstday = 2L, format = format)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 #' @rdname scale_x_grates_yearweek
-scale_x_grates_yearweek_wednesday <- function(..., n.breaks = 6, format = NULL) {
-    scale_x_grates_yearweek(..., n.breaks = n.breaks, firstday = 3L, format = format)
+scale_x_grates_yearweek_wednesday <- function(..., breaks = ggplot2::waiver(), n.breaks = 6, format = NULL) {
+    scale_x_grates_yearweek(..., breaks = breaks, n.breaks = n.breaks, firstday = 3L, format = format)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 #' @rdname scale_x_grates_yearweek
-scale_x_grates_yearweek_thursday <- function(..., n.breaks = 6, format = NULL) {
-    scale_x_grates_yearweek(..., n.breaks = n.breaks, firstday = 4L, format = format)
+scale_x_grates_yearweek_thursday <- function(..., breaks = ggplot2::waiver(), n.breaks = 6, format = NULL) {
+    scale_x_grates_yearweek(..., breaks = breaks, n.breaks = n.breaks, firstday = 4L, format = format)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 #' @rdname scale_x_grates_yearweek
-scale_x_grates_yearweek_friday <- function(..., n.breaks = 6, format = NULL) {
-    scale_x_grates_yearweek(..., n.breaks = n.breaks, firstday = 5L, format = format)
+scale_x_grates_yearweek_friday <- function(..., breaks = ggplot2::waiver(), n.breaks = 6, format = NULL) {
+    scale_x_grates_yearweek(..., breaks = breaks, n.breaks = n.breaks, firstday = 5L, format = format)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 #' @rdname scale_x_grates_yearweek
-scale_x_grates_yearweek_saturday <- function(..., n.breaks = 6, format = NULL) {
-    scale_x_grates_yearweek(..., n.breaks = n.breaks, firstday = 6L, format = format)
+scale_x_grates_yearweek_saturday <- function(..., breaks = ggplot2::waiver(), n.breaks = 6, format = NULL) {
+    scale_x_grates_yearweek(..., breaks = breaks, n.breaks = n.breaks, firstday = 6L, format = format)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 #' @rdname scale_x_grates_yearweek
-scale_x_grates_yearweek_sunday <- function(..., n.breaks = 6, format = NULL) {
-    scale_x_grates_yearweek(..., n.breaks = n.breaks, firstday = 7L, format = format)
+scale_x_grates_yearweek_sunday <- function(..., breaks = ggplot2::waiver(), n.breaks = 6, format = NULL) {
+    scale_x_grates_yearweek(..., breaks = breaks, n.breaks = n.breaks, firstday = 7L, format = format)
 }
 
 # -------------------------------------------------------------------------
 #' @export
 #' @rdname scale_x_grates_yearweek
-scale_x_grates_yearweek_epiweek <- function(..., n.breaks = 6, format = NULL) {
-    scale_x_grates_yearweek(..., n.breaks = n.breaks, firstday = 7L, format = format)
+scale_x_grates_yearweek_epiweek <- function(..., breaks = ggplot2::waiver(), n.breaks = 6, format = NULL) {
+    scale_x_grates_yearweek(..., breaks = breaks, n.breaks = n.breaks, firstday = 7L, format = format)
 }
 
 # -------------------------------------------------------------------------
@@ -164,15 +177,20 @@ scale_type.grates_yearweek <- function(x) {
 # -------------------------------- INTERNALS ------------------------------ #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-.grates_yearweek_trans <- function(n.breaks, firstday, format) {
+.grates_yearweek_trans <- function(breaks, n.breaks, firstday, format) {
 
     shift <- if (is.null(format)) 0 else 0.5
 
     # breaks function
     brks <- function(x) {
-        dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
-        dat <- as.integer(floor(dat))
-        as.numeric(new_yearweek(dat, firstday = firstday)) - shift
+        if (!inherits(breaks,"waiver")) {
+            dat <- as.numeric(breaks)
+        } else {
+            dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
+            dat <- as.integer(floor(dat))
+            dat <- as.numeric(new_yearweek(dat, firstday = firstday))
+        }
+        dat - shift
     }
 
     # format function

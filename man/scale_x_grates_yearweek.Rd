@@ -13,33 +13,88 @@
 \alias{scale_x_grates_yearweek_epiweek}
 \title{yearweek scale}
 \usage{
-scale_x_grates_yearweek(..., n.breaks = 6L, firstday, format = NULL)
+scale_x_grates_yearweek(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  firstday,
+  format = NULL
+)
 
-scale_x_grates_yearweek_monday(..., n.breaks = 6, format = NULL)
+scale_x_grates_yearweek_monday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
 
-scale_x_grates_yearweek_isoweek(..., n.breaks = 6, format = NULL)
+scale_x_grates_yearweek_isoweek(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
 
-scale_x_grates_yearweek_tuesday(..., n.breaks = 6, format = NULL)
+scale_x_grates_yearweek_tuesday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
 
-scale_x_grates_yearweek_wednesday(..., n.breaks = 6, format = NULL)
+scale_x_grates_yearweek_wednesday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
 
-scale_x_grates_yearweek_thursday(..., n.breaks = 6, format = NULL)
+scale_x_grates_yearweek_thursday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
 
-scale_x_grates_yearweek_friday(..., n.breaks = 6, format = NULL)
+scale_x_grates_yearweek_friday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
 
-scale_x_grates_yearweek_saturday(..., n.breaks = 6, format = NULL)
+scale_x_grates_yearweek_saturday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
 
-scale_x_grates_yearweek_sunday(..., n.breaks = 6, format = NULL)
+scale_x_grates_yearweek_sunday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
 
-scale_x_grates_yearweek_epiweek(..., n.breaks = 6, format = NULL)
+scale_x_grates_yearweek_epiweek(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
 }
 \arguments{
 \item{...}{Not currently used.}
 
+\item{breaks}{A \verb{<grates_yearweek>} vector of the desired breaks.}
+
 \item{n.breaks}{\verb{[integer]}
 
 Approximate number of breaks calculated using \code{scales::breaks_pretty}
-(default 6L).}
+(default 6L).
+
+Will only have an effect if \code{breaks = waiver()}.}
 
 \item{firstday}{\verb{[integer]}
 

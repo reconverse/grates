@@ -37,6 +37,9 @@ test_that("yearweek plotting works", {
             ggplot2::theme_bw() +
             ggplot2::xlab("")
 
+    yearweek_monday_breaks <- yearweek_monday +
+        scale_x_grates_yearweek(breaks = yearweek(2015, c(3, 13), 1), firstday = 1)
+
     yearweek_thursday <-
         dat |>
         dplyr::mutate(date = as_yearweek(date_of_infection, firstday = 4L)) |>
@@ -47,8 +50,13 @@ test_that("yearweek plotting works", {
         ggplot2::theme_bw() +
         ggplot2::xlab("")
 
+    yearweek_thursday_breaks <- yearweek_thursday +
+        scale_x_grates_yearweek_thursday(breaks = yearweek(2014, c(25,35,45), 4))
+
     expect_snapshot_plot("yearweek_monday", yearweek_monday)
+    expect_snapshot_plot("yearweek_monday_breaks", yearweek_monday_breaks)
     expect_snapshot_plot("yearweek_thursday", yearweek_thursday)
+    expect_snapshot_plot("yearweek_thursday_breaks", yearweek_thursday_breaks)
 })
 
 
