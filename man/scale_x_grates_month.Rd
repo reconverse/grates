@@ -6,6 +6,7 @@
 \usage{
 scale_x_grates_month(
   ...,
+  breaks = ggplot2::waiver(),
   n.breaks = 6L,
   format = "\%Y-\%m-\%d",
   bounds_format = "\%Y-\%b",
@@ -16,10 +17,14 @@ scale_x_grates_month(
 \arguments{
 \item{...}{Not currently used.}
 
+\item{breaks}{A \verb{<grates_month>} vector of the desired breaks.}
+
 \item{n.breaks}{\verb{[integer]}
 
 Approximate number of breaks calculated using \code{scales::breaks_pretty}
-(default 6L).}
+(default 6L).
+
+Will only have an effect if \code{breaks = waiver()}.}
 
 \item{format}{Format to use if "Date" scales are required.
 

@@ -7,10 +7,16 @@ grates_month_env <-  new.env(parent = emptyenv())
 #' ggplot2 scale for a month vector.
 #'
 # -------------------------------------------------------------------------
+#' @param breaks
+#'
+#' A `<grates_month>` vector of the desired breaks.
+#'
 #' @param n.breaks `[integer]`
 #'
 #' Approximate number of breaks calculated using `scales::breaks_pretty`
 #' (default 6L).
+#'
+#' Will only have an effect if `breaks = waiver()`.
 #'
 #' @param format
 #'
@@ -45,12 +51,13 @@ grates_month_env <-  new.env(parent = emptyenv())
 # -------------------------------------------------------------------------
 #' @export
 scale_x_grates_month <- function(
-        ...,
-        n.breaks = 6L,
-        format = "%Y-%m-%d",
-        bounds_format = "%Y-%b",
-        sep = "to",
-        n
+    ...,
+    breaks = ggplot2::waiver(),
+    n.breaks = 6L,
+    format = "%Y-%m-%d",
+    bounds_format = "%Y-%b",
+    sep = "to",
+    n
 ) {
 
     .check_suggests("ggplot2")
@@ -75,6 +82,7 @@ scale_x_grates_month <- function(
 
     ggplot2::scale_x_continuous(
         trans = .grates_month_trans(
+            breaks = breaks,
             n.breaks = n.breaks,
             format = format,
             bounds_format = bounds_format,
@@ -105,15 +113,20 @@ scale_type.grates_month <- function(x) {
 # -------------------------------- INTERNALS ------------------------------ #
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
-.grates_month_trans <- function(n.breaks, format, bounds_format, sep, n) {
+.grates_month_trans <- function(breaks, n.breaks, format, bounds_format, sep, n) {
 
     shift <- if (is.null(format)) 0 else 0.5
 
     # breaks function
     brks <- function(x) {
-        dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
-        dat <- as.integer(floor(dat))
-        as.numeric(new_month(dat, n = n)) - shift
+        if (!inherits(breaks,"waiver")) {
+            dat <- as.numeric(breaks)
+        } else {
+            dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
+            dat <- as.integer(floor(dat))
+            dat <- as.numeric(new_month(dat, n = n))
+        }
+        dat - shift
     }
 
     # format function

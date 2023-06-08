@@ -137,15 +137,15 @@ test_that("yearmonth plotting works", {
             ggplot2::theme_bw() +
             ggplot2::xlab("")
 
-    month2 <-
-        month_dat |>
-            ggplot2::ggplot(ggplot2::aes(date, cases)) +
-            ggplot2::geom_col(width = 1, colour = "white") +
-            ggplot2::theme_bw() +
-            ggplot2::xlab("") +
-            scale_x_grates_yearmonth(n.breaks = 4, format = "%Y-%m-%d")
+    month_breaks <- month +
+        scale_x_grates_yearmonth(breaks = yearmonth(year = 2014, month = 3:12)) +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
+
+    month2 <- month +
+        scale_x_grates_yearmonth(n.breaks = 4, format = "%Y-%m-%d")
 
     expect_snapshot_plot("yearmonth", month)
+    expect_snapshot_plot("yearmonth_breaks", month_breaks)
     expect_snapshot_plot("yearmonth2", month2)
 })
 
@@ -230,6 +230,10 @@ test_that("month plotting works", {
         ggplot2::theme_bw() +
         ggplot2::xlab("")
 
+    month_breaks <- month +
+        scale_x_grates_month(breaks = as_month("2014-05-01", n = 2) + 0:5 , n = 2) +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
+
     month2 <-
         month_dat |>
         ggplot2::ggplot(ggplot2::aes(date, cases)) +
@@ -241,6 +245,7 @@ test_that("month plotting works", {
 
 
     expect_snapshot_plot("month", month)
+    expect_snapshot_plot("month_breaks", month_breaks)
     expect_snapshot_plot("month2", month2)
 })
 
