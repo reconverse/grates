@@ -215,6 +215,9 @@ test_that("year plotting works", {
         ggplot2::theme_bw() +
         ggplot2::xlab("")
 
+    year_breaks <- year +
+        scale_x_grates_year(breaks = year(2014))
+
     year2 <-
         ggplot2::ggplot(year_dat, ggplot2::aes(date, cases)) +
         ggplot2::geom_col(width = 1, colour = "white") +
@@ -222,8 +225,13 @@ test_that("year plotting works", {
         ggplot2::theme_bw() +
         ggplot2::xlab("")
 
+    year2_breaks <- year +
+        scale_x_grates_year(breaks = year(2014:2016), format = "%Y-%m-%d")
+
     expect_snapshot_plot("year", year)
+    expect_snapshot_plot("year_breaks", year_breaks)
     expect_snapshot_plot("year2", year2)
+    expect_snapshot_plot("year2_breaks", year2_breaks)
 })
 
 test_that("month plotting works", {
