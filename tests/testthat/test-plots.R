@@ -68,8 +68,20 @@ test_that("isoweek plotting works", {
             ggplot2::theme_bw() +
             ggplot2::xlab("")
 
+    isoweek_breaks <- isoweek +
+        scale_x_grates_isoweek(breaks = isoweek(year = 2014, week = c(35, 45)))
+
+    isoweek_breaks_dates <- isoweek +
+        scale_x_grates_isoweek(
+            breaks = isoweek(year = 2014:2015, week = c(35, 3)),
+            format = "%Y-%m-%d"
+        ) +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
+
 
     expect_snapshot_plot("isoweek", isoweek)
+    expect_snapshot_plot("isoweek_breaks", isoweek_breaks)
+    expect_snapshot_plot("isoweek_breaks_dates", isoweek_breaks_dates)
 })
 
 
