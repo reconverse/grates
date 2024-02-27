@@ -88,14 +88,17 @@ scale_x_grates_period <- function(..., breaks = ggplot2::waiver(), n.breaks = 6L
     grates_period_env$n <- NULL
     grates_period_env$offset <- NULL
 
-    ggplot2::scale_x_continuous(
-        trans = .grates_period_trans(
-            breaks = breaks,
-            n.breaks = n.breaks,
-            n = n,
-            offset = offset,
-            format = format
-        )
+    suppressWarnings(
+        ggplot2::scale_x_continuous(
+            trans = .grates_period_trans(
+                breaks = breaks,
+                n.breaks = n.breaks,
+                n = n,
+                offset = offset,
+                format = format
+            )
+        ),
+        classes = "lifecycle_warning_deprecated"
     )
 }
 

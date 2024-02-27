@@ -80,15 +80,18 @@ scale_x_grates_month <- function(
     # set environment variables to NULL so they don't mess other plots up
     grates_month_env$n <- NULL
 
-    ggplot2::scale_x_continuous(
-        trans = .grates_month_trans(
-            breaks = breaks,
-            n.breaks = n.breaks,
-            format = format,
-            bounds_format = bounds_format,
-            sep = sep,
-            n = n
-        )
+    suppressWarnings(
+        ggplot2::scale_x_continuous(
+            trans = .grates_month_trans(
+                breaks = breaks,
+                n.breaks = n.breaks,
+                format = format,
+                bounds_format = bounds_format,
+                sep = sep,
+                n = n
+            )
+        ),
+        classes = "lifecycle_warning_deprecated"
     )
 }
 

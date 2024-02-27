@@ -1,5 +1,11 @@
 # grates (development version)
 
+* Users of the 3.5.0 release of
+  [ggplot2](https://CRAN.R-project.org/package=ggplot2) will have noticed some
+  additional "warnings" appearing within the plot. These have now been handled
+  internally so please raise an issue if they reappear.
+  
+
 # grates 1.1.0
 
 * The scale functions (e.g. `scale_x_grates_isoweek()`) gain a `breaks`

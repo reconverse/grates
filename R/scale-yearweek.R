@@ -66,13 +66,16 @@ scale_x_grates_yearweek <- function(
         stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
 
 
-    ggplot2::scale_x_continuous(
-        trans = .grates_yearweek_trans(
-            breaks = breaks,
-            n.breaks = n.breaks,
-            firstday = firstday,
-            format = format
-        )
+    suppressWarnings(
+        ggplot2::scale_x_continuous(
+            trans = .grates_yearweek_trans(
+                breaks = breaks,
+                n.breaks = n.breaks,
+                firstday = firstday,
+                format = format
+            )
+        ),
+        classes = "lifecycle_warning_deprecated"
     )
 }
 

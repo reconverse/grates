@@ -41,12 +41,15 @@ scale_x_grates_epiweek <- function(..., breaks = ggplot2::waiver(), n.breaks = 6
     .check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
 
 
-    ggplot2::scale_x_continuous(
-        trans = .grates_epiweek_trans(
-            breaks = breaks,
-            n.breaks = n.breaks,
-            format = format
-        )
+    suppressWarnings(
+        ggplot2::scale_x_continuous(
+            trans = .grates_epiweek_trans(
+                breaks = breaks,
+                n.breaks = n.breaks,
+                format = format
+            )
+        ),
+        classes = "lifecycle_warning_deprecated"
     )
 }
 
