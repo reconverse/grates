@@ -54,13 +54,13 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
     lx <- length(x)
     ly <- length(y)
     if (lx == ly)
-        return(list(x,y))
+        return(list(x, y))
 
     if (lx == 0 || ly == 0L) {
         x <- deparse(substitute(x))
         y <- deparse(substitute(y))
         msg <- "Cannot recycle a vector of length 0:"
-        msgxy <- sprintf("`%s` is of length %d and `%s` is of length %d." , x, lx, y, ly)
+        msgxy <- sprintf("`%s` is of length %d and `%s` is of length %d.", x, lx, y, ly)
         msg <- paste(msg, msgxy, sep = "\n")
         stopf(msg, .call = sys.call(-1L))
     }
@@ -73,7 +73,7 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
         x <- deparse(substitute(x))
         y <- deparse(substitute(y))
         msg <- "Can only recycle vectors of length 1:"
-        msgxy <- sprintf("`%s` is of length %d and `%s` is of length %d." , x, lx, y, ly)
+        msgxy <- sprintf("`%s` is of length %d and `%s` is of length %d.", x, lx, y, ly)
         msg <- paste(msg, msgxy, sep = "\n")
         stopf(msg, .call = sys.call(-1L))
     }

@@ -26,12 +26,10 @@
 # -------------------------------------------------------------------------
 #' @export
 year <- function(x = integer()) {
-    if (!is.integer(x)) {
-        if (is.vector(x, "double")) {
-            x <- as.integer(floor(x))
-        } else {
-            stop("`x` must be integer.")
-        }
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
     }
 
     .new_year(x = x)
@@ -54,7 +52,7 @@ is_year <- function(object) {
 print.grates_year <- function(x, ...) {
     # replicate the header as in vctrs
     n <- length(x)
-    cat("<grates_year[", n, "]>\n", sep="")
+    cat("<grates_year[", n, "]>\n", sep = "")
     if (n)
         print(as.integer(x))
     invisible(x)
@@ -335,9 +333,10 @@ quantile.grates_year <- function(x, type = 1, ...) {
 Ops.grates_year <- function(e1, e2) {
     op <- .Generic
     if (op %in% c("==", "!=", "<", ">", "<=", ">=")) {
-        if (!inherits(e2, "grates_year"))
-            stop("Can only compare <grates_year> objects with <grates_year> objects.")
-        return(NextMethod())
+        if (inherits(e2, "grates_year")) {
+            return(NextMethod())
+        }
+        stop("Can only compare <grates_year> objects with <grates_year> objects.")
     }
 
     switch(
@@ -348,12 +347,11 @@ Ops.grates_year <- function(e1, e2) {
             } else if (inherits(e1, "grates_year") && inherits(e2, "grates_year")) {
                 stop("Cannot add <grates_year> objects to each other.")
             } else if (inherits(e1, "grates_year") && (.is_whole(e2))) {
-                .new_year(unclass(e1) + as.integer(e2))
+                return(.new_year(unclass(e1) + as.integer(e2)))
             } else if (inherits(e2, "grates_year") && (.is_whole(e1))) {
-                .new_year(unclass(e2) + as.integer(e1))
-            } else {
-                stop("Can only add integers to <grates_year> objects.")
+                return(.new_year(unclass(e2) + as.integer(e1)))
             }
+            stop("Can only add integers to <grates_year> objects.")
         },
         "-" = {
             if (missing(e2)) {
@@ -361,14 +359,13 @@ Ops.grates_year <- function(e1, e2) {
             } else if (inherits(e2, "grates_year")) {
                 if (!inherits(e1, "grates_year"))
                     stop("Can only subtract from a <grates_year> object, not vice-versa.")
-                unclass(e1) - unclass(e2)
+                return(unclass(e1) - unclass(e2))
             } else if (inherits(e1, "grates_year") && is.integer(e2)) {
-                .new_year(unclass(e1) - e2)
+                return(.new_year(unclass(e1) - e2))
             } else if (inherits(e1, "grates_year") && .is_whole(e2)) {
-                .new_year(unclass(e1) - as.integer(e2))
-            } else {
-                stop("Can only subtract whole numbers and other <grates_year> objects from <grates_year> objects.")
+                return(.new_year(unclass(e1) - as.integer(e2)))
             }
+            stop("Can only subtract whole numbers and other <grates_year> objects from <grates_year> objects.")
         },
         stopf("%s is not compatible with <grates_year> objects.", op)
     )

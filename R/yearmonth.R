@@ -37,12 +37,10 @@
 # -------------------------------------------------------------------------
 #' @export
 new_yearmonth <- function(x = integer()) {
-    if (!is.integer(x)) {
-        if (is.vector(x, "double")) {
-            x <- as.integer(floor(x))
-        } else {
-            stop("`x` must be integer.")
-        }
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
     }
 
     .new_yearmonth(x = x)
@@ -88,21 +86,17 @@ new_yearmonth <- function(x = integer()) {
 yearmonth <- function(year = integer(), month = integer()) {
 
     # check year is integerish
-    if (!is.integer(year)) {
-        if (is.vector(year, "double")) {
-            year <- as.integer(floor(year))
-        } else {
-            stop("`year` must be integer.")
-        }
+    if (is.vector(year, "double")) {
+        year <- as.integer(floor(year))
+    } else if (!is.integer(year)) {
+        stop("`year` must be integer.")
     }
 
     # check month is integerish
-    if (!is.integer(month)) {
-        if (is.vector(month, "double")) {
-            month <- as.integer(floor(month))
-        } else {
-            stop("`month` must be integer.")
-        }
+    if (is.vector(month, "double")) {
+        month <- as.integer(floor(month))
+    } else if (!is.integer(month)) {
+        stop("`month` must be integer.")
     }
 
     # check month bounded above and below
@@ -151,8 +145,8 @@ print.grates_yearmonth <- function(x, format = "%Y-%b", ...) {
 #' @rdname print.grates_yearmonth
 #' @export
 format.grates_yearmonth <- function(x, format = "%Y-%b", ...) {
-    if (length(x) == 0)
-        return(character(0))
+    if (length(x) == 0L)
+        return(character(0L))
     out <- format.Date(as.Date(x), format = format)
     out[is.na(x)] <- NA_character_
     out
@@ -359,7 +353,10 @@ as.Date.grates_yearmonth <- function(x, ...) {
 #' @export
 as.POSIXct.grates_yearmonth <- function(x, tz = "UTC", ...) {
     if (tz != "UTC")
-        stop("<grates_yearmonth> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+        stop(
+            "<grates_yearmonth> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
     x <- .month_to_days(unclass(x))
     .POSIXct(x * 86400, tz = "UTC")
 }
@@ -368,7 +365,10 @@ as.POSIXct.grates_yearmonth <- function(x, tz = "UTC", ...) {
 #' @export
 as.POSIXlt.grates_yearmonth <- function(x, tz = "UTC", ...) {
     if (tz != "UTC")
-        stop("<grates_yearmonth> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+        stop(
+            "<grates_yearmonth> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
     x <- .month_to_days(unclass(x))
     as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
 }
@@ -438,9 +438,10 @@ quantile.grates_yearmonth <- function(x, type = 1, ...) {
 Ops.grates_yearmonth <- function(e1, e2) {
     op <- .Generic
     if (op %in% c("==", "!=", "<", ">", "<=", ">=")) {
-        if (!inherits(e2, "grates_yearmonth"))
-            stop("Can only compare <grates_yearmonth> objects with <grates_yearmonth> objects.")
-        return(NextMethod())
+        if (inherits(e2, "grates_yearmonth")) {
+            return(NextMethod())
+        }
+        stop("Can only compare <grates_yearmonth> objects with <grates_yearmonth> objects.")
     }
 
     switch(
@@ -451,27 +452,26 @@ Ops.grates_yearmonth <- function(e1, e2) {
             } else if (inherits(e1, "grates_yearmonth") && inherits(e2, "grates_yearmonth")) {
                 stop("Cannot add <grates_yearmonth> objects to each other.")
             } else if (inherits(e1, "grates_yearmonth") && (.is_whole(e2))) {
-                .new_yearmonth(unclass(e1) + as.integer(e2))
+                return(.new_yearmonth(unclass(e1) + as.integer(e2)))
             } else if (inherits(e2, "grates_yearmonth") && (.is_whole(e1))) {
-                .new_yearmonth(unclass(e2) + as.integer(e1))
-            } else {
-                stop("Can only add integers to <grates_yearmonth> objects.")
+                return(.new_yearmonth(unclass(e2) + as.integer(e1)))
             }
+            stop("Can only add integers to <grates_yearmonth> objects.")
         },
         "-" = {
             if (missing(e2)) {
                 stop("Cannot negate a <grates_yearmonth> object.")
             } else if (inherits(e2, "grates_yearmonth")) {
-                if (!inherits(e1, "grates_yearmonth"))
+                if (!inherits(e1, "grates_yearmonth")) {
                     stop("Can only subtract from a <grates_yearmonth> object, not vice-versa.")
-                unclass(e1) - unclass(e2)
+                }
+                return(unclass(e1) - unclass(e2))
             } else if (inherits(e1, "grates_yearmonth") && is.integer(e2)) {
-                .new_yearmonth(unclass(e1) - e2)
+                return(.new_yearmonth(unclass(e1) - e2))
             } else if (inherits(e1, "grates_yearmonth") && .is_whole(e2)) {
-                .new_yearmonth(unclass(e1) - as.integer(e2))
-            } else {
-                stop("Can only subtract whole numbers and other <grates_yearmonth> objects from <grates_yearmonth> objects.")
+                return(.new_yearmonth(unclass(e1) - as.integer(e2)))
             }
+            stop("Can only subtract whole numbers and other <grates_yearmonth> objects from <grates_yearmonth> objects.")
         },
         stopf("%s is not compatible with <grates_yearmonth> objects.", op)
     )

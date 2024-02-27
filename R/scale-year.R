@@ -77,7 +77,7 @@ scale_type.grates_year <- function(x) {
 
     # breaks function
     brks <- function(x) {
-        if (!inherits(breaks,"waiver")) {
+        if (!inherits(breaks, "waiver")) {
             dat <- as.numeric(breaks)
         } else {
             dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
@@ -89,7 +89,7 @@ scale_type.grates_year <- function(x) {
 
     # format function
     fmt <- function(x) {
-        x <- year(x+shift)
+        x <- year(x + shift)
         if (is.null(format)) {
             format.grates_year(x)
         } else {

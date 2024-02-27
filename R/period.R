@@ -45,12 +45,10 @@
 # -------------------------------------------------------------------------
 #' @export
 new_period <- function(x = integer(), n = 1L, offset = 0L) {
-    if (!is.integer(x)) {
-        if (is.vector(x, "double")) {
-            x <- as.integer(floor(x))
-        } else {
-            stop("`x` must be integer.")
-        }
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
     }
 
     if (!.is_scalar_whole(n))
@@ -338,16 +336,16 @@ c.grates_period <- function(..., recursive = FALSE, use.names = TRUE) {
     if (!all(vapply(dots, inherits, TRUE, what = "grates_period")))
         stop("Unable to combine <grates_period> objects with other classes.")
 
-    ns <- vapply(dots, function(x) attr(x, "n"), 1L)
+    ns <- vapply(dots, attr, 1L, "n")
     if (length(unique(ns)) != 1L)
         stop("Unable to combine <grates_period> objects with different groupings.")
 
-    offsets <- vapply(dots, function(x) attr(x, "offset"), 1L)
+    offsets <- vapply(dots, attr, 1L, "offset")
     if (length(unique(offsets)) != 1L)
         stop("Unable to combine <grates_period> objects with different offsets.")
 
     res <- NextMethod()
-    .new_period(x = res, n = ns[[1]], offset = offsets[[1]])
+    .new_period(x = res, n = ns[[1L]], offset = offsets[[1L]])
 }
 
 # -------------------------------------------------------------------------
@@ -392,7 +390,10 @@ as.Date.grates_period <- function(x, ...) {
 #' @export
 as.POSIXct.grates_period <- function(x, tz = "UTC", ...) {
     if (tz != "UTC")
-        stop("<grates_period> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+        stop(
+            "<grates_period> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
     n <- attr(x, "n")
     offset <- attr(x, "offset")
     days <- as.integer(x) * n + offset
@@ -403,7 +404,10 @@ as.POSIXct.grates_period <- function(x, tz = "UTC", ...) {
 #' @export
 as.POSIXlt.grates_period <- function(x, tz = "UTC", ...) {
     if (tz != "UTC")
-        stop("<grates_period> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+        stop(
+            "<grates_period> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
     n <- attr(x, "n")
     offset <- attr(x, "offset")
     days <- as.integer(x) * n + offset
@@ -501,12 +505,10 @@ Ops.grates_period <- function(e1, e2) {
                 return(FALSE)
             } else if (op == "!=") {
                 return(TRUE)
-            } else {
-                stop("Can only compare <grates_period> objects with the same period grouping and offset.")
             }
-        } else {
-            stop("Can only compare <grates_period> objects with <grates_period> objects.")
+            stop("Can only compare <grates_period> objects with the same period grouping and offset.")
         }
+        stop("Can only compare <grates_period> objects with <grates_period> objects.")
     }
 
     switch(
@@ -519,14 +521,13 @@ Ops.grates_period <- function(e1, e2) {
             } else if (inherits(e1, "grates_period") && (.is_whole(e2))) {
                 n <- attr(e1, "n")
                 offset <- attr(e1, "offset")
-                .new_period(as.integer(e1) + as.integer(e2), n = n, offset = offset)
+                return(.new_period(as.integer(e1) + as.integer(e2), n = n, offset = offset))
             } else if (inherits(e2, "grates_period") && (.is_whole(e1))) {
                 n <- attr(e2, "n")
                 offset <- attr(e2, "offset")
-                .new_period(as.integer(e2) + as.integer(e1), n = n, offset = offset)
-            } else {
-                stop("Can only add integers to <grates_period> objects.")
+                return(.new_period(as.integer(e2) + as.integer(e1), n = n, offset = offset))
             }
+            stop("Can only add integers to <grates_period> objects.")
         },
         "-" = {
             if (missing(e2)) {
@@ -538,20 +539,17 @@ Ops.grates_period <- function(e1, e2) {
                     offset1 <- attr(e1, "offset")
                     offset2 <- attr(e2, "offset")
                     if (isTRUE(all.equal(n1, n2)) && isTRUE(all.equal(offset1, offset2))) {
-                        (as.integer(e1) - as.integer(e2))
-                    } else {
-                        stop("<grates_period> objects must have the same period grouping and offset to perform subtraction.")
+                        return((as.integer(e1) - as.integer(e2)))
                     }
-                } else {
-                    stop("Can only subtract from a <grates_period> object, not vice-versa.")
+                    stop("<grates_period> objects must have the same period grouping and offset to perform subtraction.")
                 }
+                stop("Can only subtract from a <grates_period> object, not vice-versa.")
             } else if (inherits(e1, "grates_period") && .is_whole(e2)) {
                 n <- attr(e1, "n")
                 offset <- attr(e1, "offset")
-                .new_period(as.integer(e1) - e2, n = n, offset = offset)
-            } else {
-                stop("Can only subtract whole numbers and other <grates_period> objects from <grates_period> objects.")
+                return(.new_period(as.integer(e1) - e2, n = n, offset = offset))
             }
+            stop("Can only subtract whole numbers and other <grates_period> objects from <grates_period> objects.")
         },
         stopf("%s is not compatible with <grates_period> objects.", op)
     )

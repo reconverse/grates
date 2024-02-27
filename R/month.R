@@ -43,12 +43,10 @@
 # -------------------------------------------------------------------------
 #' @export
 new_month <- function(x = integer(), n) {
-    if (!is.integer(x)) {
-        if (is.vector(x, "double")) {
-            x <- as.integer(floor(x))
-        } else {
-            stop("`x` must be integer.")
-        }
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
     }
 
     # trigger warning for missing n at top level
@@ -310,11 +308,11 @@ c.grates_month <- function(..., recursive = FALSE, use.names = TRUE) {
     dots <- list(...)
     if (!all(vapply(dots, inherits, TRUE, what = "grates_month")))
         stop("Unable to combine <grates_month> objects with other classes.")
-    ns <- vapply(dots, function(x) attr(x, "n"), 1L)
+    ns <- vapply(dots, attr, 1L, "n")
     if (length(unique(ns)) != 1L)
         stop("Unable to combine <grates_month> objects with different groupings.")
     res <- NextMethod()
-    .new_month(x = res, n = ns[[1]])
+    .new_month(x = res, n = ns[[1L]])
 }
 
 # -------------------------------------------------------------------------
@@ -353,8 +351,12 @@ as.Date.grates_month <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.POSIXct.grates_month <- function(x, tz = "UTC", ...) {
-    if (tz != "UTC")
-        stop("<grates_month> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    if (tz != "UTC") {
+        stop(
+            "<grates_month> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
+    }
     n <- attr(x, "n")
     x <- as.integer(x)
     x <- .month_to_days(x * n)
@@ -364,8 +366,12 @@ as.POSIXct.grates_month <- function(x, tz = "UTC", ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.POSIXlt.grates_month <- function(x, tz = "UTC", ...) {
-    if (tz != "UTC")
-        stop("<grates_month> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    if (tz != "UTC") {
+        stop(
+            "<grates_month> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
+    }
     n <- attr(x, "n")
     x <- as.integer(x)
     x <- .month_to_days(x * n)
@@ -457,12 +463,10 @@ Ops.grates_month <- function(e1, e2) {
                 return(FALSE)
             } else if (op == "!=") {
                 return(TRUE)
-            } else {
-                stop("Can only compare <grates_month> objects with the same month grouping.")
             }
-        } else {
-            stop("Can only compare <grates_month> objects with <grates_month> objects.")
+            stop("Can only compare <grates_month> objects with the same month grouping.")
         }
+        stop("Can only compare <grates_month> objects with <grates_month> objects.")
     }
 
     switch(
@@ -474,13 +478,12 @@ Ops.grates_month <- function(e1, e2) {
                 stop("Cannot add <grates_month> objects to each other.")
             } else if (inherits(e1, "grates_month") && (.is_whole(e2))) {
                 n <- attr(e1, "n")
-                .new_month(as.integer(e1) + as.integer(e2), n = n)
+                return(.new_month(as.integer(e1) + as.integer(e2), n = n))
             } else if (inherits(e2, "grates_month") && (.is_whole(e1))) {
                 n <- attr(e2, "n")
-                .new_month(as.integer(e2) + as.integer(e1), n = n)
-            } else {
-                stop("Can only add integers to <grates_month> objects.")
+                return(.new_month(as.integer(e2) + as.integer(e1), n = n))
             }
+            stop("Can only add integers to <grates_month> objects.")
         },
         "-" = {
             if (missing(e2)) {
@@ -490,19 +493,16 @@ Ops.grates_month <- function(e1, e2) {
                     n1 <- attr(e1, "n")
                     n2 <- attr(e2, "n")
                     if (isTRUE(all.equal(n1, n2))) {
-                        (as.integer(e1) - as.integer(e2))
-                    } else {
-                        stop("<grates_month> objects must have the same month grouping to perform subtraction.")
+                        return((as.integer(e1) - as.integer(e2)))
                     }
-                } else {
-                    stop("Can only subtract from a <grates_month> object, not vice-versa.")
+                    stop("<grates_month> objects must have the same month grouping to perform subtraction.")
                 }
+                stop("Can only subtract from a <grates_month> object, not vice-versa.")
             } else if (inherits(e1, "grates_month") && .is_whole(e2)) {
                 n <- attr(e1, "n")
-                .new_month(as.integer(e1) - e2, n = n)
-            } else {
-                stop("Can only subtract whole numbers and other <grates_month> objects from <grates_month> objects.")
+                return(.new_month(as.integer(e1) - e2, n = n))
             }
+            stop("Can only subtract whole numbers and other <grates_month> objects from <grates_month> objects.")
         },
         stopf("%s is not compatible with <grates_month> objects.", op)
     )

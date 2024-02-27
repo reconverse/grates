@@ -122,8 +122,8 @@ get_year.grates_yearweek <- function(x, ...) {
     december <- dat$mon == 11L
     january <- dat$mon == 0L
     boundary_adjustment <- integer(length(x)) # h/t Zhian Kamvar for boundary adjustment idea in aweek)
-    boundary_adjustment[january  & week >= 52] <- -1L
-    boundary_adjustment[december & week == 1]  <- 1L
+    boundary_adjustment[january  & week >= 52L] <- -1L
+    boundary_adjustment[december & week == 1L]  <- 1L
     yr <- dat$year + 1900L
     yr + boundary_adjustment
 }

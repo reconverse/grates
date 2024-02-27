@@ -48,12 +48,10 @@
 # -------------------------------------------------------------------------
 #' @export
 new_yearweek <- function(x = integer(), firstday = 1L) {
-    if (!is.integer(x)) {
-        if (is.vector(x, "double")) {
-            x <- as.integer(floor(x))
-        } else {
-            stop("`x` must be integer.")
-        }
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
     }
 
     if (length(firstday) != 1L)
@@ -131,21 +129,17 @@ new_yearweek <- function(x = integer(), firstday = 1L) {
 yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
 
     # check year is integerish
-    if (!is.integer(year)) {
-        if (is.vector(year, "double")) {
-            year <- as.integer(floor(year))
-        } else {
-            stop("`year` must be integer.")
-        }
+    if (is.vector(year, "double")) {
+        year <- as.integer(floor(year))
+    } else if (!is.integer(year)) {
+        stop("`year` must be integer.")
     }
 
     # check week is integerish
-    if (!is.integer(week)) {
-        if (is.vector(week, "double")) {
-            week <- as.integer(floor(week))
-        } else {
-            stop("`week` must be integer.")
-        }
+    if (is.vector(week, "double")) {
+        week <- as.integer(floor(week))
+    } else if (!is.integer(week)) {
+        stop("`week` must be integer.")
     }
 
     # check firstday
@@ -179,8 +173,8 @@ is_yearweek <- function(xx) {
 # -------------------------------------------------------------------------
 #' @export
 format.grates_yearweek <- function(x, ...) {
-    if (length(x) == 0)
-        return(character(0))
+    if (length(x) == 0L)
+        return(character(0L))
     week <- get_week.grates_yearweek(x)
     yr <- get_year.grates_yearweek(x)
     out <- sprintf("%04d-W%02d", yr, week)
@@ -314,9 +308,9 @@ as_yearweek.character <- function(
             stop("If specified, `format` must be of length 1.")
 
         if (format == "yearweek") {
-            years <- sub("^([0-9]{4}).*","\\1", x, perl=TRUE)
+            years <- sub("^([0-9]{4}).*", "\\1", x, perl = TRUE)
             years <- suppressWarnings(as.integer(years))
-            weeks <- sub(".*-[wW]([0-9]{1,2}$)","\\1", x, perl=TRUE)
+            weeks <- sub(".*-[wW]([0-9]{1,2}$)", "\\1", x, perl = TRUE)
             weeks <- suppressWarnings(as.integer(weeks))
             out <- yearweek(year = years, week = weeks, firstday = firstday)
             return(out)
@@ -400,7 +394,7 @@ c.grates_yearweek <- function(..., recursive = FALSE, use.names = TRUE) {
     if (length(unique(fds)) != 1L)
         stop("Unable to combine <grates_yearweek> objects with different first days of the week.")
     res <- NextMethod()
-    .new_yearweek(res, firstday = fds[[1]])
+    .new_yearweek(res, firstday = fds[[1L]])
 }
 
 # -------------------------------------------------------------------------
@@ -449,8 +443,13 @@ as.Date.grates_yearweek <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.POSIXct.grates_yearweek <- function(x, tz = "UTC", ...) {
-    if (tz != "UTC")
-        stop("<grates_yearweek> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    if (tz != "UTC") {
+        stop(
+            "<grates_yearweek> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
+    }
+
     firstday <- .firstday_from_class(x)
     x <- as.double(unclass(x)) * 7 + (firstday - 4)
     .POSIXct(x * 86400, tz = "UTC")
@@ -459,8 +458,12 @@ as.POSIXct.grates_yearweek <- function(x, tz = "UTC", ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.POSIXlt.grates_yearweek <- function(x, tz = "UTC", ...) {
-    if (tz != "UTC")
-        stop("<grates_yearweek> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    if (tz != "UTC") {
+        stop(
+            "<grates_yearweek> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
+    }
     firstday <- .firstday_from_class(x)
     x <- as.double(unclass(x)) * 7 + (firstday - 4)
     as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
@@ -541,12 +544,10 @@ Ops.grates_yearweek <- function(e1, e2) {
                 return(FALSE)
             } else if (op == "!=") {
                 return(TRUE)
-            } else {
-                stop("Can only compare <grates_yearweek> objects with the same first day of the week.")
             }
-        } else {
-            stop("Can only compare <grates_yearweek> objects with <grates_yearweek> objects.")
+            stop("Can only compare <grates_yearweek> objects with the same first day of the week.")
         }
+        stop("Can only compare <grates_yearweek> objects with <grates_yearweek> objects.")
     }
 
     switch(
@@ -558,13 +559,12 @@ Ops.grates_yearweek <- function(e1, e2) {
                 stop("Cannot add <grates_yearweek> objects to each other.")
             } else if (inherits(e1, "grates_yearweek") && (.is_whole(e2))) {
                 fd <- .firstday_from_class(e1)
-                .new_yearweek(unclass(e1) + as.integer(e2), firstday = fd)
+                return(.new_yearweek(unclass(e1) + as.integer(e2), firstday = fd))
             } else if (inherits(e2, "grates_yearweek") && (.is_whole(e1))) {
                 fd <- .firstday_from_class(e2)
-                .new_yearweek(unclass(e2) + as.integer(e1), firstday = fd)
-            } else {
-                stop("Can only add integers to <grates_yearweek> objects.")
+                return(.new_yearweek(unclass(e2) + as.integer(e1), firstday = fd))
             }
+            stop("Can only add integers to <grates_yearweek> objects.")
         },
         "-" = {
             if (missing(e2)) {
@@ -575,24 +575,19 @@ Ops.grates_yearweek <- function(e1, e2) {
                     fd2 <- .firstday_from_class(e2)
                     if (isTRUE(all.equal(fd1, fd2))) {
                         weekdiff <- (unclass(e1) - unclass(e2))
-                        as.difftime(weekdiff, units = "weeks")
-                    } else {
-                        stop("<grates_yearweek> objects must have the same first day of the week to perform subtraction.")
+                        return(as.difftime(weekdiff, units = "weeks"))
                     }
-                } else {
-                    stop("Can only subtract from a <grates_yearweek> object, not vice-versa.")
+                    stop("<grates_yearweek> objects must have the same first day of the week to perform subtraction.")
                 }
+                stop("Can only subtract from a <grates_yearweek> object, not vice-versa.")
             } else if (inherits(e1, "grates_yearweek") && is.integer(e2)) {
                 fd <- .firstday_from_class(e1)
-                .new_yearweek(unclass(e1) - e2, firstday = fd)
+                return(.new_yearweek(unclass(e1) - e2, firstday = fd))
             } else if (inherits(e1, "grates_yearweek") && .is_whole(e2)) {
                 fd <- .firstday_from_class(e1)
-                .new_yearweek(unclass(e1) - as.integer(e2), firstday = fd)
-            } else {
-                stop("Can only subtract whole numbers and other <grates_yearweek> objects from <grates_yearweek> objects.")
+                return(.new_yearweek(unclass(e1) - as.integer(e2), firstday = fd))
             }
-
-
+            stop("Can only subtract whole numbers and other <grates_yearweek> objects from <grates_yearweek> objects.")
         },
         stopf("%s is not compatible with <grates_yearweek> objects.", op)
     )
@@ -683,7 +678,7 @@ Ops.grates_yearweek <- function(e1, e2) {
 
     out <- rep.int(NA_integer_, length(year))
 
-    if (any(!invalid)) {
+    if (!all(invalid)) {
         year <- year[!invalid]
         week <- week[!invalid]
         # convert numeric values to date
@@ -714,7 +709,7 @@ Ops.grates_yearweek <- function(e1, e2) {
     x <- .as_utc_posixlt_from_int(date)
     yr <- x$year + 1900L
     jan1 <- sprintf("%d-01-01", yr)
-    jan1 <- as.Date(strptime(jan1, format="%Y-%m-%d", tz = "UTC"))
+    jan1 <- as.Date(strptime(jan1, format = "%Y-%m-%d", tz = "UTC"))
     res <- 1 + (unclass(date) - unclass(jan1)) %/% 7
     attributes(res) <- NULL
     res

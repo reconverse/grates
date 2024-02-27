@@ -130,7 +130,7 @@ scale_type.grates_period <- function(x) {
 
     # breaks function
     brks <- function(x) {
-        if (!inherits(breaks,"waiver")) {
+        if (!inherits(breaks, "waiver")) {
             dat <- as.numeric(breaks)
         } else {
             dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))

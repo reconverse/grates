@@ -26,7 +26,7 @@ int_period <- function(x = integer(), n = 1L, origin = 0L) {
 as_int_period <- function(x, ...) {
     .Defunct(
         package = "grates",
-         msg = "As of grates version 1.0.0, the as_int_period function is defunct"
+        msg = "As of grates version 1.0.0, the as_int_period function is defunct"
     )
 }
 

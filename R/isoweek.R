@@ -41,12 +41,10 @@
 # -------------------------------------------------------------------------
 #' @export
 new_isoweek <- function(x = integer()) {
-    if (!is.integer(x)) {
-        if (is.vector(x, "double")) {
-            x <- as.integer(floor(x))
-        } else {
-            stop("`x` must be integer.")
-        }
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
     }
     .new_isoweek(x)
 }
@@ -97,21 +95,17 @@ new_isoweek <- function(x = integer()) {
 isoweek <- function(year = integer(), week = integer()) {
 
     # check year is integerish
-    if (!is.integer(year)) {
-        if (is.vector(year, "double")) {
-            year <- as.integer(floor(year))
-        } else {
-            stop("`year` must be integer.")
-        }
+    if (is.vector(year, "double")) {
+        year <- as.integer(floor(year))
+    } else if (!is.integer(year)) {
+        stop("`year` must be integer.")
     }
 
     # check week is integerish
-    if (!is.integer(week)) {
-        if (is.vector(week, "double")) {
-            week <- as.integer(floor(week))
-        } else {
-            stop("`week` must be integer.")
-        }
+    if (is.vector(week, "double")) {
+        week <- as.integer(floor(week))
+    } else if (!is.integer(week)) {
+        stop("`week` must be integer.")
     }
 
     # check compatible lengths
@@ -238,15 +232,15 @@ as_isoweek.character <- function(
             stop("If specified, `format` must be of length 1.")
 
         if (format == "yearweek") {
-            years <- sub("^([0-9]{4}).*","\\1", x, perl=TRUE)
+            years <- sub("^([0-9]{4}).*", "\\1", x, perl = TRUE)
             years <- suppressWarnings(as.integer(years))
-            weeks <- sub(".*-[wW]([0-9]{1,2}$)","\\1", x, perl=TRUE)
+            weeks <- sub(".*-[wW]([0-9]{1,2}$)", "\\1", x, perl = TRUE)
             weeks <- suppressWarnings(as.integer(weeks))
             out <- isoweek(year = years, week = weeks)
             return(out)
         }
     }
-    out <- as.Date(x, format = format, tryFormats = tryFormats,...)
+    out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
     as_isoweek.Date(out)
 }
 
@@ -356,18 +350,26 @@ as.Date.grates_isoweek <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.POSIXct.grates_isoweek <- function(x, tz = "UTC", ...) {
-    if (tz != "UTC")
-        stop("<grates_isoweek> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
-    x <- as.double(unclass(x)) * 7 - 3L
+    if (tz != "UTC") {
+        stop(
+            "<grates_isoweek> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
+    }
+    x <- as.double(unclass(x)) * 7 - 3
     .POSIXct(x * 86400, tz = "UTC")
 }
 
 # -------------------------------------------------------------------------
 #' @export
 as.POSIXlt.grates_isoweek <- function(x, tz = "UTC", ...) {
-    if (tz != "UTC")
-        stop("<grates_isoweek> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
-    x <- as.double(unclass(x)) * 7L -3L
+    if (tz != "UTC") {
+        stop(
+            "<grates_isoweek> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
+    }
+    x <- as.double(unclass(x)) * 7 -3
     as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
 }
 
@@ -439,9 +441,8 @@ Ops.grates_isoweek <- function(e1, e2) {
     if (op %in% c("==", "!=", "<", ">", "<=", ">=")) {
         if (inherits(e2, "grates_isoweek")) {
             return(NextMethod())
-        } else {
-            stop("Can only compare <grates_isoweek> objects with <grates_isoweek> objects.")
         }
+        stop("Can only compare <grates_isoweek> objects with <grates_isoweek> objects.")
     }
 
     switch(
@@ -455,9 +456,8 @@ Ops.grates_isoweek <- function(e1, e2) {
                 return(.new_isoweek(unclass(e1) + as.integer(e2)))
             } else if (inherits(e2, "grates_isoweek") && (.is_whole(e1))) {
                 return(.new_isoweek(unclass(e2) + as.integer(e1)))
-            } else {
-                stop("Can only add integers to <grates_isoweek> objects.")
             }
+            stop("Can only add integers to <grates_isoweek> objects.")
         },
         "-" = {
             if (missing(e2)) {
@@ -470,12 +470,11 @@ Ops.grates_isoweek <- function(e1, e2) {
                     stop("Can only subtract from a <grates_isoweek> object, not vice-versa.")
                 }
             } else if (inherits(e1, "grates_isoweek") && is.integer(e2)) {
-                .new_isoweek(unclass(e1) - e2)
+                return(.new_isoweek(unclass(e1) - e2))
             } else if (inherits(e1, "grates_isoweek") && .is_whole(e2)) {
-                .new_isoweek(unclass(e1) - as.integer(e2))
-            } else {
-                stop("Can only subtract whole numbers and other <grates_isoweek> objects from <grates_isoweek> objects.")
+                return(.new_isoweek(unclass(e1) - as.integer(e2)))
             }
+            stop("Can only subtract whole numbers and other <grates_isoweek> objects from <grates_isoweek> objects.")
         },
         stopf("%s is not compatible with <grates_isoweek> objects.", op)
     )
@@ -488,7 +487,7 @@ Ops.grates_isoweek <- function(e1, e2) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 .new_isoweek <- function(x) {
-    structure(x, class = c("grates_isoweek"))
+    structure(x, class = "grates_isoweek")
 }
 
 .isoweek <- function(year, week) {

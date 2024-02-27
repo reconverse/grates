@@ -76,7 +76,7 @@ scale_x_grates_yearmonth <- function(..., breaks = ggplot2::waiver(), n.breaks =
 
     # breaks function
     brks <- function(x) {
-        if (!inherits(breaks,"waiver")) {
+        if (!inherits(breaks, "waiver")) {
             dat <- as.numeric(breaks)
         } else {
             dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))

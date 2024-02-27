@@ -31,12 +31,10 @@
 # -------------------------------------------------------------------------
 #' @export
 new_yearquarter <- function(x = integer()) {
-    if (!is.integer(x)) {
-        if (is.vector(x, "double")) {
-            x <- as.integer(floor(x))
-        } else {
-            stop("`x` must be integer.")
-        }
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
     }
 
     .new_yearquarter(x = x)
@@ -82,21 +80,17 @@ new_yearquarter <- function(x = integer()) {
 yearquarter <- function(year = integer(), quarter = integer()) {
 
     # check year is integerish
-    if (!is.integer(year)) {
-        if (is.vector(year, "double")) {
-            year <- as.integer(floor(year))
-        } else {
-            stop("`year` must be integer.")
-        }
+    if (is.vector(year, "double")) {
+        year <- as.integer(floor(year))
+    } else if (!is.integer(year)) {
+        stop("`year` must be integer.")
     }
 
     # check quarter is integerish
-    if (!is.integer(quarter)) {
-        if (is.vector(quarter, "double")) {
-            quarter <- as.integer(floor(quarter))
-        } else {
-            stop("`quarter` must be integer.")
-        }
+    if (is.vector(quarter, "double")) {
+        quarter <- as.integer(floor(quarter))
+    } else if (!is.integer(quarter)) {
+        stop("`quarter` must be integer.")
     }
 
     # check quarter bounded above and below
@@ -144,8 +138,8 @@ print.grates_yearquarter <- function(x, ...) {
 #' @rdname print.grates_yearquarter
 #' @export
 format.grates_yearquarter <- function(x, ...) {
-    if (length(x) == 0)
-        return(character(0))
+    if (length(x) == 0L)
+        return(character(0L))
     out <- as.POSIXlt(x)
     out <- sprintf("%04d-Q%d", out$year + 1900L, out$mon %/% 3L + 1)
     out[is.na(x)] <- NA_character_
@@ -340,8 +334,12 @@ as.Date.grates_yearquarter <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.POSIXct.grates_yearquarter <- function(x, tz = "UTC", ...) {
-    if (tz != "UTC")
-        stop("<grates_yearquarter> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    if (tz != "UTC") {
+        stop(
+            "<grates_yearquarter> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
+    }
     x <- .month_to_days(unclass(x) * 3L)
     .POSIXct(x * 86400, tz = "UTC")
 }
@@ -349,8 +347,12 @@ as.POSIXct.grates_yearquarter <- function(x, tz = "UTC", ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.POSIXlt.grates_yearquarter <- function(x, tz = "UTC", ...) {
-    if (tz != "UTC")
-        stop("<grates_yearquarter> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    if (tz != "UTC") {
+        stop(
+            "<grates_yearquarter> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
+    }
     x <- .month_to_days(unclass(x) * 3L)
     as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
 }
@@ -420,9 +422,10 @@ quantile.grates_yearquarter <- function(x, type = 1, ...) {
 Ops.grates_yearquarter <- function(e1, e2) {
     op <- .Generic
     if (op %in% c("==", "!=", "<", ">", "<=", ">=")) {
-        if (!inherits(e2, "grates_yearquarter"))
-            stop("Can only compare <grates_yearquarter> objects with <grates_yearquarter> objects.")
-        return(NextMethod())
+        if (inherits(e2, "grates_yearquarter")) {
+            return(NextMethod())
+        }
+        stop("Can only compare <grates_yearquarter> objects with <grates_yearquarter> objects.")
     }
 
     switch(
@@ -433,27 +436,26 @@ Ops.grates_yearquarter <- function(e1, e2) {
             } else if (inherits(e1, "grates_yearquarter") && inherits(e2, "grates_yearquarter")) {
                 stop("Cannot add <grates_yearquarter> objects to each other.")
             } else if (inherits(e1, "grates_yearquarter") && (.is_whole(e2))) {
-                .new_yearquarter(unclass(e1) + as.integer(e2))
+                return(.new_yearquarter(unclass(e1) + as.integer(e2)))
             } else if (inherits(e2, "grates_yearquarter") && (.is_whole(e1))) {
-                .new_yearquarter(unclass(e2) + as.integer(e1))
-            } else {
-                stop("Can only add integers to <grates_yearquarter> objects.")
+                return(.new_yearquarter(unclass(e2) + as.integer(e1)))
             }
+            stop("Can only add integers to <grates_yearquarter> objects.")
         },
         "-" = {
             if (missing(e2)) {
                 stop("Cannot negate a <grates_yearquarter> object.")
             } else if (inherits(e2, "grates_yearquarter")) {
-                if (!inherits(e1, "grates_yearquarter"))
+                if (!inherits(e1, "grates_yearquarter")) {
                     stop("Can only subtract from a <grates_yearquarter> object, not vice-versa.")
-                unclass(e1) - unclass(e2)
+                }
+                return(unclass(e1) - unclass(e2))
             } else if (inherits(e1, "grates_yearquarter") && is.integer(e2)) {
-                .new_yearquarter(unclass(e1) - e2)
+                return(.new_yearquarter(unclass(e1) - e2))
             } else if (inherits(e1, "grates_yearquarter") && .is_whole(e2)) {
-                .new_yearquarter(unclass(e1) - as.integer(e2))
-            } else {
-                stop("Can only subtract whole numbers and other <grates_yearquarter> objects from <grates_yearquarter> objects.")
+                return(.new_yearquarter(unclass(e1) - as.integer(e2)))
             }
+            stop("Can only subtract whole numbers and other <grates_yearquarter> objects from <grates_yearquarter> objects.")
         },
         stopf("%s is not compatible with <grates_yearquarter> objects.", op)
     )
