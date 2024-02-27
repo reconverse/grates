@@ -278,7 +278,7 @@ centred by default. To obtain centred labels you must explicitly set the format
 to NULL in the scale:
 
 ```{r}
-month_plot + scale_x_grates_yearmonth(format = NULL)
+bimonth_plot + scale_x_grates_month(format = NULL, n = 2L)
 ```
 
 # Methods and operations
