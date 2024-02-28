@@ -39,16 +39,27 @@ scale_x_grates_isoweek <- function(..., breaks = ggplot2::waiver(), n.breaks = 6
     .check_suggests("ggplot2")
     .check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
 
-    suppressWarnings(
+    # ggplot2 3.5.0 deprecated the `trans` argument in favour of `transform`.
+    # We could just force a minimum ggplot2 version and avoid this branching
+    # but it's relatively low effort so leaving for now.
+    # TODO - revisit.
+    if (utils::packageVersion("ggplot2") < '3.5.0') {
         ggplot2::scale_x_continuous(
             trans = .grates_isoweek_trans(
                 breaks = breaks,
                 n.breaks = n.breaks,
                 format = format
             )
-        ),
-        classes = "lifecycle_warning_deprecated"
-    )
+        )
+    } else {
+        ggplot2::scale_x_continuous(
+            transform = .grates_isoweek_trans(
+                breaks = breaks,
+                n.breaks = n.breaks,
+                format = format
+            )
+        )
+    }
 }
 
 # -------------------------------------------------------------------------

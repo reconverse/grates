@@ -66,7 +66,11 @@ scale_x_grates_yearweek <- function(
         stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
 
 
-    suppressWarnings(
+    # ggplot2 3.5.0 deprecated the `trans` argument in favour of `transform`.
+    # We could just force a minimum ggplot2 version and avoid this branching
+    # but it's relatively low effort so leaving for now.
+    # TODO - revisit.
+    if (utils::packageVersion("ggplot2") < '3.5.0') {
         ggplot2::scale_x_continuous(
             trans = .grates_yearweek_trans(
                 breaks = breaks,
@@ -74,9 +78,17 @@ scale_x_grates_yearweek <- function(
                 firstday = firstday,
                 format = format
             )
-        ),
-        classes = "lifecycle_warning_deprecated"
-    )
+        )
+    } else {
+        ggplot2::scale_x_continuous(
+            transform = .grates_yearweek_trans(
+                breaks = breaks,
+                n.breaks = n.breaks,
+                firstday = firstday,
+                format = format
+            )
+        )
+    }
 }
 
 # -------------------------------------------------------------------------
