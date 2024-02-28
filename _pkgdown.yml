@@ -20,6 +20,7 @@ reference:
 - title: Accessors
 - contents:
   - starts_with("get")
+  - boundaries
 
 - title: Plotting
 - contents:
