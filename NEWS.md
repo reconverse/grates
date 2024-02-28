@@ -1,4 +1,4 @@
-# grates (development version)
+# grates 1.1.1
 
 * Users of the 3.5.0 release of
   [ggplot2](https://CRAN.R-project.org/package=ggplot2) will have noticed some
