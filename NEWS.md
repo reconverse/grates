@@ -4,7 +4,8 @@
   [ggplot2](https://CRAN.R-project.org/package=ggplot2) will have noticed some
   additional "warnings" appearing within the plot. These have now been handled
   internally so please raise an issue if they reappear.
-* Internal, non-breaking, changes.
+* Minor internal and non-breaking changes motivated by
+  [lintr](https://CRAN.R-project.org/package=lintr).
 
 # grates 1.1.0
 
