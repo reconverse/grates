@@ -10,6 +10,35 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
 }
 
 # ------------------------------------------------------------------------- #
+.assert_not_missing <- function(x, arg, call) {
+    if (missing(x))
+        stopf("argument `%s` is missing, with no default.", arg, .call = call)
+}
+
+# ------------------------------------------------------------------------- #
+.assert_scalar_date <- function(x, arg = deparse(substitute(x)), call = sys.call(-1L)) {
+    .assert_not_missing(x = x, arg = arg, call = call)
+
+    if (length(x) != 1L || !inherits(x, "Date"))
+        stopf("`%s` must be a Date vector of length 1.", arg, .call = call)
+}
+
+# ------------------------------------------------------------------------- #
+.assert_grate <- function(x, arg = deparse(substitute(x)), call = sys.call(-1L)) {
+    .assert_not_missing(x = x, arg = arg, call = call)
+
+    grates_classes <- c(
+        "grates_yearweek" , "grates_isoweek", "grates_epiweek",
+        "grates_yearmonth", "grates_month"  , "grates_yearquarter",
+        "grates_year"     , "grates_period"
+    )
+
+    if (!inherits(x, grates_classes))
+        stopf("`%s` must be a <grates> object.", arg, .call = call)
+}
+
+
+# ------------------------------------------------------------------------- #
 # check for suggested packages
 .check_suggests <- function(package) {
     if (!requireNamespace(package, quietly = TRUE))

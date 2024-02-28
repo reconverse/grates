@@ -4,6 +4,10 @@
   accessing the boundary elements of `<grates>` objects. Not guaranteed to
   end up on CRAN (and may be renamed if they do).
 
+* Experimental (untested) function `%during%` for testing whether a scalar
+  date is contained within the range (inclusive) of a <grates> object. Not
+  guaranteed to end up on CRAN (and may be renamed if they do).
+
 # grates 1.1.1
 
 * Users of the 3.5.0 release of
