@@ -1,5 +1,9 @@
 # grates (development version)
 
+* Experimental (untested) functions `date_start()` and `date_end()` for
+  accessing the boundary elements of `<grates>` objects. Not guaranteed to
+  end up on CRAN (and may be renamed if they do).
+
 # grates 1.1.1
 
 * Users of the 3.5.0 release of
