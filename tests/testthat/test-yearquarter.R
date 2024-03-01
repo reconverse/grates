@@ -271,3 +271,13 @@ test_that("yearquarter, miscellaneous work", {
     expect_error(yearquarter(1L,5L), "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry 1 is not (it equals 5).", fixed = TRUE)
 })
 
+test_that("yearquarter boundary functions work", {
+    dates <- as.Date("2020-01-01") + 0:365
+    quarters <- as_yearquarter(dates)
+    starts <- as.Date(quarters)
+    ends <- lapply(starts, function(x) seq(x, by = "1 quarter", length.out = 2L)[2L])
+    ends <- do.call(c, ends) - 1L
+    expect_identical(date_start(quarters), starts)
+    expect_identical(date_end(quarters), ends)
+})
+

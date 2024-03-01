@@ -389,5 +389,13 @@ test_that("period, miscellaneous work", {
         "<grates_period> objects must have the same period grouping and offset to perform subtraction.",
         fixed = TRUE
     )
+})
 
+test_that("period boundary functions work", {
+    dates <- as.Date("2020-01-01") + 0:365
+    periods <- as_period(dates, n = 10L)
+    starts <- as.Date(periods)
+    ends <- starts + 10L - 1L
+    expect_identical(date_start(periods), starts)
+    expect_identical(date_end(periods), ends)
 })

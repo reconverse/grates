@@ -267,3 +267,13 @@ test_that("yearmonth, miscellaneous work", {
     expect_error(yearmonth(1L,0L), "Months must be integer and between 1 and 12 (inclusive) or NA. Entry 1 is not (it equals 0).", fixed = TRUE)
     expect_error(yearmonth(1L,13L), "Months must be integer and between 1 and 12 (inclusive) or NA. Entry 1 is not (it equals 13).", fixed = TRUE)
 })
+
+test_that("yearmonth boundary functions work", {
+    dates <- as.Date("2020-01-01") + 0:365
+    months <- as_yearmonth(dates)
+    starts <- as.Date(months)
+    ends <- lapply(starts, function(x) seq(x, by = "1 month", length.out = 2L)[2L])
+    ends <- do.call(c, ends) - 1L
+    expect_identical(date_start(months), starts)
+    expect_identical(date_end(months), ends)
+})

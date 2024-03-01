@@ -310,3 +310,13 @@ test_that("month, miscellaneous work", {
     )
 })
 
+test_that("month boundary functions work", {
+    dates <- as.Date("2020-01-01") + 0:365
+    months <- as_month(dates, n = 2)
+    starts <- as.Date(months)
+    ends <- lapply(starts, function(x) seq(x, by = "2 month", length.out = 2L)[2L])
+    ends <- do.call(c, ends) - 1L
+    expect_identical(date_start(months), starts)
+    expect_identical(date_end(months), ends)
+})
+

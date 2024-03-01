@@ -261,3 +261,13 @@ test_that("year, miscellaneous work", {
 
 })
 
+test_that("year boundary functions work", {
+    dates <- as.Date("2020-01-01") + seq.int(50,5000,50)
+    years <- as_year(dates)
+    starts <- as.Date(years)
+    ends <- lapply(starts, function(x) seq(x, by = "1 year", length.out = 2L)[2L])
+    ends <- do.call(c, ends) - 1L
+    expect_identical(date_start(years), starts)
+    expect_identical(date_end(years), ends)
+})
+

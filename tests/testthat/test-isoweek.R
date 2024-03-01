@@ -303,3 +303,12 @@ test_that("isoweek, miscellaneous work", {
     expect_error(isoweek(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(isoweek(week = character()), "`week` must be integer.", fixed = TRUE)
 })
+
+test_that("isoweek boundary functions work", {
+    dates <- as.Date("2020-01-01") + 0:14
+    weeks <- as_isoweek(dates)
+    starts <- as.Date(weeks)
+    ends <- starts + 7 - 1L
+    expect_identical(date_start(weeks), starts)
+    expect_identical(date_end(weeks), ends)
+})

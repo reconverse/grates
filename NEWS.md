@@ -1,8 +1,8 @@
 # grates (development version)
 
-* Experimental (untested) functions `date_start()` and `date_end()` for
-  accessing the boundary elements of `<grates>` objects. Not guaranteed to
-  end up on CRAN (and may be renamed if they do).
+* Experimental functions `date_start()` and `date_end()` for accessing the
+  boundary elements of `<grates>` objects. Not guaranteed to end up on CRAN
+  (and may be renamed if they do).
 
 * Experimental (untested) function `%during%` for testing whether a scalar
   date is contained within the range (inclusive) of a <grates> object. Not

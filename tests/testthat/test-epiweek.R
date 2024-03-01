@@ -304,3 +304,16 @@ test_that("epiweek, miscellaneous work", {
     expect_error(epiweek(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(epiweek(week = character()), "`week` must be integer.", fixed = TRUE)
 })
+
+test_that("yearweek boundary functions work", {
+    # taking a long-winded manual approach to this double test various things
+    # 2020-01-01 is a wednesday
+    dates <- as.Date("2020-01-01") + 0:14
+    weeks <- as_yearweek(dates, firstday = 4L) # thursday
+    starts <- as.Date("2019-12-26") + integer(15L)
+    starts[2:8] <- starts[2:8] + 7L
+    starts[9:15] <- starts[9:15] + 14L
+    ends <- starts + 7 - 1L
+    expect_identical(date_start(weeks), starts)
+    expect_identical(date_end(weeks), ends)
+})
