@@ -20,7 +20,7 @@ date \%during\% x
 }
 \value{
 For \code{date_start} and \code{date_end} The requested start (end) dates for each
-element in the input. For \verb{\%during\%} a Logical vector indicating whether the
+element in the input. For \verb{\%during\%} a logical vector indicating whether the
 date was present within the range of the tested object.
 }
 \description{

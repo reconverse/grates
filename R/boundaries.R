@@ -9,7 +9,7 @@
 #'
 #' @return
 #' For `date_start` and `date_end` The requested start (end) dates for each
-#' element in the input. For `%during%` a Logical vector indicating whether the
+#' element in the input. For `%during%` a logical vector indicating whether the
 #' date was present within the range of the tested object.
 #'
 #' @examples
