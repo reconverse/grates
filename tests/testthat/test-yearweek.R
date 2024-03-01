@@ -471,4 +471,19 @@ test_that("yearweek boundary functions work", {
     ends <- starts + 7 - 1L
     expect_identical(date_start(weeks), starts)
     expect_identical(date_end(weeks), ends)
+
+    d1 <- as.Date("2019-12-31")
+    expected <- logical(15L)
+    expected[1L] <- TRUE
+    expect_identical(d1 %during% weeks, expected)
+
+    d2 <- as.Date("2020-01-02")
+    expected <- logical(15L)
+    expected[2:8] <- TRUE
+    expect_identical(d2 %during% weeks, expected)
+
+    d3 <- as.Date("2020-01-15")
+    expected <- logical(15L)
+    expected[9:15] <- TRUE
+    expect_identical(d3 %during% weeks, expected)
 })
