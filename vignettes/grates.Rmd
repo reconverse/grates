@@ -1,9 +1,10 @@
 ---
 title: "Introduction"
-output: rmarkdown::html_vignette
+output:
+  markdown::html_format:
 vignette: >
   %\VignetteIndexEntry{Introduction}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 

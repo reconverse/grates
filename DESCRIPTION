@@ -25,7 +25,7 @@ Suggests:
     scales,
     vctrs,
     rlang,
-    rmarkdown,
+    markdown,
     outbreaks,
     testthat (>= 3.0.0),
     dplyr
