@@ -1,3 +1,12 @@
+count_no_na <- function(x) {
+    dat <- split(x, factor(x))
+    cases <- lengths(dat)
+    date <- lapply(dat, `[`, 1L)
+    date <- do.call(c, date)
+    data.frame(date, cases)
+}
+
+
 save_png <- function(code, width = 400, height = 400) {
     path <- tempfile(fileext = ".png")
     png(path, width = width, height = height)
@@ -23,15 +32,12 @@ expect_snapshot_plot <- function(name, code) {
 
 test_that("yearweek plotting works", {
     skip_if_not_installed("outbreaks")
-    skip_if_not_installed("dplyr")
     skip_if_not_installed("ggplot2", "2.0.0")
     dat <- outbreaks::ebola_sim_clean$linelist
 
     yearweek_monday <-
-        dat |>
-        dplyr::mutate(date = as_yearweek(date_of_infection, firstday = 1L)) |>
-        dplyr::count(date, name = "cases") |>
-        na.omit() |>
+        as_yearweek(dat$date_of_infection, firstday = 1L) |>
+        count_no_na() |>
         ggplot2::ggplot(ggplot2::aes(date, cases)) +
             ggplot2::geom_col(width = 1, colour = "white") +
             ggplot2::theme_bw() +
@@ -41,10 +47,8 @@ test_that("yearweek plotting works", {
         scale_x_grates_yearweek(breaks = yearweek(2015, c(3, 13), 1), firstday = 1)
 
     yearweek_thursday <-
-        dat |>
-        dplyr::mutate(date = as_yearweek(date_of_infection, firstday = 4L)) |>
-        dplyr::count(date, name = "cases") |>
-        na.omit() |>
+        as_yearweek(dat$date_of_infection, firstday = 4L) |>
+        count_no_na() |>
         ggplot2::ggplot(ggplot2::aes(date, cases)) +
         ggplot2::geom_col(width = 1, colour = "white") +
         ggplot2::theme_bw() +
@@ -62,15 +66,12 @@ test_that("yearweek plotting works", {
 
 test_that("isoweek plotting works", {
     skip_if_not_installed("outbreaks")
-    skip_if_not_installed("dplyr")
     skip_if_not_installed("ggplot2", "2.0.0")
     dat <- outbreaks::ebola_sim_clean$linelist
 
     isoweek <-
-        dat |>
-        dplyr::mutate(date = as_isoweek(date_of_infection)) |>
-        dplyr::count(date, name = "cases") |>
-        na.omit() |>
+        as_isoweek(dat$date_of_infection) |>
+        count_no_na()|>
         ggplot2::ggplot(ggplot2::aes(date, cases)) +
             ggplot2::geom_col(width = 1, colour = "white") +
             ggplot2::theme_bw() +
@@ -95,15 +96,12 @@ test_that("isoweek plotting works", {
 
 test_that("epiweek plotting works", {
     skip_if_not_installed("outbreaks")
-    skip_if_not_installed("dplyr")
     skip_if_not_installed("ggplot2", "2.0.0")
     dat <- outbreaks::ebola_sim_clean$linelist
 
     epiweek <-
-        dat |>
-        dplyr::mutate(date = as_epiweek(date_of_infection)) |>
-        dplyr::count(date, name = "cases") |>
-        na.omit() |>
+        as_epiweek(dat$date_of_infection) |>
+        count_no_na() |>
         ggplot2::ggplot(ggplot2::aes(date, cases)) +
         ggplot2::geom_col(width = 1, colour = "white") +
         ggplot2::theme_bw() +
@@ -127,15 +125,12 @@ test_that("epiweek plotting works", {
 
 test_that("yearmonth plotting works", {
     skip_if_not_installed("outbreaks")
-    skip_if_not_installed("dplyr")
     skip_if_not_installed("ggplot2", "2.0.0")
     dat <- outbreaks::ebola_sim_clean$linelist
 
     month_dat <-
-        dat |>
-        dplyr::mutate(date = as_yearmonth(date_of_infection)) |>
-        dplyr::count(date, name = "cases") |>
-        na.omit()
+        as_yearmonth(dat$date_of_infection) |>
+        count_no_na()
 
     month <-
         month_dat |>
@@ -159,15 +154,12 @@ test_that("yearmonth plotting works", {
 
 test_that("yearquarter plotting works", {
     skip_if_not_installed("outbreaks")
-    skip_if_not_installed("dplyr")
     skip_if_not_installed("ggplot2", "2.0.0")
     dat <- outbreaks::ebola_sim_clean$linelist
 
     quarter_dat <-
-        dat |>
-        dplyr::mutate(date = as_yearquarter(date_of_infection)) |>
-        dplyr::count(date, name = "cases") |>
-        na.omit()
+        as_yearquarter(dat$date_of_infection) |>
+        count_no_na()
 
     quarter <-
         ggplot2::ggplot(quarter_dat, ggplot2::aes(date, cases)) +
@@ -198,15 +190,12 @@ test_that("yearquarter plotting works", {
 
 test_that("year plotting works", {
     skip_if_not_installed("outbreaks")
-    skip_if_not_installed("dplyr")
     skip_if_not_installed("ggplot2", "2.0.0")
     dat <- outbreaks::ebola_sim_clean$linelist
 
     year_dat <-
-        dat |>
-        dplyr::mutate(date = as_year(date_of_infection)) |>
-        dplyr::count(date, name = "cases") |>
-        na.omit()
+        as_year(dat$date_of_infection) |>
+        count_no_na()
 
     year <-
         ggplot2::ggplot(year_dat, ggplot2::aes(date, cases)) +
@@ -236,15 +225,12 @@ test_that("year plotting works", {
 
 test_that("month plotting works", {
     skip_if_not_installed("outbreaks")
-    skip_if_not_installed("dplyr")
     skip_if_not_installed("ggplot2", "2.0.0")
     dat <- outbreaks::ebola_sim_clean$linelist
 
     month_dat <-
-        dat |>
-        dplyr::mutate(date = as_month(date_of_infection, n = 2L)) |>
-        dplyr::count(date, name = "cases") |>
-        na.omit()
+        as_month(dat$date_of_infection, n = 2L) |>
+        count_no_na()
 
     month <-
         month_dat |>
@@ -275,15 +261,12 @@ test_that("month plotting works", {
 
 test_that("period plotting works", {
     skip_if_not_installed("outbreaks")
-    skip_if_not_installed("dplyr")
     skip_if_not_installed("ggplot2", "2.0.0")
     dat <- outbreaks::ebola_sim_clean$linelist
 
     two_weeks <-
-        dat |>
-        dplyr::mutate(date = as_period(date_of_infection, n = 14)) |>
-        dplyr::count(date, name = "cases") |>
-        na.omit() |>
+        as_period(dat$date_of_infection, n = 14) |>
+        count_no_na() |>
         ggplot2::ggplot(ggplot2::aes(date, cases)) +
             ggplot2::geom_col(width = 1L, colour = "white") +
             ggplot2::theme_bw() +
@@ -297,10 +280,8 @@ test_that("period plotting works", {
     expect_snapshot_plot("two_weeks_breaks", two_weeks_breaks)
 
     twentyeight_days <-
-        dat |>
-        dplyr::mutate(date = as_period(date_of_infection, n = 28)) |>
-        dplyr::count(date, name = "cases") |>
-        na.omit() |>
+        as_period(dat$date_of_infection, n = 28) |>
+        count_no_na() |>
         ggplot2::ggplot(ggplot2::aes(date, cases)) +
             ggplot2::geom_col(width = 1L, colour = "white") +
             ggplot2::theme_bw() +

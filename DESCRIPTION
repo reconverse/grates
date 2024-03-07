@@ -28,7 +28,6 @@ Suggests:
     markdown,
     outbreaks,
     testthat (>= 3.0.0),
-    dplyr
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 Imports: 
