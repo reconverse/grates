@@ -16,7 +16,7 @@ date \%during\% x
 \arguments{
 \item{x}{grouped date vector.}
 
-\item{date}{A scalar \if{html}{\out{<date>}} object.}
+\item{date}{A scalar \verb{<date>} object.}
 }
 \value{
 For \code{date_start} and \code{date_end} The requested start (end) dates for each

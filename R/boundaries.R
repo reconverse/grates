@@ -5,7 +5,7 @@
 #' range
 #'
 #' @param x grouped date vector.
-#' @param date A scalar <date> object.
+#' @param date A scalar `<date>` object.
 #'
 #' @return
 #' For `date_start` and `date_end` The requested start (end) dates for each
