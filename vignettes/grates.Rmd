@@ -282,7 +282,7 @@ to NULL in the scale:
 bimonth_plot + scale_x_grates_month(format = NULL, n = 2L)
 ```
 
-# Methods and other functionality operations
+# Methods and other functionality
 
 For all `grates` objects we have added many methods and operations to ensure
 logical and consistent behaviour. The following sections utilise the unique
