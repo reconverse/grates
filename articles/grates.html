@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">grates</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.2.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -171,14 +171,14 @@ are stored as the integer number of weeks since 1969-12-29.</p>
 <span><span class="co"># epiweeks always start on a Sunday</span></span>
 <span><span class="op">(</span><span class="va">epiwk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_epiweek.html">as_epiweek</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_epiweek[1]&gt;</span></span>
-<span><span class="co">#&gt; [1] "2024-W09"</span></span>
+<span><span class="co">#&gt; [1] "2024-W10"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">weekdays</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">epiwk</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Sunday"</span></span>
 <span></span>
 <span><span class="co"># isoweeks always start on a Sunday</span></span>
 <span><span class="op">(</span><span class="va">isowk</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as_isoweek.html">as_isoweek</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_isoweek[1]&gt;</span></span>
-<span><span class="co">#&gt; [1] "2024-W09"</span></span>
+<span><span class="co">#&gt; [1] "2024-W10"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">weekdays</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">isowk</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Monday"</span></span></code></pre></div>
 <p>By default plots (using {ggplot2}) will centre yearweek (epiweek /
@@ -428,53 +428,75 @@ must explicitly set the format to NULL in the scale:</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="methods-and-operations">Methods and operations<a class="anchor" aria-label="anchor" href="#methods-and-operations"></a>
+<h2 id="methods-and-other-functionality">Methods and other functionality<a class="anchor" aria-label="anchor" href="#methods-and-other-functionality"></a>
 </h2>
 <p>For all <code>grates</code> objects we have added many methods and
-operations to ensure logical and consistent behaviour. Where things
-break down we try to provide detailed messaging explaining why errors
-have occurred. Whilst this behviour is implemented for all grates
-objects, below we illustrate how it manifests with epiweek objects.</p>
+operations to ensure logical and consistent behaviour. The following
+sections utilise the unique epiweeks from the earlier example:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># use the unique epiweeks from the earlier example</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">week_dat</span><span class="op">$</span><span class="va">week</span></span>
-<span></span>
-<span><span class="co"># min, max and range</span></span>
-<span><span class="op">(</span><span class="va">minx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">weeks</span> <span class="op">&lt;-</span> <span class="va">week_dat</span><span class="op">$</span><span class="va">week</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="accessing-boundary-values-and-checking-contents">Accessing boundary values and checking contents<a class="anchor" aria-label="anchor" href="#accessing-boundary-values-and-checking-contents"></a>
+</h3>
+<p>Some times it is useful to access both the starting dates covered by
+<code>grates</code> objects as well as the end dates. To this end we
+provide functions <code><a href="../reference/boundaries.html">date_start()</a></code> and
+<code><a href="../reference/boundaries.html">date_end()</a></code>.</p>
+<p>To find out whether a <code>grate</code> object spans a particular
+date we provide a <code>%during%</code> function.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">weeks</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    week <span class="op">=</span> <span class="va">dat</span>,</span>
+<span>    start <span class="op">=</span> <span class="fu"><a href="../reference/boundaries.html">date_start</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>,</span>
+<span>    end <span class="op">=</span> <span class="fu"><a href="../reference/boundaries.html">date_end</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span>,</span>
+<span>    contains.2014.04.14 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2014-04-14"</span><span class="op">)</span> <span class="op"><a href="../reference/boundaries.html">%during%</a></span> <span class="va">dat</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt;       week      start        end contains.2014.04.14</span></span>
+<span><span class="co">#&gt; 1 2014-W12 2014-03-16 2014-03-22               FALSE</span></span>
+<span><span class="co">#&gt; 2 2014-W15 2014-04-06 2014-04-12               FALSE</span></span>
+<span><span class="co">#&gt; 3 2014-W16 2014-04-13 2014-04-19                TRUE</span></span>
+<span><span class="co">#&gt; 4 2014-W17 2014-04-20 2014-04-26               FALSE</span></span>
+<span><span class="co">#&gt; 5 2014-W18 2014-04-27 2014-05-03               FALSE</span></span></code></pre></div>
+<p>Conversion of grate objects back to dates is analogous to
+<code><a href="../reference/boundaries.html">date_start()</a></code>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">weeks</span><span class="op">)</span>, <span class="fu"><a href="../reference/boundaries.html">date_start</a></span><span class="op">(</span><span class="va">weeks</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="min-max-range-and-sequences">min, max, range and sequences<a class="anchor" aria-label="anchor" href="#min-max-range-and-sequences"></a>
+</h3>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># min, max and range</span></span>
+<span><span class="op">(</span><span class="va">minw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">weeks</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_epiweek[1]&gt;</span></span>
 <span><span class="co">#&gt; [1] "2014-W12"</span></span>
-<span><span class="op">(</span><span class="va">maxx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">maxw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">weeks</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_epiweek[1]&gt;</span></span>
 <span><span class="co">#&gt; [1] "2015-W17"</span></span>
-<span><span class="op">(</span><span class="va">rangex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">rangew</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">weeks</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_epiweek[2]&gt;</span></span>
 <span><span class="co">#&gt; [1] "2014-W12" "2015-W17"</span></span>
 <span></span>
 <span><span class="co"># seq method works if both `from` and `to` are epiweeks</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">minx</span>, to <span class="op">=</span> <span class="va">maxx</span>, by <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">minw</span>, to <span class="op">=</span> <span class="va">maxw</span>, by <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_epiweek[10]&gt;</span></span>
 <span><span class="co">#&gt;  [1] "2014-W12" "2014-W18" "2014-W24" "2014-W30" "2014-W36" "2014-W42"</span></span>
 <span><span class="co">#&gt;  [7] "2014-W48" "2015-W01" "2015-W07" "2015-W13"</span></span>
 <span></span>
 <span><span class="co"># but will error informatively if `to` is a different class</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">minx</span>, to <span class="op">=</span> <span class="fl">999</span>, by <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in seq.grates_epiweek(from = minx, to = 999, by = 6L) : </span></span>
-<span><span class="co">#&gt;   `to` must be a &lt;grates_epiweek&gt; object of length 1.</span></span>
-<span></span>
-<span><span class="co"># conversion of yearweek objects back to dates will return the date at the</span></span>
-<span><span class="co"># lower bound of each yearweek interval</span></span>
-<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">week_dat</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">dat</span>, new_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">week</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       week cases   new_date</span></span>
-<span><span class="co">#&gt; 1 2014-W12     1 2014-03-16</span></span>
-<span><span class="co">#&gt; 2 2014-W15     1 2014-04-06</span></span>
-<span><span class="co">#&gt; 3 2014-W16     1 2014-04-13</span></span>
-<span><span class="co">#&gt; 4 2014-W17     3 2014-04-20</span></span>
-<span><span class="co">#&gt; 5 2014-W18     6 2014-04-27</span></span>
-<span><span class="co">#&gt; 6 2014-W19    16 2014-05-04</span></span>
-<span></span>
-<span><span class="co"># addition (subtraction) of wholenumbers will add (subtract) the corresponding</span></span>
-<span><span class="co"># number of weeks to (from) the object</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="va">minw</span>, to <span class="op">=</span> <span class="fl">999</span>, by <span class="op">=</span> <span class="fl">6L</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in seq.grates_epiweek(from = minw, to = 999, by = 6L) : </span></span>
+<span><span class="co">#&gt;   `to` must be a &lt;grates_epiweek&gt; object of length 1.</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="addition-and-subtraction">Addition and subtraction<a class="anchor" aria-label="anchor" href="#addition-and-subtraction"></a>
+</h3>
+<p>Addition (subtraction) of wholenumbers will add (subtract) the
+corresponding number of weeks to (from) the object</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">week_dat</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">dat</span>, plus4 <span class="op">=</span> <span class="va">week</span> <span class="op">+</span> <span class="fl">4L</span>, minus4 <span class="op">=</span> <span class="va">week</span> <span class="op">-</span> <span class="fl">4L</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       week cases    plus4   minus4</span></span>
 <span><span class="co">#&gt; 1 2014-W12     1 2014-W16 2014-W08</span></span>
@@ -482,33 +504,38 @@ objects, below we illustrate how it manifests with epiweek objects.</p>
 <span><span class="co">#&gt; 3 2014-W16     1 2014-W20 2014-W12</span></span>
 <span><span class="co">#&gt; 4 2014-W17     3 2014-W21 2014-W13</span></span>
 <span><span class="co">#&gt; 5 2014-W18     6 2014-W22 2014-W14</span></span>
-<span><span class="co">#&gt; 6 2014-W19    16 2014-W23 2014-W15</span></span>
-<span></span>
-<span><span class="co"># addition of two yearweek objects will error as the intention is unclear</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">dat</span>, willerror <span class="op">=</span> <span class="va">week</span> <span class="op">+</span> <span class="va">week</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 6 2014-W19    16 2014-W23 2014-W15</span></span></code></pre></div>
+<p>Addition of two yearweek objects will error as the intention is
+unclear.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">dat</span>, willerror <span class="op">=</span> <span class="va">week</span> <span class="op">+</span> <span class="va">week</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in Ops.grates_epiweek(week, week) : </span></span>
-<span><span class="co">#&gt;   Cannot add &lt;grates_epiweek&gt; objects to each other.</span></span>
-<span></span>
-<span><span class="co"># Subtraction of two yearweek objects gives the difference in weeks between them</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">dat</span>, difference <span class="op">=</span> <span class="va">plus4</span> <span class="op">-</span> <span class="va">minus4</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Cannot add &lt;grates_epiweek&gt; objects to each other.</span></span></code></pre></div>
+<p>Subtraction of two yearweek objects gives the difference in weeks
+between them</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">dat</span>, difference <span class="op">=</span> <span class="va">plus4</span> <span class="op">-</span> <span class="va">minus4</span><span class="op">)</span></span>
 <span><span class="co">#&gt;       week cases    plus4   minus4 difference</span></span>
 <span><span class="co">#&gt; 1 2014-W12     1 2014-W16 2014-W08    8 weeks</span></span>
 <span><span class="co">#&gt; 2 2014-W15     1 2014-W19 2014-W11    8 weeks</span></span>
 <span><span class="co">#&gt; 3 2014-W16     1 2014-W20 2014-W12    8 weeks</span></span>
 <span><span class="co">#&gt; 4 2014-W17     3 2014-W21 2014-W13    8 weeks</span></span>
 <span><span class="co">#&gt; 5 2014-W18     6 2014-W22 2014-W14    8 weeks</span></span>
-<span><span class="co">#&gt; 6 2014-W19    16 2014-W23 2014-W15    8 weeks</span></span>
-<span></span>
-<span><span class="co"># epiweeks can be combined with themselves but not other classes (assuming an</span></span>
-<span><span class="co"># epiweek object is the first entry)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">minx</span>, <span class="va">maxx</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 6 2014-W19    16 2014-W23 2014-W15    8 weeks</span></span></code></pre></div>
+<p><code>&lt;grates_epiweek&gt;</code> objects can be combined with
+themselves but not other classes (assuming an epiweek object is the
+first entry).</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">minw</span>, <span class="va">maxw</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;grates_epiweek[2]&gt;</span></span>
 <span><span class="co">#&gt; [1] "2014-W12" "2015-W17"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">minx</span>, <span class="va">maxx</span><span class="op">)</span>, <span class="va">rangex</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">minw</span>, <span class="va">maxw</span><span class="op">)</span>, <span class="va">rangew</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">minx</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Error in c.grates_epiweek(minx, 1L) : </span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">minw</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in c.grates_epiweek(minw, 1L) : </span></span>
 <span><span class="co">#&gt;   Unable to combine &lt;grates_epiweek&gt; objects with other classes.</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
