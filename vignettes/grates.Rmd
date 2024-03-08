@@ -282,47 +282,84 @@ to NULL in the scale:
 bimonth_plot + scale_x_grates_month(format = NULL, n = 2L)
 ```
 
-# Methods and operations
+# Methods and other functionality operations
 
 For all `grates` objects we have added many methods and operations to ensure
-logical and consistent behaviour. Where things break down we try to provide
-detailed messaging explaining why errors have occurred. Whilst this behviour
-is implemented for all grates objects, below we illustrate how it manifests
-with epiweek objects.
+logical and consistent behaviour. The following sections utilise the unique
+epiweeks from the earlier example:
 
 ```{r}
-# use the unique epiweeks from the earlier example
-x <- week_dat$week
+weeks <- week_dat$week
+```
 
+## Accessing boundary values and checking contents
+
+Some times it is useful to access both the starting dates covered by `grates`
+objects as well as the end dates. To this end we provide functions
+`date_start()` and `date_end()`.
+
+To find out whether a `grate` object spans a particular date we provide a
+`%during%` function.
+
+```{r}
+dat <- weeks[1:5]
+data.frame(
+    week = dat,
+    start = date_start(dat),
+    end = date_end(dat),
+    contains.2014.04.14 = as.Date("2014-04-14") %during% dat
+)
+```
+
+Conversion of grate objects back to dates is analogous to `date_start()`.
+
+```{r}
+identical(as.Date(weeks), date_start(weeks))
+```
+
+
+## min, max, range and sequences
+```{r}
 # min, max and range
-(minx <- min(x))
-(maxx <- max(x))
-(rangex <- range(x))
+(minw <- min(weeks))
+(maxw <- max(weeks))
+(rangew <- range(weeks))
 
 # seq method works if both `from` and `to` are epiweeks
-seq(from = minx, to = maxx, by = 6L)
+seq(from = minw, to = maxw, by = 6L)
 
 # but will error informatively if `to` is a different class
-try(seq(from = minx, to = 999, by = 6L))
+try(seq(from = minw, to = 999, by = 6L))
+```
 
-# conversion of yearweek objects back to dates will return the date at the
-# lower bound of each yearweek interval
+## Addition and subtraction
+
+Addition (subtraction) of wholenumbers will add (subtract) the corresponding
+number of weeks to (from) the object
+
+```{r}
 dat <- head(week_dat)
-transform(dat, new_date = as.Date(week))
-
-# addition (subtraction) of wholenumbers will add (subtract) the corresponding
-# number of weeks to (from) the object
 (dat <- transform(dat, plus4 = week + 4L, minus4 = week - 4L))
+```
 
-# addition of two yearweek objects will error as the intention is unclear
+Addition of two yearweek objects will error as the intention is unclear.
+
+```{r}
 try(transform(dat, willerror = week + week))
+```
 
-# Subtraction of two yearweek objects gives the difference in weeks between them
+Subtraction of two yearweek objects gives the difference in weeks between them
+
+```{r}
 transform(dat, difference = plus4 - minus4)
+```
 
-# epiweeks can be combined with themselves but not other classes (assuming an
-# epiweek object is the first entry)
-c(minx, maxx)
-identical(c(minx, maxx), rangex)
-try(c(minx, 1L))
+`<grates_epiweek>` objects can be combined with themselves but not other classes
+(assuming an epiweek object is the first entry).
+
+```{r}
+c(minw, maxw)
+identical(c(minw, maxw), rangew)
+
+try(c(minw, 1L))
 ```
