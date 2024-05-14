@@ -372,7 +372,7 @@ as.POSIXlt.grates_isoweek <- function(x, tz = "UTC", ...) {
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
     }
-    x <- as.double(unclass(x)) * 7 -3
+    x <- as.double(unclass(x)) * 7 - 3
     as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
 }
 

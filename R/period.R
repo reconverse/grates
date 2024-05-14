@@ -565,6 +565,6 @@ Ops.grates_period <- function(e1, e2) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-.new_period <- function(x=integer(), n, offset) {
+.new_period <- function(x = integer(), n, offset) {
     structure(x, n = n, offset = offset, class = "grates_period")
 }

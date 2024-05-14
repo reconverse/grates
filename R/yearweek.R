@@ -688,7 +688,7 @@ Ops.grates_yearweek <- function(e1, e2) {
 .yearweek <- function(year, week, firstday) {
     na_values <- is.na(year) | is.na(week)
     invalid <- !logical(length(na_values))
-    if (any(!na_values))
+    if(!all(na_values))
         invalid[!na_values] <- week[!na_values] > .last_week_in_year(year = year[!na_values], firstday = firstday)
     if (any(invalid))
         warning("Some entries invalid for given `year` and `week` values. Returning these as NA.", call. = FALSE)

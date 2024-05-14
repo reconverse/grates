@@ -144,12 +144,12 @@ scale_type.grates_period <- function(x) {
 
     # breaks function
     brks <- function(x) {
-        if (!inherits(breaks, "waiver")) {
-            dat <- as.numeric(breaks)
-        } else {
+        if (inherits(breaks, "waiver")) {
             dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
             dat <- as.integer(floor(dat))
             dat <- as.numeric(new_period(dat, n = n, offset = offset))
+        } else {
+            dat <- as.numeric(breaks)
         }
         dat - shift
     }

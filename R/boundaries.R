@@ -44,7 +44,7 @@ date_end <- function(x) {
 
 #' @rdname boundaries
 #' @export
-"%during%" <- function(date, x) {
+`%during%` <- function(date, x) {
     .assert_scalar_date(date)
     .assert_grate(x)
     start <- date_start(x)
