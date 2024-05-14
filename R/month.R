@@ -115,7 +115,10 @@ format.grates_month <- function(x, format = "%Y-%b", sep = "to", ...) {
 }
 
 # -------------------------------------------------------------------------
+#' @exportS3Method vctrs::vec_ptype_abbr
 vec_ptype_abbr.grates_month <- function(x, ...) {"month"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_month <- function(x, ...) {"grates_month"}
 
 # -------------------------------------------------------------------------

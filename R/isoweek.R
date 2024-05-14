@@ -136,7 +136,10 @@ print.grates_isoweek <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
+#' @exportS3Method vctrs::vec_ptype_abbr
 vec_ptype_abbr.grates_isoweek <- function(x, ...) {"isowk"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_isoweek <- function(x, ...) {"isoweek"}
 
 # -------------------------------------------------------------------------

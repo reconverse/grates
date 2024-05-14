@@ -65,6 +65,7 @@ scale_x_grates_epiweek <- function(..., breaks = ggplot2::waiver(), n.breaks = 6
 }
 
 # -------------------------------------------------------------------------
+#' @exportS3Method ggplot2::scale_type
 scale_type.grates_epiweek <- function(x) {
 
     # -------------------------------------------------------------------------

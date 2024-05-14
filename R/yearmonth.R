@@ -153,7 +153,10 @@ format.grates_yearmonth <- function(x, format = "%Y-%b", ...) {
 }
 
 # -------------------------------------------------------------------------
+#' @exportS3Method vctrs::vec_ptype_abbr
 vec_ptype_abbr.grates_yearmonth <- function(x, ...) {"yrmon"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearmonth <- function(x, ...) {"grates_yearmonth"}
 
 # -------------------------------------------------------------------------

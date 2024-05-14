@@ -137,7 +137,10 @@ print.grates_epiweek <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
+#' @exportS3Method vctrs::vec_ptype_abbr
 vec_ptype_abbr.grates_epiweek <- function(x, ...) {"epiwk"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
 
 # -------------------------------------------------------------------------

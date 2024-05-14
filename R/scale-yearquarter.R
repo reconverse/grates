@@ -63,6 +63,7 @@ scale_x_grates_yearquarter <- function(..., breaks = ggplot2::waiver(), n.breaks
 
 
 # -------------------------------------------------------------------------
+#' @exportS3Method ggplot2::scale_type
 scale_type.grates_yearquarter <- function(x) {
 
     # -------------------------------------------------------------------------

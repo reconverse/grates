@@ -195,14 +195,31 @@ print.grates_yearweek <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
+#' @exportS3Method vctrs::vec_ptype_abbr
 vec_ptype_abbr.grates_yearweek <- function(x, ...) {"yrwk"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearweek <- function(x, ...) {"yearweek"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearweek_monday <- function(x, ...) {"yearweek-mon"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearweek_tuesday <- function(x, ...) {"yearweek-tue"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearweek_wednesday <- function(x, ...) {"yearweek-wed"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearweek_thursday <- function(x, ...) {"yearweek-thu"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearweek_friday <- function(x, ...) {"yearweek-fri"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearweek_saturday <- function(x, ...) {"yearweek-sat"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearweek_sunday <- function(x, ...) {"yearweek-sun"}
 
 # -------------------------------------------------------------------------

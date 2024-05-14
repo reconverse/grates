@@ -111,6 +111,7 @@ scale_x_grates_month <- function(
 }
 
 # ------------------------------------------------------------------------- #
+#' @exportS3Method ggplot2::scale_type
 scale_type.grates_month <- function(x) {
 
     # -------------------------------------------------------------------------

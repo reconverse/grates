@@ -124,7 +124,10 @@ format.grates_period <- function(x, format = "%Y-%m-%d", sep = "to", ...) {
 }
 
 # -------------------------------------------------------------------------
+#' @exportS3Method vctrs::vec_ptype_abbr
 vec_ptype_abbr.grates_period <- function(x, ...) {"period"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_period <- function(x, ...) {"grates_period"}
 
 # -------------------------------------------------------------------------

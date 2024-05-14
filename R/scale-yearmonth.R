@@ -1,3 +1,4 @@
+#' @exportS3Method ggplot2::scale_type
 scale_type.grates_yearmonth <- function(x) {
 
     # -------------------------------------------------------------------------

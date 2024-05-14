@@ -147,7 +147,10 @@ format.grates_yearquarter <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
+#' @exportS3Method vctrs::vec_ptype_abbr
 vec_ptype_abbr.grates_yearquarter <- function(x, ...) {"yearquarter"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearquarter <- function(x, ...) {"yearquarter"}
 
 # -------------------------------------------------------------------------

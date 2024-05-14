@@ -71,7 +71,10 @@ format.grates_year <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
+#' @exportS3Method vctrs::vec_ptype_abbr
 vec_ptype_abbr.grates_year <- function(x, ...) {"year"}
+
+#' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_year <- function(x, ...) {"grates_year"}
 
 # -------------------------------------------------------------------------

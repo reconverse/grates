@@ -116,6 +116,7 @@ scale_x_grates_period <- function(..., breaks = ggplot2::waiver(), n.breaks = 6L
 }
 
 # -------------------------------------------------------------------------
+#' @exportS3Method ggplot2::scale_type
 scale_type.grates_period <- function(x) {
 
     # -------------------------------------------------------------------------
