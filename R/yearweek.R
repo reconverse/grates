@@ -128,6 +128,11 @@ new_yearweek <- function(x = integer(), firstday = 1L) {
 #' @export
 yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
 
+    # TODO - Work out why we are forcing the input to not have any additional
+    #        attributes (implied by the is.vector usage) and consider mentioning
+    #        in the error message. Need to document this when I remember
+    #        reasoning.
+
     # check year is integerish
     if (is.vector(year, "double")) {
         year <- as.integer(floor(year))
