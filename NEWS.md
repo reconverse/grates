@@ -1,4 +1,6 @@
-# grates (development version)
+# grates 1.2.1
+
+* Package now depends on R (>= 3.6.0).
 
 # grates 1.2.0
 
