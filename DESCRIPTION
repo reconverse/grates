@@ -1,6 +1,6 @@
 Package: grates
 Title: Grouped Date Classes
-Version: 1.2.1
+Version: 1.2.1.9000
 Authors@R:
     c(
       person(
@@ -35,4 +35,3 @@ Config/testthat/edition: 3
 Imports: 
     utils
 Config/runiverse/noindex: true
-
