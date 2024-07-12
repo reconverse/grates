@@ -180,7 +180,7 @@ as_month <- function(x, n, ...) {
 #' @rdname as_month
 #' @export
 as_month.default <- function(x, n, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------

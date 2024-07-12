@@ -212,7 +212,7 @@ as_yearmonth <- function(x, ...) {
 #' @rdname as_yearmonth
 #' @export
 as_yearmonth.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------

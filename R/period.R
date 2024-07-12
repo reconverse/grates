@@ -191,7 +191,7 @@ as_period <- function(x, n, ...) {
 #' @rdname as_period
 #' @export
 as_period.default <- function(x, n = 1L, offset = 0L, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------

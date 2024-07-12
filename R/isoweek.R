@@ -200,7 +200,7 @@ as_isoweek <- function(x, ...) {
 #' @rdname as_isoweek
 #' @export
 as_isoweek.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------

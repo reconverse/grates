@@ -28,7 +28,7 @@ get_firstday <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_firstday.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -77,7 +77,7 @@ get_week <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_week.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -110,7 +110,7 @@ get_year <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_year.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -172,7 +172,7 @@ get_n <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_n.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
@@ -200,7 +200,7 @@ get_offset <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_offset.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------

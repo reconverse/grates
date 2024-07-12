@@ -194,7 +194,7 @@ as_yearquarter <- function(x, ...) {
 #' @rdname as_yearquarter
 #' @export
 as_yearquarter.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------

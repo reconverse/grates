@@ -201,7 +201,7 @@ as_epiweek <- function(x, ...) {
 #' @rdname as_epiweek
 #' @export
 as_epiweek.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", paste(class(x), collapse = ", "))
+    stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
