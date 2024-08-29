@@ -1,4 +1,8 @@
-# grates (development version)
+# grates 1.2.2
+
+* All images in the vignette now have alt text.
+
+* Minor documentation improvements.
 
 # grates 1.2.1
 
