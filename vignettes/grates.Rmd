@@ -101,10 +101,12 @@ yearweek(year = c(2020L, 2021L), week = c(1L, 10L), firstday = 5L)
 
 # epiweeks always start on a Sunday
 (epiwk <- as_epiweek(Sys.Date()))
+
 weekdays(as.Date(epiwk))
 
 # isoweeks always start on a Sunday
 (isowk <- as_isoweek(Sys.Date()))
+
 weekdays(as.Date(isowk))
 ```
 
@@ -112,6 +114,12 @@ By default plots (using ggplot2) will centre yearweek (epiweek / isoweek)
 labels:
 
 ```{r}
+#| fig.alt: >
+#|   Bar chart of epiweekly incidence (by week of infection) covering 2014-W12
+#|   to 2015-W17 inclusive. The graph peaks at 2014-W38. The "descent" from the
+#|   peak tapers off slower than the initial "ascent". Six labels of the form
+#|   'year-week' are evenly spread along the x-axis and centred on the
+#|   corresponding bars.
 library(ggplot2)
 
 # use simulated linelist data from the outbreaks package
@@ -139,6 +147,12 @@ scale_x_grates functions and explicitly specifying a format for the date
 labels:
 
 ```{r}
+#| fig.alt: >
+#|   Bar chart of epiweekly incidence (by week of infection) covering the time
+#|   from March 2014 to April 2015 inclusive. The graph peaks around September
+#|   2014. The "descent" from the peak tapers off slower than the initial
+#|   "ascent". Six labels of the form 'year-month-day' are evenly spread along
+#|   the x-axis and aligned at the start of the corresponding bars.
 week_plot + scale_x_grates_epiweek(format = "%Y-%m-%d")
 ```
 
@@ -162,6 +176,12 @@ I.e. `offset <- offset %% n` and values of `x` stored relative to this scaled
 offset.
 
 ```{r}
+#| fig.alt: >
+#|   Bar chart of incidence (by period of infection) covering the time
+#|   from March 2014 to April 2015 inclusive. The graph peaks around September
+#|   2014. The "descent" from the peak tapers off slower than the initial
+#|   "ascent". Six labels of the form 'year-month-day' are evenly spread along
+#|   the x-axis and aligned at the start of the corresponding bars.
 # calculate the total number for across 14 day periods with no offset.
 # note - 0L is the default value for the offset but we specify it explicitly
 # here for added clarity
@@ -173,16 +193,17 @@ period_dat <- aggregate(
 
 head(period_dat)
 
-# lower date bounds are used for the x axis
 ggplot(period_dat, aes(period, cases)) +
     geom_col(width = 1, colour = "white") +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     xlab("")
+```
 
-# using a date as an offset
-start <- as.Date("2020-01-03")
-dates <- start + 0:9
+We can also use a date as an offset
+
+```{r}
+dates <- as.Date("2020-01-03") + 0:9
 offset <- as.Date("2020-01-01")
 data.frame(dates, period = as_period(dates, n = 7L, offset = offset))
 ```
@@ -197,25 +218,46 @@ Similar to other grates objects we provide both coercion and construction
 functions.
 
 ```{r}
-# calculate the monthly number of cases
+#| fig.alt: >
+#|   Bar chart of monthly incidence (by date of infection) covering the time
+#|   from March 2014 to April 2015 inclusive. The graph peaks around September
+#|   2014. The "descent" from the peak tapers off slower than the initial
+#|   "ascent". Labels of the form 'year-month' are evenly spread along
+#|   the x-axis and aligned at the centred of the corresponding bars.
 (month_dat <- aggregate(
     list(cases = dat),
     by = list(month = as_yearmonth(dat)),
     FUN = length
 ))
 
-# plot with centred labels
 (month_plot <-
     ggplot(month_dat, aes(month, cases)) +
     geom_col(width = 1, colour = "white") +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     xlab(""))
+```
 
-# again we can have non-centred date labels by applying the associated scale
+Again we can have non-centred date labels by applying the associated scale
+
+```{r}
+#| fig.alt: >
+#|   Bar chart of monthly incidence (by date of infection) covering the time
+#|   from March 2014 to April 2015 inclusive. The graph peaks around September
+#|   2014. The "descent" from the peak tapers off slower than the initial
+#|   "ascent". Labels of the form 'year-month-day' are evenly spread along
+#|   the x-axis aligned to the start of the corresponding bars.
 month_plot + scale_x_grates_yearmonth(format = "%Y-%m-%d")
+```
 
-# yearquarter works similarly
+yearquarter works similarly
+
+```{r}
+#| fig.alt: >
+#|   Bar chart of quarterly incidence (by date of infection) covering the time
+#|   from 2014-Q1 to 2015-Q2 inclusive. The graph peaks over quarters 3 and 4
+#|   in 2014. Labels on the x-axis and of the form 'year-quarter' are centred on
+#|   the corresponding bars.
 (quarter_dat <- aggregate(
     list(cases = dat),
     by = list(quarter = as_yearquarter(dat)),
@@ -227,8 +269,15 @@ ggplot(quarter_dat, aes(quarter, cases)) +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     xlab("")
+```
 
-# year also works similarly
+As does year
+
+```{r}
+#| fig.alt: >
+#|   Bar chart of yearly incidence (by date of infection) for 2014 and 2015.
+#|   There were lots more cases in 2014 compared to 2015 (Roughly speaking 
+#|   3000 v 700).
 (year_dat <- aggregate(
     list(cases = dat),
     by = list(year = as_year(dat)),
@@ -240,7 +289,9 @@ ggplot(year_dat, aes(year, cases)) +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     xlab("")
+```
 
+```{r}
 # Construction functions can also be used
 yearmonth(2022L, 11L)
 yearquarter(2022L, 4L)
@@ -259,6 +310,11 @@ two arguments; `x`, the vector (normally a Date or POSIXt) you wish to group and
 `n`, the integer number of months you wish to group.
 
 ```{r}
+#| fig.alt: >
+#|   Bar chart of bimonthly incidence (by date of infection) covering the time
+#|   from March 2014 to April 2015 inclusive. The graph peaks around
+#|   September/October 2014. Labels of the form 'year-month-day' are evenly
+#|   spread along the x-axis aligned to the start of the corresponding bars.
 # calculate the bimonthly number of cases
 (bimonth_dat <- aggregate(
     list(cases = dat),
@@ -281,6 +337,11 @@ centred by default. To obtain centred labels you must explicitly set the format
 to NULL in the scale:
 
 ```{r}
+#| fig.alt: >
+#|   Bar chart of bimonthly incidence (by date of infection) covering the time
+#|   from March 2014 to April 2015 inclusive. The graph peaks around
+#|   September/October 2014. Labels of the form 'year-month to year-month' are
+#|   evenly spread along the x-axis centred on the corresponding bars.
 bimonth_plot + scale_x_grates_month(format = NULL, n = 2L)
 ```
 
