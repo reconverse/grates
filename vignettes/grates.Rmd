@@ -20,12 +20,12 @@ knitr::opts_chunk$set(
 
 # Overview
 
-The goal of {grates} is to make it easy to group dates across a range of different
+The goal of grates is to make it easy to group dates across a range of different
 time intervals. It defines a collection of classes and associated methods that,
 together, formalise the concept of grouped dates and are intuitive to use. To
 assist in formatting plots of grates objects we also provides x-axis scales that
 can be used in conjunction with
-[{ggplot2}](https://cran.r-project.org/package=ggplot2) output. Currently
+[ggplot2](https://cran.r-project.org/package=ggplot2) output. Currently
 implemented classes are:
 
 - [grates_yearweek](#yearweek);
@@ -41,17 +41,19 @@ implemented classes are:
 - [grates_month](#month)
 
 The underlying implementation for these objects build upon ideas of Davis
-Vaughan and the unreleased [{datea}](https://github.com/DavisVaughan/datea/)
+Vaughan and the unreleased [datea](https://github.com/DavisVaughan/datea/)
 package as well as Zhian Kamvar and the
-[{aweek}](https://cran.r-project.org/package=aweek) package.
+[aweek](https://cran.r-project.org/package=aweek) package.
+
+Note that for brevity in the rest of the vignette, we will drop the `grates_`
+prefix when discussing the underlying class.
 
 
 # grates objects
 
-
 ## yearweek, epiweek and isoweek {#yearweek}
 
-**yearweek** objects are stored as the number of weeks (starting at 0L) from
+yearweek objects are stored as the number of weeks (starting at 0L) from
 the date of the `firstday` nearest the Unix Epoch (1970-01-01). Put more simply,
 the number of seven day periods from:
 
@@ -71,13 +73,13 @@ and `firstday`, the day of the week you wish your weeks to start on. `yearweek()
 takes three arguments; `year` and `week` integer vectors and, again, a
 `firstday` value.
 
-The **epiweek** class is similar to the yearweek class but, by definition, will
+The epiweek class is similar to the yearweek class but, by definition, will
 always begin on a Sunday. They are stored as the integer number of weeks (again
 starting at 0L) since 1970-01-04 so internally are akin to
-`<grates_yearweek_sunday>` objects but with the benefit of slightly more
+`grates_yearweek_sunday` objects but with the benefit of slightly more
 efficient implementations for many of the associated methods. 
 
-Likewise, the **isoweek** class is similar to epiweek class but uses the
+Likewise, the isoweek class is similar to epiweek class but uses the
 [ISO 8601](https://en.wikipedia.org/wiki/ISO_week_date) definition of a week
 that will always start on a Monday. Internally they are stored as the integer
 number of weeks since 1969-12-29.
@@ -106,7 +108,7 @@ weekdays(as.Date(epiwk))
 weekdays(as.Date(isowk))
 ```
 
-By default plots (using {ggplot2}) will centre yearweek (epiweek / isoweek)
+By default plots (using ggplot2) will centre yearweek (epiweek / isoweek)
 labels:
 
 ```{r}
@@ -143,11 +145,11 @@ week_plot + scale_x_grates_epiweek(format = "%Y-%m-%d")
 
 ## Period {#period}
 
-**period** objects are stored as the integer number, starting at 0L, of periods
+period objects are stored as the integer number, starting at 0L, of periods
 since the Unix Epoch (1970-01-01) and a specified offset. Here periods are taken
 to mean groupings of `n` consecutive days.
 
-Like with yearweek objects, period objects can be constructed directly via a 
+Like yearweek objects, a period object can be constructed directly via a 
 call to `new_period()` but more easily via the `as_period()` coercion function.
 `as_period()` takes 3 arguments; `x`, the vector (normally a Date or POSIXt) you
 wish to group, `n`, the integer number of days you wish to group, and `offset`,
@@ -187,7 +189,7 @@ data.frame(dates, period = as_period(dates, n = 7L, offset = offset))
 
 ## yearmonth, yearquarter and year {#yearxxx}
 
-**yearmonth**, **yearquarter** and **year** objects are stored as the integer
+yearmonth, yearquarter and year objects are stored as the integer
 number of months/quarters/years (starting at 0L) since the Unix Epoch
 (1970-01-01). 
 
@@ -247,14 +249,14 @@ year(2022L)
 
 ## month {#month}
 
-**month** objects are stored as the integer number of n-month groups (starting
+month objects are stored as the integer number of n-month groups (starting
 at 0L) since the Unix Epoch (1970-01-01). Here n-months is taken to mean a
 'grouping of n consecutive months'.
 
-`<grates_month>` objects can be constructed directly from integers via the
-`new_month()` function and through coercion via the `as_month()` function.
-`as_period()` takes 2 arguments; `x`, the vector (normally a Date or POSIXt) you
-wish to group, `n`, the integer number of months you wish to group.
+month objects can be constructed directly from integers via the `new_month()`
+function and through coercion via the `as_month()` function. `as_period()` takes
+two arguments; `x`, the vector (normally a Date or POSIXt) you wish to group and
+`n`, the integer number of months you wish to group.
 
 ```{r}
 # calculate the bimonthly number of cases
@@ -284,7 +286,7 @@ bimonth_plot + scale_x_grates_month(format = NULL, n = 2L)
 
 # Methods and other functionality
 
-For all `grates` objects we have added many methods and operations to ensure
+For all grates objects we have added many methods and operations to ensure
 logical and consistent behaviour. The following sections utilise the unique
 epiweeks from the earlier example:
 
@@ -294,7 +296,7 @@ weeks <- week_dat$week
 
 ## Accessing boundary values and checking contents
 
-Some times it is useful to access both the starting dates covered by `grates`
+Some times it is useful to access both the starting dates covered by grates
 objects as well as the end dates. To this end we provide functions
 `date_start()` and `date_end()`.
 
@@ -334,7 +336,7 @@ try(seq(from = minw, to = 999, by = 6L))
 
 ## Addition and subtraction
 
-Addition (subtraction) of wholenumbers will add (subtract) the corresponding
+Addition (subtraction) of whole numbers will add (subtract) the corresponding
 number of weeks to (from) the object
 
 ```{r}
@@ -354,7 +356,7 @@ Subtraction of two yearweek objects gives the difference in weeks between them
 transform(dat, difference = plus4 - minus4)
 ```
 
-`<grates_epiweek>` objects can be combined with themselves but not other classes
+epiweek objects can be combined with themselves but not other classes
 (assuming an epiweek object is the first entry).
 
 ```{r}
