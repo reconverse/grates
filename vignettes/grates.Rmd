@@ -6,6 +6,7 @@ vignette: >
   %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
+  %\VignetteDepends{outbreaks, ggplot2}
 ---
 
 ```{r, include = FALSE}
