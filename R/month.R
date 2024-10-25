@@ -93,7 +93,7 @@ is_month <- function(xx) {
 print.grates_month <- function(x, format = "%Y-%b", sep = "to", ...) {
     # replicate the header as in vctrs
     n <- length(x)
-    cat("<grates_yearmonth[", n, "]>\n", sep = "")
+    cat("<grates_month[", n, "]>\n", sep = "")
     if (n)
         print(format.grates_month(x, format = format, sep = sep))
     invisible(x)
