@@ -28,6 +28,7 @@
 \alias{get_n.default}
 \alias{get_n.grates_month}
 \alias{get_n.grates_period}
+\alias{get_n.grates_int_period}
 \alias{get_offset}
 \alias{get_offset.default}
 \alias{get_offset.grates_period}
@@ -84,6 +85,8 @@ get_n(x, ...)
 \method{get_n}{grates_month}(x, ...)
 
 \method{get_n}{grates_period}(x, ...)
+
+\method{get_n}{grates_int_period}(x, ...)
 
 get_offset(x, ...)
 

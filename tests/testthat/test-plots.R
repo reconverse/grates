@@ -268,9 +268,9 @@ test_that("period plotting works", {
         as_period(dat$date_of_infection, n = 14) |>
         count_no_na() |>
         ggplot2::ggplot(ggplot2::aes(date, cases)) +
-            ggplot2::geom_col(width = 1L, colour = "white") +
-            ggplot2::theme_bw() +
-            ggplot2::xlab("")
+        ggplot2::geom_col(width = 1L, colour = "white") +
+        ggplot2::theme_bw() +
+        ggplot2::xlab("")
 
     br <- as_period(c("2014-08-28", "2015-01-15"), n = 14)
     two_weeks_breaks <- two_weeks +
@@ -283,11 +283,11 @@ test_that("period plotting works", {
         as_period(dat$date_of_infection, n = 28) |>
         count_no_na() |>
         ggplot2::ggplot(ggplot2::aes(date, cases)) +
-            ggplot2::geom_col(width = 1L, colour = "white") +
-            ggplot2::theme_bw() +
-            ggplot2::xlab("") +
-            scale_x_grates_period(n.breaks = 7L, n = 28, offset = 0L) +
-            ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
+        ggplot2::geom_col(width = 1L, colour = "white") +
+        ggplot2::theme_bw() +
+        ggplot2::xlab("") +
+        scale_x_grates_period(n.breaks = 7L, n = 28, offset = 0L) +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
 
     br <- as_period("2014-06-19", n = 28) + c(0,2,4)
     twentyeight_days_breaks <- twentyeight_days +
@@ -296,6 +296,50 @@ test_that("period plotting works", {
 
     expect_snapshot_plot("twentyeight_days", twentyeight_days)
     expect_snapshot_plot("twentyeight_days_breaks", twentyeight_days_breaks)
+})
+
+test_that("int_period plotting works", {
+
+    skip_if_not_installed("ggplot2", "2.0.0")
+
+    x <- c(1, 3, 4, 4, 3, 4, 10)
+    one_dat <- count_no_na(as_int_period(x))
+    two_dat <- count_no_na(as_int_period(x, n = 2L))
+
+    p_one <-
+        one_dat |>
+        ggplot2::ggplot(ggplot2::aes(date, cases)) +
+        ggplot2::geom_col(width = 1, colour = "white") +
+        scale_x_grates_int_period(n.breaks = 10, n = 1) +
+        ggplot2::theme_bw() +
+        ggplot2::xlab("")
 
 
+    p_two <-
+        two_dat |>
+        ggplot2::ggplot(ggplot2::aes(date, cases)) +
+        ggplot2::geom_col(width = 1, colour = "white") +
+        scale_x_grates_int_period(n.breaks = 4, n = 2) +
+        ggplot2::theme_bw() +
+        ggplot2::xlab("")
+
+    p_breaks <-
+        p_two +
+        scale_x_grates_int_period(
+            breaks = as_int_period(seq(0,12,by=2), n = 2),
+            n = 2
+        )
+
+    p_breaks_centred <-
+        p_two +
+        scale_x_grates_int_period(
+            breaks = as_int_period(seq(0,12,by=2), n = 2),
+            n = 2,
+            centre = TRUE
+        )
+
+    expect_snapshot_plot("p_one", p_one)
+    expect_snapshot_plot("p_two", p_two)
+    expect_snapshot_plot("p_breaks", p_breaks)
+    expect_snapshot_plot("p_breaks_centred", p_breaks_centred)
 })

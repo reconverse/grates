@@ -190,6 +190,13 @@ get_n.grates_period <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
+#' @rdname grouped_date_accessors
+#' @export
+get_n.grates_int_period <- function(x, ...) {
+    attr(x, "n")
+}
+
+# -------------------------------------------------------------------------
 #' @name grouped_date_accessors
 #' @export
 get_offset <- function(x, ...) {
