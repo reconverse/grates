@@ -1,7 +1,7 @@
 grates_int_period_env <-  new.env(parent = emptyenv())
 
 # -------------------------------------------------------------------------
-#' int_period scale
+#' int_period scale (Experimental)
 #'
 # -------------------------------------------------------------------------
 #' ggplot2 scale for an int_period vector.
@@ -40,6 +40,7 @@ grates_int_period_env <-  new.env(parent = emptyenv())
 #' A scale for use with ggplot2.
 #'
 # -------------------------------------------------------------------------
+#' @keywords internal
 #' @export
 scale_x_grates_int_period <- function(
     ...,

@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------
-#' Minimal Constructor for an int_period object
+#' Minimal Constructor for an int_period object (Experimental)
 #'
 # -------------------------------------------------------------------------
 #' `new_int_period()` is a constructor for `<grates_int_period>` objects aimed
@@ -34,6 +34,7 @@
 #' new_int_period(1:10, 2L)
 #'
 # -------------------------------------------------------------------------
+#' @keywords internal
 #' @export
 new_int_period <- function(x = integer(), n = 1L) {
     if (is.vector(x, "double")) {
@@ -106,7 +107,7 @@ vec_ptype_abbr.grates_int_period <- function(x, ...) {"intper"}
 vec_ptype_full.grates_int_period <- function(x, ...) {"grates_int_period"}
 
 # -------------------------------------------------------------------------
-#' Coerce an object to an int_period
+#' Coerce an object to an int_period (Experimental)
 #'
 # -------------------------------------------------------------------------
 #' `as_int_period()` is a generic for coercing input in to `<grates_int_period>`.
@@ -141,6 +142,7 @@ vec_ptype_full.grates_int_period <- function(x, ...) {"grates_int_period"}
 #' of n consecutive integers'.
 #'
 # -------------------------------------------------------------------------
+#' @keywords internal
 #' @export
 as_int_period <- function(x, n, ...) {
     UseMethod("as_int_period")

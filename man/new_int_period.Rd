@@ -3,7 +3,7 @@
 \name{new_int_period}
 \alias{new_int_period}
 \alias{is_int_period}
-\title{Minimal Constructor for an int_period object}
+\title{Minimal Constructor for an int_period object (Experimental)}
 \usage{
 new_int_period(x = integer(), n = 1L)
 
@@ -38,3 +38,4 @@ integers'.
 new_int_period(1:10, 2L)
 
 }
+\keyword{internal}

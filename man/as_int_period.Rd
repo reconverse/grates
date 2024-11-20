@@ -5,7 +5,7 @@
 \alias{as_int_period.default}
 \alias{as_int_period.integer}
 \alias{as_int_period.double}
-\title{Coerce an object to an int_period}
+\title{Coerce an object to an int_period (Experimental)}
 \usage{
 as_int_period(x, n, ...)
 
@@ -43,3 +43,4 @@ of n consecutive integers'.
 as_int_period(1:10, n = 4L)
 
 }
+\keyword{internal}
