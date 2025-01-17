@@ -25,7 +25,7 @@ Will only have an effect if \code{breaks = waiver()}.}
 
 \item{format}{Format to use if "Date" scales are required.
 
-If NULL (default) then labels are in the standard yearweek format (YYYY-Www).
+If NULL (default) then labels are in the standard epiweek format (YYYY-Www).
 
 If "week" then the labels are of the form Www (e.g. W37).
 
