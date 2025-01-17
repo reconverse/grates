@@ -22,7 +22,9 @@
 #'
 #' If NULL (default) then labels are in the standard yearweek format (YYYY-Www).
 #'
-#' If not NULL then the value is used by `format.Date()` and can be any input
+#' If "week" then the labels are of the form Www (e.g. W37).
+#'
+#' Otherwise the value is used by `format.Date()` and can be any input
 #' acceptable by that function.
 #'
 #' @param firstday `[integer]`
@@ -195,7 +197,7 @@ scale_type.grates_yearweek <- function(x) {
 # ------------------------------------------------------------------------- #
 .grates_yearweek_trans <- function(breaks, n.breaks, firstday, format) {
 
-    shift <- if (is.null(format)) 0 else 0.5
+    shift <- if (is.null(format) || format == "week") 0 else 0.5
 
     # breaks function
     brks <- function(x) {
@@ -214,6 +216,9 @@ scale_type.grates_yearweek <- function(x) {
         x <- new_yearweek(x + shift, firstday = firstday)
         if (is.null(format)) {
             format.grates_yearweek(x)
+        } else if (format == "week") {
+            x <- format.grates_yearweek(x)
+            sub(pattern = ".*-", replacement = "", x = x, perl = TRUE)
         } else {
             x <- as.Date.grates_yearweek(x)
             format(x, format)

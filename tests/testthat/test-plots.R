@@ -57,10 +57,14 @@ test_that("yearweek plotting works", {
     yearweek_thursday_breaks <- yearweek_thursday +
         scale_x_grates_yearweek_thursday(breaks = yearweek(2014, c(25,35,45), 4))
 
+    yearweek_thursday_weeks_only <- yearweek_thursday +
+        scale_x_grates_yearweek_thursday(format = "week")
+
     expect_snapshot_plot("yearweek_monday", yearweek_monday)
     expect_snapshot_plot("yearweek_monday_breaks", yearweek_monday_breaks)
     expect_snapshot_plot("yearweek_thursday", yearweek_thursday)
     expect_snapshot_plot("yearweek_thursday_breaks", yearweek_thursday_breaks)
+    expect_snapshot_plot("yearweek_thursday_weeks_only", yearweek_thursday_weeks_only)
 })
 
 
@@ -87,10 +91,12 @@ test_that("isoweek plotting works", {
         ) +
         ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
 
+    isoweek_weeks <- isoweek + scale_x_grates_isoweek(format = "week")
 
     expect_snapshot_plot("isoweek", isoweek)
     expect_snapshot_plot("isoweek_breaks", isoweek_breaks)
     expect_snapshot_plot("isoweek_breaks_dates", isoweek_breaks_dates)
+    expect_snapshot_plot("isoweek_weeks", isoweek_weeks)
 })
 
 
@@ -117,10 +123,13 @@ test_that("epiweek plotting works", {
         ) +
         ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
 
+    epiweek_weeks <- epiweek + scale_x_grates_epiweek(format = "week")
+
 
     expect_snapshot_plot("epiweek", epiweek)
     expect_snapshot_plot("epiweek_breaks", epiweek_breaks)
     expect_snapshot_plot("epiweek_breaks_dates", epiweek_breaks_dates)
+    expect_snapshot_plot("epiweek_weeks", epiweek_weeks)
 })
 
 test_that("yearmonth plotting works", {

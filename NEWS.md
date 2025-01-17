@@ -1,5 +1,13 @@
 # grates (development version)
 
+* The format argument of the scale functions for `<grates_yearweek>`,
+  `<grates_epiweek>` and `<grates_isoweek>` can now be set to "week" to drop
+  the year value from graph labels, i.e.
+  
+  ```
+  plot + scale_x_grates_epiweek(format = "week")
+  ```
+
 # grates 1.3.0
 
 * (Re)introduction of the `<grates_int_period>` object and associated scale

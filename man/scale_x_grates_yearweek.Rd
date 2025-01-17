@@ -104,7 +104,9 @@ Integer value of the first weekday: 1 (Monday) to 7 (Sunday).}
 
 If NULL (default) then labels are in the standard yearweek format (YYYY-Www).
 
-If not NULL then the value is used by \code{format.Date()} and can be any input
+If "week" then the labels are of the form Www (e.g. W37).
+
+Otherwise the value is used by \code{format.Date()} and can be any input
 acceptable by that function.}
 }
 \value{

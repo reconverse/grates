@@ -20,9 +20,11 @@
 #'
 #' Format to use if "Date" scales are required.
 #'
-#' If NULL (default) then labels are in the standard yearweek format (YYYY-Www).
+#' If NULL (default) then labels are in the standard epiweek format (YYYY-Www).
 #'
-#' If not NULL then the value is used by `format.Date()` and can be any input
+#' If "week" then the labels are of the form Www (e.g. W37).
+#'
+#' Otherwise the value is used by `format.Date()` and can be any input
 #' acceptable by that function.
 #'
 #' @param ...
@@ -87,7 +89,7 @@ scale_type.grates_epiweek <- function(x) {
 # ------------------------------------------------------------------------- #
 .grates_epiweek_trans <- function(breaks, n.breaks, format) {
 
-    shift <- if (is.null(format)) 0 else 0.5
+    shift <- if (is.null(format) || format == "week") 0 else 0.5
 
     # breaks function
     brks <- function(x) {
@@ -105,7 +107,10 @@ scale_type.grates_epiweek <- function(x) {
     fmt <- function(x) {
         x <- new_epiweek(x + shift)
         if (is.null(format)) {
-            format.grates_yearweek(x)
+            format.grates_epiweek(x)
+        } else if (format == "week") {
+            x <- format.grates_yearweek(x)
+            sub(pattern = ".*-", replacement = "", x = x, perl = TRUE)
         } else {
             x <- as.Date.grates_epiweek(x)
             format(x, format)
