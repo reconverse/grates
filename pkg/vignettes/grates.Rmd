@@ -1,18 +1,21 @@
 ---
 title: "Introduction"
 output:
-    litedown::html_format:
+    html:
         options:
             embed_resources: ["all"]
+        
 vignette: >
+  %\VignetteEngine{litedown::vignette}
   %\VignetteIndexEntry{Introduction}
-  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
   %\VignetteDepends{outbreaks, ggplot2}
 ---
 
 ```{r, include = FALSE}
 opts = litedown::reactor()
+opts$error = TRUE
+opts$message = TRUE
 opts$print = function(x, ...) capture.output(if (isS4(x)) methods::show(x, ...) else print(x, ...))
 opts$fig.align = "center"
 opts$fig.width = 7
@@ -393,7 +396,7 @@ identical(as.Date(weeks), date_start(weeks))
 seq(from = minw, to = maxw, by = 6L)
 
 # but will error informatively if `to` is a different class
-try(seq(from = minw, to = 999, by = 6L))
+seq(from = minw, to = 999, by = 6L)
 ```
 
 ## Addition and subtraction
@@ -409,7 +412,7 @@ dat <- head(week_dat)
 Addition of two yearweek objects will error as the intention is unclear.
 
 ```{r}
-try(transform(dat, willerror = week + week))
+transform(dat, willerror = week + week)
 ```
 
 Subtraction of two yearweek objects gives the difference in weeks between them
@@ -425,5 +428,5 @@ epiweek objects can be combined with themselves but not other classes
 c(minw, maxw)
 identical(c(minw, maxw), rangew)
 
-try(c(minw, 1L))
+c(minw, 1L)
 ```

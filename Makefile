@@ -1,8 +1,11 @@
-doc:
-	R -s -e "roxygen2::roxygenize('.', load_code = roxygen2::load_pkgload)"
+.PHONY: doc pkg install check cran test manual revdep site clean readme
+
+doc: pkg/README.md
+	R -s -e "roxygen2::roxygenize('pkg', load_code = roxygen2::load_pkgload)"
 
 pkg: doc
-	R CMD build .
+	rm -f *.tar.gz
+	R CMD build pkg
 
 install: pkg
 	R CMD INSTALL *.tar.gz
@@ -14,19 +17,42 @@ cran: pkg
 	R CMD check --as-cran *.tar.gz
 
 test: doc
-	R -s -e "tinytest::build_install_test('.')"
+	R -s -e "tinytest::build_install_test('pkg')"
 
 manual: doc
-	R CMD Rd2pdf --force -o manual.pdf .
+	R CMD Rd2pdf --force -o manual.pdf ./pkg
 
 revdep: pkg
 	rm -rf revdep
 	mkdir revdep
 	mv *.tar.gz revdep
-	R -s -e "out <- tools::check_packages_in_dir('revdep',reverse=list(which='most'),Ncpus=3); print(summary(out)); saveRDS(out, file='revdep/output.RDS')"
+	R -s -e "out <- tools::check_packages_in_dir('revdep',reverse=list(which='most')); print(summary(out)); saveRDS(out, file='revdep/output.RDS')"
+
+readme: README.md
+
+pkg/README.md: pkg/README.Rmd
+	cd pkg; Rscript -e "litedown::fuse('README.Rmd', '.md')"
+
+README.md: pkg/README.md
+	cp pkg/README.md README.md
+
+
+site: install
+	mkdir -p pkg/sitebuild
+	rm -rf pkg/sitebuild/* docs
+	cp -r pkg/site/* pkg/sitebuild/
+	cd pkg/sitebuild; Rscript -e "litedown::fuse('_footer.Rmd', '.md')"
+	cd pkg/sitebuild; Rscript -e "litedown::fuse_site()"
+	cd pkg/sitebuild; rm -f *.Rmd *.yml _*
+	cp -r pkg/sitebuild docs
+	rm -rf pkg/sitebuild
+	xdg-open docs/index.html
 
 clean:
 	rm -rf *.Rcheck
 	rm -rf revdep
 	rm -f *.tar.gz
 	rm -f manual.pdf
+	rm -f pkg/src/*.o
+	rm -f pkg/src/*.so
+
