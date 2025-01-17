@@ -1,0 +1,11 @@
+---
+title: News
+output:
+  html:
+    options:
+      embed_resources: "all"
+---
+
+```{r, echo = FALSE}
+litedown::pkg_news(recent = 0, number_sections = FALSE)
+```

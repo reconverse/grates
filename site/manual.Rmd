@@ -1,0 +1,16 @@
+---
+title: Help pages
+output:
+  html:
+    options:
+      embed_resources: "all"
+---
+
+```{css, echo = FALSE}
+h2 {
+  text-align: center;
+  margin-top: 2em;
+}
+```
+
+`{r} litedown::pkg_manual(overview = FALSE)`

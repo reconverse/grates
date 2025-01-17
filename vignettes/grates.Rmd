@@ -1,7 +1,9 @@
 ---
 title: "Introduction"
 output:
-  markdown::html_format:
+    litedown::html_format:
+        options:
+            embed_resources: ["all"]
 vignette: >
   %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{knitr::knitr}
@@ -10,13 +12,11 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(
-    collapse = TRUE,
-    comment = "#>",
-    fig.align = "center",
-    fig.width = 7,
-    fig.height = 5
-)
+opts = litedown::reactor()
+opts$print = function(x, ...) capture.output(if (isS4(x)) methods::show(x, ...) else print(x, ...))
+opts$fig.align = "center"
+opts$fig.width = 7
+opts$fig.height = 5
 ```
 
 # Overview

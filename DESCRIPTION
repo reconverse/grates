@@ -22,15 +22,14 @@ RoxygenNote: 7.3.2
 Depends:
     R (>= 3.6.0)
 Suggests:
-    knitr,
     ggplot2,
     scales,
     vctrs,
     rlang,
-    markdown,
+    litedown,
     outbreaks,
     testthat (>= 3.0.0),
-VignetteBuilder: knitr
+VignetteBuilder: litedown
 Config/testthat/edition: 3
 Imports: 
     utils
