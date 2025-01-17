@@ -1,0 +1,2464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="generator" content="litedown 0.5">
+<title>Help pages</title>
+<style type="text/css">
+body{max-width:800px;margin:auto;padding:1em;font-family:sans-serif;line-height:1.5}body,.abstract,code,.footnotes,footer,#refs,.caption{font-size:.9em}li li{font-size:.95em}ul:has(li>input[type=checkbox]){padding-left:1em;list-style:none}*,:before,:after{box-sizing:border-box}a{color:#4682b4}pre,img{max-width:100%}pre{white-space:pre-wrap;word-break:break-word}pre code{padding:1em;display:block;overflow-x:auto}code{font-family:DejaVu Sans Mono,Droid Sans Mono,Lucida Console,Consolas,Monaco,monospace}:not(pre)>code,code[class],div>.caption{background:#f8f8f8}pre>code:is(:not([class]),.language-plain,.language-none,.plain),.box,.figure,.table{background:inherit;border:1px solid #eee}pre>code{&.message{border-color:#9eeaf9}&.warning{background:#fff3cd;border-color:#fff3cd}&.error{background:#f8d7da;border-color:#f8d7da}}.fenced-chunk{border-left:1px solid #666}.code-fence{opacity:.4;border:1px dashed #666;border-left:2px solid;&:hover{opacity:inherit}}.box,.figure,.table{margin:1em auto}div>.caption{padding:1px 1em}.figure{& p:has(img),& pre:has(svg){text-align:center}}.flex-col{justify-content:space-between;display:flex}table :is(th,td){font-variant-numeric:tabular-nums;padding:5px}table:not([class]){border-top:1px solid #666;margin:1em auto;& thead th{border-bottom:1px solid #ddd}}table:not([class]),.table-striped{& thead,& tfoot,& tr:nth-child(2n){background:#f5f5f5}}blockquote{color:#666;border-left:.5em solid #eee;margin:0;padding:1px 1em}hr,.footnotes:before{border:1px dashed #ddd}.frontmatter{text-align:center}#TOC{& a{text-decoration:none}& ul{padding-left:1em;list-style:none}&>ul{padding:0}& ul ul{border-left:1px solid #b0c4de}}table:not([class]),.body h2{border-bottom:1px solid #666}.body .appendix,.appendix~h2{border-bottom-style:dashed}.main-number:after{content:"."}span[class^=ref-number-]{font-weight:700}.ref-number-fig:after,.ref-number-tab:after{content:":"}.cross-ref-chp:before{content:"Chapter "}.cross-ref-sec:before{content:"Section "}.cross-ref-fig:before,.ref-number-fig:before{content:"Figure "}.cross-ref-tab:before,.ref-number-tab:before{content:"Table "}.cross-ref-eqn:before,.MathJax_ref:has(mjx-mtext>mjx-c+mjx-c):before{content:"Equation "}.abstract,#refs{&:before{margin:1em auto;font-weight:700;display:block}}.abstract:before{content:"Abstract";text-align:center}#refs:before{content:"Bibliography";font-size:1.5em}.ref-paren-open:before{content:"("}.ref-paren-close:after{content:")"}.ref-semicolon:after{content:"; "}.ref-and:after{content:" and "}.ref-et-al:after{content:" et al.";font-style:italic}.footnote-ref a{&:before{content:"["}&:after{content:"]"}}section.footnotes{margin-top:2em;&:before{content:"";max-width:20em;display:block}}.fade{opacity:.6;background:repeating-linear-gradient(135deg,#fff,#fff 30px,#ddd 32px 32px)}@media print{body{max-width:100%}tr,img{break-inside:avoid}}@media only screen and (width>=992px){body:not(.pagesjs) pre:has(.line-numbers):not(:hover){white-space:pre}}
+</style>
+<style type="text/css">
+:root{--side-width:200px;--side-gap:2em;--side-margin:calc(0px - var(--side-width) - var(--side-gap))}body,blockquote,.side{background:#fafafa}.body,.body~.appendix,.frontmatter,.fullwidth,.embed-left,.embed-right{background:#fff;margin-top:2em;padding:1em;box-shadow:0 0 8px #ccc}.appendix,.footnotes,.body .side{font-size:.9em}.body~.appendix,.frontmatter{background:0 0}.appendix h2{border-bottom:1px dashed #666}#TOC{top:0}.bg-number{color:#fff;background:#789;border-radius:5px;padding:1px 5px}.side{width:var(--side-width);margin:0 auto}.side-left{float:left;clear:left;margin-left:var(--side-margin);position:sticky;&:not(.body>*){margin-left:calc(var(--side-margin) + 1em)}}.side-right{float:right;clear:right;margin-right:var(--side-margin)}.quote-left,.quote-right{width:45%}.embed-left,.embed-right{margin-top:auto;padding:0}.quote-left,.embed-left{float:left;margin-right:1em}.quote-right,.embed-right{float:right;margin-left:1em}.embed-left{margin-left:var(--side-margin)}.embed-right{margin-right:var(--side-margin)}:is(.side,.embed-left,.embed-right)>:first-child{margin-top:0}:is(.embed-left,.embed-right)>:last-child{margin-bottom:0}:is(.quote-left,.quote-right){&>:first-child{padding-top:.1px}&>:last-child{padding-bottom:.1px}}.fullwidth{float:left;background:#fff;min-width:100%;max-width:calc(100vw - 2em);margin:1em 0 1em 50%;transform:translate(-50%);& *{max-width:calc(100vw - 4em);margin:auto 0}& :is(figcaption,.caption){width:800px;margin-left:calc(50% - 400px);padding:1em 1em 0}}.fullscroll{& *{max-width:initial}&,& figure,& .figure{overflow-x:auto}}@media (width>=1264.02px){#TOC.side{& .active{color:#32cd32}& li li .active{border-left:3px solid;margin-left:calc(-1em - 3px);padding-left:1em}&:has(.active) li:not(:has(.active)) ul{display:none}}.note-ref{cursor:pointer}.note-ref:hover+.side{z-index:1;box-sizing:content-box;background:#f8f8f8;margin-left:1em;padding:.5em;display:inline-block;position:absolute}}@media (width<=1264px){body:not(.pagesjs){& #TOC{position:initial;float:none;columns:2;border:1px solid #eee;border-radius:5px;padding:1em}& .side{width:100%}& :is(main,.body) .side{color:#2f4f4f;padding:0 2em}& .side-left,& .side-right{clear:both;background:0 0;margin:1em auto}& :not(.note-ref)+.side{float:none}& .footnote-ref+.footnotes{float:left}& .side>:last-child{margin-bottom:0}& .embed-left,& .embed-right{float:inherit;margin:auto;padding:1em}}}@media (width<=800px){body:not(.pagesjs){padding:initial;& main,& .body{padding:0 .5em}& #TOC{columns:1}& .quote-left,& .quote-right{width:inherit;float:inherit;margin:auto}& .fullwidth{margin:initial;transform:initial;float:none;min-width:initial;background:0 0;border:none;& :is(figcaption,.caption){margin:initial;padding:initial}&:not(.fullscroll) *{max-width:100%}}}}@media print{body{background:0 0}}
+</style>
+<style type="text/css">
+nav>p:last-child{border-bottom:1px dashed #666}footer{border-top:1px dashed #666;margin-top:2em;& .flex-col{gap:2em}}nav a,footer a{text-decoration:none}nav a{background:#fff;margin-right:.5em;padding:.2em .5em;display:inline-block}nav a:hover{filter:invert()}.body,.frontmatter,.body~.appendix{box-shadow:none;margin-top:auto}.frontmatter{background:linear-gradient(#f0f8ff,#fff)}.body~.appendix{background:linear-gradient(#fff,#f5f5f5)}
+</style>
+<style type="text/css">
+.copy-button{cursor:pointer;border:1px solid;width:1em;height:1em;display:none;position:absolute;inset:5px 5px auto auto;box-shadow:-3px 3px #999}:is(:focus,:hover)>.copy-button{display:inline-block}.copy-success{box-shadow:none;background:#999;transition:box-shadow .3s ease-out,background .3s ease-out}.copy-fail{border-style:dotted}
+</style>
+<style type="text/css">
+.anchor{&:not(:hover>*){display:none}&>a:before{content:"#"}}
+</style>
+<style type="text/css">
+.token{&.comment{color:#007400}&.punctuation{color:#999}&.tag,&.selector{color:#aa0d91}&.boolean,&.number,&.constant,&.symbol{color:#1c00cf}&.property,&.attr-name,&.string,&.char,&.builtin{color:#c41a16}&.inserted{background:#ccffd8}&.deleted{background:#ffebe9}&.operator,&.entity,&.url,.language-css &.string,.style &.string{color:#9a6e3a}&.atrule,&.attr-value,&.keyword{color:#836c28}&.function,&.class-name{color:#dd4a68}&.regex,&.important,&.variable{color:#5c2699}&.important,&.bold{font-weight:700}&.italic{font-style:italic}}
+</style>
+</head>
+<body>
+<nav><p><a href="index.html">Home</a>
+<a href="articles.html">Articles</a>
+<a href="manual.html">Manual</a>
+<a href="news.html">News</a></p></nav>
+<div class="frontmatter">
+<div class="title"><h1>Help pages</h1></div>
+</div>
+<div class="body">
+<div id="TOC">
+<ul>
+<li><a href="#sec:man-as_epiweek">Coerce to a epiweek object</a></li>
+<li><a href="#sec:man-as_int_period">Coerce an object to an int_period (Experimental)</a></li>
+<li><a href="#sec:man-as_isoweek">Coerce to a isoweek object</a></li>
+<li><a href="#sec:man-as_month">Coerce an object to month</a></li>
+<li><a href="#sec:man-as_period">Coerce an object to period</a></li>
+<li><a href="#sec:man-as_year">Coerce an object to year-quarter</a></li>
+<li><a href="#sec:man-as_yearmonth">Coerce an object to year-month</a></li>
+<li><a href="#sec:man-as_yearquarter">Coerce an object to year-quarter</a></li>
+<li><a href="#sec:man-as_yearweek">Coerce to a yearweek object</a></li>
+<li><a href="#sec:man-boundaries">Access the start (end) dates of a grates vector</a></li>
+<li><a href="#sec:man-epiweek">Constructor for epiweek objects</a></li>
+<li><a href="#sec:man-grouped_date_accessors">Accessors for grate objects</a></li>
+<li><a href="#sec:man-isoweek">Constructor for isoweek objects</a></li>
+<li><a href="#sec:man-new_epiweek">Minimal constructor for an epiweek object</a></li>
+<li><a href="#sec:man-new_int_period">Minimal Constructor for an int_period object (Experimental)</a></li>
+<li><a href="#sec:man-new_isoweek">Minimal constructor for an isoweek object</a></li>
+<li><a href="#sec:man-new_month">Minimal Constructor for a month object</a></li>
+<li><a href="#sec:man-new_period">Minimal constructor for a period object</a></li>
+<li><a href="#sec:man-new_yearmonth">Minimal constructor for a yearmonth object</a></li>
+<li><a href="#sec:man-new_yearquarter">Minimal constructor for a yearquarter object</a></li>
+<li><a href="#sec:man-new_yearweek">Minimal constructor for a yearweek object</a></li>
+<li><a href="#sec:man-print.grates_int_period">Print an int_period object</a></li>
+<li><a href="#sec:man-print.grates_month">Print a month object</a></li>
+<li><a href="#sec:man-print.grates_period">Print a period object</a></li>
+<li><a href="#sec:man-print.grates_year">Print a year-quarter object</a></li>
+<li><a href="#sec:man-print.grates_yearmonth">Print a year-month object</a></li>
+<li><a href="#sec:man-print.grates_yearquarter">Print a year-quarter object</a></li>
+<li><a href="#sec:man-scale_x_grates_epiweek">epiweek scale</a></li>
+<li><a href="#sec:man-scale_x_grates_int_period">int_period scale (Experimental)</a></li>
+<li><a href="#sec:man-scale_x_grates_isoweek">isoweek scale</a></li>
+<li><a href="#sec:man-scale_x_grates_month">month scale</a></li>
+<li><a href="#sec:man-scale_x_grates_period">period scale</a></li>
+<li><a href="#sec:man-scale_x_grates_year">year scale</a></li>
+<li><a href="#sec:man-scale_x_grates_yearmonth">yearmonth scale</a></li>
+<li><a href="#sec:man-scale_x_grates_yearquarter">yearquarter scale</a></li>
+<li><a href="#sec:man-scale_x_grates_yearweek">yearweek scale</a></li>
+<li><a href="#sec:man-year">Construct a year object</a></li>
+<li><a href="#sec:man-yearmonth">Constructor for yearmonth objects</a></li>
+<li><a href="#sec:man-yearquarter">Constructor for yearquarter objects</a></li>
+<li><a href="#sec:man-yearweek">Constructor for yearweek objects</a></li>
+</ul>
+</div>
+<style type="text/css">
+h2 {
+  text-align: center;
+  margin-top: 2em;
+}
+</style>
+<p>
+<b>-- <kbd>A</kbd> --</b>
+<a href="#sec:man-as_epiweek"><code>as_epiweek()</code></a>
+<a href="#sec:man-as_epiweek"><code>as_epiweek.default()</code></a>
+<a href="#sec:man-as_epiweek"><code>as_epiweek.Date()</code></a>
+<a href="#sec:man-as_epiweek"><code>as_epiweek.POSIXt()</code></a>
+<a href="#sec:man-as_epiweek"><code>as_epiweek.character()</code></a>
+<a href="#sec:man-as_epiweek"><code>as_epiweek.factor()</code></a>
+<a href="#sec:man-as_int_period"><code>as_int_period()</code></a>
+<a href="#sec:man-as_int_period"><code>as_int_period.default()</code></a>
+<a href="#sec:man-as_int_period"><code>as_int_period.integer()</code></a>
+<a href="#sec:man-as_int_period"><code>as_int_period.double()</code></a>
+<a href="#sec:man-as_isoweek"><code>as_isoweek()</code></a>
+<a href="#sec:man-as_isoweek"><code>as_isoweek.default()</code></a>
+<a href="#sec:man-as_isoweek"><code>as_isoweek.Date()</code></a>
+<a href="#sec:man-as_isoweek"><code>as_isoweek.POSIXt()</code></a>
+<a href="#sec:man-as_isoweek"><code>as_isoweek.character()</code></a>
+<a href="#sec:man-as_isoweek"><code>as_isoweek.factor()</code></a>
+<a href="#sec:man-as_month"><code>as_month()</code></a>
+<a href="#sec:man-as_month"><code>as_month.default()</code></a>
+<a href="#sec:man-as_month"><code>as_month.Date()</code></a>
+<a href="#sec:man-as_month"><code>as_month.POSIXt()</code></a>
+<a href="#sec:man-as_month"><code>as_month.character()</code></a>
+<a href="#sec:man-as_month"><code>as_month.factor()</code></a>
+<a href="#sec:man-as_period"><code>as_period()</code></a>
+<a href="#sec:man-as_period"><code>as_period.default()</code></a>
+<a href="#sec:man-as_period"><code>as_period.Date()</code></a>
+<a href="#sec:man-as_period"><code>as_period.POSIXt()</code></a>
+<a href="#sec:man-as_period"><code>as_period.character()</code></a>
+<a href="#sec:man-as_period"><code>as_period.factor()</code></a>
+<a href="#sec:man-as_year"><code>as_year()</code></a>
+<a href="#sec:man-as_year"><code>as_year.default()</code></a>
+<a href="#sec:man-as_year"><code>as_year.Date()</code></a>
+<a href="#sec:man-as_year"><code>as_year.POSIXt()</code></a>
+<a href="#sec:man-as_year"><code>as_year.character()</code></a>
+<a href="#sec:man-as_year"><code>as_year.factor()</code></a>
+<a href="#sec:man-as_yearmonth"><code>as_yearmonth()</code></a>
+<a href="#sec:man-as_yearmonth"><code>as_yearmonth.default()</code></a>
+<a href="#sec:man-as_yearmonth"><code>as_yearmonth.Date()</code></a>
+<a href="#sec:man-as_yearmonth"><code>as_yearmonth.POSIXt()</code></a>
+<a href="#sec:man-as_yearmonth"><code>as_yearmonth.character()</code></a>
+<a href="#sec:man-as_yearmonth"><code>as_yearmonth.factor()</code></a>
+<a href="#sec:man-as_yearquarter"><code>as_yearquarter()</code></a>
+<a href="#sec:man-as_yearquarter"><code>as_yearquarter.default()</code></a>
+<a href="#sec:man-as_yearquarter"><code>as_yearquarter.Date()</code></a>
+<a href="#sec:man-as_yearquarter"><code>as_yearquarter.POSIXt()</code></a>
+<a href="#sec:man-as_yearquarter"><code>as_yearquarter.character()</code></a>
+<a href="#sec:man-as_yearquarter"><code>as_yearquarter.factor()</code></a>
+<a href="#sec:man-as_yearweek"><code>as_yearweek()</code></a>
+<a href="#sec:man-as_yearweek"><code>as_yearweek.default()</code></a>
+<a href="#sec:man-as_yearweek"><code>as_yearweek.Date()</code></a>
+<a href="#sec:man-as_yearweek"><code>as_yearweek.POSIXt()</code></a>
+<a href="#sec:man-as_yearweek"><code>as_yearweek.character()</code></a>
+<a href="#sec:man-as_yearweek"><code>as_yearweek.factor()</code></a>
+</p>
+<p>
+<b>-- <kbd>B</kbd> --</b>
+<a href="#sec:man-boundaries"><code>boundaries</code></a>
+</p>
+<p>
+<b>-- <kbd>D</kbd> --</b>
+<a href="#sec:man-boundaries"><code>date_start()</code></a>
+<a href="#sec:man-boundaries"><code>date_end()</code></a>
+</p>
+<p>
+<b>-- <kbd>E</kbd> --</b>
+<a href="#sec:man-epiweek"><code>epiweek()</code></a>
+</p>
+<p>
+<b>-- <kbd>F</kbd> --</b>
+<a href="#sec:man-print.grates_int_period"><code>format.grates_int_period()</code></a>
+<a href="#sec:man-print.grates_month"><code>format.grates_month()</code></a>
+<a href="#sec:man-print.grates_period"><code>format.grates_period()</code></a>
+<a href="#sec:man-print.grates_year"><code>format.grates_year()</code></a>
+<a href="#sec:man-print.grates_yearmonth"><code>format.grates_yearmonth()</code></a>
+<a href="#sec:man-print.grates_yearquarter"><code>format.grates_yearquarter()</code></a>
+</p>
+<p>
+<b>-- <kbd>G</kbd> --</b>
+<a href="#sec:man-grouped_date_accessors"><code>grouped_date_accessors</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_firstday()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_firstday.default()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_firstday.grates_yearweek_monday()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_firstday.grates_yearweek_tuesday()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_firstday.grates_yearweek_wednesday()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_firstday.grates_yearweek_thursday()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_firstday.grates_yearweek_friday()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_firstday.grates_yearweek_saturday()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_firstday.grates_yearweek_sunday()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_week()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_week.default()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_week.grates_yearweek()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_week.grates_epiweek()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_week.grates_isoweek()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_year()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_year.default()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_year.grates_yearweek()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_year.grates_epiweek()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_year.grates_isoweek()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_year.grates_yearmonth()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_year.grates_yearquarter()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_year.grates_year()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_n()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_n.default()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_n.grates_month()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_n.grates_period()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_n.grates_int_period()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_offset()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_offset.default()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_offset.grates_period()</code></a>
+</p>
+<p>
+<b>-- <kbd>I</kbd> --</b>
+<a href="#sec:man-isoweek"><code>isoweek()</code></a>
+<a href="#sec:man-new_epiweek"><code>is_epiweek()</code></a>
+<a href="#sec:man-new_int_period"><code>is_int_period()</code></a>
+<a href="#sec:man-new_isoweek"><code>is_isoweek()</code></a>
+<a href="#sec:man-new_month"><code>is_month()</code></a>
+<a href="#sec:man-new_period"><code>is_period()</code></a>
+<a href="#sec:man-new_yearmonth"><code>is_yearmonth()</code></a>
+<a href="#sec:man-new_yearquarter"><code>is_yearquarter()</code></a>
+<a href="#sec:man-new_yearweek"><code>is_yearweek()</code></a>
+<a href="#sec:man-year"><code>is_year()</code></a>
+</p>
+<p>
+<b>-- <kbd>N</kbd> --</b>
+<a href="#sec:man-new_epiweek"><code>new_epiweek()</code></a>
+<a href="#sec:man-new_int_period"><code>new_int_period()</code></a>
+<a href="#sec:man-new_isoweek"><code>new_isoweek()</code></a>
+<a href="#sec:man-new_month"><code>new_month()</code></a>
+<a href="#sec:man-new_period"><code>new_period()</code></a>
+<a href="#sec:man-new_yearmonth"><code>new_yearmonth()</code></a>
+<a href="#sec:man-new_yearquarter"><code>new_yearquarter()</code></a>
+<a href="#sec:man-new_yearweek"><code>new_yearweek()</code></a>
+</p>
+<p>
+<b>-- <kbd>P</kbd> --</b>
+<a href="#sec:man-print.grates_int_period"><code>print.grates_int_period()</code></a>
+<a href="#sec:man-print.grates_month"><code>print.grates_month()</code></a>
+<a href="#sec:man-print.grates_period"><code>print.grates_period()</code></a>
+<a href="#sec:man-print.grates_year"><code>print.grates_year()</code></a>
+<a href="#sec:man-print.grates_yearmonth"><code>print.grates_yearmonth()</code></a>
+<a href="#sec:man-print.grates_yearquarter"><code>print.grates_yearquarter()</code></a>
+</p>
+<p>
+<b>-- <kbd>S</kbd> --</b>
+<a href="#sec:man-scale_x_grates_epiweek"><code>scale_x_grates_epiweek()</code></a>
+<a href="#sec:man-scale_x_grates_int_period"><code>scale_x_grates_int_period()</code></a>
+<a href="#sec:man-scale_x_grates_isoweek"><code>scale_x_grates_isoweek()</code></a>
+<a href="#sec:man-scale_x_grates_month"><code>scale_x_grates_month()</code></a>
+<a href="#sec:man-scale_x_grates_period"><code>scale_x_grates_period()</code></a>
+<a href="#sec:man-scale_x_grates_year"><code>scale_x_grates_year()</code></a>
+<a href="#sec:man-scale_x_grates_yearmonth"><code>scale_x_grates_yearmonth()</code></a>
+<a href="#sec:man-scale_x_grates_yearquarter"><code>scale_x_grates_yearquarter()</code></a>
+<a href="#sec:man-scale_x_grates_yearweek"><code>scale_x_grates_yearweek()</code></a>
+<a href="#sec:man-scale_x_grates_yearweek"><code>scale_x_grates_yearweek_monday()</code></a>
+<a href="#sec:man-scale_x_grates_yearweek"><code>scale_x_grates_yearweek_isoweek()</code></a>
+<a href="#sec:man-scale_x_grates_yearweek"><code>scale_x_grates_yearweek_tuesday()</code></a>
+<a href="#sec:man-scale_x_grates_yearweek"><code>scale_x_grates_yearweek_wednesday()</code></a>
+<a href="#sec:man-scale_x_grates_yearweek"><code>scale_x_grates_yearweek_thursday()</code></a>
+<a href="#sec:man-scale_x_grates_yearweek"><code>scale_x_grates_yearweek_friday()</code></a>
+<a href="#sec:man-scale_x_grates_yearweek"><code>scale_x_grates_yearweek_saturday()</code></a>
+<a href="#sec:man-scale_x_grates_yearweek"><code>scale_x_grates_yearweek_sunday()</code></a>
+<a href="#sec:man-scale_x_grates_yearweek"><code>scale_x_grates_yearweek_epiweek()</code></a>
+</p>
+<p>
+<b>-- <kbd>Y</kbd> --</b>
+<a href="#sec:man-year"><code>year()</code></a>
+<a href="#sec:man-yearmonth"><code>yearmonth()</code></a>
+<a href="#sec:man-yearquarter"><code>yearquarter()</code></a>
+<a href="#sec:man-yearweek"><code>yearweek()</code></a>
+</p>
+<p>
+<b>-- <kbd>misc</kbd> --</b>
+<a href="#sec:man-boundaries"><code>%during%()</code></a>
+</p>
+<h2 id="sec:man-as_epiweek">Coerce to a epiweek object</h2>
+<h3 id="sec:description_1" class="unnumbered unlisted">Description</h3>
+<p>Generic for conversion to <code style="white-space: pre;">&lt;grates_epiweek&gt;</code>
+</p>
+<h3 id="sec:usage_1" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">as_epiweek(x, ...)
+
+## Default S3 method:
+as_epiweek(x, ...)
+
+## S3 method for class 'Date'
+as_epiweek(x, ...)
+
+## S3 method for class 'POSIXt'
+as_epiweek(x, ...)
+
+## S3 method for class 'character'
+as_epiweek(x, format, tryFormats = c("%Y-%m-%d", "%Y/%m/%d"), ...)
+
+## S3 method for class 'factor'
+as_epiweek(x, format, tryFormats = c("%Y-%m-%d", "%Y/%m/%d"), ...)</code></pre>
+<h3 id="sec:arguments_1" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Other values passed to as.Date().</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>Passed to as.Date() unless <code>format = "yearweek"</code> in which case input is
+assumed to be in the form &quot;YYYY-Wxx&quot;.
+</p>
+<p>If not specified, it will try tryFormats one by one on the first non-NA
+element, and give an error if none works. Otherwise, the processing is via
+<code>strptime()</code> whose help page describes available conversion specifications.</p>
+</td></tr>
+<tr><td><code>tryFormats</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>Format strings to try if format is not specified.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_1" class="unnumbered unlisted">Details</h3>
+<ul>
+<li><p> Date, POSIXct, and POSIXlt are converted with the timezone respected.
+</p>
+</li>
+<li><p> Character objects are first coerced to date via <code>as.Date()</code> unless
+<code>format = "yearweek"</code> in which case input is assumed to be in the form
+&quot;YYYY-Wxx&quot; and parsed accordingly.
+</p>
+</li></ul>
+<h3 id="sec:value_1" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_epiweek&gt;</code> object.
+</p>
+<h3 id="sec:see-also_1" class="unnumbered unlisted">See Also</h3>
+<p><code>new_epiweek()</code> and <code>as.Date()</code>.
+</p>
+<h3 id="sec:examples_1" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">as_epiweek(Sys.Date())
+</code></pre>
+<pre><code>#&gt; &lt;grates_epiweek[1]&gt;
+#&gt; [1] &quot;2025-W03&quot;
+</code></pre>
+<pre><code class="language-r">as_epiweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
+</code></pre>
+<pre><code>#&gt; &lt;grates_epiweek[1]&gt;
+#&gt; [1] &quot;2019-W10&quot;
+</code></pre>
+<pre><code class="language-r">as_epiweek(&quot;2019-05-03&quot;)
+</code></pre>
+<pre><code>#&gt; &lt;grates_epiweek[1]&gt;
+#&gt; [1] &quot;2019-W18&quot;
+</code></pre>
+<pre><code class="language-r">as_epiweek(&quot;2019-W12&quot;, format = &quot;yearweek&quot;)
+</code></pre>
+<pre><code>#&gt; &lt;grates_epiweek[1]&gt;
+#&gt; [1] &quot;2019-W12&quot;
+</code></pre>
+<h2 id="sec:man-as_int_period">Coerce an object to an int_period (Experimental)</h2>
+<h3 id="sec:description_2" class="unnumbered unlisted">Description</h3>
+<p><code>as_int_period()</code> is a generic for coercing input in to <code style="white-space: pre;">&lt;grates_int_period&gt;</code>.
+</p>
+<h3 id="sec:usage_2" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">as_int_period(x, n, ...)
+
+## Default S3 method:
+as_int_period(x, n = 1L, ...)
+
+## S3 method for class 'integer'
+as_int_period(x, n = 1L, ...)
+
+## S3 method for class 'double'
+as_int_period(x, n = 1L, ...)</code></pre>
+<h3 id="sec:arguments_2" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p>An <span class="rlang"><b>R</b></span> object.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>n</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Number of consecutive integers that are being grouped.
+</p>
+<p>Must be greater than 0.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Further arguments passed to or from other methods.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_2" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_int_period&gt;</code> object.
+</p>
+<h3 id="sec:note_1" class="unnumbered unlisted">Note</h3>
+<p>Internally <code>grates_int_period</code> objects are stored as the position, starting
+at 0, of n-integer groups from 0. Here n-months is taken to mean a 'grouping
+of n consecutive integers'.
+</p>
+<h3 id="sec:examples_2" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">as_int_period(1:10, n = 4L)
+</code></pre>
+<pre><code>#&gt; &lt;grates_int_period[10]&gt;
+#&gt;  [1] [0, 3]  [0, 3]  [0, 3]  [4, 7]  [4, 7]  [4, 7]  [4, 7]  [8, 11] [8, 11]
+#&gt; [10] [8, 11]
+</code></pre>
+<h2 id="sec:man-as_isoweek">Coerce to a isoweek object</h2>
+<h3 id="sec:description_3" class="unnumbered unlisted">Description</h3>
+<p>Generic for conversion to <code style="white-space: pre;">&lt;grates_isoweek&gt;</code>
+</p>
+<h3 id="sec:usage_3" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">as_isoweek(x, ...)
+
+## Default S3 method:
+as_isoweek(x, ...)
+
+## S3 method for class 'Date'
+as_isoweek(x, ...)
+
+## S3 method for class 'POSIXt'
+as_isoweek(x, ...)
+
+## S3 method for class 'character'
+as_isoweek(x, format, tryFormats = c("%Y-%m-%d", "%Y/%m/%d"), ...)
+
+## S3 method for class 'factor'
+as_isoweek(x, format, tryFormats = c("%Y-%m-%d", "%Y/%m/%d"), ...)</code></pre>
+<h3 id="sec:arguments_3" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Other values passed to as.Date().</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>Passed to as.Date() unless <code>format = "yearweek"</code> in which case input is
+assumed to be in the form &quot;YYYY-Wxx&quot;.
+</p>
+<p>If not specified, it will try tryFormats one by one on the first non-NA
+element, and give an error if none works. Otherwise, the processing is via
+<code>strptime()</code> whose help page describes available conversion specifications.</p>
+</td></tr>
+<tr><td><code>tryFormats</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>Format strings to try if format is not specified.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_2" class="unnumbered unlisted">Details</h3>
+<ul>
+<li><p> Date, POSIXct, and POSIXlt are converted with the timezone respected.
+</p>
+</li>
+<li><p> Character objects are first coerced to date via <code>as.Date()</code> unless
+<code>format = "yearweek"</code> in which case input is assumed to be in the form
+&quot;YYYY-Wxx&quot; and parsed accordingly.
+</p>
+</li></ul>
+<h3 id="sec:value_3" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_isoweek&gt;</code> object.
+</p>
+<h3 id="sec:see-also_2" class="unnumbered unlisted">See Also</h3>
+<p><code>new_isoweek()</code> and <code>as.Date()</code>.
+</p>
+<h3 id="sec:examples_3" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">as_isoweek(Sys.Date())
+</code></pre>
+<pre><code>#&gt; &lt;grates_isoweek[1]&gt;
+#&gt; [1] &quot;2025-W03&quot;
+</code></pre>
+<pre><code class="language-r">as_isoweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
+</code></pre>
+<pre><code>#&gt; &lt;grates_isoweek[1]&gt;
+#&gt; [1] &quot;2019-W10&quot;
+</code></pre>
+<pre><code class="language-r">as_isoweek(&quot;2019-05-03&quot;)
+</code></pre>
+<pre><code>#&gt; &lt;grates_isoweek[1]&gt;
+#&gt; [1] &quot;2019-W18&quot;
+</code></pre>
+<pre><code class="language-r">as_isoweek(&quot;2019-W12&quot;, format = &quot;yearweek&quot;)
+</code></pre>
+<pre><code>#&gt; &lt;grates_isoweek[1]&gt;
+#&gt; [1] &quot;2019-W12&quot;
+</code></pre>
+<h2 id="sec:man-as_month">Coerce an object to month</h2>
+<h3 id="sec:description_4" class="unnumbered unlisted">Description</h3>
+<p><code>as_month()</code> is a generic for coercing input in to <code style="white-space: pre;">&lt;grates_month&gt;</code>.
+</p>
+<h3 id="sec:usage_4" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">as_month(x, n, ...)
+
+## Default S3 method:
+as_month(x, n, ...)
+
+## S3 method for class 'Date'
+as_month(x, n, ...)
+
+## S3 method for class 'POSIXt'
+as_month(x, n, ...)
+
+## S3 method for class 'character'
+as_month(x, n, ...)
+
+## S3 method for class 'factor'
+as_month(x, n, ...)</code></pre>
+<h3 id="sec:arguments_4" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p>An <span class="rlang"><b>R</b></span> object.
+</p>
+<p>Character input is first parsed using <code>as.Date()</code>.
+</p>
+<p>POSIXt inputs are converted with the timezone respected.</p>
+</td></tr>
+<tr><td><code>n</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Number of months that are being grouped. Must be greater than 1 (use
+<code>as_yearmonth()</code> for this case).</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Only used For character input where additional arguments are passed through
+to <code>as.Date()</code>.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_4" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_month&gt;</code> object.
+</p>
+<h3 id="sec:note_2" class="unnumbered unlisted">Note</h3>
+<p>Internally <code>grates_month</code> objects are stored as the position, starting at 0,
+of n-month groups since the Unix Epoch (1970-01-01). Here n-months is taken
+to mean a 'grouping of n consecutive months'. Precision is only to the month
+level (i.e. the day of the  month is always dropped).
+</p>
+<h3 id="sec:references_1" class="unnumbered unlisted">References</h3>
+<p>The algorithm to convert between dates and months relative to the UNIX Epoch
+comes from the work of Davis Vaughan in the unreleased
+<a href="https://github.com/DavisVaughan/datea/">datea</a> package.
+</p>
+<h3 id="sec:see-also_3" class="unnumbered unlisted">See Also</h3>
+<p><code>as.Date()</code>
+</p>
+<h3 id="sec:examples_4" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">as_month(&quot;2019-05-03&quot;, n = 4L)
+</code></pre>
+<pre><code>#&gt; &lt;grates_month[1]&gt;
+#&gt; [1] &quot;2019-May to 2019-Aug&quot;
+</code></pre>
+<pre><code class="language-r">as_month(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;), n = 2)
+</code></pre>
+<pre><code>#&gt; &lt;grates_month[1]&gt;
+#&gt; [1] &quot;2019-Mar to 2019-Apr&quot;
+</code></pre>
+<h2 id="sec:man-as_period">Coerce an object to period</h2>
+<h3 id="sec:description_5" class="unnumbered unlisted">Description</h3>
+<p><code>as_period()</code> is a generic for coercing input in to <code style="white-space: pre;">&lt;grates_period&gt;</code>.
+</p>
+<h3 id="sec:usage_5" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">as_period(x, n, ...)
+
+## Default S3 method:
+as_period(x, n = 1L, offset = 0L, ...)
+
+## S3 method for class 'Date'
+as_period(x, n = 1L, offset = 0L, ...)
+
+## S3 method for class 'POSIXt'
+as_period(x, n = 1L, offset = 0L, ...)
+
+## S3 method for class 'character'
+as_period(x, n = 1L, offset = 0L, ...)
+
+## S3 method for class 'factor'
+as_period(x, n = 1L, offset = 0L, ...)</code></pre>
+<h3 id="sec:arguments_5" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p>An <span class="rlang"><b>R</b></span> object:
+</p>
+<ul>
+<li><p> Character input is first parsed using <code>as.Date()</code>.
+</p>
+</li>
+<li><p> POSIXt inputs are converted with the timezone respected.
+</p>
+</li></ul>
+</td></tr>
+<tr><td><code>n</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Number of days that are being grouped.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Only used For character input where additional arguments are passed through
+to <code>as.Date()</code>.</p>
+</td></tr>
+<tr><td><code>offset</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code> or <code style="white-space: pre;">[date]</code>
+</p>
+<p>Value you wish to start counting periods from relative to the Unix Epoch:
+</p>
+<ul>
+<li><p> For integer values this is stored scaled by <code>n</code>
+(<code>offset &lt;- as.integer(offset) %% n</code>).
+</p>
+</li>
+<li><p> For date values this is first converted to an integer offset
+(<code>offset &lt;- floor(as.numeric(offset))</code>) and then scaled via <code>n</code> as above.
+</p>
+</li></ul>
+</td></tr>
+</table>
+<h3 id="sec:value_5" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_period&gt;</code> object.
+</p>
+<h3 id="sec:note_3" class="unnumbered unlisted">Note</h3>
+<p>Internally <code>grates_period</code> objects are stored as the integer number, starting
+at 0L, of periods since the Unix Epoch (1970-01-01) and a specified offset.
+Here periods are taken to mean groupings of <code>n</code> consecutive days.
+</p>
+<h3 id="sec:see-also_4" class="unnumbered unlisted">See Also</h3>
+<p><code>as.Date()</code>
+</p>
+<h3 id="sec:examples_5" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">as_period(&quot;2019-05-03&quot;)
+</code></pre>
+<pre><code>#&gt; &lt;grates_period[1]&gt;
+#&gt; [1] &quot;2019-05-03&quot;
+</code></pre>
+<pre><code class="language-r">as_period(&quot;2019-05-03&quot;, n = 2, offset = 1)
+</code></pre>
+<pre><code>#&gt; &lt;grates_period[1]&gt;
+#&gt; [1] &quot;2019-05-03 to 2019-05-04&quot;
+</code></pre>
+<pre><code class="language-r">as_period(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;), n = 10)
+</code></pre>
+<pre><code>#&gt; &lt;grates_period[1]&gt;
+#&gt; [1] &quot;2019-02-23 to 2019-03-04&quot;
+</code></pre>
+<pre><code class="language-r">as_period(as.Date(&quot;2020-03-02&quot;), n = 2L, offset = as.Date(&quot;2020-03-01&quot;))
+</code></pre>
+<pre><code>#&gt; &lt;grates_period[1]&gt;
+#&gt; [1] &quot;2020-03-01 to 2020-03-02&quot;
+</code></pre>
+<h2 id="sec:man-as_year">Coerce an object to year-quarter</h2>
+<h3 id="sec:description_6" class="unnumbered unlisted">Description</h3>
+<p><code>as_year()</code> is a generic for coercing input in to <code style="white-space: pre;">&lt;grates_year&gt;</code>.
+</p>
+<h3 id="sec:usage_6" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">as_year(x, ...)
+
+## Default S3 method:
+as_year(x, ...)
+
+## S3 method for class 'Date'
+as_year(x, ...)
+
+## S3 method for class 'POSIXt'
+as_year(x, ...)
+
+## S3 method for class 'character'
+as_year(x, ...)
+
+## S3 method for class 'factor'
+as_year(x, ...)</code></pre>
+<h3 id="sec:arguments_6" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.
+</p>
+<p>Character input is first parsed using <code>as.Date()</code>.
+</p>
+<p>POSIXct and POSIXlt are converted with the timezone respected.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Only used For character input where additional arguments are passed through
+to <code>as.Date()</code>.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_6" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_year&gt;</code> object.
+</p>
+<h3 id="sec:see-also_5" class="unnumbered unlisted">See Also</h3>
+<p><code>as.Date()</code>
+</p>
+<h3 id="sec:examples_6" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">as_year(Sys.Date())
+</code></pre>
+<pre><code>#&gt; &lt;grates_year[1]&gt;
+#&gt; [1] 2025
+</code></pre>
+<pre><code class="language-r">as_year(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;), interval = 2)
+</code></pre>
+<pre><code>#&gt; &lt;grates_year[1]&gt;
+#&gt; [1] 2019
+</code></pre>
+<pre><code class="language-r">as_year(&quot;2019-05-03&quot;)
+</code></pre>
+<pre><code>#&gt; &lt;grates_year[1]&gt;
+#&gt; [1] 2019
+</code></pre>
+<h2 id="sec:man-as_yearmonth">Coerce an object to year-month</h2>
+<h3 id="sec:description_7" class="unnumbered unlisted">Description</h3>
+<p><code>as_yearmonth()</code> is a generic for coercing input in to <code style="white-space: pre;">&lt;grates_yearmonth&gt;</code>.
+Character input is first parsed using <code>as.Date()</code>. POSIXct and POSIXlt are
+all converted, with the timezone respected.
+</p>
+<h3 id="sec:usage_7" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">as_yearmonth(x, ...)
+
+## Default S3 method:
+as_yearmonth(x, ...)
+
+## S3 method for class 'Date'
+as_yearmonth(x, ...)
+
+## S3 method for class 'POSIXt'
+as_yearmonth(x, ...)
+
+## S3 method for class 'character'
+as_yearmonth(x, ...)
+
+## S3 method for class 'factor'
+as_yearmonth(x, ...)</code></pre>
+<h3 id="sec:arguments_7" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Only used For character input where additional arguments are passed through
+to <code>as.Date()</code>.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_7" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_yearmonth&gt;</code> object.
+</p>
+<h3 id="sec:note_4" class="unnumbered unlisted">Note</h3>
+<p>Internally <code style="white-space: pre;">&lt;grates_yearmonth&gt;</code> objects are stored as the number of
+months (starting at 0) since the Unix Epoch (1970-01-01). Precision is only
+to the month level (i.e. the day of the month is always dropped).
+</p>
+<h3 id="sec:references_2" class="unnumbered unlisted">References</h3>
+<p>The algorithm to convert between dates and months relative to the
+UNIX Epoch comes from the work of Davis Vaughan in the unreleased
+<a href="https://github.com/DavisVaughan/datea/">datea</a> package.
+</p>
+<h3 id="sec:see-also_6" class="unnumbered unlisted">See Also</h3>
+<p><code>as.Date()</code>
+</p>
+<h3 id="sec:examples_7" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">as_yearmonth(Sys.Date())
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearmonth[1]&gt;
+#&gt; [1] &quot;2025-Jan&quot;
+</code></pre>
+<pre><code class="language-r">as_yearmonth(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;), interval = 2)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearmonth[1]&gt;
+#&gt; [1] &quot;2019-Mar&quot;
+</code></pre>
+<pre><code class="language-r">as_yearmonth(&quot;2019-05-03&quot;)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearmonth[1]&gt;
+#&gt; [1] &quot;2019-May&quot;
+</code></pre>
+<h2 id="sec:man-as_yearquarter">Coerce an object to year-quarter</h2>
+<h3 id="sec:description_8" class="unnumbered unlisted">Description</h3>
+<p><code>as_yearquarter()</code> is a generic for coercing input in to <code style="white-space: pre;">&lt;grates_yearquarter&gt;</code>.
+Character input is first parsed using <code>as.Date()</code>. POSIXct and POSIXlt are
+all converted, with the timezone respected.
+</p>
+<h3 id="sec:usage_8" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">as_yearquarter(x, ...)
+
+## Default S3 method:
+as_yearquarter(x, ...)
+
+## S3 method for class 'Date'
+as_yearquarter(x, ...)
+
+## S3 method for class 'POSIXt'
+as_yearquarter(x, ...)
+
+## S3 method for class 'character'
+as_yearquarter(x, ...)
+
+## S3 method for class 'factor'
+as_yearquarter(x, ...)</code></pre>
+<h3 id="sec:arguments_8" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Only used For character input where additional arguments are passed through
+to <code>as.Date()</code>.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_8" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_yearquarter&gt;</code> object.
+</p>
+<h3 id="sec:note_5" class="unnumbered unlisted">Note</h3>
+<p>Internally <code style="white-space: pre;">&lt;grates_yearquarter&gt;</code> objects are stored as the number of
+quarters (starting at 0) since the Unix Epoch (1970-01-01).
+</p>
+<h3 id="sec:see-also_7" class="unnumbered unlisted">See Also</h3>
+<p><code>as.Date()</code>
+</p>
+<h3 id="sec:examples_8" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">as_yearquarter(Sys.Date())
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearquarter[1]&gt;
+#&gt; [1] &quot;2025-Q1&quot;
+</code></pre>
+<pre><code class="language-r">as_yearquarter(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;), interval = 2)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearquarter[1]&gt;
+#&gt; [1] &quot;2019-Q1&quot;
+</code></pre>
+<pre><code class="language-r">as_yearquarter(&quot;2019-05-03&quot;)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearquarter[1]&gt;
+#&gt; [1] &quot;2019-Q2&quot;
+</code></pre>
+<h2 id="sec:man-as_yearweek">Coerce to a yearweek object</h2>
+<h3 id="sec:description_9" class="unnumbered unlisted">Description</h3>
+<p>Generic for conversion to &lt;grates_yearweek&gt;.
+</p>
+<h3 id="sec:usage_9" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">as_yearweek(x, ...)
+
+## Default S3 method:
+as_yearweek(x, ...)
+
+## S3 method for class 'Date'
+as_yearweek(x, firstday = 1L, ...)
+
+## S3 method for class 'POSIXt'
+as_yearweek(x, firstday = 1L, ...)
+
+## S3 method for class 'character'
+as_yearweek(
+  x,
+  firstday = 1L,
+  format,
+  tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+  ...
+)
+
+## S3 method for class 'factor'
+as_yearweek(
+  x,
+  firstday = 1L,
+  format,
+  tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+  ...
+)</code></pre>
+<h3 id="sec:arguments_9" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Other values passed to as.Date().</p>
+</td></tr>
+<tr><td><code>firstday</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>The day the week starts on from 1 (Monday) to 7 (Sunday).</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>Passed to as.Date() unless <code>format = "yearweek"</code> in which case input is
+assumed to be in the form &quot;YYYY-Wxx&quot;.
+</p>
+<p>If not specified, it will try tryFormats one by one on the first non-NA
+element, and give an error if none works. Otherwise, the processing is via
+<code>strptime()</code> whose help page describes available conversion specifications.</p>
+</td></tr>
+<tr><td><code>tryFormats</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>Format strings to try if format is not specified.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_3" class="unnumbered unlisted">Details</h3>
+<ul>
+<li><p> Date, POSIXct, and POSIXlt are converted with the timezone respected.
+</p>
+</li>
+<li><p> Character objects are first coerced to date via <code>as.Date()</code> unless
+<code>format = "yearweek"</code> in which case input is assumed to be in the form
+&quot;YYYY-Wxx&quot; and parsed accordingly.
+</p>
+</li></ul>
+<h3 id="sec:value_9" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_yearweek&gt;</code> object.
+</p>
+<h3 id="sec:see-also_8" class="unnumbered unlisted">See Also</h3>
+<p><code>as.Date()</code> and <code>new_yearweek()</code>.
+</p>
+<h3 id="sec:examples_9" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">as_yearweek(Sys.Date())
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearweek_monday[1]&gt;
+#&gt; [1] &quot;2025-W03&quot;
+</code></pre>
+<pre><code class="language-r">as_yearweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearweek_monday[1]&gt;
+#&gt; [1] &quot;2019-W10&quot;
+</code></pre>
+<pre><code class="language-r">as_yearweek(&quot;2019-05-03&quot;, firstday = 5L)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearweek_friday[1]&gt;
+#&gt; [1] &quot;2019-W18&quot;
+</code></pre>
+<pre><code class="language-r">as_yearweek(&quot;2019-W12&quot;, format = &quot;yearweek&quot;)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearweek_monday[1]&gt;
+#&gt; [1] &quot;2019-W12&quot;
+</code></pre>
+<h2 id="sec:man-boundaries">Access the start (end) dates of a grates vector</h2>
+<h3 id="sec:description_10" class="unnumbered unlisted">Description</h3>
+<p>Utility functions for accessing the start (end) dates for each element of
+a grates object and also checking whether a date is contained within that
+range
+</p>
+<h3 id="sec:usage_10" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">date_start(x)
+
+date_end(x)
+
+date %during% x</code></pre>
+<h3 id="sec:arguments_10" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p>grouped date vector.</p>
+</td></tr>
+<tr><td><code>date</code></td>
+<td>
+<p>A scalar <code style="white-space: pre;">&lt;date&gt;</code> object.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_10" class="unnumbered unlisted">Value</h3>
+<p>For <code>date_start</code> and <code>date_end</code> The requested start (end) dates for each
+element in the input. For <code style="white-space: pre;">%during%</code> a logical vector indicating whether the
+date was present within the range of the tested object.
+</p>
+<h3 id="sec:examples_10" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">dates &lt;- as.Date(&quot;2020-01-01&quot;) + 1:14
+
+week &lt;- as_isoweek(dates)
+date_start(week)
+</code></pre>
+<pre><code>#&gt;  [1] &quot;2019-12-30&quot; &quot;2019-12-30&quot; &quot;2019-12-30&quot; &quot;2019-12-30&quot; &quot;2020-01-06&quot;
+#&gt;  [6] &quot;2020-01-06&quot; &quot;2020-01-06&quot; &quot;2020-01-06&quot; &quot;2020-01-06&quot; &quot;2020-01-06&quot;
+#&gt; [11] &quot;2020-01-06&quot; &quot;2020-01-13&quot; &quot;2020-01-13&quot; &quot;2020-01-13&quot;
+</code></pre>
+<pre><code class="language-r">date_end(week)
+</code></pre>
+<pre><code>#&gt;  [1] &quot;2020-01-05&quot; &quot;2020-01-05&quot; &quot;2020-01-05&quot; &quot;2020-01-05&quot; &quot;2020-01-12&quot;
+#&gt;  [6] &quot;2020-01-12&quot; &quot;2020-01-12&quot; &quot;2020-01-12&quot; &quot;2020-01-12&quot; &quot;2020-01-12&quot;
+#&gt; [11] &quot;2020-01-12&quot; &quot;2020-01-19&quot; &quot;2020-01-19&quot; &quot;2020-01-19&quot;
+</code></pre>
+<pre><code class="language-r">dates[1L] %during% week
+</code></pre>
+<pre><code>#&gt;  [1]  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#&gt; [13] FALSE FALSE
+</code></pre>
+<pre><code class="language-r">period &lt;- as_period(dates, n = 3)
+date_start(period)
+</code></pre>
+<pre><code>#&gt;  [1] &quot;2019-12-31&quot; &quot;2020-01-03&quot; &quot;2020-01-03&quot; &quot;2020-01-03&quot; &quot;2020-01-06&quot;
+#&gt;  [6] &quot;2020-01-06&quot; &quot;2020-01-06&quot; &quot;2020-01-09&quot; &quot;2020-01-09&quot; &quot;2020-01-09&quot;
+#&gt; [11] &quot;2020-01-12&quot; &quot;2020-01-12&quot; &quot;2020-01-12&quot; &quot;2020-01-15&quot;
+</code></pre>
+<pre><code class="language-r">date_end(period)
+</code></pre>
+<pre><code>#&gt;  [1] &quot;2020-01-02&quot; &quot;2020-01-05&quot; &quot;2020-01-05&quot; &quot;2020-01-05&quot; &quot;2020-01-08&quot;
+#&gt;  [6] &quot;2020-01-08&quot; &quot;2020-01-08&quot; &quot;2020-01-11&quot; &quot;2020-01-11&quot; &quot;2020-01-11&quot;
+#&gt; [11] &quot;2020-01-14&quot; &quot;2020-01-14&quot; &quot;2020-01-14&quot; &quot;2020-01-17&quot;
+</code></pre>
+<pre><code class="language-r">dates[14L] %during% period
+</code></pre>
+<pre><code>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#&gt; [13] FALSE  TRUE
+</code></pre>
+<h2 id="sec:man-epiweek">Constructor for epiweek objects</h2>
+<h3 id="sec:description_11" class="unnumbered unlisted">Description</h3>
+<p><code>epiweek()</code> is a constructor for <code style="white-space: pre;">&lt;grates_epiweek&gt;</code> objects.
+</p>
+<h3 id="sec:usage_11" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">epiweek(year = integer(), week = integer())</code></pre>
+<h3 id="sec:arguments_11" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>year</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the year associated with <code>week</code>.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>week</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the week associated with 'year.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_4" class="unnumbered unlisted">Details</h3>
+<p>Epiweeks are defined to start on a Sunday and <code style="white-space: pre;">&lt;grates_epiweek&gt;</code> objects are
+stored as the number of weeks (starting at 0) from the first Sunday after the
+Unix Epoch (1970-01-01). That is, the number of seven day periods from
+1970-01-04.
+</p>
+<p>Internally they have the same representation as a <code style="white-space: pre;">&lt;grates_yearweek_sunday&gt;</code>
+object so are akin to an alias but with a marginally more efficient
+implementation.
+</p>
+<h3 id="sec:value_11" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_epiweek&gt;</code> object.
+</p>
+<h3 id="sec:see-also_9" class="unnumbered unlisted">See Also</h3>
+<p><code>as_epiweek()</code> and <code>new_epiweek()</code>.
+</p>
+<h3 id="sec:examples_11" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">epiweek(year = 2000L, week = 3L)
+</code></pre>
+<pre><code>#&gt; &lt;grates_epiweek[1]&gt;
+#&gt; [1] &quot;2000-W03&quot;
+</code></pre>
+<h2 id="sec:man-grouped_date_accessors">Accessors for grate objects</h2>
+<h3 id="sec:description_12" class="unnumbered unlisted">Description</h3>
+<p>Generics and methods for accessing information about grouped date objects.
+</p>
+<h3 id="sec:usage_12" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">get_firstday(x, ...)
+
+## Default S3 method:
+get_firstday(x, ...)
+
+## S3 method for class 'grates_yearweek_monday'
+get_firstday(x, ...)
+
+## S3 method for class 'grates_yearweek_tuesday'
+get_firstday(x, ...)
+
+## S3 method for class 'grates_yearweek_wednesday'
+get_firstday(x, ...)
+
+## S3 method for class 'grates_yearweek_thursday'
+get_firstday(x, ...)
+
+## S3 method for class 'grates_yearweek_friday'
+get_firstday(x, ...)
+
+## S3 method for class 'grates_yearweek_saturday'
+get_firstday(x, ...)
+
+## S3 method for class 'grates_yearweek_sunday'
+get_firstday(x, ...)
+
+get_week(x, ...)
+
+## Default S3 method:
+get_week(x, ...)
+
+## S3 method for class 'grates_yearweek'
+get_week(x, ...)
+
+## S3 method for class 'grates_epiweek'
+get_week(x, ...)
+
+## S3 method for class 'grates_isoweek'
+get_week(x, ...)
+
+get_year(x, ...)
+
+## Default S3 method:
+get_year(x, ...)
+
+## S3 method for class 'grates_yearweek'
+get_year(x, ...)
+
+## S3 method for class 'grates_epiweek'
+get_year(x, ...)
+
+## S3 method for class 'grates_isoweek'
+get_year(x, ...)
+
+## S3 method for class 'grates_yearmonth'
+get_year(x, ...)
+
+## S3 method for class 'grates_yearquarter'
+get_year(x, ...)
+
+## S3 method for class 'grates_year'
+get_year(x, ...)
+
+get_n(x, ...)
+
+## Default S3 method:
+get_n(x, ...)
+
+## S3 method for class 'grates_month'
+get_n(x, ...)
+
+## S3 method for class 'grates_period'
+get_n(x, ...)
+
+## S3 method for class 'grates_int_period'
+get_n(x, ...)
+
+get_offset(x, ...)
+
+## Default S3 method:
+get_offset(x, ...)
+
+## S3 method for class 'grates_period'
+get_offset(x, ...)</code></pre>
+<h3 id="sec:arguments_12" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used</p>
+</td></tr>
+</table>
+<h3 id="sec:value_12" class="unnumbered unlisted">Value</h3>
+<p>Requested value or an error if no method available.
+</p>
+<h3 id="sec:examples_12" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">dates &lt;- as.Date(&quot;2020-01-01&quot;) + 1:14
+dat &lt;- as_isoweek(dates)
+get_week(dat)
+</code></pre>
+<pre><code>#&gt;  [1] 1 1 1 1 2 2 2 2 2 2 2 3 3 3
+</code></pre>
+<pre><code class="language-r">get_year(dat)
+</code></pre>
+<pre><code>#&gt;  [1] 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020
+</code></pre>
+<h2 id="sec:man-isoweek">Constructor for isoweek objects</h2>
+<h3 id="sec:description_13" class="unnumbered unlisted">Description</h3>
+<p><code>isoweek()</code> is a constructor for <code style="white-space: pre;">&lt;grates_isoweek&gt;</code> objects.
+</p>
+<h3 id="sec:usage_13" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">isoweek(year = integer(), week = integer())</code></pre>
+<h3 id="sec:arguments_13" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>year</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the year associated with <code>week</code>.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>week</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the week associated with 'year.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_5" class="unnumbered unlisted">Details</h3>
+<p>isoweeks are defined to start on a Monday and <code style="white-space: pre;">&lt;grates_isoweek&gt;</code> objects are
+stored as the number of weeks (starting at 0) from the first Monday prior to
+the Unix Epoch (1970-01-01). That is, the number of seven day periods from
+1969-12-29.
+</p>
+<p>Internally they have the same representation as a <code style="white-space: pre;">&lt;grates_yearweek_monday&gt;</code>
+object so are akin to an alias but with a marginally more efficient
+implementation.
+</p>
+<h3 id="sec:value_13" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_isoweek&gt;</code> object.
+</p>
+<h3 id="sec:see-also_10" class="unnumbered unlisted">See Also</h3>
+<p><code>as_isoweek()</code> and <code>new_isoweek()</code>.
+</p>
+<h3 id="sec:examples_13" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">isoweek(year = 2000L, week = 3L)
+</code></pre>
+<pre><code>#&gt; &lt;grates_isoweek[1]&gt;
+#&gt; [1] &quot;2000-W03&quot;
+</code></pre>
+<h2 id="sec:man-new_epiweek">Minimal constructor for an epiweek object</h2>
+<h3 id="sec:description_14" class="unnumbered unlisted">Description</h3>
+<p><code>new_epiweek()</code> is a constructor for <code style="white-space: pre;">&lt;grates_epiweek&gt;</code> objects aimed at
+developers.
+</p>
+<h3 id="sec:usage_14" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">new_epiweek(x = integer())
+
+is_epiweek(xx)</code></pre>
+<h3 id="sec:arguments_14" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the number of weeks.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>xx</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_6" class="unnumbered unlisted">Details</h3>
+<p>Epiweeks are defined to start on a Sunday and <code style="white-space: pre;">&lt;grates_epiweek&gt;</code> objects are
+stored as the number of weeks (starting at 0) from the first Sunday after the
+Unix Epoch (1970-01-01). That is, the number of seven day periods from
+1970-01-04.
+</p>
+<p>Internally they have the same representation as a <code style="white-space: pre;">&lt;grates_yearweek_sunday&gt;</code>
+object so are akin to an alias but with a marginally more efficient
+implementation.
+</p>
+<h3 id="sec:value_14" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_epiweek&gt;</code> object.
+</p>
+<h3 id="sec:see-also_11" class="unnumbered unlisted">See Also</h3>
+<p><code>new_yearweek()</code> and <code>new_isoweek()</code>.
+</p>
+<h3 id="sec:examples_14" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">new_epiweek(1:10)
+</code></pre>
+<pre><code>#&gt; &lt;grates_epiweek[10]&gt;
+#&gt;  [1] &quot;1970-W02&quot; &quot;1970-W03&quot; &quot;1970-W04&quot; &quot;1970-W05&quot; &quot;1970-W06&quot; &quot;1970-W07&quot;
+#&gt;  [7] &quot;1970-W08&quot; &quot;1970-W09&quot; &quot;1970-W10&quot; &quot;1970-W11&quot;
+</code></pre>
+<h2 id="sec:man-new_int_period">Minimal Constructor for an int_period object (Experimental)</h2>
+<h3 id="sec:description_15" class="unnumbered unlisted">Description</h3>
+<p><code>new_int_period()</code> is a constructor for <code style="white-space: pre;">&lt;grates_int_period&gt;</code> objects aimed
+at developers.
+</p>
+<h3 id="sec:usage_15" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">new_int_period(x = integer(), n = 1L)
+
+is_int_period(xx)</code></pre>
+<h3 id="sec:arguments_15" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the number of n-integers from 0.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>n</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Number of integers that are being grouped. Must be greater than 0.</p>
+</td></tr>
+<tr><td><code>xx</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_7" class="unnumbered unlisted">Details</h3>
+<p><code>grates_int_period</code> objects are stored as the integer number of n-integer
+groups from 0. Here n-integer is taken to mean a 'grouping of n consecutive
+integers'.
+</p>
+<h3 id="sec:value_15" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_int_period&gt;</code> object.
+</p>
+<h3 id="sec:examples_15" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">new_int_period(1:10, 2L)
+</code></pre>
+<pre><code>#&gt; &lt;grates_int_period[10]&gt;
+#&gt;  [1] [2, 3]   [4, 5]   [6, 7]   [8, 9]   [10, 11] [12, 13] [14, 15] [16, 17]
+#&gt;  [9] [18, 19] [20, 21]
+</code></pre>
+<h2 id="sec:man-new_isoweek">Minimal constructor for an isoweek object</h2>
+<h3 id="sec:description_16" class="unnumbered unlisted">Description</h3>
+<p><code>new_isoweek()</code> is a constructor for <code style="white-space: pre;">&lt;grates_isoweek&gt;</code> objects aimed at
+developers.
+</p>
+<h3 id="sec:usage_16" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">new_isoweek(x = integer())
+
+is_isoweek(xx)</code></pre>
+<h3 id="sec:arguments_16" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the number of weeks.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>xx</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_8" class="unnumbered unlisted">Details</h3>
+<p>isoweeks are defined to start on a Monday and <code style="white-space: pre;">&lt;grates_isoweek&gt;</code> objects are
+stored as the number of weeks (starting at 0) from the first Monday prior to
+the Unix Epoch (1970-01-01). That is, the number of seven day periods from
+1969-12-29.
+</p>
+<p>Internally they have the same representation as a <code style="white-space: pre;">&lt;grates_yearweek_monday&gt;</code>
+object so are akin to an alias but with a marginally more efficient
+implementation.
+</p>
+<h3 id="sec:value_16" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_isoweek&gt;</code> object.
+</p>
+<h3 id="sec:see-also_12" class="unnumbered unlisted">See Also</h3>
+<p><code>new_yearweek()</code> and <code>new_epiweek()</code>.
+</p>
+<h3 id="sec:examples_16" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">new_isoweek(1:10)
+</code></pre>
+<pre><code>#&gt; &lt;grates_isoweek[10]&gt;
+#&gt;  [1] &quot;1970-W02&quot; &quot;1970-W03&quot; &quot;1970-W04&quot; &quot;1970-W05&quot; &quot;1970-W06&quot; &quot;1970-W07&quot;
+#&gt;  [7] &quot;1970-W08&quot; &quot;1970-W09&quot; &quot;1970-W10&quot; &quot;1970-W11&quot;
+</code></pre>
+<h2 id="sec:man-new_month">Minimal Constructor for a month object</h2>
+<h3 id="sec:description_17" class="unnumbered unlisted">Description</h3>
+<p><code>new_month()</code> is a constructor for <code style="white-space: pre;">&lt;grates_month&gt;</code> objects aimed at
+developers.
+</p>
+<h3 id="sec:usage_17" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">new_month(x = integer(), n)
+
+is_month(xx)</code></pre>
+<h3 id="sec:arguments_17" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the number of n-months since the Unix Epoch (1970-01-01).
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>n</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Number of months that are being grouped. Must be greater than 1 (use
+<code>yearmonth()</code> for this case).</p>
+</td></tr>
+<tr><td><code>xx</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_9" class="unnumbered unlisted">Details</h3>
+<p><code>grates_month</code> objects are stored as the integer number (starting at 0), of
+n-month groups since the Unix Epoch (1970-01-01). Here n-months is taken to
+mean a 'grouping of n consecutive months'.
+</p>
+<h3 id="sec:value_17" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_month&gt;</code> object.
+</p>
+<h3 id="sec:references_3" class="unnumbered unlisted">References</h3>
+<p>The algorithm to convert between dates and months relative to the UNIX Epoch
+comes from the work of Davis Vaughan in the unreleased
+<a href="https://github.com/DavisVaughan/datea/">datea</a> package.
+</p>
+<h3 id="sec:examples_17" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">new_month(1:10, 2L)
+</code></pre>
+<pre><code>#&gt; &lt;grates_month[10]&gt;
+#&gt;  [1] &quot;1970-Mar to 1970-Apr&quot; &quot;1970-May to 1970-Jun&quot; &quot;1970-Jul to 1970-Aug&quot;
+#&gt;  [4] &quot;1970-Sep to 1970-Oct&quot; &quot;1970-Nov to 1970-Dec&quot; &quot;1971-Jan to 1971-Feb&quot;
+#&gt;  [7] &quot;1971-Mar to 1971-Apr&quot; &quot;1971-May to 1971-Jun&quot; &quot;1971-Jul to 1971-Aug&quot;
+#&gt; [10] &quot;1971-Sep to 1971-Oct&quot;
+</code></pre>
+<h2 id="sec:man-new_period">Minimal constructor for a period object</h2>
+<h3 id="sec:description_18" class="unnumbered unlisted">Description</h3>
+<p><code>new_period()</code> is a constructor for <code style="white-space: pre;">&lt;grates_period&gt;</code> objects aimed at
+developers.
+</p>
+<h3 id="sec:usage_18" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">new_period(x = integer(), n = 1L, offset = 0L)
+
+is_period(xx)</code></pre>
+<h3 id="sec:arguments_18" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the number of periods since the Unix Epoch (1970-01-01)
+and a specified offset.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>n</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Number of days that are being grouped by.</p>
+</td></tr>
+<tr><td><code>offset</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Value you wish to start counting groups from relative to the Unix Epoch.</p>
+</td></tr>
+<tr><td><code>xx</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_10" class="unnumbered unlisted">Details</h3>
+<p><code>grates_period</code> objects are stored as the integer number, starting at 0L, of
+periods since the Unix Epoch (1970-01-01) and a specified offset. Here
+periods are taken to mean groupings of <code>n</code> consecutive days.
+</p>
+<p>For storage and calculation purposes, <code>offset</code> is scaled relative to <code>n</code>.
+I.e. <code>offset &lt;- offset %% n</code> and values of <code>x</code> stored relative to this scaled
+offset.
+</p>
+<h3 id="sec:value_18" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_period&gt;</code> object.
+</p>
+<h3 id="sec:examples_18" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">new_period(1:10)
+</code></pre>
+<pre><code>#&gt; &lt;grates_period[10]&gt;
+#&gt;  [1] &quot;1970-01-02&quot; &quot;1970-01-03&quot; &quot;1970-01-04&quot; &quot;1970-01-05&quot; &quot;1970-01-06&quot;
+#&gt;  [6] &quot;1970-01-07&quot; &quot;1970-01-08&quot; &quot;1970-01-09&quot; &quot;1970-01-10&quot; &quot;1970-01-11&quot;
+</code></pre>
+<h2 id="sec:man-new_yearmonth">Minimal constructor for a yearmonth object</h2>
+<h3 id="sec:description_19" class="unnumbered unlisted">Description</h3>
+<p><code>new_yearmonth()</code> is a constructor for <code style="white-space: pre;">&lt;grates_yearmonth&gt;</code> objects aimed at
+developers.
+</p>
+<h3 id="sec:usage_19" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">new_yearmonth(x = integer())
+
+is_yearmonth(xx)</code></pre>
+<h3 id="sec:arguments_19" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the number of months.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>xx</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object</p>
+</td></tr>
+</table>
+<h3 id="sec:details_11" class="unnumbered unlisted">Details</h3>
+<p><code style="white-space: pre;">&lt;grates_yearmonth&gt;</code> objects are stored as the number of months (starting at
+0) since the Unix Epoch (1970-01-01). Precision is only to the month level
+(i.e. the day of the month is always dropped).
+</p>
+<h3 id="sec:value_19" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_yearmonth&gt;</code> object.
+</p>
+<h3 id="sec:references_4" class="unnumbered unlisted">References</h3>
+<p>The algorithm to convert between dates and months relative to the UNIX Epoch
+comes from the work of Davis Vaughan in the unreleased
+<a href="https://github.com/DavisVaughan/datea/">datea</a> package
+</p>
+<h3 id="sec:examples_19" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">new_yearmonth(1:10)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearmonth[10]&gt;
+#&gt;  [1] &quot;1970-Feb&quot; &quot;1970-Mar&quot; &quot;1970-Apr&quot; &quot;1970-May&quot; &quot;1970-Jun&quot; &quot;1970-Jul&quot;
+#&gt;  [7] &quot;1970-Aug&quot; &quot;1970-Sep&quot; &quot;1970-Oct&quot; &quot;1970-Nov&quot;
+</code></pre>
+<h2 id="sec:man-new_yearquarter">Minimal constructor for a yearquarter object</h2>
+<h3 id="sec:description_20" class="unnumbered unlisted">Description</h3>
+<p><code>new_yearquarter()</code> is a constructor for <code style="white-space: pre;">&lt;grates_yearquarter&gt;</code> objects aimed
+at developers.
+</p>
+<h3 id="sec:usage_20" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">new_yearquarter(x = integer())
+
+is_yearquarter(xx)</code></pre>
+<h3 id="sec:arguments_20" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the number of quarters.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>xx</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_12" class="unnumbered unlisted">Details</h3>
+<p><code style="white-space: pre;">&lt;yearquarter&gt;</code> objects are stored as the number of quarters (starting at 0)
+since the Unix Epoch (1970-01-01).
+</p>
+<h3 id="sec:value_20" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_yearquarter&gt;</code> object.
+</p>
+<h3 id="sec:examples_20" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">new_yearquarter(1:10)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearquarter[10]&gt;
+#&gt;  [1] &quot;1970-Q2&quot; &quot;1970-Q3&quot; &quot;1970-Q4&quot; &quot;1971-Q1&quot; &quot;1971-Q2&quot; &quot;1971-Q3&quot; &quot;1971-Q4&quot;
+#&gt;  [8] &quot;1972-Q1&quot; &quot;1972-Q2&quot; &quot;1972-Q3&quot;
+</code></pre>
+<h2 id="sec:man-new_yearweek">Minimal constructor for a yearweek object</h2>
+<h3 id="sec:description_21" class="unnumbered unlisted">Description</h3>
+<p><code>new_yearweek()</code> is a constructor for <code style="white-space: pre;">&lt;grates_yearweek&gt;</code> objects aimed at
+developers.
+</p>
+<h3 id="sec:usage_21" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">new_yearweek(x = integer(), firstday = 1L)
+
+is_yearweek(xx)</code></pre>
+<h3 id="sec:arguments_21" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the number of weeks.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>firstday</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>The day the week starts on from 1 (Monday) to 7 (Sunday).</p>
+</td></tr>
+<tr><td><code>xx</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_13" class="unnumbered unlisted">Details</h3>
+<p><code style="white-space: pre;">&lt;grates_yearweek&gt;</code> objects are stored as the number of weeks
+(starting at 0) from the date of the <code>firstday</code> nearest the Unix Epoch
+(1970-01-01). That is, the number of seven day periods from:
+</p>
+<pre><code>- 1969-12-29 for `firstday` equal to 1 (Monday)
+- 1969-12-30 for `firstday` equal to 2 (Tuesday)
+- 1969-12-31 for `firstday` equal to 3 (Wednesday)
+- 1970-01-01 for `firstday` equal to 4 (Thursday)
+- 1970-01-02 for `firstday` equal to 5 (Friday)
+- 1970-01-03 for `firstday` equal to 6 (Saturday)
+- 1970-01-04 for `firstday` equal to 7 (Sunday)
+</code></pre>
+<h3 id="sec:value_21" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_yearweek&gt;</code> object with subclass corresponding to the first
+day of the week they represent (e.g. <code style="white-space: pre;">&lt;grates_yearweek_monday&gt;</code>).
+</p>
+<h3 id="sec:see-also_13" class="unnumbered unlisted">See Also</h3>
+<p><code>as_yearweek()</code>, <code>new_isoweek()</code> and <code>new_epiweek()</code>.
+</p>
+<h3 id="sec:examples_21" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">new_yearweek(1:10)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearweek_monday[10]&gt;
+#&gt;  [1] &quot;1970-W02&quot; &quot;1970-W03&quot; &quot;1970-W04&quot; &quot;1970-W05&quot; &quot;1970-W06&quot; &quot;1970-W07&quot;
+#&gt;  [7] &quot;1970-W08&quot; &quot;1970-W09&quot; &quot;1970-W10&quot; &quot;1970-W11&quot;
+</code></pre>
+<h2 id="sec:man-print.grates_int_period">Print an int_period object</h2>
+<h3 id="sec:description_22" class="unnumbered unlisted">Description</h3>
+<p>Print an int_period object
+</p>
+<h3 id="sec:usage_22" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">## S3 method for class 'grates_int_period'
+print(x, ...)
+
+## S3 method for class 'grates_int_period'
+format(x, ...)</code></pre>
+<h3 id="sec:arguments_22" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_int_period&gt;</code> object.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+</table>
+<h2 id="sec:man-print.grates_month">Print a month object</h2>
+<h3 id="sec:description_23" class="unnumbered unlisted">Description</h3>
+<p>Print a month object
+</p>
+<h3 id="sec:usage_23" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">## S3 method for class 'grates_month'
+print(x, format = "%Y-%b", sep = "to", ...)
+
+## S3 method for class 'grates_month'
+format(x, format = "%Y-%b", sep = "to", ...)</code></pre>
+<h3 id="sec:arguments_23" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_month&gt;</code> object.</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>The format to use for the bounds of each value.</p>
+</td></tr>
+<tr><td><code>sep</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>Where more than one month is grouped with others, <code>sep</code> is placed between the
+upper and lower bounds when printing.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+</table>
+<h2 id="sec:man-print.grates_period">Print a period object</h2>
+<h3 id="sec:description_24" class="unnumbered unlisted">Description</h3>
+<p>Print a period object
+</p>
+<h3 id="sec:usage_24" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">## S3 method for class 'grates_period'
+print(x, format = "%Y-%m-%d", sep = "to", ...)
+
+## S3 method for class 'grates_period'
+format(x, format = "%Y-%m-%d", sep = "to", ...)</code></pre>
+<h3 id="sec:arguments_24" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_period&gt;</code> object.</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>The format to use for the bounds of each value.</p>
+</td></tr>
+<tr><td><code>sep</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>Where more than one day is grouped with others, <code>sep</code> is placed between the
+upper and lower bounds when printing.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+</table>
+<h2 id="sec:man-print.grates_year">Print a year-quarter object</h2>
+<h3 id="sec:description_25" class="unnumbered unlisted">Description</h3>
+<p>Print a year-quarter object
+</p>
+<h3 id="sec:usage_25" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">## S3 method for class 'grates_year'
+print(x, ...)
+
+## S3 method for class 'grates_year'
+format(x, ...)</code></pre>
+<h3 id="sec:arguments_25" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_year&gt;</code> object.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+</table>
+<h2 id="sec:man-print.grates_yearmonth">Print a year-month object</h2>
+<h3 id="sec:description_26" class="unnumbered unlisted">Description</h3>
+<p>Print a year-month object
+</p>
+<h3 id="sec:usage_26" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">## S3 method for class 'grates_yearmonth'
+print(x, format = "%Y-%b", ...)
+
+## S3 method for class 'grates_yearmonth'
+format(x, format = "%Y-%b", ...)</code></pre>
+<h3 id="sec:arguments_26" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_yearmonth&gt;</code> object.</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p>The format to use for printing.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+</table>
+<h2 id="sec:man-print.grates_yearquarter">Print a year-quarter object</h2>
+<h3 id="sec:description_27" class="unnumbered unlisted">Description</h3>
+<p>Print a year-quarter object
+</p>
+<h3 id="sec:usage_27" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">## S3 method for class 'grates_yearquarter'
+print(x, ...)
+
+## S3 method for class 'grates_yearquarter'
+format(x, ...)</code></pre>
+<h3 id="sec:arguments_27" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_yearquarter&gt;</code> object.</p>
+</td></tr>
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+</table>
+<h2 id="sec:man-scale_x_grates_epiweek">epiweek scale</h2>
+<h3 id="sec:description_28" class="unnumbered unlisted">Description</h3>
+<p>ggplot2 scale for an <code style="white-space: pre;">&lt;grates_epiweek&gt;</code> vector.
+</p>
+<h3 id="sec:usage_28" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">scale_x_grates_epiweek(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  format = NULL
+)</code></pre>
+<h3 id="sec:arguments_28" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+<tr><td><code>breaks</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_epiweek&gt;</code> vector of the desired breaks.</p>
+</td></tr>
+<tr><td><code>n.breaks</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Approximate number of breaks calculated using <code>scales::breaks_pretty</code>
+(default 6L).
+</p>
+<p>Will only have an effect if <code>breaks = waiver()</code>.</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p>Format to use if &quot;Date&quot; scales are required.
+</p>
+<p>If NULL (default) then labels are in the standard epiweek format (YYYY-Www).
+</p>
+<p>If &quot;week&quot; then the labels are of the form Www (e.g. W37).
+</p>
+<p>Otherwise the value is used by <code>format.Date()</code> and can be any input
+acceptable by that function.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_22" class="unnumbered unlisted">Value</h3>
+<p>A scale for use with ggplot2.
+</p>
+<h2 id="sec:man-scale_x_grates_int_period">int_period scale (Experimental)</h2>
+<h3 id="sec:description_29" class="unnumbered unlisted">Description</h3>
+<p>ggplot2 scale for an int_period vector.
+</p>
+<h3 id="sec:usage_29" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">scale_x_grates_int_period(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  centre = FALSE,
+  n
+)</code></pre>
+<h3 id="sec:arguments_29" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+<tr><td><code>breaks</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_int_period&gt;</code> vector of the desired breaks.</p>
+</td></tr>
+<tr><td><code>n.breaks</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Approximate number of breaks calculated using <code>scales::breaks_pretty</code>
+(default 6L).
+</p>
+<p>Will only have an effect if <code>breaks = waiver()</code>.</p>
+</td></tr>
+<tr><td><code>centre</code></td>
+<td>
+<p>Only applicable to an <code>int_period</code> object with <code>n &gt; 1</code>.
+</p>
+<p>If FALSE labels are place at the edge of the bounds.
+</p>
+<p>If TRUE then labels are centralised and of the form <code style="white-space: pre;">[lower, upper]</code></p>
+</td></tr>
+<tr><td><code>n</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Number used for the original grouping.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_23" class="unnumbered unlisted">Value</h3>
+<p>A scale for use with ggplot2.
+</p>
+<h2 id="sec:man-scale_x_grates_isoweek">isoweek scale</h2>
+<h3 id="sec:description_30" class="unnumbered unlisted">Description</h3>
+<p>ggplot2 scale for an <code style="white-space: pre;">&lt;grates_isoweek&gt;</code> vector.
+</p>
+<h3 id="sec:usage_30" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">scale_x_grates_isoweek(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  format = NULL
+)</code></pre>
+<h3 id="sec:arguments_30" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+<tr><td><code>breaks</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_isoweek&gt;</code> vector of the desired breaks.</p>
+</td></tr>
+<tr><td><code>n.breaks</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Approximate number of breaks calculated using <code>scales::breaks_pretty</code>
+(default 6L).
+</p>
+<p>Will only have an effect if <code>breaks = waiver()</code>.</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p>Format to use if &quot;Date&quot; scales are required.
+</p>
+<p>If NULL (default) then labels are in the standard isoweek format (YYYY-Www).
+</p>
+<p>If &quot;week&quot; then the labels are of the form Www (e.g. W37).
+</p>
+<p>Otherwise the value is used by <code>format.Date()</code> and can be any input
+acceptable by that function.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_24" class="unnumbered unlisted">Value</h3>
+<p>A scale for use with ggplot2.
+</p>
+<h2 id="sec:man-scale_x_grates_month">month scale</h2>
+<h3 id="sec:description_31" class="unnumbered unlisted">Description</h3>
+<p>ggplot2 scale for a month vector.
+</p>
+<h3 id="sec:usage_31" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">scale_x_grates_month(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  format = "%Y-%m-%d",
+  bounds_format = "%Y-%b",
+  sep = "to",
+  n
+)</code></pre>
+<h3 id="sec:arguments_31" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+<tr><td><code>breaks</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_month&gt;</code> vector of the desired breaks.</p>
+</td></tr>
+<tr><td><code>n.breaks</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Approximate number of breaks calculated using <code>scales::breaks_pretty</code>
+(default 6L).
+</p>
+<p>Will only have an effect if <code>breaks = waiver()</code>.</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p>Format to use if &quot;Date&quot; scales are required.
+</p>
+<p>If NULL then labels are centralised and of the form &quot;lower category bound to
+upper category bound&quot;.
+</p>
+<p>If not NULL then the value is used by <code>format.Date()</code> and can be any input
+acceptable by that function (defaults to &quot;%Y-%m-%d).</p>
+</td></tr>
+<tr><td><code>bounds_format</code></td>
+<td>
+<p>Format to use for grouped date labels. Only used if <code>format</code> is NULL.</p>
+</td></tr>
+<tr><td><code>sep</code></td>
+<td>
+<p><code style="white-space: pre;">[character]</code>
+</p>
+<p>Separator to use for grouped date labels.</p>
+</td></tr>
+<tr><td><code>n</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Number of months used for the original grouping.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_25" class="unnumbered unlisted">Value</h3>
+<p>A scale for use with ggplot2.
+</p>
+<h2 id="sec:man-scale_x_grates_period">period scale</h2>
+<h3 id="sec:description_32" class="unnumbered unlisted">Description</h3>
+<p>ggplot2 scale for an <code style="white-space: pre;">&lt;grates_period&gt;</code> vector.
+</p>
+<h3 id="sec:usage_32" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">scale_x_grates_period(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  format = "%Y-%m-%d",
+  n,
+  offset
+)</code></pre>
+<h3 id="sec:arguments_32" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+<tr><td><code>breaks</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_period&gt;</code> vector of the desired breaks.</p>
+</td></tr>
+<tr><td><code>n.breaks</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Approximate number of breaks calculated using <code>scales::breaks_pretty</code>
+(default 6L).
+</p>
+<p>Will only have an effect if <code>breaks = waiver()</code>.</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p>Format to use for dates.
+</p>
+<p>Value is used by <code>format.Date()</code> and can be any input acceptable by that
+function.</p>
+</td></tr>
+<tr><td><code>n</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Number of days in each period.</p>
+</td></tr>
+<tr><td><code>offset</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Number of days used in original grouping for the offset from the Unix Epoch.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_26" class="unnumbered unlisted">Value</h3>
+<p>A scale for use with ggplot2.
+</p>
+<h2 id="sec:man-scale_x_grates_year">year scale</h2>
+<h3 id="sec:description_33" class="unnumbered unlisted">Description</h3>
+<p>ggplot2 scale for year vector.
+</p>
+<h3 id="sec:usage_33" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">scale_x_grates_year(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  format = NULL
+)</code></pre>
+<h3 id="sec:arguments_33" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+<tr><td><code>breaks</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_isoweek&gt;</code> vector of the desired breaks.</p>
+</td></tr>
+<tr><td><code>n.breaks</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Approximate number of breaks calculated using <code>scales::breaks_pretty</code>
+(default 6L).
+</p>
+<p>Will only have an effect if <code>breaks = waiver()</code>.</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p>Format to use if &quot;Date&quot; scales are required.
+</p>
+<p>If not NULL then the value is used by <code>format.Date()</code> and can be any input
+acceptable by that function.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_27" class="unnumbered unlisted">Value</h3>
+<p>A scale for use with ggplot2.
+</p>
+<h2 id="sec:man-scale_x_grates_yearmonth">yearmonth scale</h2>
+<h3 id="sec:description_34" class="unnumbered unlisted">Description</h3>
+<p>ggplot2 scale for a yearmonth vector.
+</p>
+<h3 id="sec:usage_34" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">scale_x_grates_yearmonth(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  format = NULL
+)</code></pre>
+<h3 id="sec:arguments_34" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+<tr><td><code>breaks</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_yearmonth&gt;</code> vector of the desired breaks.</p>
+</td></tr>
+<tr><td><code>n.breaks</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Approximate number of breaks calculated using <code>scales::breaks_pretty</code>
+(default 6L).
+</p>
+<p>Will only have an effect if <code>breaks = waiver()</code>.</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p>Format to use if &quot;Date&quot; scales are required.
+</p>
+<p>If not NULL then the value is used by <code>format.Date()</code> and can be any input
+acceptable by that function.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_28" class="unnumbered unlisted">Value</h3>
+<p>A scale for use with ggplot2.
+</p>
+<h2 id="sec:man-scale_x_grates_yearquarter">yearquarter scale</h2>
+<h3 id="sec:description_35" class="unnumbered unlisted">Description</h3>
+<p>ggplot2 scale for a yearquarter vector.
+</p>
+<h3 id="sec:usage_35" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">scale_x_grates_yearquarter(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  format = NULL
+)</code></pre>
+<h3 id="sec:arguments_35" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+<tr><td><code>breaks</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_yearquarter&gt;</code> vector of the desired breaks.</p>
+</td></tr>
+<tr><td><code>n.breaks</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Approximate number of breaks calculated using <code>scales::breaks_pretty</code>
+(default 6L).
+</p>
+<p>Will only have an effect if <code>breaks = waiver()</code>.</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p>Format to use if &quot;Date&quot; scales are required.
+</p>
+<p>If not NULL then the value is used by <code>format.Date()</code> and can be any input
+acceptable by that function.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_29" class="unnumbered unlisted">Value</h3>
+<p>A scale for use with ggplot2.
+</p>
+<h2 id="sec:man-scale_x_grates_yearweek">yearweek scale</h2>
+<h3 id="sec:description_36" class="unnumbered unlisted">Description</h3>
+<p>ggplot2 scale for an <code style="white-space: pre;">&lt;grates_yearweek&gt;</code> vector.
+</p>
+<h3 id="sec:usage_36" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">scale_x_grates_yearweek(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6L,
+  firstday,
+  format = NULL
+)
+
+scale_x_grates_yearweek_monday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
+
+scale_x_grates_yearweek_isoweek(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
+
+scale_x_grates_yearweek_tuesday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
+
+scale_x_grates_yearweek_wednesday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
+
+scale_x_grates_yearweek_thursday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
+
+scale_x_grates_yearweek_friday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
+
+scale_x_grates_yearweek_saturday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
+
+scale_x_grates_yearweek_sunday(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)
+
+scale_x_grates_yearweek_epiweek(
+  ...,
+  breaks = ggplot2::waiver(),
+  n.breaks = 6,
+  format = NULL
+)</code></pre>
+<h3 id="sec:arguments_36" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>...</code></td>
+<td>
+<p>Not currently used.</p>
+</td></tr>
+<tr><td><code>breaks</code></td>
+<td>
+<p>A <code style="white-space: pre;">&lt;grates_yearweek&gt;</code> vector of the desired breaks.</p>
+</td></tr>
+<tr><td><code>n.breaks</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Approximate number of breaks calculated using <code>scales::breaks_pretty</code>
+(default 6L).
+</p>
+<p>Will only have an effect if <code>breaks = waiver()</code>.</p>
+</td></tr>
+<tr><td><code>firstday</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Integer value of the first weekday: 1 (Monday) to 7 (Sunday).</p>
+</td></tr>
+<tr><td><code>format</code></td>
+<td>
+<p>Format to use if &quot;Date&quot; scales are required.
+</p>
+<p>If NULL (default) then labels are in the standard yearweek format (YYYY-Www).
+</p>
+<p>If &quot;week&quot; then the labels are of the form Www (e.g. W37).
+</p>
+<p>Otherwise the value is used by <code>format.Date()</code> and can be any input
+acceptable by that function.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_30" class="unnumbered unlisted">Value</h3>
+<p>A scale for use with ggplot2.
+</p>
+<h2 id="sec:man-year">Construct a year object</h2>
+<h3 id="sec:description_37" class="unnumbered unlisted">Description</h3>
+<p><code>year()</code> is a constructor for <code style="white-space: pre;">&lt;grates_year&gt;</code> objects.
+</p>
+<h3 id="sec:usage_37" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">year(x = integer())
+
+is_year(object)</code></pre>
+<h3 id="sec:arguments_37" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>x</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the years.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>object</code></td>
+<td>
+<p><span class="rlang"><b>R</b></span> object.</p>
+</td></tr>
+</table>
+<h3 id="sec:value_31" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_year&gt;</code> object.
+</p>
+<h3 id="sec:examples_22" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">year(2011:2020)
+</code></pre>
+<pre><code>#&gt; &lt;grates_year[10]&gt;
+#&gt;  [1] 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020
+</code></pre>
+<h2 id="sec:man-yearmonth">Constructor for yearmonth objects</h2>
+<h3 id="sec:description_38" class="unnumbered unlisted">Description</h3>
+<p><code>yearmonth()</code> is a constructor for <code style="white-space: pre;">&lt;grates_yearmonth&gt;</code> objects.
+</p>
+<h3 id="sec:usage_38" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">yearmonth(year = integer(), month = integer())</code></pre>
+<h3 id="sec:arguments_38" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>year</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the year associated with <code>month</code>.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>month</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the month associated with 'year.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_14" class="unnumbered unlisted">Details</h3>
+<p><code style="white-space: pre;">&lt;grates_yearmonth&gt;</code> objects are stored as the number of months (starting at
+0) since the Unix Epoch (1970-01-01).
+</p>
+<h3 id="sec:value_32" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_yearmonth&gt;</code> object.
+</p>
+<h3 id="sec:see-also_14" class="unnumbered unlisted">See Also</h3>
+<p><code>as_yearmonth()</code> and <code>new_yearmonth()</code>.
+</p>
+<h3 id="sec:examples_23" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">yearmonth(year = 2000L, month = 3L)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearmonth[1]&gt;
+#&gt; [1] &quot;2000-Mar&quot;
+</code></pre>
+<h2 id="sec:man-yearquarter">Constructor for yearquarter objects</h2>
+<h3 id="sec:description_39" class="unnumbered unlisted">Description</h3>
+<p><code>yearquarter()</code> is a constructor for <code style="white-space: pre;">&lt;grates_yearquarter&gt;</code> objects.
+</p>
+<h3 id="sec:usage_39" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">yearquarter(year = integer(), quarter = integer())</code></pre>
+<h3 id="sec:arguments_39" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>year</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the year associated with <code>quarter</code>.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>quarter</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the quarter associated with 'year.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+</table>
+<h3 id="sec:details_15" class="unnumbered unlisted">Details</h3>
+<p><code style="white-space: pre;">&lt;grates_yearquarter&gt;</code> objects are stored as the number of quarters (starting
+at 0) since the Unix Epoch (1970-01-01).
+</p>
+<h3 id="sec:value_33" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_yearquarter&gt;</code> object.
+</p>
+<h3 id="sec:see-also_15" class="unnumbered unlisted">See Also</h3>
+<p><code>as_yearquarter()</code> and <code>new_yearquarter()</code>.
+</p>
+<h3 id="sec:examples_24" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">yearquarter(year = 2000L, quarter = 3L)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearquarter[1]&gt;
+#&gt; [1] &quot;2000-Q3&quot;
+</code></pre>
+<h2 id="sec:man-yearweek">Constructor for yearweek objects</h2>
+<h3 id="sec:description_40" class="unnumbered unlisted">Description</h3>
+<p><code>yearweek()</code> is a constructor for <code style="white-space: pre;">&lt;grates_yearweek&gt;</code> objects. These are
+weeks whose first day can be specified by the user.
+</p>
+<h3 id="sec:usage_40" class="unnumbered unlisted">Usage</h3>
+<pre><code class="language-r">yearweek(year = integer(), week = integer(), firstday = 1L)</code></pre>
+<h3 id="sec:arguments_40" class="unnumbered unlisted">Arguments</h3>
+<table class="table-full">
+<tr><td><code>year</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the year associated with <code>week</code>.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>week</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>Vector representing the week associated with 'year.
+</p>
+<p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
+</td></tr>
+<tr><td><code>firstday</code></td>
+<td>
+<p><code style="white-space: pre;">[integer]</code>
+</p>
+<p>The day the week starts on from 1 (Monday) to 7 (Sunday).</p>
+</td></tr>
+</table>
+<h3 id="sec:details_16" class="unnumbered unlisted">Details</h3>
+<p>For yearweek objects the first week of a &quot;year&quot; is considered to be the first
+yearweek containing 4 days of the given calendar year. This means that the
+calendar year will sometimes be different to that of the associated yearweek
+object.
+</p>
+<h3 id="sec:value_34" class="unnumbered unlisted">Value</h3>
+<p>A <code style="white-space: pre;">&lt;grates_yearweek&gt;</code> object with subclass corresponding to the first day of
+the week they represent (e.g. <code style="white-space: pre;">&lt;grates_yearweek_monday&gt;</code>).
+</p>
+<h3 id="sec:note_6" class="unnumbered unlisted">Note</h3>
+<p>Internally <code style="white-space: pre;">&lt;grates_yearweek&gt;</code> objects are stored as the number of weeks
+(starting at 0) from the date of the <code>firstday</code> nearest the Unix Epoch
+(1970-01-01). That is, the number of seven day periods from:
+</p>
+<pre><code>- 1969-12-29 for `firstday` equal to 1 (Monday)
+- 1969-12-30 for `firstday` equal to 2 (Tuesday)
+- 1969-12-31 for `firstday` equal to 3 (Wednesday)
+- 1970-01-01 for `firstday` equal to 4 (Thursday)
+- 1970-01-02 for `firstday` equal to 5 (Friday)
+- 1970-01-03 for `firstday` equal to 6 (Saturday)
+- 1970-01-04 for `firstday` equal to 7 (Sunday)
+</code></pre>
+<h3 id="sec:see-also_16" class="unnumbered unlisted">See Also</h3>
+<p><code>as_yearweek()</code> and <code>new_yearweek()</code>.
+</p>
+<h3 id="sec:examples_25" class="unnumbered unlisted">Examples</h3>
+<pre><code class="language-r">yearweek(year = 2000L, week = 3L)
+</code></pre>
+<pre><code>#&gt; &lt;grates_yearweek_monday[1]&gt;
+#&gt; [1] &quot;2000-W03&quot;
+</code></pre>
+<style type="text/css">
+.table-full{border-top:1px solid #666;border-bottom:1px solid #666;width:100%;& td{vertical-align:baseline;&>p{&:first-child{margin-top:0}&:last-child{margin-bottom:0}}}}code.fade:before{content:"🚫";float:right;font-size:1.5em;line-height:1}@media only screen{body:not(.pagesjs) pre:not([class]){max-height:300px;overflow-y:auto}}.orcid{vertical-align:middle;width:1em;height:1em}
+</style>
+</div>
+<footer><div class="flex-col">
+<p>Developed by Tim Taylor</p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.5</p>
+</div></footer>
+<script>
+(e=>{e.querySelectorAll('.footnotes > ol > li[id^="fn"], #refs > *[id^="ref-"]').forEach((t=>{const s=`a[href="#${t.id}"]`;e.querySelectorAll(`${s} > sup, sup > ${s}, .citation > ${s}, ${s}.citation`).forEach((s=>{const o=s.parentNode;("A"===s.tagName?s:o).removeAttribute("href");const l=e.createElement("div");for(l.className="side side-right",/^fn/.test(t.id)?(l.innerHTML=t.innerHTML,l.firstElementChild.insertAdjacentHTML("afterbegin",`<span class="bg-number">${s.innerText}</span> `),l.querySelector('a[href^="#fnref"]')?.remove(),l.className+=" footnotes"):l.innerHTML=t.outerHTML;"#text"===l.lastChild?.nodeName&&/^\s*$/.test(l.lastChild.textContent);)l.lastChild.remove();l.querySelectorAll(".fullwidth").forEach((e=>e.classList.remove("fullwidth")));const r=s.classList.contains("citation")?s:o;r.after(l),r.classList.add("note-ref"),t.remove()}))})),e.querySelectorAll(".footnotes, #refs").forEach((e=>{/^\s*$/.test(e.innerText)&&e.remove()})),e.getElementById("TOC")?.classList.add("side","side-left");const t=e.querySelectorAll(".side.side-right, .side.side-left"),s=[];e.querySelectorAll(".fullwidth").forEach((e=>{s.push([e,e.getBoundingClientRect()])})),t.length&&e.body.classList.add("has-sidenotes"),t.forEach((e=>{const t=e.getBoundingClientRect();for(let e of s){const s=e[1];t.right<s.left||t.left>s.right||t.bottom<s.top||t.top>s.bottom||e[0].classList.remove("fullwidth")}}))})(document);
+</script>
+<script>
+(e=>{const a=e.querySelector([1,2,3,4,5,6].map((e=>`h${e}.appendix`)).join(","));if(!a)return;a.classList.remove("appendix");const n=a.parentNode;let t=n,d=!1;for(;n&&(t=t.nextElementSibling,t&&n.tagName===t.tagName&&n.className===t.className);)t.classList.add("appendix"),d=!0;if(d)return void n.classList.add("appendix");const p=e.createElement("div");for(p.className="appendix",p.append(a.cloneNode(!0));a.nextSibling;)p.append(a.nextSibling);"BODY"===a.parentNode.tagName?e.body.append(p):a.parentNode.after(p),a.remove()})(document);
+</script>
+<script>
+(e=>{const t='a[href^="#"]',r=e.querySelector(`:is(#TableOfContents, #TOC):has(${t})`);if(!r)return;const n=r.querySelectorAll(t),o={};n.forEach((e=>o[e.getAttribute("href").replace("#","")]=e));const c=Object.keys(o);let s;const i=Array(c.length).fill(0),l=new IntersectionObserver((e=>e.forEach((e=>{const t=e.target.id,r=c.indexOf(t);if(r<0)return;i[r]=+e.isIntersecting;const n=i.indexOf(1);if(n>-1)s=c[n];else{if(!s||e.boundingClientRect.top<0)return;s=r>0?c[r-1]:void 0}for(const e in o)o[e].classList.toggle("active",e===s)}))));e.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach((e=>{1===e.nodeType&&o.hasOwnProperty(e.id)&&l.observe(e)}))})(document);
+</script>
+<script>
+(e=>{const t=e.currentScript?.dataset;e.querySelectorAll(t?.selector||"pre>code, .copy-this").forEach((t=>{const c=e.createElement("span"),n=c.classList,o=t.parentNode,a="CODE"===t.tagName&&"PRE"===o?.tagName;function s(e){n.add(e),setTimeout((()=>n.remove(e)),1e3)}c.className="copy-button",c.onclick=()=>navigator.clipboard.writeText(a&&t.classList.contains("code-fence")&&o.parentNode?.classList.contains("fenced-chunk")?[...o.parentNode.querySelectorAll("code[class]")].map((e=>e.innerText.replace(/\n$/,""))).join("\n"):t.innerText).then((()=>s("copy-success")),(()=>s("copy-fail")));const r=a?o:t;r.querySelector(".copy-button")||r.append(c),r.hasAttribute("tabIndex")||(r.tabIndex="0"),"static"===getComputedStyle(r).position&&(r.style.position="relative")}))})(document);
+</script>
+<script>
+document.querySelectorAll("h1,h2,h3,h4,h5,h6").forEach((e=>{e.id&&!e.querySelector(".anchor")&&e.insertAdjacentHTML("beforeend",` <span class="anchor"><a href="#${e.id}"></a></span>`)}));
+</script>
+<script>
+var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(e){var n=/(?:^|\s)lang(?:uage)?-([\w-]+)(?=\s|$)/i,t=0,r={},a={manual:e.Prism&&e.Prism.manual,disableWorkerMessageHandler:e.Prism&&e.Prism.disableWorkerMessageHandler,util:{encode:function e(n){return n instanceof i?new i(n.type,e(n.content),n.alias):Array.isArray(n)?n.map(e):n.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).slice(8,-1)},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function e(n,t){var r,i;switch(t=t||{},a.util.type(n)){case"Object":if(i=a.util.objId(n),t[i])return t[i];for(var l in r={},t[i]=r,n)n.hasOwnProperty(l)&&(r[l]=e(n[l],t));return r;case"Array":return i=a.util.objId(n),t[i]?t[i]:(r=[],t[i]=r,n.forEach((function(n,a){r[a]=e(n,t)})),r);default:return n}},getLanguage:function(e){for(;e;){var t=n.exec(e.className);if(t)return t[1].toLowerCase();e=e.parentElement}return"none"},setLanguage:function(e,t){e.className=e.className.replace(RegExp(n,"gi"),""),e.classList.add("language-"+t)},currentScript:function(){if("undefined"==typeof document)return null;if("currentScript"in document)return document.currentScript;try{throw new Error}catch(r){var e=(/at [^(\r\n]*\((.*):[^:]+:[^:]+\)$/i.exec(r.stack)||[])[1];if(e){var n=document.getElementsByTagName("script");for(var t in n)if(n[t].src==e)return n[t]}return null}},isActive:function(e,n,t){for(var r="no-"+n;e;){var a=e.classList;if(a.contains(n))return!0;if(a.contains(r))return!1;e=e.parentElement}return!!t}},languages:{plain:r,plaintext:r,text:r,txt:r,extend:function(e,n){var t=a.util.clone(a.languages[e]);for(var r in n)t[r]=n[r];return t},insertBefore:function(e,n,t,r){var i=(r=r||a.languages)[e],l={};for(var o in i)if(i.hasOwnProperty(o)){if(o==n)for(var s in t)t.hasOwnProperty(s)&&(l[s]=t[s]);t.hasOwnProperty(o)||(l[o]=i[o])}var u=r[e];return r[e]=l,a.languages.DFS(a.languages,(function(n,t){t===u&&n!=e&&(this[n]=l)})),l},DFS:function e(n,t,r,i){i=i||{};var l=a.util.objId;for(var o in n)if(n.hasOwnProperty(o)){t.call(n,o,n[o],r||o);var s=n[o],u=a.util.type(s);"Object"!==u||i[l(s)]?"Array"!==u||i[l(s)]||(i[l(s)]=!0,e(s,t,o,i)):(i[l(s)]=!0,e(s,t,null,i))}}},plugins:{},highlightAll:function(e,n){a.highlightAllUnder(document,e,n)},highlightAllUnder:function(e,n,t){var r={callback:t,container:e,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};a.hooks.run("before-highlightall",r),r.elements=Array.prototype.slice.apply(r.container.querySelectorAll(r.selector)),a.hooks.run("before-all-elements-highlight",r);for(var i,l=0;i=r.elements[l++];)a.highlightElement(i,!0===n,r.callback)},highlightElement:function(n,t,r){var i=a.util.getLanguage(n),l=a.languages[i];a.util.setLanguage(n,i);var o=n.parentElement;o&&"pre"===o.nodeName.toLowerCase()&&a.util.setLanguage(o,i);var s={element:n,language:i,grammar:l,code:n.textContent};function u(e){s.highlightedCode=e,a.hooks.run("before-insert",s),s.element.innerHTML=s.highlightedCode,a.hooks.run("after-highlight",s),a.hooks.run("complete",s),r&&r.call(s.element)}if(a.hooks.run("before-sanity-check",s),(o=s.element.parentElement)&&"pre"===o.nodeName.toLowerCase()&&!o.hasAttribute("tabindex")&&o.setAttribute("tabindex","0"),!s.code)return a.hooks.run("complete",s),void(r&&r.call(s.element));if(a.hooks.run("before-highlight",s),s.grammar)if(t&&e.Worker){var c=new Worker(a.filename);c.onmessage=function(e){u(e.data)},c.postMessage(JSON.stringify({language:s.language,code:s.code,immediateClose:!0}))}else u(a.highlight(s.code,s.grammar,s.language));else u(a.util.encode(s.code))},highlight:function(e,n,t){var r={code:e,grammar:n,language:t};if(a.hooks.run("before-tokenize",r),!r.grammar)throw new Error('The language "'+r.language+'" has no grammar.');return r.tokens=a.tokenize(r.code,r.grammar),a.hooks.run("after-tokenize",r),i.stringify(a.util.encode(r.tokens),r.language)},tokenize:function(e,n){var t=n.rest;if(t){for(var r in t)n[r]=t[r];delete n.rest}var a=new s;return u(a,a.head,e),o(e,a,n,a.head,0),function(e){for(var n=[],t=e.head.next;t!==e.tail;)n.push(t.value),t=t.next;return n}(a)},hooks:{all:{},add:function(e,n){var t=a.hooks.all;t[e]=t[e]||[],t[e].push(n)},run:function(e,n){var t=a.hooks.all[e];if(t&&t.length)for(var r,i=0;r=t[i++];)r(n)}},Token:i};function i(e,n,t,r){this.type=e,this.content=n,this.alias=t,this.length=0|(r||"").length}function l(e,n,t,r){e.lastIndex=n;var a=e.exec(t);if(a&&r&&a[1]){var i=a[1].length;a.index+=i,a[0]=a[0].slice(i)}return a}function o(e,n,t,r,s,g){for(var f in t)if(t.hasOwnProperty(f)&&t[f]){var h=t[f];h=Array.isArray(h)?h:[h];for(var d=0;d<h.length;++d){if(g&&g.cause==f+","+d)return;var v=h[d],p=v.inside,m=!!v.lookbehind,y=!!v.greedy,k=v.alias;if(y&&!v.pattern.global){var x=v.pattern.toString().match(/[imsuy]*$/)[0];v.pattern=RegExp(v.pattern.source,x+"g")}for(var b=v.pattern||v,w=r.next,A=s;w!==n.tail&&!(g&&A>=g.reach);A+=w.value.length,w=w.next){var E=w.value;if(n.length>e.length)return;if(!(E instanceof i)){var P,L=1;if(y){if(!(P=l(b,A,e,m))||P.index>=e.length)break;var S=P.index,O=P.index+P[0].length,j=A;for(j+=w.value.length;S>=j;)j+=(w=w.next).value.length;if(A=j-=w.value.length,w.value instanceof i)continue;for(var C=w;C!==n.tail&&(j<O||"string"==typeof C.value);C=C.next)L++,j+=C.value.length;L--,E=e.slice(A,j),P.index-=A}else if(!(P=l(b,0,E,m)))continue;S=P.index;var N=P[0],_=E.slice(0,S),M=E.slice(S+N.length),W=A+E.length;g&&W>g.reach&&(g.reach=W);var z=w.prev;if(_&&(z=u(n,z,_),A+=_.length),c(n,z,L),w=u(n,z,new i(f,p?a.tokenize(N,p):N,k,N)),M&&u(n,w,M),L>1){var I={cause:f+","+d,reach:W};o(e,n,t,w.prev,A,I),g&&I.reach>g.reach&&(g.reach=I.reach)}}}}}}function s(){var e={value:null,prev:null,next:null},n={value:null,prev:e,next:null};e.next=n,this.head=e,this.tail=n,this.length=0}function u(e,n,t){var r=n.next,a={value:t,prev:n,next:r};return n.next=a,r.prev=a,e.length++,a}function c(e,n,t){for(var r=n.next,a=0;a<t&&r!==e.tail;a++)r=r.next;n.next=r,r.prev=n,e.length-=a}if(e.Prism=a,i.stringify=function e(n,t){if("string"==typeof n)return n;if(Array.isArray(n)){var r="";return n.forEach((function(n){r+=e(n,t)})),r}var i={type:n.type,content:e(n.content,t),tag:"span",classes:["token",n.type],attributes:{},language:t},l=n.alias;l&&(Array.isArray(l)?Array.prototype.push.apply(i.classes,l):i.classes.push(l)),a.hooks.run("wrap",i);var o="";for(var s in i.attributes)o+=" "+s+'="'+(i.attributes[s]||"").replace(/"/g,"&quot;")+'"';return"<"+i.tag+' class="'+i.classes.join(" ")+'"'+o+">"+i.content+"</"+i.tag+">"},!e.document)return e.addEventListener?(a.disableWorkerMessageHandler||e.addEventListener("message",(function(n){var t=JSON.parse(n.data),r=t.language,i=t.code,l=t.immediateClose;e.postMessage(a.highlight(i,a.languages[r],r)),l&&e.close()}),!1),a):a;var g=a.util.currentScript();function f(){a.manual||a.highlightAll()}if(g&&(a.filename=g.src,g.hasAttribute("data-manual")&&(a.manual=!0)),!a.manual){var h=document.readyState;"loading"===h||"interactive"===h&&g&&g.defer?document.addEventListener("DOMContentLoaded",f):window.requestAnimationFrame?window.requestAnimationFrame(f):window.setTimeout(f,16)}return a}(_self);"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+</script>
+<script>
+Prism.languages.r={comment:/#.*/,string:{pattern:/(['"])(?:\\.|(?!\1)[^\\\r\n])*\1/,greedy:!0},"percent-operator":{pattern:/%[^%\s]*%/,alias:"operator"},boolean:/\b(?:FALSE|TRUE)\b/,ellipsis:/\.\.(?:\.|\d+)/,number:[/\b(?:Inf|NaN)\b/,/(?:\b0x[\dA-Fa-f]+(?:\.\d*)?|\b\d+(?:\.\d*)?|\B\.\d+)(?:[EePp][+-]?\d+)?[iL]?/],keyword:/\b(?:NA|NA_character_|NA_complex_|NA_integer_|NA_real_|NULL|break|else|for|function|if|in|next|repeat|while)\b/,operator:/->?>?|<(?:=|<?-)?|[>=!]=?|::?|&&?|\|\|?|[+*\/^$@~]/,punctuation:/[(){}\[\],;]/};
+</script>
+</body>
+</html>
