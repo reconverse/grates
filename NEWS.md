@@ -1,4 +1,4 @@
-# grates (development version)
+# grates 1.4.0
 
 * The format argument of the scale functions for `<grates_yearweek>`,
   `<grates_epiweek>` and `<grates_isoweek>` can now be set to "week" to drop
