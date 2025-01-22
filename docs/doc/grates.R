@@ -1,10 +1,4 @@
-opts = litedown::reactor()
-opts$error = TRUE
-opts$message = TRUE
-opts$print = function(x, ...) capture.output(if (isS4(x)) methods::show(x, ...) else print(x, ...))
-opts$fig.align = "center"
-opts$fig.width = 7
-opts$fig.height = 5
+litedown::reactor(error = TRUE, message = TRUE, print = NA, fig.height = 5)
 
 library(grates)
 
