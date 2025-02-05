@@ -1,4 +1,4 @@
-# grates (development version)
+# grates 1.4.1
 
 * No longer downloads css/js when building vignette.
 

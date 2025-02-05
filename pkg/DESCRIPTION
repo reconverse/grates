@@ -1,6 +1,6 @@
 Package: grates
 Title: Grouped Date Classes
-Version: 1.4.0.9000
+Version: 1.4.1
 Authors@R:
     c(
       person(

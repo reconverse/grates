@@ -2,9 +2,8 @@
 title: "Introduction"
 output:
     html:
-        options:
-            embed_resources: ["all"]
         meta:
+            css: ["default"]
             js: ["@center-img"]
       
         
