@@ -1,5 +1,7 @@
 # grates (development version)
 
+* No longer downloads css/js when building vignette.
+
 # grates 1.4.0
 
 * The format argument of the scale functions for `<grates_yearweek>`,
