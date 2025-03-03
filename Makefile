@@ -17,7 +17,7 @@ cran: pkg
 	R CMD check --as-cran *.tar.gz
 
 test: doc
-	R -s -e "tinytest::build_install_test('pkg')"
+	R -s -e "testthat::test_local('pkg')"
 
 manual: doc
 	R CMD Rd2pdf --force -o manual.pdf ./pkg
