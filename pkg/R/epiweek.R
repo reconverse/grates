@@ -1,72 +1,42 @@
 # -------------------------------------------------------------------------
-#' Minimal constructor for an epiweek object
+#' Epiweek class
 #'
 # -------------------------------------------------------------------------
-#' `new_epiweek()` is a constructor for `<grates_epiweek>` objects aimed at
-#' developers.
+#' @description
+#'
+#' Epiweeks are defined to start on a Sunday and span a 7 day period.
+#' Where they span calendar years, they are associated to the year which
+#' contains the majority of the week's days (i.e. the first epiweek a year
+#' is the one with at least four days in said year).
+#'
+#' Internally, `<grates_epiweek>` objects are stored as the number of weeks
+#' (starting at 0) from the first Sunday after the Unix Epoch (1970-01-01).
+#' That is, the number of seven day periods from 1970-01-04.
 #'
 # -------------------------------------------------------------------------
-#' Epiweeks are defined to start on a Sunday and `<grates_epiweek>` objects are
-#' stored as the number of weeks (starting at 0) from the first Sunday after the
-#' Unix Epoch (1970-01-01). That is, the number of seven day periods from
-#' 1970-01-04.
+#' @details
 #'
-#' Internally they have the same representation as a `<grates_yearweek_sunday>`
-#' object so are akin to an alias but with a marginally more efficient
-#' implementation.
+#' `epiweek()` is a constructor for `<grates_epiweek>` objects. It takes a
+#' vector of year and vector of week values as inputs. Length 1 inputs will be
+#' recycled to the length of the other input and `double` vectors will again be
+#' converted to integer via `as.integer(floor(x))`.
 #'
-# -------------------------------------------------------------------------
-#' @param x `[integer]`
+#' `as_epiweek()` is a generic for conversion to `<grates_epiweek>`.
+#' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
+#' - Character objects are first coerced to date via `as.Date()` unless
+#' `format = "yearweek"` in which case input is assumed to be in the form
+#' "YYYY-Wxx" and parsed accordingly.
 #'
-#' Vector representing the number of weeks.
-#'
-#' `double` vectors will be converted via `as.integer(floor(x))`.
-#'
-#' @param xx
-#'
-#' \R object.
+#' `new_epiweek()` is a minimal constructor for `<grates_epiweek>` objects
+#' aimed at developers. It takes, as input, the number of epiweeks since the
+#' sunday after the Unix Epoch that you wish to represent. `double` vectors will
+#' be converted to integer via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
-#' @return
-#' A `<grates_epiweek>` object.
+#' @param x
 #'
-# -------------------------------------------------------------------------
-#' @seealso
-#' `new_yearweek()` and `new_isoweek()`.
+#' An \R object.
 #'
-# -------------------------------------------------------------------------
-#' @examples
-#' new_epiweek(1:10)
-#'
-# -------------------------------------------------------------------------
-#' @export
-new_epiweek <- function(x = integer()) {
-    if (is.vector(x, "double")) {
-        x <- as.integer(floor(x))
-    } else if (!is.integer(x)) {
-        stop("`x` must be integer.")
-    }
-    .new_epiweek(x)
-}
-
-
-# -------------------------------------------------------------------------
-#' Constructor for epiweek objects
-#'
-# -------------------------------------------------------------------------
-#' `epiweek()` is a constructor for `<grates_epiweek>` objects.
-#'
-# -------------------------------------------------------------------------
-#' Epiweeks are defined to start on a Sunday and `<grates_epiweek>` objects are
-#' stored as the number of weeks (starting at 0) from the first Sunday after the
-#' Unix Epoch (1970-01-01). That is, the number of seven day periods from
-#' 1970-01-04.
-#'
-#' Internally they have the same representation as a `<grates_yearweek_sunday>`
-#' object so are akin to an alias but with a marginally more efficient
-#' implementation.
-#'
-# -------------------------------------------------------------------------
 #' @param year `[integer]`
 #'
 #' Vector representing the year associated with `week`.
@@ -79,19 +49,51 @@ new_epiweek <- function(x = integer()) {
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
+#' @param format `[character]`
+#'
+#' Passed to as.Date() unless `format = "yearweek"` in which case input is
+#' assumed to be in the form "YYYY-Wxx".
+#'
+#' If not specified, it will try tryFormats one by one on the first non-NA
+#' element, and give an error if none works. Otherwise, the processing is via
+#' `strptime()` whose help page describes available conversion specifications.
+#'
+#' @param tryFormats `[character]`
+#'
+#' Format strings to try if format is not specified.
+#'
+#' @param ...
+#'
+#' Other values passed to as.Date().
+#'
+#'
+#' @param xx
+#'
+#' An \R object.
+#'
 # -------------------------------------------------------------------------
 #' @return
 #' A `<grates_epiweek>` object.
 #'
 # -------------------------------------------------------------------------
-#' @examples
-#' epiweek(year = 2000L, week = 3L)
-#'
-# -------------------------------------------------------------------------
 #' @seealso
-#' `as_epiweek()` and `new_epiweek()`.
+#' `new_yearweek()` and `new_isoweek()`.
 #'
 # -------------------------------------------------------------------------
+#' @examples
+#' epiweek(year = 2000, week = 3)
+#' new_epiweek(1:10)
+#' as_epiweek(Sys.Date())
+#' as_epiweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#' as_epiweek("2019-05-03")
+#' as_epiweek("2019-W12", format = "yearweek")
+#'
+# -------------------------------------------------------------------------
+#' @name epiweek
+NULL
+
+# -------------------------------------------------------------------------
+#' @rdname epiweek
 #' @export
 epiweek <- function(year = integer(), week = integer()) {
 
@@ -117,8 +119,93 @@ epiweek <- function(year = integer(), week = integer()) {
     .epiweek(year = year, week = week)
 }
 
+
 # -------------------------------------------------------------------------
-#' @rdname new_epiweek
+#' @rdname epiweek
+#' @export
+as_epiweek <- function(x, ...) {
+    UseMethod("as_epiweek")
+}
+
+# -------------------------------------------------------------------------
+#' @rdname epiweek
+#' @export
+as_epiweek.default <- function(x, ...) {
+    stopf("Not implemented for class [%s].", toString(class(x)))
+}
+
+# -------------------------------------------------------------------------
+#' @rdname epiweek
+#' @export
+as_epiweek.Date <- function(x, ...) {
+    firstday <- 7L
+    x <- as.integer(floor(unclass(x)))
+    x <- (x + 4L - firstday) %/% 7L
+    .new_epiweek(x = x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname epiweek
+#' @export
+as_epiweek.POSIXt <- function(x, ...) {
+    x <- .as_date(x)
+    as_epiweek.Date(x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname epiweek
+#' @export
+as_epiweek.character <- function(
+        x,
+        format,
+        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+        ...
+) {
+    if (!missing(format)) {
+        if (length(format) > 1L)
+            stop("If specified, `format` must be of length 1.")
+
+        if (format == "yearweek") {
+            years <- sub("^([0-9]{4}).*", "\\1", x, perl = TRUE)
+            years <- suppressWarnings(as.integer(years))
+            weeks <- sub(".*-[wW]([0-9]{1,2}$)", "\\1", x, perl = TRUE)
+            weeks <- suppressWarnings(as.integer(weeks))
+            out <- epiweek(year = years, week = weeks)
+            return(out)
+        }
+    }
+
+    out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
+    as_epiweek.Date(out)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname epiweek
+#' @export
+as_epiweek.factor <- function(
+        x,
+        format,
+        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+        ...
+) {
+    x <- as.character(x)
+    as_epiweek.character(x, format = format, tryFormats = tryFormats, ...)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname epiweek
+#' @export
+new_epiweek <- function(x = integer()) {
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
+    }
+    .new_epiweek(x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname epiweek
 #' @export
 is_epiweek <- function(xx) {
     inherits(xx, "grates_epiweek")
@@ -142,125 +229,6 @@ vec_ptype_abbr.grates_epiweek <- function(x, ...) {"epiwk"}
 
 #' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
-
-# -------------------------------------------------------------------------
-#' Coerce to a epiweek object
-#'
-# -------------------------------------------------------------------------
-#' Generic for conversion to `<grates_epiweek>`
-#'
-# -------------------------------------------------------------------------
-#' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
-#' - Character objects are first coerced to date via `as.Date()` unless
-#'   `format = "yearweek"` in which case input is assumed to be in the form
-#'   "YYYY-Wxx" and parsed accordingly.
-#'
-# -------------------------------------------------------------------------
-#' @param x
-#' \R object.
-#'
-#' @param format `[character]`
-#'
-#' Passed to as.Date() unless `format = "yearweek"` in which case input is
-#' assumed to be in the form "YYYY-Wxx".
-#'
-#' If not specified, it will try tryFormats one by one on the first non-NA
-#' element, and give an error if none works. Otherwise, the processing is via
-#' `strptime()` whose help page describes available conversion specifications.
-#'
-#' @param tryFormats `[character]`
-#'
-#' Format strings to try if format is not specified.
-#'
-#' @param ...
-#'
-#' Other values passed to as.Date().
-#'
-# -------------------------------------------------------------------------
-#' @return
-#' A `<grates_epiweek>` object.
-#'
-# -------------------------------------------------------------------------
-#' @examples
-#' as_epiweek(Sys.Date())
-#' as_epiweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
-#' as_epiweek("2019-05-03")
-#' as_epiweek("2019-W12", format = "yearweek")
-#'
-# -------------------------------------------------------------------------
-#' @seealso
-#' `new_epiweek()` and `as.Date()`.
-#'
-# -------------------------------------------------------------------------
-#' @export
-as_epiweek <- function(x, ...) {
-    UseMethod("as_epiweek")
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_epiweek
-#' @export
-as_epiweek.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", toString(class(x)))
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_epiweek
-#' @export
-as_epiweek.Date <- function(x, ...) {
-    firstday <- 7L
-    x <- as.integer(floor(unclass(x)))
-    x <- (x + 4L - firstday) %/% 7L
-    .new_epiweek(x = x)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_epiweek
-#' @export
-as_epiweek.POSIXt <- function(x, ...) {
-    x <- .as_date(x)
-    as_epiweek.Date(x)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_epiweek
-#' @export
-as_epiweek.character <- function(
-    x,
-    format,
-    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-    ...
-) {
-    if (!missing(format)) {
-        if (length(format) > 1L)
-            stop("If specified, `format` must be of length 1.")
-
-        if (format == "yearweek") {
-            years <- sub("^([0-9]{4}).*", "\\1", x, perl = TRUE)
-            years <- suppressWarnings(as.integer(years))
-            weeks <- sub(".*-[wW]([0-9]{1,2}$)", "\\1", x, perl = TRUE)
-            weeks <- suppressWarnings(as.integer(weeks))
-            out <- epiweek(year = years, week = weeks)
-            return(out)
-        }
-    }
-
-    out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
-    as_epiweek.Date(out)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_epiweek
-#' @export
-as_epiweek.factor <- function(
-    x,
-    format,
-    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-    ...
-) {
-    x <- as.character(x)
-    as_epiweek.character(x, format = format, tryFormats = tryFormats, ...)
-}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -493,7 +461,8 @@ Ops.grates_epiweek <- function(e1, e2) {
 # ------------------------------------------------------------------------- #
 
 .new_epiweek <- function(x) {
-    structure(x, class = "grates_epiweek")
+    class(x) <- "grates_epiweek"
+    x
 }
 
 .epiweek <- function(year, week) {

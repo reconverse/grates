@@ -2,9 +2,33 @@
 % Please edit documentation in R/epiweek.R
 \name{epiweek}
 \alias{epiweek}
-\title{Constructor for epiweek objects}
+\alias{as_epiweek}
+\alias{as_epiweek.default}
+\alias{as_epiweek.Date}
+\alias{as_epiweek.POSIXt}
+\alias{as_epiweek.character}
+\alias{as_epiweek.factor}
+\alias{new_epiweek}
+\alias{is_epiweek}
+\title{Epiweek class}
 \usage{
 epiweek(year = integer(), week = integer())
+
+as_epiweek(x, ...)
+
+\method{as_epiweek}{default}(x, ...)
+
+\method{as_epiweek}{Date}(x, ...)
+
+\method{as_epiweek}{POSIXt}(x, ...)
+
+\method{as_epiweek}{character}(x, format, tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"), ...)
+
+\method{as_epiweek}{factor}(x, format, tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"), ...)
+
+new_epiweek(x = integer())
+
+is_epiweek(xx)
 }
 \arguments{
 \item{year}{\verb{[integer]}
@@ -18,27 +42,67 @@ Vector representing the year associated with \code{week}.
 Vector representing the week associated with `year.
 
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.}
+
+\item{x}{An \R object.}
+
+\item{...}{Other values passed to as.Date().}
+
+\item{format}{\verb{[character]}
+
+Passed to as.Date() unless \code{format = "yearweek"} in which case input is
+assumed to be in the form "YYYY-Wxx".
+
+If not specified, it will try tryFormats one by one on the first non-NA
+element, and give an error if none works. Otherwise, the processing is via
+\code{strptime()} whose help page describes available conversion specifications.}
+
+\item{tryFormats}{\verb{[character]}
+
+Format strings to try if format is not specified.}
+
+\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_epiweek>} object.
 }
 \description{
-\code{epiweek()} is a constructor for \verb{<grates_epiweek>} objects.
+Epiweeks are defined to start on a Sunday and span a 7 day period.
+Where they span calendar years, they are associated to the year which
+contains the majority of the week's days (i.e. the first epiweek a year
+is the one with at least four days in said year).
+
+Internally, \verb{<grates_epiweek>} objects are stored as the number of weeks
+(starting at 0) from the first Sunday after the Unix Epoch (1970-01-01).
+That is, the number of seven day periods from 1970-01-04.
 }
 \details{
-Epiweeks are defined to start on a Sunday and \verb{<grates_epiweek>} objects are
-stored as the number of weeks (starting at 0) from the first Sunday after the
-Unix Epoch (1970-01-01). That is, the number of seven day periods from
-1970-01-04.
+\code{epiweek()} is a constructor for \verb{<grates_epiweek>} objects. It takes a
+vector of year and vector of week values as inputs. Length 1 inputs will be
+recycled to the length of the other input and \code{double} vectors will again be
+converted to integer via \code{as.integer(floor(x))}.
 
-Internally they have the same representation as a \verb{<grates_yearweek_sunday>}
-object so are akin to an alias but with a marginally more efficient
-implementation.
+\code{as_epiweek()} is a generic for conversion to \verb{<grates_epiweek>}.
+\itemize{
+\item Date, POSIXct, and POSIXlt are converted with the timezone respected.
+\item Character objects are first coerced to date via \code{as.Date()} unless
+\code{format = "yearweek"} in which case input is assumed to be in the form
+"YYYY-Wxx" and parsed accordingly.
+}
+
+\code{new_epiweek()} is a minimal constructor for \verb{<grates_epiweek>} objects
+aimed at developers. It takes, as input, the number of epiweeks since the
+sunday after the Unix Epoch that you wish to represent. \code{double} vectors will
+be converted to integer via \code{as.integer(floor(x))}.
 }
 \examples{
-epiweek(year = 2000L, week = 3L)
+epiweek(year = 2000, week = 3)
+new_epiweek(1:10)
+as_epiweek(Sys.Date())
+as_epiweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+as_epiweek("2019-05-03")
+as_epiweek("2019-W12", format = "yearweek")
 
 }
 \seealso{
-\code{as_epiweek()} and \code{new_epiweek()}.
+\code{new_yearweek()} and \code{new_isoweek()}.
 }
