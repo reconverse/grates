@@ -13,5 +13,5 @@ install.packages("grates")
 A detailed introduction to grates can be found in the included vignette
 
 ``` {.r}
-vignette("super", package = "grates")
+vignette("grates", package = "grates")
 ```
