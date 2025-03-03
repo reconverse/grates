@@ -2,8 +2,6 @@
 title: Help pages
 output:
   html:
-    options:
-      embed_resources: "all"
 ---
 
 ```{css, echo = FALSE}

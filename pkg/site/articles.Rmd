@@ -2,8 +2,6 @@
 title: Package vignettes
 output:
   html:
-    options:
-      embed_resources: "all"
 ---
 
 ```{r, echo = FALSE, results = 'asis'}

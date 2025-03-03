@@ -6,4 +6,3 @@ output:
       include_after: "_footer.md"
     options:
       number_sections: false
-      embed_resource: "all"
