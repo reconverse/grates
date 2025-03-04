@@ -3,7 +3,7 @@
 \name{print.grates_month}
 \alias{print.grates_month}
 \alias{format.grates_month}
-\title{Print a month object}
+\title{Format and print a month object}
 \usage{
 \method{print}{grates_month}(x, format = "\%Y-\%b", sep = "to", ...)
 
@@ -23,6 +23,11 @@ upper and lower bounds when printing.}
 
 \item{...}{Not currently used.}
 }
+\value{
+For \code{format()}, a character vector representing the formatted input.
+\code{print()} is called for the side effect of printing to screen and thus
+returns the input \verb{<grates_month>} object invisibly.
+}
 \description{
-Print a month object
+Format and print a month object
 }

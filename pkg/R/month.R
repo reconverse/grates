@@ -1,30 +1,45 @@
 # -------------------------------------------------------------------------
-#' Minimal Constructor for a month object
+#' Month class
 #'
 # -------------------------------------------------------------------------
-#' `new_month()` is a constructor for `<grates_month>` objects aimed at
-#' developers.
+#' @description
+#'
+#' Month objects are groupings of 'n consecutive months' stored relative to the
+#' Unix Epoch. More precisely, `grates_month` objects are stored as the integer
+#' number (starting at 0), of n-month groups since the Unix Epoch (1970-01-01).
 #'
 # -------------------------------------------------------------------------
-#' `grates_month` objects are stored as the integer number (starting at 0), of
-#' n-month groups since the Unix Epoch (1970-01-01). Here n-months is taken to
-#' mean a 'grouping of n consecutive months'.
+#' @details
 #'
-# -------------------------------------------------------------------------
-#' @param x `[integer]`
+#' `as_month()` is a generic for conversion to `<grates_month>`.
+#' - Character input is first parsed using `as.Date()`.
+#' - POSIXt inputs are converted with the timezone respected.
+#' - Precision is only to the month level (i.e. the day of the month is always
+#'   dropped).
 #'
-#' Vector representing the number of n-months since the Unix Epoch (1970-01-01).
-#'
+#' `new_month()` is a minimal constructor for `<grates_month>` objects
+#' aimed at developers. It takes, as input `x`, the number of n-months since
+#' the Unix Epoch (1970-01-01) and the related value of `n`.
 #' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+# -------------------------------------------------------------------------
+#' @param x
+#'
+#' An \R object.
 #'
 #' @param n `[integer]`
 #'
 #' Number of months that are being grouped. Must be greater than 1 (use
-#' `yearmonth()` for this case).
+#' `as_yearmonth()` for this case).
+#'
+#' @param ...
+#'
+#' Only used For character input where additional arguments are passed through
+#' to `as.Date()`.
 #'
 #' @param xx
 #'
-#' \R object.
+#' An \R object.
 #'
 # -------------------------------------------------------------------------
 #' @references
@@ -37,10 +52,112 @@
 #' A `<grates_month>` object.
 #'
 # -------------------------------------------------------------------------
-#' @examples
-#' new_month(1:10, 2L)
+#' @seealso
+#' `new_yearmonth()` and `as_yearmonth()`.
 #'
 # -------------------------------------------------------------------------
+#' @examples
+#' new_month(1:10, 2L)
+#' as_month("2019-05-03", n = 4L)
+#' as_month(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 2)
+# -------------------------------------------------------------------------
+#' @name month
+NULL
+
+
+# -------------------------------------------------------------------------
+#' @rdname month
+#' @export
+as_month <- function(x, n, ...) {
+    UseMethod("as_month")
+}
+
+# -------------------------------------------------------------------------
+#' @rdname month
+#' @export
+as_month.default <- function(x, n, ...) {
+    stopf("Not implemented for class [%s].", toString(class(x)))
+}
+
+# -------------------------------------------------------------------------
+#' @rdname month
+#' @export
+as_month.Date <- function(x, n, ...) {
+
+    # trigger warning for missing n at top level
+    n <- n
+
+    if (!.is_scalar_whole(n))
+        stop("`n` must be an integer of length 1.")
+    n <- as.integer(n)
+    if (n == 1L)
+        stop("`n` must be greater than 1. If single month groupings are required please use `as_yearmonth()`.")
+
+    # convert to posixlt (this will always be UTC when called on a date)
+    x <- as.POSIXlt(x)
+
+    # calculate the year
+    yr <- x$year + 1900L
+
+    # calculate the month relative to unix epoch
+    mon <- (yr - 1970L) * 12L + x$mon
+
+    # scale month by n
+    mon <- (mon %/% n)
+
+    # TODO - could mon ever be double here? Is as.integer needed or superfluous?
+    .new_month(x = as.integer(mon), n = n)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname month
+#' @export
+as_month.POSIXt <- function(x, n, ...) {
+
+    # trigger warning for missing n at top level
+    n <- n
+
+    x <- .as_date(x)
+    as_month.Date(x = x, n = n)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname month
+#' @export
+as_month.character <- function(x, n, ...) {
+
+    # trigger warning for missing n at top level
+    n <- n
+
+    out <- as.Date(x, ...)
+    if (all(is.na(out)))
+        stop("Unable to parse any entries of `x` as Dates.")
+    as_month.Date(x = out, n = n)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname month
+#' @export
+as_month.factor <- function(x, n, ...) {
+
+    # trigger warning for missing n at top level
+    n <- n
+
+    x <- as.character(x)
+    as_month.character(x, n = n, ...)
+}
+
+#' @export
+`[.grates_month` <- function(x, ..., drop = FALSE) {
+    out <- NextMethod()
+    class(out) <- class(x)
+    attr(out, "n") <- attr(x, "n")
+    out
+}
+
+
+# -------------------------------------------------------------------------
+#' @rdname month
 #' @export
 new_month <- function(x = integer(), n) {
     if (is.vector(x, "double")) {
@@ -61,14 +178,14 @@ new_month <- function(x = integer(), n) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname new_month
+#' @rdname month
 #' @export
 is_month <- function(xx) {
     inherits(xx, "grates_month")
 }
 
 # -------------------------------------------------------------------------
-#' Print a month object
+#' Format and print a month object
 #'
 # -------------------------------------------------------------------------
 #' @param x
@@ -87,6 +204,13 @@ is_month <- function(xx) {
 #' @param ...
 #'
 #' Not currently used.
+#'
+# -------------------------------------------------------------------------
+#' @return
+#'
+#' For `format()`, a character vector representing the formatted input.
+#' `print()` is called for the side effect of printing to screen and thus
+#' returns the input `<grates_month>` object invisibly.
 #'
 # -------------------------------------------------------------------------
 #' @export
@@ -121,143 +245,7 @@ vec_ptype_abbr.grates_month <- function(x, ...) {"month"}
 #' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_month <- function(x, ...) {"grates_month"}
 
-# -------------------------------------------------------------------------
-#' Coerce an object to month
-#'
-# -------------------------------------------------------------------------
-#' `as_month()` is a generic for coercing input in to `<grates_month>`.
-#'
-# -------------------------------------------------------------------------
-#' @param x An \R object.
-#'
-#' Character input is first parsed using `as.Date()`.
-#'
-#' POSIXt inputs are converted with the timezone respected.
-#'
-#' @param n `[integer]`
-#'
-#' Number of months that are being grouped. Must be greater than 1 (use
-#' `as_yearmonth()` for this case).
-#'
-#' @param ...
-#'
-#' Only used For character input where additional arguments are passed through
-#' to `as.Date()`.
-#'
-# -------------------------------------------------------------------------
-#' @return
-#' A `<grates_month>` object.
-#'
-# -------------------------------------------------------------------------
-#' @examples
-#' as_month("2019-05-03", n = 4L)
-#' as_month(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 2)
-#'
-# -------------------------------------------------------------------------
-#' @note
-#' Internally `grates_month` objects are stored as the position, starting at 0,
-#' of n-month groups since the Unix Epoch (1970-01-01). Here n-months is taken
-#' to mean a 'grouping of n consecutive months'. Precision is only to the month
-#' level (i.e. the day of the  month is always dropped).
-#'
-# -------------------------------------------------------------------------
-#' @references
-#' The algorithm to convert between dates and months relative to the UNIX Epoch
-#' comes from the work of Davis Vaughan in the unreleased
-#' [datea](https://github.com/DavisVaughan/datea/) package.
-#'
-# -------------------------------------------------------------------------
-#' @seealso
-#' `as.Date()`
-#'
-# -------------------------------------------------------------------------
-#' @export
-as_month <- function(x, n, ...) {
-    UseMethod("as_month")
-}
 
-# -------------------------------------------------------------------------
-#' @rdname as_month
-#' @export
-as_month.default <- function(x, n, ...) {
-    stopf("Not implemented for class [%s].", toString(class(x)))
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_month
-#' @export
-as_month.Date <- function(x, n, ...) {
-
-    # trigger warning for missing n at top level
-    n <- n
-
-    if (!.is_scalar_whole(n))
-        stop("`n` must be an integer of length 1.")
-    n <- as.integer(n)
-    if (n == 1L)
-        stop("`n` must be greater than 1. If single month groupings are required please use `as_yearmonth()`.")
-
-    # convert to posixlt (this will always be UTC when called on a date)
-    x <- as.POSIXlt(x)
-
-    # calculate the year
-    yr <- x$year + 1900L
-
-    # calculate the month relative to unix epoch
-    mon <- (yr - 1970L) * 12L + x$mon
-
-    # scale month by n
-    mon <- (mon %/% n)
-
-    # TODO - could mon ever be double here? Is as.integer needed or superfluous?
-    .new_month(x = as.integer(mon), n = n)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_month
-#' @export
-as_month.POSIXt <- function(x, n, ...) {
-
-    # trigger warning for missing n at top level
-    n <- n
-
-    x <- .as_date(x)
-    as_month.Date(x = x, n = n)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_month
-#' @export
-as_month.character <- function(x, n, ...) {
-
-    # trigger warning for missing n at top level
-    n <- n
-
-    out <- as.Date(x, ...)
-    if (all(is.na(out)))
-        stop("Unable to parse any entries of `x` as Dates.")
-    as_month.Date(x = out, n = n)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_month
-#' @export
-as_month.factor <- function(x, n, ...) {
-
-    # trigger warning for missing n at top level
-    n <- n
-
-    x <- as.character(x)
-    as_month.character(x, n = n, ...)
-}
-
-#' @export
-`[.grates_month` <- function(x, ..., drop = FALSE) {
-    out <- NextMethod()
-    class(out) <- class(x)
-    attr(out, "n") <- attr(x, "n")
-    out
-}
 
 # -------------------------------------------------------------------------
 #' @export
