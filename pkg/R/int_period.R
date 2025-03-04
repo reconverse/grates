@@ -61,18 +61,7 @@ is_int_period <- function(xx) {
     inherits(xx, "grates_int_period")
 }
 
-# -------------------------------------------------------------------------
-#' Print an int_period object
-#'
-# -------------------------------------------------------------------------
-#' @param x
-#'
-#' A `<grates_int_period>` object.
-#'
-#' @param ...
-#'
-#' Not currently used.
-#'
+
 # -------------------------------------------------------------------------
 #' @export
 print.grates_int_period <- function(x, ...) {
@@ -85,7 +74,6 @@ print.grates_int_period <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname print.grates_int_period
 #' @export
 format.grates_int_period <- function(x, ...) {
     if (length(x) == 0L) return(character(0L))
