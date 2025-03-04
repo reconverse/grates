@@ -1,19 +1,38 @@
 # -------------------------------------------------------------------------
-#' Construct a year object
+#' Year class.
 #'
 # -------------------------------------------------------------------------
-#' `year()` is a constructor for `<grates_year>` objects.
+#' @description
+#'
+#' Years are represented by a `<grates_year>` object.
 #'
 # -------------------------------------------------------------------------
-#' @param x `[integer]`
+#' @details
+#'
+#' `year()` takes as input a vector representing, unsurprisingly, the years.
+#' `double` vectors are coerced via `as.integer(floor(x))`.
+#'
+#' `as_yearquarter()` is a generic for coercing input in to `<grates_year>`.
+#' - Character input is first parsed using `as.Date()`.
+#' - POSIXct and POSIXlt are converted with their timezone respected.
+#'
+# -------------------------------------------------------------------------
+#' @param x
+#'
+#' An \R object
 #'
 #' Vector representing the years.
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
+#' @param ...
+#'
+#' Only used For character input where additional arguments are passed through
+#' to `as.Date()`.
+#'
 #' @param object
 #'
-#' \R object.
+#' An \R object.
 #'
 # -------------------------------------------------------------------------
 #' @return
@@ -22,6 +41,9 @@
 # -------------------------------------------------------------------------
 #' @examples
 #' year(2011:2020)
+#' as_year(Sys.Date())
+#' as_year(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#' as_year("2019-05-03")
 #'
 # -------------------------------------------------------------------------
 #' @export
@@ -35,6 +57,60 @@ year <- function(x = integer()) {
     .new_year(x = x)
 }
 
+
+# -------------------------------------------------------------------------
+#' @rdname year
+#' @export
+as_year <- function(x, ...) {
+    UseMethod("as_year")
+}
+
+# -------------------------------------------------------------------------
+#' @rdname year
+#' @export
+as_year.default <- function(x, ...) {
+    stopf("Not implemented for class [%s].", toString(class(x)))
+}
+
+# -------------------------------------------------------------------------
+#' @rdname year
+#' @export
+as_year.Date <- function(x, ...) {
+
+    # convert to posixlt (this will always be UTC when called on a date)
+    x <- as.POSIXlt(x)
+
+    # calculate the year
+    .new_year(x$year + 1900L)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname year
+#' @export
+as_year.POSIXt <- function(x, ...) {
+    x <- .as_date(x)
+    as_year.Date(x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname year
+#' @export
+as_year.character <- function(x, ...) {
+    out <- as.Date(x, ...)
+    if (all(is.na(out)))
+        stop("Unable to parse any entries of `x` as Dates.")
+    as_year.Date(x = out, ...)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname year
+#' @export
+as_year.factor <- function(x, ...) {
+    x <- as.character(x)
+    as_year.character(x, ...)
+}
+
+
 # -------------------------------------------------------------------------
 #' @rdname year
 #' @export
@@ -43,11 +119,6 @@ is_year <- function(object) {
 }
 
 # -------------------------------------------------------------------------
-#' Print a year-quarter object
-#'
-#' @param x A `<grates_year>` object.
-#' @param ... Not currently used.
-#'
 #' @export
 print.grates_year <- function(x, ...) {
     # replicate the header as in vctrs
@@ -59,7 +130,6 @@ print.grates_year <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname print.grates_year
 #' @export
 format.grates_year <- function(x, ...) {
     if (length(x) == 0)
@@ -77,88 +147,8 @@ vec_ptype_abbr.grates_year <- function(x, ...) {"year"}
 #' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_year <- function(x, ...) {"grates_year"}
 
-# -------------------------------------------------------------------------
-#' Coerce an object to year-quarter
-#'
-# -------------------------------------------------------------------------
-#' `as_year()` is a generic for coercing input in to `<grates_year>`.
-#'
-# -------------------------------------------------------------------------
-#' @param x \R object.
-#'
-#' Character input is first parsed using `as.Date()`.
-#'
-#' POSIXct and POSIXlt are converted with the timezone respected.
-#'
-#' @param ...
-#'
-#' Only used For character input where additional arguments are passed through
-#' to `as.Date()`.
-#'
-# -------------------------------------------------------------------------
-#' @return
-#' A `<grates_year>` object.
-#'
-# -------------------------------------------------------------------------
-#' @examples
-#' as_year(Sys.Date())
-#' as_year(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), interval = 2)
-#' as_year("2019-05-03")
-#'
-# -------------------------------------------------------------------------
-#' @seealso
-#' `as.Date()`
-#'
-# -------------------------------------------------------------------------
-#' @export
-as_year <- function(x, ...) {
-    UseMethod("as_year")
-}
 
-# -------------------------------------------------------------------------
-#' @rdname as_year
-#' @export
-as_year.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", toString(class(x)))
-}
 
-# -------------------------------------------------------------------------
-#' @rdname as_year
-#' @export
-as_year.Date <- function(x, ...) {
-
-    # convert to posixlt (this will always be UTC when called on a date)
-    x <- as.POSIXlt(x)
-
-    # calculate the year
-    .new_year(x$year + 1900L)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_year
-#' @export
-as_year.POSIXt <- function(x, ...) {
-    x <- .as_date(x)
-    as_year.Date(x)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_year
-#' @export
-as_year.character <- function(x, ...) {
-    out <- as.Date(x, ...)
-    if (all(is.na(out)))
-        stop("Unable to parse any entries of `x` as Dates.")
-    as_year.Date(x = out, ...)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_year
-#' @export
-as_year.factor <- function(x, ...) {
-    x <- as.character(x)
-    as_year.character(x, ...)
-}
 
 #' @export
 `[.grates_year` <- function(x, ..., drop = FALSE) {
@@ -381,5 +371,6 @@ Ops.grates_year <- function(e1, e2) {
 # ------------------------------------------------------------------------- #
 
 .new_year <- function(x = integer()) {
-    structure(x, class = "grates_year")
+    class(x) <- "grates_year"
+    x
 }

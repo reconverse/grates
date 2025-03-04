@@ -2,29 +2,63 @@
 % Please edit documentation in R/year.R
 \name{year}
 \alias{year}
+\alias{as_year}
+\alias{as_year.default}
+\alias{as_year.Date}
+\alias{as_year.POSIXt}
+\alias{as_year.character}
+\alias{as_year.factor}
 \alias{is_year}
-\title{Construct a year object}
+\title{Year class.}
 \usage{
 year(x = integer())
+
+as_year(x, ...)
+
+\method{as_year}{default}(x, ...)
+
+\method{as_year}{Date}(x, ...)
+
+\method{as_year}{POSIXt}(x, ...)
+
+\method{as_year}{character}(x, ...)
+
+\method{as_year}{factor}(x, ...)
 
 is_year(object)
 }
 \arguments{
-\item{x}{\verb{[integer]}
+\item{x}{An \R object
 
 Vector representing the years.
 
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.}
 
-\item{object}{\R object.}
+\item{...}{Only used For character input where additional arguments are passed through
+to \code{as.Date()}.}
+
+\item{object}{An \R object.}
 }
 \value{
 A \verb{<grates_year>} object.
 }
 \description{
-\code{year()} is a constructor for \verb{<grates_year>} objects.
+Years are represented by a \verb{<grates_year>} object.
+}
+\details{
+\code{year()} takes as input a vector representing, unsurprisingly, the years.
+\code{double} vectors are coerced via \code{as.integer(floor(x))}.
+
+\code{as_yearquarter()} is a generic for coercing input in to \verb{<grates_year>}.
+\itemize{
+\item Character input is first parsed using \code{as.Date()}.
+\item POSIXct and POSIXlt are converted with their timezone respected.
+}
 }
 \examples{
 year(2011:2020)
+as_year(Sys.Date())
+as_year(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+as_year("2019-05-03")
 
 }
