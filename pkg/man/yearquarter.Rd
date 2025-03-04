@@ -2,9 +2,33 @@
 % Please edit documentation in R/yearquarter.R
 \name{yearquarter}
 \alias{yearquarter}
-\title{Constructor for yearquarter objects}
+\alias{as_yearquarter}
+\alias{as_yearquarter.default}
+\alias{as_yearquarter.Date}
+\alias{as_yearquarter.POSIXt}
+\alias{as_yearquarter.character}
+\alias{as_yearquarter.factor}
+\alias{new_yearquarter}
+\alias{is_yearquarter}
+\title{Yearquarter class}
 \usage{
 yearquarter(year = integer(), quarter = integer())
+
+as_yearquarter(x, ...)
+
+\method{as_yearquarter}{default}(x, ...)
+
+\method{as_yearquarter}{Date}(x, ...)
+
+\method{as_yearquarter}{POSIXt}(x, ...)
+
+\method{as_yearquarter}{character}(x, ...)
+
+\method{as_yearquarter}{factor}(x, ...)
+
+new_yearquarter(x = integer())
+
+is_yearquarter(xx)
 }
 \arguments{
 \item{year}{\verb{[integer]}
@@ -15,24 +39,47 @@ Vector representing the year associated with \code{quarter}.
 
 \item{quarter}{\verb{[integer]}
 
-Vector representing the quarter associated with `year.
+Vector representing the quarter associated with \code{year}.
 
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.}
+
+\item{x}{An \R object.}
+
+\item{...}{Only used for character input where additional arguments are passed through
+to \code{as.Date()}.}
+
+\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_yearquarter>} object.
 }
 \description{
-\code{yearquarter()} is a constructor for \verb{<grates_yearquarter>} objects.
+\verb{<grates_yearquarter>} objects represent years and associated quarters
+Internally they are stored as the number of quarters (starting at 0) since
+the Unix Epoch (1970-01-01).
 }
 \details{
-\verb{<grates_yearquarter>} objects are stored as the number of quarters (starting
-at 0) since the Unix Epoch (1970-01-01).
+\code{yearquarter()} is a constructor for \verb{<grates_yearquarter>} objects. It takes
+a vector of year and a vector of quarter values as inputs. Length 1 inputs
+will be recycled to the length of the other input and \code{double} vectors will
+be converted to integer via \code{as.integer(floor(x))}.
+
+\code{as_yearquarter()} is a generic for coercing input in to \verb{<grates_yearquarter>}.
+\itemize{
+\item Character input is first parsed using \code{as.Date()}.
+\item POSIXct and POSIXlt are converted with their timezone respected.
+}
+
+\code{new_yearquarter()} is a minimal constructor for \verb{<grates_yearquarter>}
+objects aimed at developers. It takes, as input, the number of quarters
+(starting at 0) since the Unix Epoch, that you wish to represent.
+\code{double} vectors will again be converted to integer via \code{as.integer(floor(x))}.
 }
 \examples{
-yearquarter(year = 2000L, quarter = 3L)
+yearquarter(year = 2000, quarter = 3)
+new_yearquarter(1:10)
+as_yearquarter(Sys.Date())
+as_yearquarter(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+as_yearquarter("2019-05-03")
 
-}
-\seealso{
-\code{as_yearquarter()} and \code{new_yearquarter()}.
 }

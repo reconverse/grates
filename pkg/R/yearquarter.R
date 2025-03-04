@@ -1,56 +1,35 @@
 # -------------------------------------------------------------------------
-#' Minimal constructor for a yearquarter object
+#' Yearquarter class
 #'
 # -------------------------------------------------------------------------
-#' `new_yearquarter()` is a constructor for `<grates_yearquarter>` objects aimed
-#' at developers.
+#' @description
+#'
+#' `<grates_yearquarter>` objects represent years and associated quarters
+#' Internally they are stored as the number of quarters (starting at 0) since
+#' the Unix Epoch (1970-01-01).
 #'
 # -------------------------------------------------------------------------
-#' `<yearquarter>` objects are stored as the number of quarters (starting at 0)
-#' since the Unix Epoch (1970-01-01).
+#' @details
+#'
+#' `yearquarter()` is a constructor for `<grates_yearquarter>` objects. It takes
+#' a vector of year and a vector of quarter values as inputs. Length 1 inputs
+#' will be recycled to the length of the other input and `double` vectors will
+#' be converted to integer via `as.integer(floor(x))`.
+#'
+#' `as_yearquarter()` is a generic for coercing input in to `<grates_yearquarter>`.
+#' - Character input is first parsed using `as.Date()`.
+#' - POSIXct and POSIXlt are converted with their timezone respected.
+#'
+#' `new_yearquarter()` is a minimal constructor for `<grates_yearquarter>`
+#' objects aimed at developers. It takes, as input, the number of quarters
+#' (starting at 0) since the Unix Epoch, that you wish to represent.
+#' `double` vectors will again be converted to integer via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
-#' @param x `[integer]`
+#' @param x
 #'
-#' Vector representing the number of quarters.
+#' An \R object.
 #'
-#' `double` vectors will be converted via `as.integer(floor(x))`.
-#'
-#' @param xx
-#'
-#' \R object.
-#'
-# -------------------------------------------------------------------------
-#' @return
-#' A `<grates_yearquarter>` object.
-#'
-# -------------------------------------------------------------------------
-#' @examples
-#' new_yearquarter(1:10)
-#'
-# -------------------------------------------------------------------------
-#' @export
-new_yearquarter <- function(x = integer()) {
-    if (is.vector(x, "double")) {
-        x <- as.integer(floor(x))
-    } else if (!is.integer(x)) {
-        stop("`x` must be integer.")
-    }
-
-    .new_yearquarter(x = x)
-}
-
-# -------------------------------------------------------------------------
-#' Constructor for yearquarter objects
-#'
-# -------------------------------------------------------------------------
-#' `yearquarter()` is a constructor for `<grates_yearquarter>` objects.
-#'
-# -------------------------------------------------------------------------
-#' `<grates_yearquarter>` objects are stored as the number of quarters (starting
-#' at 0) since the Unix Epoch (1970-01-01).
-#'
-# -------------------------------------------------------------------------
 #' @param year `[integer]`
 #'
 #' Vector representing the year associated with `quarter`.
@@ -59,9 +38,18 @@ new_yearquarter <- function(x = integer()) {
 #'
 #' @param quarter `[integer]`
 #'
-#' Vector representing the quarter associated with `year.
+#' Vector representing the quarter associated with `year`.
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
+#'
+#' @param ...
+#'
+#' Only used for character input where additional arguments are passed through
+#' to `as.Date()`.
+#'
+#' @param xx
+#'
+#' An \R object.
 #'
 # -------------------------------------------------------------------------
 #' @return
@@ -69,13 +57,19 @@ new_yearquarter <- function(x = integer()) {
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' yearquarter(year = 2000L, quarter = 3L)
+#' yearquarter(year = 2000, quarter = 3)
+#' new_yearquarter(1:10)
+#' as_yearquarter(Sys.Date())
+#' as_yearquarter(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#' as_yearquarter("2019-05-03")
 #'
 # -------------------------------------------------------------------------
-#' @seealso
-#' `as_yearquarter()` and `new_yearquarter()`.
-#'
+#' @name yearquarter
+NULL
+
+
 # -------------------------------------------------------------------------
+#' @rdname yearquarter
 #' @export
 yearquarter <- function(year = integer(), quarter = integer()) {
 
@@ -111,94 +105,23 @@ yearquarter <- function(year = integer(), quarter = integer()) {
     .yearquarter(year = year, quarter = quarter)
 }
 
-# -------------------------------------------------------------------------
-#' @rdname new_yearquarter
-#' @export
-is_yearquarter <- function(xx) {
-    inherits(xx, "grates_yearquarter")
-}
 
 # -------------------------------------------------------------------------
-#' Print a year-quarter object
-#'
-#' @param x A `<grates_yearquarter>` object.
-#' @param ... Not currently used.
-#'
-#' @export
-print.grates_yearquarter <- function(x, ...) {
-    # replicate the header as in vctrs
-    n <- length(x)
-    cat("<grates_yearquarter[", n, "]>\n", sep = "")
-    if (n)
-        print(format.grates_yearquarter(x))
-    invisible(x)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname print.grates_yearquarter
-#' @export
-format.grates_yearquarter <- function(x, ...) {
-    if (length(x) == 0L)
-        return(character(0L))
-    out <- as.POSIXlt(x)
-    out <- sprintf("%04d-Q%d", out$year + 1900L, out$mon %/% 3L + 1)
-    out[is.na(x)] <- NA_character_
-    out
-}
-
-# -------------------------------------------------------------------------
-#' @exportS3Method vctrs::vec_ptype_abbr
-vec_ptype_abbr.grates_yearquarter <- function(x, ...) {"yearquarter"}
-
-#' @exportS3Method vctrs::vec_ptype_full
-vec_ptype_full.grates_yearquarter <- function(x, ...) {"yearquarter"}
-
-# -------------------------------------------------------------------------
-#' Coerce an object to year-quarter
-#'
-#' @description
-#' `as_yearquarter()` is a generic for coercing input in to `<grates_yearquarter>`.
-#' Character input is first parsed using `as.Date()`. POSIXct and POSIXlt are
-#' all converted, with the timezone respected.
-#'
-#' @param x
-#'
-#' \R object
-#'
-#' @param ...
-#'
-#' Only used For character input where additional arguments are passed through
-#' to `as.Date()`.
-#'
-#' @return
-#' A `<grates_yearquarter>` object.
-#'
-#' @examples
-#' as_yearquarter(Sys.Date())
-#' as_yearquarter(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), interval = 2)
-#' as_yearquarter("2019-05-03")
-#'
-#' @note
-#' Internally `<grates_yearquarter>` objects are stored as the number of
-#' quarters (starting at 0) since the Unix Epoch (1970-01-01).
-#'
-#' @seealso
-#' `as.Date()`
-#'
+#' @rdname yearquarter
 #' @export
 as_yearquarter <- function(x, ...) {
     UseMethod("as_yearquarter")
 }
 
 # -------------------------------------------------------------------------
-#' @rdname as_yearquarter
+#' @rdname yearquarter
 #' @export
 as_yearquarter.default <- function(x, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
-#' @rdname as_yearquarter
+#' @rdname yearquarter
 #' @export
 as_yearquarter.Date <- function(x, ...) {
 
@@ -216,7 +139,7 @@ as_yearquarter.Date <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname as_yearquarter
+#' @rdname yearquarter
 #' @export
 as_yearquarter.POSIXt <- function(x, ...) {
     x <- .as_date(x)
@@ -224,7 +147,7 @@ as_yearquarter.POSIXt <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname as_yearquarter
+#' @rdname yearquarter
 #' @export
 as_yearquarter.character <- function(x, ...) {
     out <- as.Date(x, ...)
@@ -234,12 +157,65 @@ as_yearquarter.character <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname as_yearquarter
+#' @rdname yearquarter
 #' @export
 as_yearquarter.factor <- function(x, ...) {
     x <- as.character(x)
     as_yearquarter.character(x, ...)
 }
+
+
+# -------------------------------------------------------------------------
+#' @rdname yearquarter
+#' @export
+new_yearquarter <- function(x = integer()) {
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
+    }
+
+    .new_yearquarter(x = x)
+}
+
+
+# -------------------------------------------------------------------------
+#' @rdname yearquarter
+#' @export
+is_yearquarter <- function(xx) {
+    inherits(xx, "grates_yearquarter")
+}
+
+# -------------------------------------------------------------------------
+#' @export
+print.grates_yearquarter <- function(x, ...) {
+    # replicate the header as in vctrs
+    n <- length(x)
+    cat("<grates_yearquarter[", n, "]>\n", sep = "")
+    if (n)
+        print(format.grates_yearquarter(x))
+    invisible(x)
+}
+
+# -------------------------------------------------------------------------
+#' @export
+format.grates_yearquarter <- function(x, ...) {
+    if (length(x) == 0L)
+        return(character(0L))
+    out <- as.POSIXlt(x)
+    out <- sprintf("%04d-Q%d", out$year + 1900L, out$mon %/% 3L + 1)
+    out[is.na(x)] <- NA_character_
+    out
+}
+
+# -------------------------------------------------------------------------
+#' @exportS3Method vctrs::vec_ptype_abbr
+vec_ptype_abbr.grates_yearquarter <- function(x, ...) {"yearquarter"}
+
+#' @exportS3Method vctrs::vec_ptype_full
+vec_ptype_full.grates_yearquarter <- function(x, ...) {"yearquarter"}
+
+
 
 #' @export
 `[.grates_yearquarter` <- function(x, ..., drop = FALSE) {
