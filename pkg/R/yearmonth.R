@@ -39,7 +39,7 @@
 #'
 #' @param month `[integer]`
 #'
-#' Vector representing the month associated with `year.
+#' Vector representing the month associated with `year`.
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'

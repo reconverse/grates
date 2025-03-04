@@ -39,7 +39,7 @@ Vector representing the year associated with \code{month}.
 
 \item{month}{\verb{[integer]}
 
-Vector representing the month associated with `year.
+Vector representing the month associated with \code{year}.
 
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.}
 
