@@ -2,9 +2,33 @@
 % Please edit documentation in R/isoweek.R
 \name{isoweek}
 \alias{isoweek}
-\title{Constructor for isoweek objects}
+\alias{as_isoweek}
+\alias{as_isoweek.default}
+\alias{as_isoweek.Date}
+\alias{as_isoweek.POSIXt}
+\alias{as_isoweek.character}
+\alias{as_isoweek.factor}
+\alias{new_isoweek}
+\alias{is_isoweek}
+\title{Isoweek class}
 \usage{
 isoweek(year = integer(), week = integer())
+
+as_isoweek(x, ...)
+
+\method{as_isoweek}{default}(x, ...)
+
+\method{as_isoweek}{Date}(x, ...)
+
+\method{as_isoweek}{POSIXt}(x, ...)
+
+\method{as_isoweek}{character}(x, format, tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"), ...)
+
+\method{as_isoweek}{factor}(x, format, tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"), ...)
+
+new_isoweek(x = integer())
+
+is_isoweek(xx)
 }
 \arguments{
 \item{year}{\verb{[integer]}
@@ -18,27 +42,67 @@ Vector representing the year associated with \code{week}.
 Vector representing the week associated with `year.
 
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.}
+
+\item{x}{An \R object.}
+
+\item{...}{Other values passed to as.Date().}
+
+\item{format}{\verb{[character]}
+
+Passed to as.Date() unless \code{format = "yearweek"} in which case input is
+assumed to be in the form "YYYY-Wxx".
+
+If not specified, it will try tryFormats one by one on the first non-NA
+element, and give an error if none works. Otherwise, the processing is via
+\code{strptime()} whose help page describes available conversion specifications.}
+
+\item{tryFormats}{\verb{[character]}
+
+Format strings to try if format is not specified.}
+
+\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_isoweek>} object.
 }
 \description{
-\code{isoweek()} is a constructor for \verb{<grates_isoweek>} objects.
+Isoweeks are defined to start on a Monday and span a 7 day period.
+Where they span calendar years, they are associated to the year which
+contains the majority of the week's days (i.e. the first isoweek a year
+is the one with at least four days in said year).
+
+Internally, \verb{<grates_isoweek>} objects are stored as the number of weeks
+(starting at 0) from the first Monday prior to the Unix Epoch (1970-01-01).
+That is, the number of seven day periods from 1969-12-29.
 }
 \details{
-isoweeks are defined to start on a Monday and \verb{<grates_isoweek>} objects are
-stored as the number of weeks (starting at 0) from the first Monday prior to
-the Unix Epoch (1970-01-01). That is, the number of seven day periods from
-1969-12-29.
+\code{isoweek()} is a constructor for \verb{<grates_isoweek>} objects. It takes a
+vector of year and vector of week values as inputs. Length 1 inputs will be
+recycled to the length of the other input and \code{double} vectors will again be
+converted to integer via \code{as.integer(floor(x))}.
 
-Internally they have the same representation as a \verb{<grates_yearweek_monday>}
-object so are akin to an alias but with a marginally more efficient
-implementation.
+\code{as_isoweek()} is a generic for conversion to \verb{<grates_isoweek>}.
+\itemize{
+\item Date, POSIXct, and POSIXlt are converted with the timezone respected.
+\item Character objects are first coerced to date via \code{as.Date()} unless
+\code{format = "yearweek"} in which case input is assumed to be in the form
+"YYYY-Wxx" and parsed accordingly.
+}
+
+\code{new_isoweek()} is a minimal constructor for \verb{<grates_isoweek>} objects
+aimed at developers. It takes, as input, the number of isoweeks since the
+Monday prior to the Unix Epoch that you wish to represent. \code{double} vectors
+will be converted to integer via \code{as.integer(floor(x))}.
 }
 \examples{
-isoweek(year = 2000L, week = 3L)
+isoweek(year = 2000, week = 3)
+new_isoweek(1:10)
+as_isoweek(Sys.Date())
+as_isoweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+as_isoweek("2019-05-03")
+as_isoweek("2019-W12", format = "yearweek")
 
 }
 \seealso{
-\code{as_isoweek()} and \code{new_isoweek()}.
+\code{new_yearweek()} and \code{new_epiweek()}.
 }

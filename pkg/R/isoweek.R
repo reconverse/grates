@@ -1,71 +1,42 @@
 # -------------------------------------------------------------------------
-#' Minimal constructor for an isoweek object
+#' Isoweek class
 #'
 # -------------------------------------------------------------------------
-#' `new_isoweek()` is a constructor for `<grates_isoweek>` objects aimed at
-#' developers.
+#' @description
+#'
+#' Isoweeks are defined to start on a Monday and span a 7 day period.
+#' Where they span calendar years, they are associated to the year which
+#' contains the majority of the week's days (i.e. the first isoweek a year
+#' is the one with at least four days in said year).
+#'
+#' Internally, `<grates_isoweek>` objects are stored as the number of weeks
+#' (starting at 0) from the first Monday prior to the Unix Epoch (1970-01-01).
+#' That is, the number of seven day periods from 1969-12-29.
 #'
 # -------------------------------------------------------------------------
-#' isoweeks are defined to start on a Monday and `<grates_isoweek>` objects are
-#' stored as the number of weeks (starting at 0) from the first Monday prior to
-#' the Unix Epoch (1970-01-01). That is, the number of seven day periods from
-#' 1969-12-29.
+#' @details
 #'
-#' Internally they have the same representation as a `<grates_yearweek_monday>`
-#' object so are akin to an alias but with a marginally more efficient
-#' implementation.
+#' `isoweek()` is a constructor for `<grates_isoweek>` objects. It takes a
+#' vector of year and vector of week values as inputs. Length 1 inputs will be
+#' recycled to the length of the other input and `double` vectors will again be
+#' converted to integer via `as.integer(floor(x))`.
 #'
-# -------------------------------------------------------------------------
-#' @param x `[integer]`
+#' `as_isoweek()` is a generic for conversion to `<grates_isoweek>`.
+#' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
+#' - Character objects are first coerced to date via `as.Date()` unless
+#' `format = "yearweek"` in which case input is assumed to be in the form
+#' "YYYY-Wxx" and parsed accordingly.
 #'
-#' Vector representing the number of weeks.
-#'
-#' `double` vectors will be converted via `as.integer(floor(x))`.
-#'
-#' @param xx
-#'
-#' \R object.
+#' `new_isoweek()` is a minimal constructor for `<grates_isoweek>` objects
+#' aimed at developers. It takes, as input, the number of isoweeks since the
+#' Monday prior to the Unix Epoch that you wish to represent. `double` vectors
+#' will be converted to integer via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
-#' @return
-#' A `<grates_isoweek>` object.
+#' @param x
 #'
-# -------------------------------------------------------------------------
-#' @seealso
-#' `new_yearweek()` and `new_epiweek()`.
+#' An \R object.
 #'
-# -------------------------------------------------------------------------
-#' @examples
-#' new_isoweek(1:10)
-#'
-# -------------------------------------------------------------------------
-#' @export
-new_isoweek <- function(x = integer()) {
-    if (is.vector(x, "double")) {
-        x <- as.integer(floor(x))
-    } else if (!is.integer(x)) {
-        stop("`x` must be integer.")
-    }
-    .new_isoweek(x)
-}
-
-# -------------------------------------------------------------------------
-#' Constructor for isoweek objects
-#'
-# -------------------------------------------------------------------------
-#' `isoweek()` is a constructor for `<grates_isoweek>` objects.
-#'
-# -------------------------------------------------------------------------
-#' isoweeks are defined to start on a Monday and `<grates_isoweek>` objects are
-#' stored as the number of weeks (starting at 0) from the first Monday prior to
-#' the Unix Epoch (1970-01-01). That is, the number of seven day periods from
-#' 1969-12-29.
-#'
-#' Internally they have the same representation as a `<grates_yearweek_monday>`
-#' object so are akin to an alias but with a marginally more efficient
-#' implementation.
-#'
-# -------------------------------------------------------------------------
 #' @param year `[integer]`
 #'
 #' Vector representing the year associated with `week`.
@@ -78,19 +49,51 @@ new_isoweek <- function(x = integer()) {
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
+#' @param format `[character]`
+#'
+#' Passed to as.Date() unless `format = "yearweek"` in which case input is
+#' assumed to be in the form "YYYY-Wxx".
+#'
+#' If not specified, it will try tryFormats one by one on the first non-NA
+#' element, and give an error if none works. Otherwise, the processing is via
+#' `strptime()` whose help page describes available conversion specifications.
+#'
+#' @param tryFormats `[character]`
+#'
+#' Format strings to try if format is not specified.
+#'
+#' @param ...
+#'
+#' Other values passed to as.Date().
+#'
+#'
+#' @param xx
+#'
+#' An \R object.
+#'
 # -------------------------------------------------------------------------
 #' @return
 #' A `<grates_isoweek>` object.
 #'
 # -------------------------------------------------------------------------
-#' @examples
-#' isoweek(year = 2000L, week = 3L)
-#'
-# -------------------------------------------------------------------------
 #' @seealso
-#' `as_isoweek()` and `new_isoweek()`.
+#' `new_yearweek()` and `new_epiweek()`.
 #'
 # -------------------------------------------------------------------------
+#' @examples
+#' isoweek(year = 2000, week = 3)
+#' new_isoweek(1:10)
+#' as_isoweek(Sys.Date())
+#' as_isoweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#' as_isoweek("2019-05-03")
+#' as_isoweek("2019-W12", format = "yearweek")
+#'
+# -------------------------------------------------------------------------
+#' @name isoweek
+NULL
+
+# -------------------------------------------------------------------------
+#' @rdname isoweek
 #' @export
 isoweek <- function(year = integer(), week = integer()) {
 
@@ -117,7 +120,91 @@ isoweek <- function(year = integer(), week = integer()) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname new_isoweek
+#' @rdname isoweek
+#' @export
+as_isoweek <- function(x, ...) {
+    UseMethod("as_isoweek")
+}
+
+# -------------------------------------------------------------------------
+#' @rdname isoweek
+#' @export
+as_isoweek.default <- function(x, ...) {
+    stopf("Not implemented for class [%s].", toString(class(x)))
+}
+
+# -------------------------------------------------------------------------
+#' @rdname isoweek
+#' @export
+as_isoweek.Date <- function(x, ...) {
+    firstday <- 1L
+    x <- as.integer(floor(unclass(x)))
+    x <- (x + 4L - firstday) %/% 7L
+    .new_isoweek(x = x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname isoweek
+#' @export
+as_isoweek.POSIXt <- function(x, ...) {
+    x <- .as_date(x)
+    as_isoweek.Date(x)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname isoweek
+#' @export
+as_isoweek.character <- function(
+        x,
+        format,
+        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+        ...
+) {
+    if (!missing(format)) {
+        if (length(format) > 1L)
+            stop("If specified, `format` must be of length 1.")
+
+        if (format == "yearweek") {
+            years <- sub("^([0-9]{4}).*", "\\1", x, perl = TRUE)
+            years <- suppressWarnings(as.integer(years))
+            weeks <- sub(".*-[wW]([0-9]{1,2}$)", "\\1", x, perl = TRUE)
+            weeks <- suppressWarnings(as.integer(weeks))
+            out <- isoweek(year = years, week = weeks)
+            return(out)
+        }
+    }
+    out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
+    as_isoweek.Date(out)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname isoweek
+#' @export
+as_isoweek.factor <- function(
+        x,
+        format,
+        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+        ...
+) {
+    x <- as.character(x)
+    as_isoweek.character(x, format = format, tryFormats = tryFormats, ...)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname isoweek
+#' @export
+new_isoweek <- function(x = integer()) {
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
+    }
+    .new_isoweek(x)
+}
+
+
+# -------------------------------------------------------------------------
+#' @rdname isoweek
 #' @export
 is_isoweek <- function(xx) {
     inherits(xx, "grates_isoweek")
@@ -142,123 +229,7 @@ vec_ptype_abbr.grates_isoweek <- function(x, ...) {"isowk"}
 #' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_isoweek <- function(x, ...) {"isoweek"}
 
-# -------------------------------------------------------------------------
-#' Coerce to a isoweek object
-#'
-# -------------------------------------------------------------------------
-#' Generic for conversion to `<grates_isoweek>`
-#'
-# -------------------------------------------------------------------------
-#' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
-#' - Character objects are first coerced to date via `as.Date()` unless
-#'   `format = "yearweek"` in which case input is assumed to be in the form
-#'   "YYYY-Wxx" and parsed accordingly.
-#'
-# -------------------------------------------------------------------------
-#' @param x
-#' \R object.
-#'
-#' @param format `[character]`
-#'
-#' Passed to as.Date() unless `format = "yearweek"` in which case input is
-#' assumed to be in the form "YYYY-Wxx".
-#'
-#' If not specified, it will try tryFormats one by one on the first non-NA
-#' element, and give an error if none works. Otherwise, the processing is via
-#' `strptime()` whose help page describes available conversion specifications.
-#'
-#' @param tryFormats `[character]`
-#'
-#' Format strings to try if format is not specified.
-#'
-#' @param ...
-#'
-#' Other values passed to as.Date().
-#'
-# -------------------------------------------------------------------------
-#' @return
-#' A `<grates_isoweek>` object.
-#'
-# -------------------------------------------------------------------------
-#' @examples
-#' as_isoweek(Sys.Date())
-#' as_isoweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
-#' as_isoweek("2019-05-03")
-#' as_isoweek("2019-W12", format = "yearweek")
-#'
-# -------------------------------------------------------------------------
-#' @seealso
-#' `new_isoweek()` and `as.Date()`.
-#'
-# -------------------------------------------------------------------------
-#' @export
-as_isoweek <- function(x, ...) {
-    UseMethod("as_isoweek")
-}
 
-# -------------------------------------------------------------------------
-#' @rdname as_isoweek
-#' @export
-as_isoweek.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", toString(class(x)))
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_isoweek
-#' @export
-as_isoweek.Date <- function(x, ...) {
-    firstday <- 1L
-    x <- as.integer(floor(unclass(x)))
-    x <- (x + 4L - firstday) %/% 7L
-    .new_isoweek(x = x)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_isoweek
-#' @export
-as_isoweek.POSIXt <- function(x, ...) {
-    x <- .as_date(x)
-    as_isoweek.Date(x)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_isoweek
-#' @export
-as_isoweek.character <- function(
-    x,
-    format,
-    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-    ...
-) {
-    if (!missing(format)) {
-        if (length(format) > 1L)
-            stop("If specified, `format` must be of length 1.")
-
-        if (format == "yearweek") {
-            years <- sub("^([0-9]{4}).*", "\\1", x, perl = TRUE)
-            years <- suppressWarnings(as.integer(years))
-            weeks <- sub(".*-[wW]([0-9]{1,2}$)", "\\1", x, perl = TRUE)
-            weeks <- suppressWarnings(as.integer(weeks))
-            out <- isoweek(year = years, week = weeks)
-            return(out)
-        }
-    }
-    out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
-    as_isoweek.Date(out)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_isoweek
-#' @export
-as_isoweek.factor <- function(
-    x,
-    format,
-    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-    ...
-) {
-    x <- as.character(x)
-    as_isoweek.character(x, format = format, tryFormats = tryFormats, ...)
-}
 
 # -------------------------------------------------------------------------
 #' @export
@@ -490,7 +461,8 @@ Ops.grates_isoweek <- function(e1, e2) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 .new_isoweek <- function(x) {
-    structure(x, class = "grates_isoweek")
+    class(x) <- "grates_isoweek"
+    x
 }
 
 .isoweek <- function(year, week) {
