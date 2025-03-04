@@ -2,9 +2,45 @@
 % Please edit documentation in R/yearweek.R
 \name{yearweek}
 \alias{yearweek}
-\title{Constructor for yearweek objects}
+\alias{as_yearweek}
+\alias{as_yearweek.default}
+\alias{as_yearweek.Date}
+\alias{as_yearweek.POSIXt}
+\alias{as_yearweek.character}
+\alias{as_yearweek.factor}
+\alias{new_yearweek}
+\alias{is_yearweek}
+\title{Yearweek class}
 \usage{
 yearweek(year = integer(), week = integer(), firstday = 1L)
+
+as_yearweek(x, ...)
+
+\method{as_yearweek}{default}(x, ...)
+
+\method{as_yearweek}{Date}(x, firstday = 1L, ...)
+
+\method{as_yearweek}{POSIXt}(x, firstday = 1L, ...)
+
+\method{as_yearweek}{character}(
+  x,
+  firstday = 1L,
+  format,
+  tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"),
+  ...
+)
+
+\method{as_yearweek}{factor}(
+  x,
+  firstday = 1L,
+  format,
+  tryFormats = c("\%Y-\%m-\%d", "\%Y/\%m/\%d"),
+  ...
+)
+
+new_yearweek(x = integer(), firstday = 1L)
+
+is_yearweek(xx)
 }
 \arguments{
 \item{year}{\verb{[integer]}
@@ -22,25 +58,40 @@ Vector representing the week associated with `year.
 \item{firstday}{\verb{[integer]}
 
 The day the week starts on from 1 (Monday) to 7 (Sunday).}
+
+\item{x}{An \R object.}
+
+\item{...}{Other values passed to as.Date().}
+
+\item{format}{\verb{[character]}
+
+Passed to as.Date() unless \code{format = "yearweek"} in which case input is
+assumed to be in the form "YYYY-Wxx".
+
+If not specified, it will try tryFormats one by one on the first non-NA
+element, and give an error if none works. Otherwise, the processing is via
+\code{strptime()} whose help page describes available conversion specifications.}
+
+\item{tryFormats}{\verb{[character]}
+
+Format strings to try if format is not specified.}
+
+\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_yearweek>} object with subclass corresponding to the first day of
 the week they represent (e.g. \verb{<grates_yearweek_monday>}).
 }
 \description{
-\code{yearweek()} is a constructor for \verb{<grates_yearweek>} objects. These are
-weeks whose first day can be specified by the user.
-}
-\details{
-For yearweek objects the first week of a "year" is considered to be the first
-yearweek containing 4 days of the given calendar year. This means that the
-calendar year will sometimes be different to that of the associated yearweek
-object.
-}
-\note{
-Internally \verb{<grates_yearweek>} objects are stored as the number of weeks
-(starting at 0) from the date of the \code{firstday} nearest the Unix Epoch
-(1970-01-01). That is, the number of seven day periods from:
+Yearweeks start on a user defined day of the week and span a 7 day
+period. For yearweek objects the first week of a "year" is considered to be
+the first yearweek containing 4 days of the given calendar year. This means
+that the calendar year will sometimes be different to that of the associated
+yearweek object.
+
+Internally, \verb{<grates_yearweek>} objects are stored as the number of weeks
+(starting at 0) from the date of the user-specified \code{firstday} nearest the
+Unix Epoch (1970-01-01). That is, the number of seven day periods from:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{- 1969-12-29 for `firstday` equal to 1 (Monday)
 - 1969-12-30 for `firstday` equal to 2 (Tuesday)
@@ -51,10 +102,35 @@ Internally \verb{<grates_yearweek>} objects are stored as the number of weeks
 - 1970-01-04 for `firstday` equal to 7 (Sunday)
 }\if{html}{\out{</div>}}
 }
+\details{
+\code{yearweek()} is a constructor for \verb{<grates_yearweek>} objects. These are
+weeks whose first day can be specified by the user. It takes a
+vector of year and vector of week values as inputs. Length 1 inputs will be
+recycled to the length of the other input and \code{double} vectors will again be
+converted to integer via \code{as.integer(floor(x))}.
+
+\code{as_yearweek()} is a generic for conversion to \verb{<grates_yearweek>}.
+\itemize{
+\item Date, POSIXct, and POSIXlt are converted with the timezone respected.
+\item Character objects are first coerced to date via \code{as.Date()} unless
+\code{format = "yearweek"} in which case input is assumed to be in the form
+"YYYY-Wxx" and parsed accordingly.
+}
+
+\code{new_yearweek()} is a minimal constructor for \verb{<grates_yearweek>} objects
+aimed at developers. It takes, as input, the number of isoweeks since the
+Monday prior to the Unix Epoch that you wish to represent. \code{double} vectors
+will be converted to integer via \code{as.integer(floor(x))}.
+}
 \examples{
-yearweek(year = 2000L, week = 3L)
+yearweek(year = 2000, week = 3)
+new_yearweek(1:10)
+as_yearweek(Sys.Date())
+as_yearweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+as_yearweek("2019-05-03", firstday = 5) # first day is Friday
+as_yearweek("2019-W12", format = "yearweek")
 
 }
 \seealso{
-\code{as_yearweek()} and \code{new_yearweek()}.
+\code{new_isoweek()} and \code{new_epiweek()}.
 }

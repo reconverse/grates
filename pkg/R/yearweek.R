@@ -1,14 +1,18 @@
 # -------------------------------------------------------------------------
-#' Minimal constructor for a yearweek object
+#' Yearweek class
 #'
 # -------------------------------------------------------------------------
-#' `new_yearweek()` is a constructor for `<grates_yearweek>` objects aimed at
-#' developers.
+#' @description
 #'
-# -------------------------------------------------------------------------
-#' `<grates_yearweek>` objects are stored as the number of weeks
-#' (starting at 0) from the date of the `firstday` nearest the Unix Epoch
-#' (1970-01-01). That is, the number of seven day periods from:
+#' Yearweeks start on a user defined day of the week and span a 7 day
+#' period. For yearweek objects the first week of a "year" is considered to be
+#' the first yearweek containing 4 days of the given calendar year. This means
+#' that the calendar year will sometimes be different to that of the associated
+#' yearweek object.
+#'
+#' Internally, `<grates_yearweek>` objects are stored as the number of weeks
+#' (starting at 0) from the date of the user-specified `firstday` nearest the
+#' Unix Epoch (1970-01-01). That is, the number of seven day periods from:
 #'
 #'     - 1969-12-29 for `firstday` equal to 1 (Monday)
 #'     - 1969-12-30 for `firstday` equal to 2 (Tuesday)
@@ -18,85 +22,31 @@
 #'     - 1970-01-03 for `firstday` equal to 6 (Saturday)
 #'     - 1970-01-04 for `firstday` equal to 7 (Sunday)
 #'
-#' @param x `[integer]`
-#'
-#' Vector representing the number of weeks.
-#'
-#' `double` vectors will be converted via `as.integer(floor(x))`.
-#'
-#' @param firstday `[integer]`
-#'
-#' The day the week starts on from 1 (Monday) to 7 (Sunday).
-#'
-#' @param xx
-#'
-#' \R object.
-#'
 # -------------------------------------------------------------------------
-#' @return
-#' A `<grates_yearweek>` object with subclass corresponding to the first
-#' day of the week they represent (e.g. `<grates_yearweek_monday>`).
+#' @details
 #'
-# -------------------------------------------------------------------------
-#' @examples
-#' new_yearweek(1:10)
-#'
-# -------------------------------------------------------------------------
-#' @seealso
-#' `as_yearweek()`, `new_isoweek()` and `new_epiweek()`.
-#'
-# -------------------------------------------------------------------------
-#' @export
-new_yearweek <- function(x = integer(), firstday = 1L) {
-    if (is.vector(x, "double")) {
-        x <- as.integer(floor(x))
-    } else if (!is.integer(x)) {
-        stop("`x` must be integer.")
-    }
-
-    if (length(firstday) != 1L)
-        stop("`firstday` must be an integer of length 1.")
-
-    if (!is.integer(firstday)) {
-        if (!.is_whole(firstday))
-            stop("`firstday` must be an integer of length 1.")
-        firstday <- as.integer(firstday)
-    }
-
-    if (firstday < 1L || firstday > 7L || is.na(firstday))
-        stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
-
-    .new_yearweek(x = x, firstday = firstday)
-}
-
-# -------------------------------------------------------------------------
-#' Constructor for yearweek objects
-#'
-# -------------------------------------------------------------------------
 #' `yearweek()` is a constructor for `<grates_yearweek>` objects. These are
-#' weeks whose first day can be specified by the user.
+#' weeks whose first day can be specified by the user. It takes a
+#' vector of year and vector of week values as inputs. Length 1 inputs will be
+#' recycled to the length of the other input and `double` vectors will again be
+#' converted to integer via `as.integer(floor(x))`.
+#'
+#' `as_yearweek()` is a generic for conversion to `<grates_yearweek>`.
+#' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
+#' - Character objects are first coerced to date via `as.Date()` unless
+#'   `format = "yearweek"` in which case input is assumed to be in the form
+#'   "YYYY-Wxx" and parsed accordingly.
+#'
+#' `new_yearweek()` is a minimal constructor for `<grates_yearweek>` objects
+#' aimed at developers. It takes, as input, the number of isoweeks since the
+#' Monday prior to the Unix Epoch that you wish to represent. `double` vectors
+#' will be converted to integer via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
-#' For yearweek objects the first week of a "year" is considered to be the first
-#' yearweek containing 4 days of the given calendar year. This means that the
-#' calendar year will sometimes be different to that of the associated yearweek
-#' object.
+#' @param x
 #'
-# -------------------------------------------------------------------------
-#' @note
-#' Internally `<grates_yearweek>` objects are stored as the number of weeks
-#' (starting at 0) from the date of the `firstday` nearest the Unix Epoch
-#' (1970-01-01). That is, the number of seven day periods from:
+#' An \R object.
 #'
-#'     - 1969-12-29 for `firstday` equal to 1 (Monday)
-#'     - 1969-12-30 for `firstday` equal to 2 (Tuesday)
-#'     - 1969-12-31 for `firstday` equal to 3 (Wednesday)
-#'     - 1970-01-01 for `firstday` equal to 4 (Thursday)
-#'     - 1970-01-02 for `firstday` equal to 5 (Friday)
-#'     - 1970-01-03 for `firstday` equal to 6 (Saturday)
-#'     - 1970-01-04 for `firstday` equal to 7 (Sunday)
-#'
-# -------------------------------------------------------------------------
 #' @param year `[integer]`
 #'
 #' Vector representing the year associated with `week`.
@@ -109,7 +59,31 @@ new_yearweek <- function(x = integer(), firstday = 1L) {
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
-#' @inheritParams new_yearweek
+#' @param firstday `[integer]`
+#'
+#' The day the week starts on from 1 (Monday) to 7 (Sunday).
+#'
+#' @param format `[character]`
+#'
+#' Passed to as.Date() unless `format = "yearweek"` in which case input is
+#' assumed to be in the form "YYYY-Wxx".
+#'
+#' If not specified, it will try tryFormats one by one on the first non-NA
+#' element, and give an error if none works. Otherwise, the processing is via
+#' `strptime()` whose help page describes available conversion specifications.
+#'
+#' @param tryFormats `[character]`
+#'
+#' Format strings to try if format is not specified.
+#'
+#' @param ...
+#'
+#' Other values passed to as.Date().
+#'
+#'
+#' @param xx
+#'
+#' An \R object.
 #'
 # -------------------------------------------------------------------------
 #' @return
@@ -117,14 +91,24 @@ new_yearweek <- function(x = integer(), firstday = 1L) {
 #' the week they represent (e.g. `<grates_yearweek_monday>`).
 #'
 # -------------------------------------------------------------------------
-#' @examples
-#' yearweek(year = 2000L, week = 3L)
-#'
-# -------------------------------------------------------------------------
 #' @seealso
-#' `as_yearweek()` and `new_yearweek()`.
+#' `new_isoweek()` and `new_epiweek()`.
 #'
 # -------------------------------------------------------------------------
+#' @examples
+#' yearweek(year = 2000, week = 3)
+#' new_yearweek(1:10)
+#' as_yearweek(Sys.Date())
+#' as_yearweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#' as_yearweek("2019-05-03", firstday = 5) # first day is Friday
+#' as_yearweek("2019-W12", format = "yearweek")
+#'
+# -------------------------------------------------------------------------
+#' @name yearweek
+NULL
+
+# -------------------------------------------------------------------------
+#' @rdname yearweek
 #' @export
 yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
 
@@ -168,8 +152,119 @@ yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
     .yearweek(year = year, week = week, firstday = firstday)
 }
 
+
 # -------------------------------------------------------------------------
-#' @rdname new_yearweek
+#' @rdname yearweek
+#' @export
+as_yearweek <- function(x, ...) {
+    UseMethod("as_yearweek")
+}
+
+# -------------------------------------------------------------------------
+#' @rdname yearweek
+#' @export
+as_yearweek.default <- function(x, ...) {
+    stopf("Not implemented for class [%s].", toString(class(x)))
+}
+
+# -------------------------------------------------------------------------
+#' @rdname yearweek
+#' @export
+as_yearweek.Date <- function(x, firstday = 1L, ...) {
+    if (length(firstday) != 1L)
+        stop("`firstday` must be an integer of length 1.")
+
+    if (!is.integer(firstday)) {
+        if (!.is_whole(firstday))
+            stop("`firstday` must be an integer of length 1.")
+        firstday <- as.integer(firstday)
+    }
+
+    if (firstday < 1L || firstday > 7L || is.na(firstday))
+        stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
+
+    x <- as.integer(floor(unclass(x)))
+    x <- (x + 4L - firstday) %/% 7L
+    .new_yearweek(x = x, firstday = firstday)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname yearweek
+#' @export
+as_yearweek.POSIXt <- function(x, firstday = 1L, ...) {
+    x <- .as_date(x)
+    as_yearweek.Date(x, firstday = firstday)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname yearweek
+#' @export
+as_yearweek.character <- function(
+        x,
+        firstday = 1L,
+        format,
+        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+        ...
+) {
+    if (!missing(format)) {
+        if (length(format) > 1L)
+            stop("If specified, `format` must be of length 1.")
+
+        if (format == "yearweek") {
+            years <- sub("^([0-9]{4}).*", "\\1", x, perl = TRUE)
+            years <- suppressWarnings(as.integer(years))
+            weeks <- sub(".*-[wW]([0-9]{1,2}$)", "\\1", x, perl = TRUE)
+            weeks <- suppressWarnings(as.integer(weeks))
+            out <- yearweek(year = years, week = weeks, firstday = firstday)
+            return(out)
+        }
+    }
+    out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
+    as_yearweek.Date(out, firstday = firstday)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname yearweek
+#' @export
+as_yearweek.factor <- function(
+        x,
+        firstday = 1L,
+        format,
+        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+        ...
+) {
+    x <- as.character(x)
+    as_yearweek.character(x, firstday = firstday, format = format, ...)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname yearweek
+#' @export
+new_yearweek <- function(x = integer(), firstday = 1L) {
+    if (is.vector(x, "double")) {
+        x <- as.integer(floor(x))
+    } else if (!is.integer(x)) {
+        stop("`x` must be integer.")
+    }
+
+    if (length(firstday) != 1L)
+        stop("`firstday` must be an integer of length 1.")
+
+    if (!is.integer(firstday)) {
+        if (!.is_whole(firstday))
+            stop("`firstday` must be an integer of length 1.")
+        firstday <- as.integer(firstday)
+    }
+
+    if (firstday < 1L || firstday > 7L || is.na(firstday))
+        stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
+
+    .new_yearweek(x = x, firstday = firstday)
+}
+
+
+# -------------------------------------------------------------------------
+#' @rdname yearweek
 #' @export
 is_yearweek <- function(xx) {
     inherits(xx, "grates_yearweek")
@@ -227,134 +322,8 @@ vec_ptype_full.grates_yearweek_saturday <- function(x, ...) {"yearweek-sat"}
 #' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_yearweek_sunday <- function(x, ...) {"yearweek-sun"}
 
-# -------------------------------------------------------------------------
-#' Coerce to a yearweek object
-#'
-#' @description
-#' Generic for conversion to <grates_yearweek>.
-#'
-#' @details
-#'
-#' - Date, POSIXct, and POSIXlt are converted with the timezone respected.
-#' - Character objects are first coerced to date via `as.Date()` unless
-#'   `format = "yearweek"` in which case input is assumed to be in the form
-#'   "YYYY-Wxx" and parsed accordingly.
-#'
-#' @param x
-#' \R object.
-#'
-#' @param format `[character]`
-#'
-#' Passed to as.Date() unless `format = "yearweek"` in which case input is
-#' assumed to be in the form "YYYY-Wxx".
-#'
-#' If not specified, it will try tryFormats one by one on the first non-NA
-#' element, and give an error if none works. Otherwise, the processing is via
-#' `strptime()` whose help page describes available conversion specifications.
-#'
-#' @param tryFormats `[character]`
-#'
-#' Format strings to try if format is not specified.
-#'
-#' @param ...
-#'
-#' Other values passed to as.Date().
-#'
-#' @inheritParams new_yearweek
-#'
-#' @return
-#' A `<grates_yearweek>` object.
-#'
-#' @examples
-#' as_yearweek(Sys.Date())
-#' as_yearweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
-#' as_yearweek("2019-05-03", firstday = 5L)
-#' as_yearweek("2019-W12", format = "yearweek")
-#'
-#' @seealso
-#' `as.Date()` and `new_yearweek()`.
-#'
-#' @export
-as_yearweek <- function(x, ...) {
-    UseMethod("as_yearweek")
-}
 
-# -------------------------------------------------------------------------
-#' @rdname as_yearweek
-#' @export
-as_yearweek.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", toString(class(x)))
-}
 
-# -------------------------------------------------------------------------
-#' @rdname as_yearweek
-#' @export
-as_yearweek.Date <- function(x, firstday = 1L, ...) {
-    if (length(firstday) != 1L)
-        stop("`firstday` must be an integer of length 1.")
-
-    if (!is.integer(firstday)) {
-        if (!.is_whole(firstday))
-            stop("`firstday` must be an integer of length 1.")
-        firstday <- as.integer(firstday)
-    }
-
-    if (firstday < 1L || firstday > 7L || is.na(firstday))
-        stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
-
-    x <- as.integer(floor(unclass(x)))
-    x <- (x + 4L - firstday) %/% 7L
-    .new_yearweek(x = x, firstday = firstday)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_yearweek
-#' @export
-as_yearweek.POSIXt <- function(x, firstday = 1L, ...) {
-    x <- .as_date(x)
-    as_yearweek.Date(x, firstday = firstday)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_yearweek
-#' @export
-as_yearweek.character <- function(
-    x,
-    firstday = 1L,
-    format,
-    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-    ...
-) {
-    if (!missing(format)) {
-        if (length(format) > 1L)
-            stop("If specified, `format` must be of length 1.")
-
-        if (format == "yearweek") {
-            years <- sub("^([0-9]{4}).*", "\\1", x, perl = TRUE)
-            years <- suppressWarnings(as.integer(years))
-            weeks <- sub(".*-[wW]([0-9]{1,2}$)", "\\1", x, perl = TRUE)
-            weeks <- suppressWarnings(as.integer(weeks))
-            out <- yearweek(year = years, week = weeks, firstday = firstday)
-            return(out)
-        }
-    }
-    out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
-    as_yearweek.Date(out, firstday = firstday)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_yearweek
-#' @export
-as_yearweek.factor <- function(
-    x,
-    firstday = 1L,
-    format,
-    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-    ...
-) {
-    x <- as.character(x)
-    as_yearweek.character(x, firstday = firstday, format = format, ...)
-}
 
 # -------------------------------------------------------------------------
 #' @export
