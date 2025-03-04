@@ -118,8 +118,8 @@ converted to integer via \code{as.integer(floor(x))}.
 }
 
 \code{new_yearweek()} is a minimal constructor for \verb{<grates_yearweek>} objects
-aimed at developers. It takes, as input, the number of isoweeks since the
-Monday prior to the Unix Epoch that you wish to represent. \code{double} vectors
+aimed at developers. It takes, as input, the number of weeks since the
+user-specified \code{firstday} nearest the Unix Epoch. \code{double} vectors
 will be converted to integer via \code{as.integer(floor(x))}.
 }
 \examples{

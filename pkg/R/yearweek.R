@@ -38,8 +38,8 @@
 #'   "YYYY-Wxx" and parsed accordingly.
 #'
 #' `new_yearweek()` is a minimal constructor for `<grates_yearweek>` objects
-#' aimed at developers. It takes, as input, the number of isoweeks since the
-#' Monday prior to the Unix Epoch that you wish to represent. `double` vectors
+#' aimed at developers. It takes, as input, the number of weeks since the
+#' user-specified `firstday` nearest the Unix Epoch. `double` vectors
 #' will be converted to integer via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
