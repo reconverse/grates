@@ -3,7 +3,7 @@
 \name{print.grates_yearmonth}
 \alias{print.grates_yearmonth}
 \alias{format.grates_yearmonth}
-\title{Print a year-month object}
+\title{Format and print a yearmonth object}
 \usage{
 \method{print}{grates_yearmonth}(x, format = "\%Y-\%b", ...)
 
@@ -12,10 +12,17 @@
 \arguments{
 \item{x}{A \verb{<grates_yearmonth>} object.}
 
-\item{format}{The format to use for printing.}
+\item{format}{\verb{[character]}
+
+The format to use for printing.}
 
 \item{...}{Not currently used.}
 }
+\value{
+For \code{format()}, a character vector representing the formatted input.
+\code{print()} is called for the side effect of printing to screen and thus
+returns the input \verb{<grates_yearmonth>} object invisibly.
+}
 \description{
-Print a year-month object
+Format and print a yearmonth object
 }

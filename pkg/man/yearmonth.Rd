@@ -2,9 +2,33 @@
 % Please edit documentation in R/yearmonth.R
 \name{yearmonth}
 \alias{yearmonth}
-\title{Constructor for yearmonth objects}
+\alias{as_yearmonth}
+\alias{as_yearmonth.default}
+\alias{as_yearmonth.Date}
+\alias{as_yearmonth.POSIXt}
+\alias{as_yearmonth.character}
+\alias{as_yearmonth.factor}
+\alias{new_yearmonth}
+\alias{is_yearmonth}
+\title{Yearmonth class}
 \usage{
 yearmonth(year = integer(), month = integer())
+
+as_yearmonth(x, ...)
+
+\method{as_yearmonth}{default}(x, ...)
+
+\method{as_yearmonth}{Date}(x, ...)
+
+\method{as_yearmonth}{POSIXt}(x, ...)
+
+\method{as_yearmonth}{character}(x, ...)
+
+\method{as_yearmonth}{factor}(x, ...)
+
+new_yearmonth(x = integer())
+
+is_yearmonth(xx)
 }
 \arguments{
 \item{year}{\verb{[integer]}
@@ -18,21 +42,53 @@ Vector representing the year associated with \code{month}.
 Vector representing the month associated with `year.
 
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.}
+
+\item{x}{An \R object.}
+
+\item{...}{Only used for character input where additional arguments are passed through
+to \code{as.Date()}.}
+
+\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_yearmonth>} object.
 }
 \description{
-\code{yearmonth()} is a constructor for \verb{<grates_yearmonth>} objects.
+\verb{<grates_yearmonth>} objects represent, unsurprisingly, years and associated months.
+Internally they are stored as the number of months (starting at 0) since the
+Unix Epoch (1970-01-01). Precision is only to the month level (i.e. the day
+of the month is always dropped).
 }
 \details{
-\verb{<grates_yearmonth>} objects are stored as the number of months (starting at
-0) since the Unix Epoch (1970-01-01).
+\code{yearmonth()} is a constructor for \verb{<grates_yearmonth>} objects. It takes a
+vector of year and a vector of month values as inputs. Length 1 inputs will
+be recycled to the length of the other input and \code{double} vectors will
+be converted to integer via \code{as.integer(floor(x))}.
+
+\code{as_yearmonth()} is a generic for coercing input in to \verb{<grates_yearmonth>}.
+\itemize{
+\item Character input is first parsed using \code{as.Date()}.
+\item POSIXct and POSIXlt are converted with their timezone respected.
+}
+
+\code{new_yearmonth()} is a minimal constructor for \verb{<grates_yearmonth>} objects
+aimed at developers. It takes, as input, the number of months (starting at 0)
+since the Unix Epoch, that you wish to represent. \code{double} vectors will again
+be converted to integer via \code{as.integer(floor(x))}.
 }
 \examples{
-yearmonth(year = 2000L, month = 3L)
+yearmonth(year = 2000, month = 3)
+new_yearmonth(1:10)
+as_yearmonth(Sys.Date())
+as_yearmonth(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+as_yearmonth("2019-05-03")
 
 }
+\references{
+The algorithm to convert between dates and months relative to the UNIX Epoch
+comes from the work of Davis Vaughan in the unreleased
+\href{https://github.com/DavisVaughan/datea/}{datea} package
+}
 \seealso{
-\code{as_yearmonth()} and \code{new_yearmonth()}.
+\code{new_month()} and \code{as_month()} and for grouping of consecutive months.
 }
