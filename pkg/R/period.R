@@ -1,38 +1,71 @@
 # -------------------------------------------------------------------------
-#' Minimal constructor for a period object
+#' Period class
 #'
 # -------------------------------------------------------------------------
-#' `new_period()` is a constructor for `<grates_period>` objects aimed at
-#' developers.
+#' @description
+#'
+#' `<grates_period>` objects represent groupings of `n` consecutive days
+#' calculated relative to an `offset`. It is useful for when you wish to group
+#' an arbitrary number of dates together (e.g. 10 days).
 #'
 # -------------------------------------------------------------------------
-#' `grates_period` objects are stored as the integer number, starting at 0L, of
-#' periods since the Unix Epoch (1970-01-01) and a specified offset. Here
-#' periods are taken to mean groupings of `n` consecutive days.
+#' @details
 #'
-#' For storage and calculation purposes, `offset` is scaled relative to `n`.
-#' I.e. `offset <- offset %% n` and values of `x` stored relative to this scaled
-#' offset.
+#' Internally `grates_period` objects are stored as the integer number, starting
+#' at 0, of  periods since the Unix Epoch (1970-01-01) and a specified offset. Here
+#' periods are taken to mean groupings of `n` consecutive days. For storage and
+#' calculation purposes, `offset` is scaled relative to `n`
+#' (i.e. `offset <- offset %% n`) and values of `x` stored relative to this
+#' scaled offset.
 #'
-# -------------------------------------------------------------------------
-#' @param x `[integer]`
+#' `as_period()` is a generic for coercing input in to `<grates_period>` objects.
+#' It is the recommended way for constructing period objects as it allows the
+#' `offset` to be specified as a `date` (rather than an integer value relative to
+#' the Unix Epoch).
+#' - Character input is first parsed using `as.Date()`.
+#' - POSIXct and POSIXlt are converted with their timezone respected.
 #'
-#' Vector representing the number of periods since the Unix Epoch (1970-01-01)
-#' and a specified offset.
-#'
-#' `double` vectors will be converted via `as.integer(floor(x))`.
+#' `new_period()` is a minimal constructor for `<grates_period>`
+#' objects aimed at developers. It takes, as input, the number of periods since
+#' the Unix Epoch and the specified `offset`. `double` vectors will
+#' be converted via `as.integer(floor(x))`.
 #'
 #' @param n `[integer]`
 #'
-#' Number of days that are being grouped by.
+#' Number of days that are being grouped by. the number of quarters
+#' (starting at 0) since the Unix Epoch, that you wish to represent.
+#' `double` vectors will again be converted to integer via `as.integer(floor(x))`.
+#'
+# -------------------------------------------------------------------------
+#' @param x
+#'
+#' An \R object.
+#'
+#' For `as_period()` this is the object to be coerced.
+#'
+#' For `new_period()` this represents the number of periods since the Unix
+#' Epoch (1970-01-01) and a specified offset.
+#'
+#' @param n `[integer]`
+#'
+#' Number of days that are being grouped.
+#'
+#' @param offset `[integer]` or, for `as_period()`, a `[date]`.
+#'
+#' Value you wish to start counting periods from relative to the Unix Epoch:
+#' - For integer values this is stored scaled by `n`
+#'   (`offset <- as.integer(offset) %% n`).
+#' - For date values this is first converted to an integer offset
+#'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
+#'
+#' @param ...
+#'
+#' Only used for character input where additional arguments are passed through
+#' to `as.Date()`.
 #'
 #' @param xx
 #'
-#' \R object.
-#'
-#' @param offset `[integer]`
-#'
-#' Value you wish to start counting groups from relative to the Unix Epoch.
+#' An \R object.
 #'
 # -------------------------------------------------------------------------
 #' @return
@@ -40,9 +73,102 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
+#'
 #' new_period(1:10)
 #'
 # -------------------------------------------------------------------------
+#' @name period
+NULL
+
+# -------------------------------------------------------------------------
+#' @rdname period
+#' @export
+as_period <- function(x, n, ...) {
+    UseMethod("as_period")
+}
+
+# -------------------------------------------------------------------------
+#' @rdname period
+#' @export
+as_period.default <- function(x, n = 1L, offset = 0L, ...) {
+    stopf("Not implemented for class [%s].", toString(class(x)))
+}
+
+# -------------------------------------------------------------------------
+#' @rdname period
+#' @export
+as_period.Date <- function(x, n = 1L, offset = 0L, ...) {
+
+    if (...length()) {
+        dot_names <- names(list(...))
+        if (any(dot_names == "origin"))
+            stop("The `origin` argument is now defunct. Please use `offset`.")
+    }
+
+    x <- as.integer(floor(unclass(x)))
+    if (!.is_scalar_whole(n))
+        stop("`n` must be an integer of length 1.")
+    n <- as.integer(n)
+
+    if (inherits(offset, "Date"))
+        offset <- floor(as.numeric(offset))
+
+    if (!.is_scalar_whole(offset))
+        stop("`offset` must be an integer or date of length 1.")
+
+    offset <- as.integer(offset) %% n
+    x <- (x - offset) %/% n
+    .new_period(x = x, n = n, offset = offset)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname period
+#' @export
+as_period.POSIXt <- function(x, n = 1L, offset = 0L, ...) {
+
+    if (...length()) {
+        dot_names <- names(list(...))
+        if (any(dot_names == "origin"))
+            stop("The `origin` argument is now defunct. Please use `offset`.")
+    }
+
+    x <- .as_date(x)
+    as_period.Date(x = x, n = n, offset = offset)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname period
+#' @export
+as_period.character <- function(x, n = 1L, offset = 0L, ...) {
+
+    if (...length()) {
+        dot_names <- names(list(...))
+        if (any(dot_names == "origin"))
+            stop("The `origin` argument is now defunct. Please use `offset`.")
+    }
+
+    out <- as.Date(x, ...)
+    if (all(is.na(out)))
+        stop("Unable to parse any entries of `x` as Dates.")
+    as_period.Date(x = out, n = n, offset = offset)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname period
+#' @export
+as_period.factor <- function(x, n = 1L, offset = 0L, ...) {
+    if (...length()) {
+        dot_names <- names(list(...))
+        if (any(dot_names == "origin"))
+            stop("The `origin` argument is now defunct. Please use `offset`.")
+    }
+    x <- as.character(x)
+    as_period.character(x, n = n, offset = offset, ...)
+}
+
+
+# -------------------------------------------------------------------------
+#' @rdname period
 #' @export
 new_period <- function(x = integer(), n = 1L, offset = 0L) {
     if (is.vector(x, "double")) {
@@ -65,7 +191,7 @@ new_period <- function(x = integer(), n = 1L, offset = 0L) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname new_period
+#' @rdname period
 #' @export
 is_period <- function(xx) {
     inherits(xx, "grates_period")
@@ -130,141 +256,8 @@ vec_ptype_abbr.grates_period <- function(x, ...) {"period"}
 #' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_period <- function(x, ...) {"grates_period"}
 
-# -------------------------------------------------------------------------
-#' Coerce an object to period
-#'
-# -------------------------------------------------------------------------
-#' `as_period()` is a generic for coercing input in to `<grates_period>`.
-#'
-# -------------------------------------------------------------------------
-#' @param x
-#'
-#' An \R object:
-#' - Character input is first parsed using `as.Date()`.
-#' - POSIXt inputs are converted with the timezone respected.
-#'
-#' @param n `[integer]`
-#'
-#' Number of days that are being grouped.
-#'
-#' @param offset `[integer]` or `[date]`
-#'
-#' Value you wish to start counting periods from relative to the Unix Epoch:
-#' - For integer values this is stored scaled by `n`
-#'   (`offset <- as.integer(offset) %% n`).
-#' - For date values this is first converted to an integer offset
-#'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
-#'
-#' @param ...
-#'
-#' Only used For character input where additional arguments are passed through
-#' to `as.Date()`.
-#'
-# -------------------------------------------------------------------------
-#' @return
-#' A `<grates_period>` object.
-#'
-# -------------------------------------------------------------------------
-#' @examples
-#' as_period("2019-05-03")
-#' as_period("2019-05-03", n = 2, offset = 1)
-#' as_period(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 10)
-#' as_period(as.Date("2020-03-02"), n = 2L, offset = as.Date("2020-03-01"))
-#'
-# -------------------------------------------------------------------------
-#' @note
-#' Internally `grates_period` objects are stored as the integer number, starting
-#' at 0L, of periods since the Unix Epoch (1970-01-01) and a specified offset.
-#' Here periods are taken to mean groupings of `n` consecutive days.
-#'
-# -------------------------------------------------------------------------
-#' @seealso
-#' `as.Date()`
-#'
-# -------------------------------------------------------------------------
-#' @export
-as_period <- function(x, n, ...) {
-    UseMethod("as_period")
-}
 
-# -------------------------------------------------------------------------
-#' @rdname as_period
-#' @export
-as_period.default <- function(x, n = 1L, offset = 0L, ...) {
-    stopf("Not implemented for class [%s].", toString(class(x)))
-}
 
-# -------------------------------------------------------------------------
-#' @rdname as_period
-#' @export
-as_period.Date <- function(x, n = 1L, offset = 0L, ...) {
-
-    if (...length()) {
-        dot_names <- names(list(...))
-        if (any(dot_names == "origin"))
-            stop("The `origin` argument is now defunct. Please use `offset`.")
-    }
-
-    x <- as.integer(floor(unclass(x)))
-    if (!.is_scalar_whole(n))
-        stop("`n` must be an integer of length 1.")
-    n <- as.integer(n)
-
-    if (inherits(offset, "Date"))
-        offset <- floor(as.numeric(offset))
-
-    if (!.is_scalar_whole(offset))
-        stop("`offset` must be an integer or date of length 1.")
-
-    offset <- as.integer(offset) %% n
-    x <- (x - offset) %/% n
-    .new_period(x = x, n = n, offset = offset)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_period
-#' @export
-as_period.POSIXt <- function(x, n = 1L, offset = 0L, ...) {
-
-    if (...length()) {
-        dot_names <- names(list(...))
-        if (any(dot_names == "origin"))
-            stop("The `origin` argument is now defunct. Please use `offset`.")
-    }
-
-    x <- .as_date(x)
-    as_period.Date(x = x, n = n, offset = offset)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_period
-#' @export
-as_period.character <- function(x, n = 1L, offset = 0L, ...) {
-
-    if (...length()) {
-        dot_names <- names(list(...))
-        if (any(dot_names == "origin"))
-            stop("The `origin` argument is now defunct. Please use `offset`.")
-    }
-
-    out <- as.Date(x, ...)
-    if (all(is.na(out)))
-        stop("Unable to parse any entries of `x` as Dates.")
-    as_period.Date(x = out, n = n, offset = offset)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_period
-#' @export
-as_period.factor <- function(x, n = 1L, offset = 0L, ...) {
-    if (...length()) {
-        dot_names <- names(list(...))
-        if (any(dot_names == "origin"))
-            stop("The `origin` argument is now defunct. Please use `offset`.")
-    }
-    x <- as.character(x)
-    as_period.character(x, n = n, offset = offset, ...)
-}
 
 #' @export
 `[.grates_period` <- function(x, ..., drop = FALSE) {

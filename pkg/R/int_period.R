@@ -1,19 +1,32 @@
 # -------------------------------------------------------------------------
-#' Minimal Constructor for an int_period object (Experimental)
+#' Int Period class (Experimental)
 #'
 # -------------------------------------------------------------------------
-#' `new_int_period()` is a constructor for `<grates_int_period>` objects aimed
-#' at developers.
+#' @description
+#'
+#' `<grates_int_period>` objects represent groupings of `n` consecutive integers
+#' from `0`.
 #'
 # -------------------------------------------------------------------------
-#' `grates_int_period` objects are stored as the integer number of n-integer
-#' groups from 0. Here n-integer is taken to mean a 'grouping of n consecutive
-#' integers'.
+#' @details
+#'
+#' `as_int_period()` is a generic for coercing input in to `<grates_int_period>`
+#' objects. For numeric input it coerces it's input `x` first via
+#' `x <- as.integer(floor(x))` and then via integer division by `n` (i.e.
+#' `x %/% n`).
+#'
+#' `new_int_period()` is a minimal constructor for `<grates_period>`
+#' objects aimed at developers. It takes, as input, the number of int-periods
+#' and the value of `n`.
 #'
 # -------------------------------------------------------------------------
-#' @param x `[integer]`
+#' @param x
 #'
-#' Vector representing the number of n-integers from 0.
+#' An \R object.
+#'
+#' For `as_int_period()` this is the object to be coerced.
+#'
+#' For `new_int_period()` this represents the number of `n` int-periods from 0.
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
@@ -23,7 +36,11 @@
 #'
 #' @param xx
 #'
-#' \R object.
+#' An \R object.
+#'
+#' @param ...
+#'
+#' Not currently used.
 #'
 # -------------------------------------------------------------------------
 #' @return
@@ -31,10 +48,70 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' new_int_period(1:10, 2L)
+#'
+#' as_int_period(1:10, n = 3)
+#' identical(
+#'     as_int_period(1:10, n = 3),
+#'     new_int_period(c(0, 0, 1, 1, 1, 2, 2, 2, 3, 3), n = 3)
+#' )
+#'
 #'
 # -------------------------------------------------------------------------
-#' @keywords internal
+#' @name int_period
+NULL
+
+# -------------------------------------------------------------------------
+#' @rdname int_period
+#' @export
+as_int_period.default <- function(x, n = 1L, ...) {
+    stopf("Not implemented for class [%s].", toString(class(x)))
+}
+
+# -------------------------------------------------------------------------
+#' @rdname int_period
+#' @export
+as_int_period.integer <- function(x, n = 1L, ...) {
+
+    # trigger warning for missing n at top level
+    n <- n
+
+    if (!.is_scalar_whole(n))
+        stop("`n` must be an integer of length 1.")
+    n <- as.integer(n)
+    if (n < 1L)
+        stop("`n` must be greater than 0.")
+
+    # scale by n
+    x <- (x %/% n)
+
+    .new_int_period(x = x, n = n)
+}
+
+# -------------------------------------------------------------------------
+#' @rdname int_period
+#' @export
+as_int_period.double <- function(x, n = 1L, ...) {
+
+    x <- as.integer(floor(x))
+
+    # trigger warning for missing n at top level
+    n <- n
+
+    if (!.is_scalar_whole(n))
+        stop("`n` must be an integer of length 1.")
+    n <- as.integer(n)
+    if (n < 1L)
+        stop("`n` must be greater than 0.")
+
+    # scale by n
+    x <- (x %/% n)
+
+    .new_int_period(x = x, n = n)
+}
+
+
+# -------------------------------------------------------------------------
+#' @rdname int_period
 #' @export
 new_int_period <- function(x = integer(), n = 1L) {
     if (is.vector(x, "double")) {
@@ -55,7 +132,7 @@ new_int_period <- function(x = integer(), n = 1L) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname new_int_period
+#' @rdname int_period
 #' @export
 is_int_period <- function(xx) {
     inherits(xx, "grates_int_period")
@@ -94,96 +171,14 @@ vec_ptype_abbr.grates_int_period <- function(x, ...) {"intper"}
 #' @exportS3Method vctrs::vec_ptype_full
 vec_ptype_full.grates_int_period <- function(x, ...) {"grates_int_period"}
 
+
 # -------------------------------------------------------------------------
-#' Coerce an object to an int_period (Experimental)
-#'
-# -------------------------------------------------------------------------
-#' `as_int_period()` is a generic for coercing input in to `<grates_int_period>`.
-#'
-# -------------------------------------------------------------------------
-#' @param x An \R object.
-#'
-#' `double` vectors will be converted via `as.integer(floor(x))`.
-#'
-#' @param n `[integer]`
-#'
-#' Number of consecutive integers that are being grouped.
-#'
-#' Must be greater than 0.
-#'
-#' @param ...
-#'
-#' Further arguments passed to or from other methods.
-#'
-# -------------------------------------------------------------------------
-#' @return
-#' A `<grates_int_period>` object.
-#'
-# -------------------------------------------------------------------------
-#' @examples
-#' as_int_period(1:10, n = 4L)
-#'
-# -------------------------------------------------------------------------
-#' @note
-#' Internally `grates_int_period` objects are stored as the position, starting
-#' at 0, of n-integer groups from 0. Here n-months is taken to mean a 'grouping
-#' of n consecutive integers'.
-#'
-# -------------------------------------------------------------------------
-#' @keywords internal
+#' @rdname int_period
 #' @export
 as_int_period <- function(x, n, ...) {
     UseMethod("as_int_period")
 }
 
-# -------------------------------------------------------------------------
-#' @rdname as_int_period
-#' @export
-as_int_period.default <- function(x, n = 1L, ...) {
-    stopf("Not implemented for class [%s].", toString(class(x)))
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_int_period
-#' @export
-as_int_period.integer <- function(x, n = 1L, ...) {
-
-    # trigger warning for missing n at top level
-    n <- n
-
-    if (!.is_scalar_whole(n))
-        stop("`n` must be an integer of length 1.")
-    n <- as.integer(n)
-    if (n < 1L)
-        stop("`n` must be greater than 0.")
-
-    # scale by n
-    x <- (x %/% n)
-
-    .new_int_period(x = x, n = n)
-}
-
-# -------------------------------------------------------------------------
-#' @rdname as_int_period
-#' @export
-as_int_period.double <- function(x, n = 1L, ...) {
-
-    x <- as.integer(floor(x))
-
-    # trigger warning for missing n at top level
-    n <- n
-
-    if (!.is_scalar_whole(n))
-        stop("`n` must be an integer of length 1.")
-    n <- as.integer(n)
-    if (n < 1L)
-        stop("`n` must be greater than 0.")
-
-    # scale by n
-    x <- (x %/% n)
-
-    .new_int_period(x = x, n = n)
-}
 
 # -------------------------------------------------------------------------
 #' @export
