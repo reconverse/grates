@@ -78,6 +78,10 @@ scale_x_grates_period <- function(..., breaks = ggplot2::waiver(), n.breaks = 6L
     if (length(offset) != 1L)
         stop("`offset` first day must be an integer of length 1.")
 
+    if (inherits(offset, "Date")) {
+        offset <- floor(as.numeric(offset))
+    }
+
     if (!is.integer(offset)) {
         if (!.is_whole(offset))
             stop("`offset` must be an integer of length 1.")
