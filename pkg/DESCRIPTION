@@ -12,8 +12,7 @@ Authors@R:
       )
     )
 Description: Provides a coherent interface and implementation for creating
-    grouped date classes. This package is part of the RECON
-    (<https://www.repidemicsconsortium.org/>) toolkit for outbreak analysis.
+    grouped date classes.
 URL: https://www.reconverse.org/grates/, https://github.com/reconverse/grates
 License: MIT + file LICENSE
 Encoding: UTF-8
