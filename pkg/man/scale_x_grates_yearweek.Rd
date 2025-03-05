@@ -11,7 +11,7 @@
 \alias{scale_x_grates_yearweek_saturday}
 \alias{scale_x_grates_yearweek_sunday}
 \alias{scale_x_grates_yearweek_epiweek}
-\title{yearweek scale}
+\title{Yearweek scale}
 \usage{
 scale_x_grates_yearweek(
   ...,

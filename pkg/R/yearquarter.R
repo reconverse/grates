@@ -64,12 +64,12 @@
 #' as_yearquarter("2019-05-03")
 #'
 # -------------------------------------------------------------------------
-#' @name yearquarter
+#' @name yearquarter_class
 NULL
 
 
 # -------------------------------------------------------------------------
-#' @rdname yearquarter
+#' @rdname yearquarter_class
 #' @export
 yearquarter <- function(year = integer(), quarter = integer()) {
 
@@ -107,21 +107,21 @@ yearquarter <- function(year = integer(), quarter = integer()) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname yearquarter
+#' @rdname yearquarter_class
 #' @export
 as_yearquarter <- function(x, ...) {
     UseMethod("as_yearquarter")
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearquarter
+#' @rdname yearquarter_class
 #' @export
 as_yearquarter.default <- function(x, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearquarter
+#' @rdname yearquarter_class
 #' @export
 as_yearquarter.Date <- function(x, ...) {
 
@@ -139,7 +139,7 @@ as_yearquarter.Date <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearquarter
+#' @rdname yearquarter_class
 #' @export
 as_yearquarter.POSIXt <- function(x, ...) {
     x <- .as_date(x)
@@ -147,7 +147,7 @@ as_yearquarter.POSIXt <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearquarter
+#' @rdname yearquarter_class
 #' @export
 as_yearquarter.character <- function(x, ...) {
     out <- as.Date(x, ...)
@@ -157,7 +157,7 @@ as_yearquarter.character <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearquarter
+#' @rdname yearquarter_class
 #' @export
 as_yearquarter.factor <- function(x, ...) {
     x <- as.character(x)
@@ -166,7 +166,7 @@ as_yearquarter.factor <- function(x, ...) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname yearquarter
+#' @rdname yearquarter_class
 #' @export
 new_yearquarter <- function(x = integer()) {
     if (is.vector(x, "double")) {
@@ -180,7 +180,7 @@ new_yearquarter <- function(x = integer()) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname yearquarter
+#' @rdname yearquarter_class
 #' @export
 is_yearquarter <- function(xx) {
     inherits(xx, "grates_yearquarter")

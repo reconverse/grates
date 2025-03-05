@@ -2,7 +2,7 @@
 % Please edit documentation in R/scale-yearquarter.R
 \name{scale_x_grates_yearquarter}
 \alias{scale_x_grates_yearquarter}
-\title{yearquarter scale}
+\title{Yearquarter scale}
 \usage{
 scale_x_grates_yearquarter(
   ...,

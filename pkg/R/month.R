@@ -61,26 +61,26 @@
 #' as_month("2019-05-03", n = 4L)
 #' as_month(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 2)
 # -------------------------------------------------------------------------
-#' @name month
+#' @name month_class
 NULL
 
 
 # -------------------------------------------------------------------------
-#' @rdname month
+#' @rdname month_class
 #' @export
 as_month <- function(x, n, ...) {
     UseMethod("as_month")
 }
 
 # -------------------------------------------------------------------------
-#' @rdname month
+#' @rdname month_class
 #' @export
 as_month.default <- function(x, n, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
-#' @rdname month
+#' @rdname month_class
 #' @export
 as_month.Date <- function(x, n, ...) {
 
@@ -110,7 +110,7 @@ as_month.Date <- function(x, n, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname month
+#' @rdname month_class
 #' @export
 as_month.POSIXt <- function(x, n, ...) {
 
@@ -122,7 +122,7 @@ as_month.POSIXt <- function(x, n, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname month
+#' @rdname month_class
 #' @export
 as_month.character <- function(x, n, ...) {
 
@@ -136,7 +136,7 @@ as_month.character <- function(x, n, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname month
+#' @rdname month_class
 #' @export
 as_month.factor <- function(x, n, ...) {
 
@@ -157,7 +157,7 @@ as_month.factor <- function(x, n, ...) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname month
+#' @rdname month_class
 #' @export
 new_month <- function(x = integer(), n) {
     if (is.vector(x, "double")) {
@@ -178,7 +178,7 @@ new_month <- function(x = integer(), n) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname month
+#' @rdname month_class
 #' @export
 is_month <- function(xx) {
     inherits(xx, "grates_month")

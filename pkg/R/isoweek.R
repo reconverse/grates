@@ -89,11 +89,11 @@
 #' as_isoweek("2019-W12", format = "yearweek")
 #'
 # -------------------------------------------------------------------------
-#' @name isoweek
+#' @name isoweek_class
 NULL
 
 # -------------------------------------------------------------------------
-#' @rdname isoweek
+#' @rdname isoweek_class
 #' @export
 isoweek <- function(year = integer(), week = integer()) {
 
@@ -120,21 +120,21 @@ isoweek <- function(year = integer(), week = integer()) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname isoweek
+#' @rdname isoweek_class
 #' @export
 as_isoweek <- function(x, ...) {
     UseMethod("as_isoweek")
 }
 
 # -------------------------------------------------------------------------
-#' @rdname isoweek
+#' @rdname isoweek_class
 #' @export
 as_isoweek.default <- function(x, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
-#' @rdname isoweek
+#' @rdname isoweek_class
 #' @export
 as_isoweek.Date <- function(x, ...) {
     firstday <- 1L
@@ -144,7 +144,7 @@ as_isoweek.Date <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname isoweek
+#' @rdname isoweek_class
 #' @export
 as_isoweek.POSIXt <- function(x, ...) {
     x <- .as_date(x)
@@ -152,7 +152,7 @@ as_isoweek.POSIXt <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname isoweek
+#' @rdname isoweek_class
 #' @export
 as_isoweek.character <- function(
         x,
@@ -178,7 +178,7 @@ as_isoweek.character <- function(
 }
 
 # -------------------------------------------------------------------------
-#' @rdname isoweek
+#' @rdname isoweek_class
 #' @export
 as_isoweek.factor <- function(
         x,
@@ -191,7 +191,7 @@ as_isoweek.factor <- function(
 }
 
 # -------------------------------------------------------------------------
-#' @rdname isoweek
+#' @rdname isoweek_class
 #' @export
 new_isoweek <- function(x = integer()) {
     if (is.vector(x, "double")) {
@@ -204,7 +204,7 @@ new_isoweek <- function(x = integer()) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname isoweek
+#' @rdname isoweek_class
 #' @export
 is_isoweek <- function(xx) {
     inherits(xx, "grates_isoweek")

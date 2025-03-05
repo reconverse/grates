@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------
-#' Year class.
+#' Year class
 #'
 # -------------------------------------------------------------------------
 #' @description
@@ -46,6 +46,11 @@
 #' as_year("2019-05-03")
 #'
 # -------------------------------------------------------------------------
+#' @name year_class
+NULL
+
+# -------------------------------------------------------------------------
+#' @rdname year_class
 #' @export
 year <- function(x = integer()) {
     if (is.vector(x, "double")) {
@@ -59,21 +64,21 @@ year <- function(x = integer()) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname year
+#' @rdname year_class
 #' @export
 as_year <- function(x, ...) {
     UseMethod("as_year")
 }
 
 # -------------------------------------------------------------------------
-#' @rdname year
+#' @rdname year_class
 #' @export
 as_year.default <- function(x, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
-#' @rdname year
+#' @rdname year_class
 #' @export
 as_year.Date <- function(x, ...) {
 
@@ -85,7 +90,7 @@ as_year.Date <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname year
+#' @rdname year_class
 #' @export
 as_year.POSIXt <- function(x, ...) {
     x <- .as_date(x)
@@ -93,7 +98,7 @@ as_year.POSIXt <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname year
+#' @rdname year_class
 #' @export
 as_year.character <- function(x, ...) {
     out <- as.Date(x, ...)
@@ -103,7 +108,7 @@ as_year.character <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname year
+#' @rdname year_class
 #' @export
 as_year.factor <- function(x, ...) {
     x <- as.character(x)
@@ -112,7 +117,7 @@ as_year.factor <- function(x, ...) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname year
+#' @rdname year_class
 #' @export
 is_year <- function(object) {
     inherits(object, "grates_year")

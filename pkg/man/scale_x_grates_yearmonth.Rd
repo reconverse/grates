@@ -2,7 +2,7 @@
 % Please edit documentation in R/scale-yearmonth.R
 \name{scale_x_grates_yearmonth}
 \alias{scale_x_grates_yearmonth}
-\title{yearmonth scale}
+\title{Yearmonth scale}
 \usage{
 scale_x_grates_yearmonth(
   ...,

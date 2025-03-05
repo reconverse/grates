@@ -1,7 +1,7 @@
 grates_month_env <-  new.env(parent = emptyenv())
 
 # -------------------------------------------------------------------------
-#' month scale
+#' Month scale
 #'
 # -------------------------------------------------------------------------
 #' ggplot2 scale for a month vector.

@@ -1,7 +1,7 @@
 grates_period_env <-  new.env(parent = emptyenv())
 
 # -------------------------------------------------------------------------
-#' period scale
+#' Period scale
 #'
 # -------------------------------------------------------------------------
 #' ggplot2 scale for an `<grates_period>` vector.

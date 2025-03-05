@@ -2,7 +2,7 @@
 % Please edit documentation in R/scale-isoweek.R
 \name{scale_x_grates_isoweek}
 \alias{scale_x_grates_isoweek}
-\title{isoweek scale}
+\title{Isoweek scale}
 \usage{
 scale_x_grates_isoweek(
   ...,

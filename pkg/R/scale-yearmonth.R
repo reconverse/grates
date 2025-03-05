@@ -15,7 +15,7 @@ scale_type.grates_yearmonth <- function(x) {
 }
 
 # -------------------------------------------------------------------------
-#' yearmonth scale
+#' Yearmonth scale
 #'
 # -------------------------------------------------------------------------
 #' ggplot2 scale for a yearmonth vector.

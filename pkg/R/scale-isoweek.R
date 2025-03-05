@@ -1,4 +1,4 @@
-#' isoweek scale
+#' Isoweek scale
 #'
 # -------------------------------------------------------------------------
 #' ggplot2 scale for an `<grates_isoweek>` vector.

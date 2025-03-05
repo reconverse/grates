@@ -2,7 +2,7 @@
 % Please edit documentation in R/scale-epiweek.R
 \name{scale_x_grates_epiweek}
 \alias{scale_x_grates_epiweek}
-\title{epiweek scale}
+\title{Epiweek scale}
 \usage{
 scale_x_grates_epiweek(
   ...,

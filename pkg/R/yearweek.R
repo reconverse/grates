@@ -104,11 +104,11 @@
 #' as_yearweek("2019-W12", format = "yearweek")
 #'
 # -------------------------------------------------------------------------
-#' @name yearweek
+#' @name yearweek_class
 NULL
 
 # -------------------------------------------------------------------------
-#' @rdname yearweek
+#' @rdname yearweek_class
 #' @export
 yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
 
@@ -154,21 +154,21 @@ yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname yearweek
+#' @rdname yearweek_class
 #' @export
 as_yearweek <- function(x, ...) {
     UseMethod("as_yearweek")
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearweek
+#' @rdname yearweek_class
 #' @export
 as_yearweek.default <- function(x, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearweek
+#' @rdname yearweek_class
 #' @export
 as_yearweek.Date <- function(x, firstday = 1L, ...) {
     if (length(firstday) != 1L)
@@ -189,7 +189,7 @@ as_yearweek.Date <- function(x, firstday = 1L, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearweek
+#' @rdname yearweek_class
 #' @export
 as_yearweek.POSIXt <- function(x, firstday = 1L, ...) {
     x <- .as_date(x)
@@ -197,7 +197,7 @@ as_yearweek.POSIXt <- function(x, firstday = 1L, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearweek
+#' @rdname yearweek_class
 #' @export
 as_yearweek.character <- function(
         x,
@@ -224,7 +224,7 @@ as_yearweek.character <- function(
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearweek
+#' @rdname yearweek_class
 #' @export
 as_yearweek.factor <- function(
         x,
@@ -238,7 +238,7 @@ as_yearweek.factor <- function(
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearweek
+#' @rdname yearweek_class
 #' @export
 new_yearweek <- function(x = integer(), firstday = 1L) {
     if (is.vector(x, "double")) {
@@ -264,7 +264,7 @@ new_yearweek <- function(x = integer(), firstday = 1L) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname yearweek
+#' @rdname yearweek_class
 #' @export
 is_yearweek <- function(xx) {
     inherits(xx, "grates_yearweek")

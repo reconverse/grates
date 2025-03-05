@@ -76,12 +76,12 @@
 #' as_yearmonth("2019-05-03")
 #'
 # -------------------------------------------------------------------------
-#' @name yearmonth
+#' @name yearmonth_class
 NULL
 
 
 # -------------------------------------------------------------------------
-#' @rdname yearmonth
+#' @rdname yearmonth_class
 #' @export
 yearmonth <- function(year = integer(), month = integer()) {
 
@@ -119,21 +119,21 @@ yearmonth <- function(year = integer(), month = integer()) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname yearmonth
+#' @rdname yearmonth_class
 #' @export
 as_yearmonth <- function(x, ...) {
     UseMethod("as_yearmonth")
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearmonth
+#' @rdname yearmonth_class
 #' @export
 as_yearmonth.default <- function(x, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearmonth
+#' @rdname yearmonth_class
 #' @export
 as_yearmonth.Date <- function(x, ...) {
 
@@ -151,7 +151,7 @@ as_yearmonth.Date <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearmonth
+#' @rdname yearmonth_class
 #' @export
 as_yearmonth.POSIXt <- function(x, ...) {
     x <- .as_date(x)
@@ -159,7 +159,7 @@ as_yearmonth.POSIXt <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearmonth
+#' @rdname yearmonth_class
 #' @export
 as_yearmonth.character <- function(x, ...) {
     out <- as.Date(x, ...)
@@ -169,7 +169,7 @@ as_yearmonth.character <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname yearmonth
+#' @rdname yearmonth_class
 #' @export
 as_yearmonth.factor <- function(x, ...) {
     x <- as.character(x)
@@ -178,7 +178,7 @@ as_yearmonth.factor <- function(x, ...) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname yearmonth
+#' @rdname yearmonth_class
 #' @export
 new_yearmonth <- function(x = integer()) {
     if (is.vector(x, "double")) {
@@ -191,7 +191,7 @@ new_yearmonth <- function(x = integer()) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname yearmonth
+#' @rdname yearmonth_class
 #' @export
 is_yearmonth <- function(xx) {
     inherits(xx, "grates_yearmonth")

@@ -89,11 +89,11 @@
 #' as_epiweek("2019-W12", format = "yearweek")
 #'
 # -------------------------------------------------------------------------
-#' @name epiweek
+#' @name epiweek_class
 NULL
 
 # -------------------------------------------------------------------------
-#' @rdname epiweek
+#' @rdname epiweek_class
 #' @export
 epiweek <- function(year = integer(), week = integer()) {
 
@@ -121,21 +121,21 @@ epiweek <- function(year = integer(), week = integer()) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname epiweek
+#' @rdname epiweek_class
 #' @export
 as_epiweek <- function(x, ...) {
     UseMethod("as_epiweek")
 }
 
 # -------------------------------------------------------------------------
-#' @rdname epiweek
+#' @rdname epiweek_class
 #' @export
 as_epiweek.default <- function(x, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
-#' @rdname epiweek
+#' @rdname epiweek_class
 #' @export
 as_epiweek.Date <- function(x, ...) {
     firstday <- 7L
@@ -145,7 +145,7 @@ as_epiweek.Date <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname epiweek
+#' @rdname epiweek_class
 #' @export
 as_epiweek.POSIXt <- function(x, ...) {
     x <- .as_date(x)
@@ -153,7 +153,7 @@ as_epiweek.POSIXt <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname epiweek
+#' @rdname epiweek_class
 #' @export
 as_epiweek.character <- function(
         x,
@@ -180,7 +180,7 @@ as_epiweek.character <- function(
 }
 
 # -------------------------------------------------------------------------
-#' @rdname epiweek
+#' @rdname epiweek_class
 #' @export
 as_epiweek.factor <- function(
         x,
@@ -193,7 +193,7 @@ as_epiweek.factor <- function(
 }
 
 # -------------------------------------------------------------------------
-#' @rdname epiweek
+#' @rdname epiweek_class
 #' @export
 new_epiweek <- function(x = integer()) {
     if (is.vector(x, "double")) {
@@ -205,7 +205,7 @@ new_epiweek <- function(x = integer()) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname epiweek
+#' @rdname epiweek_class
 #' @export
 is_epiweek <- function(xx) {
     inherits(xx, "grates_epiweek")

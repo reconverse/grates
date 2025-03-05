@@ -2,7 +2,7 @@
 % Please edit documentation in R/scale-int_period.R
 \name{scale_x_grates_int_period}
 \alias{scale_x_grates_int_period}
-\title{int_period scale (Experimental)}
+\title{Integer-period scale (Experimental)}
 \usage{
 scale_x_grates_int_period(
   ...,
@@ -38,6 +38,5 @@ Number used for the original grouping.}
 A scale for use with ggplot2.
 }
 \description{
-ggplot2 scale for an int_period vector.
+ggplot2 scale for an integer-period vector.
 }
-\keyword{internal}

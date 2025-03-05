@@ -2,7 +2,7 @@
 % Please edit documentation in R/scale-year.R
 \name{scale_x_grates_year}
 \alias{scale_x_grates_year}
-\title{year scale}
+\title{Year scale}
 \usage{
 scale_x_grates_year(
   ...,

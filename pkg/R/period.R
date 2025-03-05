@@ -77,25 +77,25 @@
 #' new_period(1:10)
 #'
 # -------------------------------------------------------------------------
-#' @name period
+#' @name period_class
 NULL
 
 # -------------------------------------------------------------------------
-#' @rdname period
+#' @rdname period_class
 #' @export
 as_period <- function(x, n, ...) {
     UseMethod("as_period")
 }
 
 # -------------------------------------------------------------------------
-#' @rdname period
+#' @rdname period_class
 #' @export
 as_period.default <- function(x, n = 1L, offset = 0L, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
-#' @rdname period
+#' @rdname period_class
 #' @export
 as_period.Date <- function(x, n = 1L, offset = 0L, ...) {
 
@@ -122,7 +122,7 @@ as_period.Date <- function(x, n = 1L, offset = 0L, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname period
+#' @rdname period_class
 #' @export
 as_period.POSIXt <- function(x, n = 1L, offset = 0L, ...) {
 
@@ -137,7 +137,7 @@ as_period.POSIXt <- function(x, n = 1L, offset = 0L, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname period
+#' @rdname period_class
 #' @export
 as_period.character <- function(x, n = 1L, offset = 0L, ...) {
 
@@ -154,7 +154,7 @@ as_period.character <- function(x, n = 1L, offset = 0L, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname period
+#' @rdname period_class
 #' @export
 as_period.factor <- function(x, n = 1L, offset = 0L, ...) {
     if (...length()) {
@@ -168,7 +168,7 @@ as_period.factor <- function(x, n = 1L, offset = 0L, ...) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname period
+#' @rdname period_class
 #' @export
 new_period <- function(x = integer(), n = 1L, offset = 0L) {
     if (is.vector(x, "double")) {
@@ -191,7 +191,7 @@ new_period <- function(x = integer(), n = 1L, offset = 0L) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname period
+#' @rdname period_class
 #' @export
 is_period <- function(xx) {
     inherits(xx, "grates_period")

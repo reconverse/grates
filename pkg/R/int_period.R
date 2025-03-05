@@ -1,5 +1,5 @@
 # -------------------------------------------------------------------------
-#' Int Period class (Experimental)
+#' Integer-period class (Experimental)
 #'
 # -------------------------------------------------------------------------
 #' @description
@@ -16,8 +16,8 @@
 #' `x %/% n`).
 #'
 #' `new_int_period()` is a minimal constructor for `<grates_period>`
-#' objects aimed at developers. It takes, as input, the number of int-periods
-#' and the value of `n`.
+#' objects aimed at developers. It takes, as input, the number of integer
+#' periods and the value of `n`.
 #'
 # -------------------------------------------------------------------------
 #' @param x
@@ -26,7 +26,7 @@
 #'
 #' For `as_int_period()` this is the object to be coerced.
 #'
-#' For `new_int_period()` this represents the number of `n` int-periods from 0.
+#' For `new_int_period()` this represents the number of `n` integer periods from 0.
 #'
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
@@ -57,18 +57,18 @@
 #'
 #'
 # -------------------------------------------------------------------------
-#' @name int_period
+#' @name int_period_class
 NULL
 
 # -------------------------------------------------------------------------
-#' @rdname int_period
+#' @rdname int_period_class
 #' @export
 as_int_period.default <- function(x, n = 1L, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
-#' @rdname int_period
+#' @rdname int_period_class
 #' @export
 as_int_period.integer <- function(x, n = 1L, ...) {
 
@@ -88,7 +88,7 @@ as_int_period.integer <- function(x, n = 1L, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname int_period
+#' @rdname int_period_class
 #' @export
 as_int_period.double <- function(x, n = 1L, ...) {
 
@@ -111,7 +111,7 @@ as_int_period.double <- function(x, n = 1L, ...) {
 
 
 # -------------------------------------------------------------------------
-#' @rdname int_period
+#' @rdname int_period_class
 #' @export
 new_int_period <- function(x = integer(), n = 1L) {
     if (is.vector(x, "double")) {
@@ -132,7 +132,7 @@ new_int_period <- function(x = integer(), n = 1L) {
 }
 
 # -------------------------------------------------------------------------
-#' @rdname int_period
+#' @rdname int_period_class
 #' @export
 is_int_period <- function(xx) {
     inherits(xx, "grates_int_period")
@@ -173,7 +173,7 @@ vec_ptype_full.grates_int_period <- function(x, ...) {"grates_int_period"}
 
 
 # -------------------------------------------------------------------------
-#' @rdname int_period
+#' @rdname int_period_class
 #' @export
 as_int_period <- function(x, n, ...) {
     UseMethod("as_int_period")

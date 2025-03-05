@@ -2,7 +2,7 @@
 % Please edit documentation in R/scale-period.R
 \name{scale_x_grates_period}
 \alias{scale_x_grates_period}
-\title{period scale}
+\title{Period scale}
 \usage{
 scale_x_grates_period(
   ...,
