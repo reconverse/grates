@@ -3,9 +3,8 @@ title: "Introduction"
 output:
     html:
         meta:
-            css: ["default"]
-            js: ["@center-img"]
-      
+            css: ["@default", "@copy-button"]
+            js: ["@center-img", "@copy-button"]
         
 vignette: >
   %\VignetteEngine{litedown::vignette}
