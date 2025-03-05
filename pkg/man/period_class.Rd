@@ -29,7 +29,7 @@ new_period(x = integer(), n = 1L, offset = 0L)
 is_period(xx)
 }
 \arguments{
-\item{x}{An \R object.
+\item{x, xx}{\R objects.
 
 For \code{as_period()} this is the object to be coerced.
 
@@ -52,8 +52,6 @@ Value you wish to start counting periods from relative to the Unix Epoch:
 \item For date values this is first converted to an integer offset
 (\code{offset <- floor(as.numeric(offset))}) and then scaled via \code{n} as above.
 }}
-
-\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_period>} object.
@@ -87,6 +85,11 @@ be converted via \code{as.integer(floor(x))}.
 }
 \examples{
 
+# coercion from date
+dat <- as.Date("2012-12-01")
+as_period(dat + 0:3, n = 2, offset = dat)
+
+# direct construction
 new_period(1:10)
 
 }

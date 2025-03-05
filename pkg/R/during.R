@@ -1,43 +1,36 @@
 # -------------------------------------------------------------------------
-#' Access the bounding dates of a grates object
+#' Is a date covered by a grouped date
 #'
 # -------------------------------------------------------------------------
-#' Utility functions for accessing the boundary dates for each element of
-#' a grates object.
+#' `%during%` determines whether a supplied date is within the period covered
+#' by each element of a grates object.
 #'
 # -------------------------------------------------------------------------
+#' @param date A scalar `<date>` object.
+#'
 #' @param x grouped date vector.
 #'
 # -------------------------------------------------------------------------
 #' @return
-#' The requested start and end dates for each element in the input.
 #'
+#' A logical vector indicating whether the date was present within the range of
+#' the tested object.
 # -------------------------------------------------------------------------
 #' @examples
-#' dates <- as.Date("2020-01-01") + 1:9
+#'
+#' dates <- as.Date("2020-01-01") + 1:10
 #' week <- as_isoweek(dates)
-#' date_start(week)
-#' date_end(week)
+#' dates[1] %during% week
 #'
 #' period <- as_period(dates, n = 3)
-#' date_start(period)
-#' date_end(period)
+#' dates[10] %during% period
 #'
 # -------------------------------------------------------------------------
-#' @name boundaries
-NULL
-
-#' @rdname boundaries
 #' @export
-date_start <- function(x) {
+`%during%` <- function(date, x) {
+    .assert_scalar_date(date)
     .assert_grate(x)
-    return(as.Date(x))
+    start <- date_start(x)
+    end <- date_end(x)
+    (date >= start) & (date <= end)
 }
-
-#' @rdname boundaries
-#' @export
-date_end <- function(x) {
-    .assert_grate(x)
-    as.Date(x + 1L) - 1L
-}
-

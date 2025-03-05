@@ -23,9 +23,9 @@
 #' `double` vectors will be converted via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
-#' @param x
+#' @param x,xx
 #'
-#' An \R object.
+#' \R objects.
 #'
 #' @param n `[integer]`
 #'
@@ -36,10 +36,6 @@
 #'
 #' Only used For character input where additional arguments are passed through
 #' to `as.Date()`.
-#'
-#' @param xx
-#'
-#' An \R object.
 #'
 # -------------------------------------------------------------------------
 #' @references
@@ -53,13 +49,29 @@
 #'
 # -------------------------------------------------------------------------
 #' @seealso
-#' `new_yearmonth()` and `as_yearmonth()`.
+#' The [yearmonth][yearmonth_class] class.
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' new_month(1:10, 2L)
-#' as_month("2019-05-03", n = 4L)
+#'
+#' # date coercion
+#' as_month(Sys.Date(), n = 2)
+#'
+#' # character coercion
+#' as_month("2019-05-03", n = 4)
+#'
+#' # POSIXt coercion
 #' as_month(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 2)
+#'
+#' # direct construction
+#' d <- seq.Date(from = as.Date("1970-03-01"), by = "2 month", length.out = 10)
+#' stopifnot(
+#'     identical(
+#'         as_month(d, n = 2),
+#'         new_month(1:10, 2)
+#'     )
+#' )
+#'
 # -------------------------------------------------------------------------
 #' @name month_class
 NULL

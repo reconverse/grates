@@ -44,12 +44,10 @@ Vector representing the quarter associated with \code{year}.
 
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.}
 
-\item{x}{An \R object.}
+\item{x, xx}{\R objects.}
 
 \item{...}{Only used for character input where additional arguments are passed through
 to \code{as.Date()}.}
-
-\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_yearquarter>} object.
@@ -77,10 +75,27 @@ objects aimed at developers. It takes, as input, the number of quarters
 \code{double} vectors will again be converted to integer via \code{as.integer(floor(x))}.
 }
 \examples{
-yearquarter(year = 2000, quarter = 3)
-new_yearquarter(1:10)
+
+# date coercion
 as_yearquarter(Sys.Date())
+
+# POSIXt coercion
 as_yearquarter(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+
+# character coercion
 as_yearquarter("2019-05-03")
+
+# construction
+yearquarter(year = 2000, quarter = 3)
+
+# direct construction
+d <- seq.Date(from = as.Date("1970-01-01"), by = "quarter", length.out = 4)
+stopifnot(
+    identical(
+        as_yearquarter(d),
+        new_yearquarter(0:3)
+    )
+)
+
 
 }

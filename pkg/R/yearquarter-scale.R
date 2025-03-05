@@ -32,6 +32,33 @@
 #' A scale for use with ggplot2.
 #'
 # -------------------------------------------------------------------------
+#' @examplesIf requireNamespace("outbreaks") && requireNamespace("ggplot2")
+#'
+#' # use simulated linelist data from the outbreaks package
+#' linelist <- outbreaks::ebola_sim_clean$linelist
+#'
+#' # calculate quarterly cases by date of infection
+#' x <- as_yearquarter(linelist$date_of_infection)
+#' (dat <- aggregate(list(cases = x), by = list(quarter = x), FUN = length))
+#'
+#' # by default labels are centred
+#' (quarter_plot <-
+#'     ggplot2::ggplot(dat, ggplot2::aes(quarter, cases)) +
+#'     ggplot2::geom_col(width = 1, colour = "white") +
+#'     ggplot2::theme_bw() +
+#'     ggplot2::theme(
+#'         axis.text.x = ggplot2::element_text(
+#'             angle = 45,
+#'             hjust = 1
+#'         )
+#'     ) +
+#'     ggplot2::xlab(""))
+#'
+#' # To obtain centred labels you must explicitly set a date format
+#' # in the scale:
+#' quarter_plot + scale_x_grates_yearquarter(format = "%Y-%m-%d")
+#'
+# -------------------------------------------------------------------------
 #' @export
 scale_x_grates_yearquarter <- function(..., breaks = ggplot2::waiver(), n.breaks = 6L, format = NULL) {
 

@@ -17,22 +17,14 @@
 #' - POSIXct and POSIXlt are converted with their timezone respected.
 #'
 # -------------------------------------------------------------------------
-#' @param x
+#' @param x,object
 #'
-#' An \R object
-#'
-#' Vector representing the years.
-#'
-#' `double` vectors will be converted via `as.integer(floor(x))`.
+#' \R objects.
 #'
 #' @param ...
 #'
 #' Only used For character input where additional arguments are passed through
 #' to `as.Date()`.
-#'
-#' @param object
-#'
-#' An \R object.
 #'
 # -------------------------------------------------------------------------
 #' @return
@@ -40,10 +32,18 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' year(2011:2020)
+#'
+#' # date coercion
 #' as_year(Sys.Date())
+#'
+#' # POSIXt coercion
 #' as_year(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#'
+#' # Character coercion
 #' as_year("2019-05-03")
+#'
+#' # direct construction
+#' year(2011:2020)
 #'
 # -------------------------------------------------------------------------
 #' @name year_class

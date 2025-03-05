@@ -27,9 +27,9 @@
 #' be converted to integer via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
-#' @param x
+#' @param x,xx
 #'
-#' An \R object.
+#' \R objects.
 #'
 #' @param year `[integer]`
 #'
@@ -48,10 +48,6 @@
 #' Only used for character input where additional arguments are passed through
 #' to `as.Date()`.
 #'
-#' @param xx
-#'
-#' An \R object.
-#'
 # -------------------------------------------------------------------------
 #' @references
 #'
@@ -69,11 +65,27 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' yearmonth(year = 2000, month = 3)
-#' new_yearmonth(1:10)
+#'
+#' # date coercion
 #' as_yearmonth(Sys.Date())
+#'
+#' # POSIXt coercion
 #' as_yearmonth(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#'
+#' # character coercion
 #' as_yearmonth("2019-05-03")
+#'
+#' # construction
+#' yearmonth(year = 2000, month = 3)
+#'
+#' # direct construction
+#' d <- seq.Date(from = as.Date("1970-01-01"), by = "month", length.out = 10)
+#' stopifnot(
+#'     identical(
+#'         as_yearmonth(d),
+#'         new_yearmonth(0:9)
+#'     )
+#' )
 #'
 # -------------------------------------------------------------------------
 #' @name yearmonth_class

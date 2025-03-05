@@ -29,7 +29,7 @@ new_month(x = integer(), n)
 is_month(xx)
 }
 \arguments{
-\item{x}{An \R object.}
+\item{x, xx}{\R objects.}
 
 \item{n}{\verb{[integer]}
 
@@ -38,8 +38,6 @@ Number of months that are being grouped. Must be greater than 1 (use
 
 \item{...}{Only used For character input where additional arguments are passed through
 to \code{as.Date()}.}
-
-\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_month>} object.
@@ -64,9 +62,25 @@ the Unix Epoch (1970-01-01) and the related value of \code{n}.
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.
 }
 \examples{
-new_month(1:10, 2L)
-as_month("2019-05-03", n = 4L)
+
+# date coercion
+as_month(Sys.Date(), n = 2)
+
+# character coercion
+as_month("2019-05-03", n = 4)
+
+# POSIXt coercion
 as_month(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"), n = 2)
+
+# direct construction
+d <- seq.Date(from = as.Date("1970-03-01"), by = "2 month", length.out = 10)
+stopifnot(
+    identical(
+        as_month(d, n = 2),
+        new_month(1:10, 2)
+    )
+)
+
 }
 \references{
 The algorithm to convert between dates and months relative to the UNIX Epoch
@@ -74,5 +88,5 @@ comes from the work of Davis Vaughan in the unreleased
 \href{https://github.com/DavisVaughan/datea/}{datea} package.
 }
 \seealso{
-\code{new_yearmonth()} and \code{as_yearmonth()}.
+The \link[=yearmonth_class]{yearmonth} class.
 }

@@ -26,9 +26,9 @@
 #' `double` vectors will again be converted to integer via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
-#' @param x
+#' @param x,xx
 #'
-#' An \R object.
+#' \R objects.
 #'
 #' @param year `[integer]`
 #'
@@ -47,21 +47,34 @@
 #' Only used for character input where additional arguments are passed through
 #' to `as.Date()`.
 #'
-#' @param xx
-#'
-#' An \R object.
-#'
 # -------------------------------------------------------------------------
 #' @return
 #' A `<grates_yearquarter>` object.
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' yearquarter(year = 2000, quarter = 3)
-#' new_yearquarter(1:10)
+#'
+#' # date coercion
 #' as_yearquarter(Sys.Date())
+#'
+#' # POSIXt coercion
 #' as_yearquarter(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#'
+#' # character coercion
 #' as_yearquarter("2019-05-03")
+#'
+#' # construction
+#' yearquarter(year = 2000, quarter = 3)
+#'
+#' # direct construction
+#' d <- seq.Date(from = as.Date("1970-01-01"), by = "quarter", length.out = 4)
+#' stopifnot(
+#'     identical(
+#'         as_yearquarter(d),
+#'         new_yearquarter(0:3)
+#'     )
+#' )
+#'
 #'
 # -------------------------------------------------------------------------
 #' @name yearquarter_class

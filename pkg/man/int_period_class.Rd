@@ -23,7 +23,7 @@ is_int_period(xx)
 as_int_period(x, n, ...)
 }
 \arguments{
-\item{x}{An \R object.
+\item{x, xx}{\R objects.
 
 For \code{as_int_period()} this is the object to be coerced.
 
@@ -36,8 +36,6 @@ For \code{new_int_period()} this represents the number of \code{n} integer perio
 Number of integers that are being grouped. Must be greater than 0.}
 
 \item{...}{Not currently used.}
-
-\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_int_period>} object.
@@ -58,11 +56,17 @@ periods and the value of \code{n}.
 }
 \examples{
 
+# coercion
 as_int_period(1:10, n = 3)
-identical(
-    as_int_period(1:10, n = 3),
-    new_int_period(c(0, 0, 1, 1, 1, 2, 2, 2, 3, 3), n = 3)
+
+# direct construction
+stopifnot(
+    identical(
+        as_int_period(1:10, n = 3),
+        new_int_period(c(0, 0, 1, 1, 1, 2, 2, 2, 3, 3), n = 3)
+    )
 )
+
 
 
 }

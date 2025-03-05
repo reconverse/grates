@@ -37,9 +37,9 @@
 #' `double` vectors will again be converted to integer via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
-#' @param x
+#' @param x,xx
 #'
-#' An \R object.
+#' \R objects.
 #'
 #' For `as_period()` this is the object to be coerced.
 #'
@@ -63,10 +63,6 @@
 #' Only used for character input where additional arguments are passed through
 #' to `as.Date()`.
 #'
-#' @param xx
-#'
-#' An \R object.
-#'
 # -------------------------------------------------------------------------
 #' @return
 #' A `<grates_period>` object.
@@ -74,6 +70,11 @@
 # -------------------------------------------------------------------------
 #' @examples
 #'
+#' # coercion from date
+#' dat <- as.Date("2012-12-01")
+#' as_period(dat + 0:3, n = 2, offset = dat)
+#'
+#' # direct construction
 #' new_period(1:10)
 #'
 # -------------------------------------------------------------------------

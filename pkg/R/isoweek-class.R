@@ -33,9 +33,9 @@
 #' will be converted to integer via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
-#' @param x
+#' @param x,xx
 #'
-#' An \R object.
+#' \R objects.
 #'
 #' @param year `[integer]`
 #'
@@ -66,27 +66,39 @@
 #'
 #' Other values passed to as.Date().
 #'
-#'
-#' @param xx
-#'
-#' An \R object.
-#'
 # -------------------------------------------------------------------------
 #' @return
 #' A `<grates_isoweek>` object.
 #'
 # -------------------------------------------------------------------------
 #' @seealso
-#' `new_yearweek()` and `new_epiweek()`.
+#' The [yearweek][yearweek_class] and [epiweek][epiweek_class] classes.
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' isoweek(year = 2000, week = 3)
-#' new_isoweek(1:10)
+#'
+#' # date coercion
 #' as_isoweek(Sys.Date())
+#'
+#' # POSIXt coercion
 #' as_isoweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#'
+#' # character coercion assumes date input by default
 #' as_isoweek("2019-05-03")
+#'
+#' # character coercion can handle YYYY-Www format too
 #' as_isoweek("2019-W12", format = "yearweek")
+#'
+#' # construction
+#' isoweek(year = 2000, week = 3)
+#'
+#' # direct construction
+#' stopifnot(
+#'     identical(
+#'         new_isoweek(0:1),
+#'         as_isoweek("1969-12-29") + 0:1
+#'     )
+#' )
 #'
 # -------------------------------------------------------------------------
 #' @name isoweek_class

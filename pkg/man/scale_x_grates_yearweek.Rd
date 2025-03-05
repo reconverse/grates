@@ -115,3 +115,23 @@ A scale for use with ggplot2.
 \description{
 ggplot2 scale for an \verb{<grates_yearweek>} vector.
 }
+\examples{
+\dontshow{if (requireNamespace("outbreaks") && requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+# use simulated linelist data from the outbreaks package
+linelist <- outbreaks::ebola_sim_clean$linelist
+x <- as_yearweek(linelist$date_of_infection, firstday = 4)
+dat <- aggregate(list(cases = x), by = list(week = x), FUN = length)
+
+# plot the output
+(week_plot <-
+    ggplot2::ggplot(dat, ggplot2::aes(week, cases)) +
+    ggplot2::geom_col(width = 1, colour = "white") +
+    ggplot2::theme_bw())
+
+# We can have non-centred date labels on the x_axis by using the
+# associated scale function and explicitly specifying a format for the
+# date labels and a value for firstday:
+week_plot + scale_x_grates_yearweek(format = "\%Y-\%m-\%d", firstday = 4)
+\dontshow{\}) # examplesIf}
+}

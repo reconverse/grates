@@ -11,4 +11,8 @@ h2 {
 }
 ```
 
+```{r, include = FALSE}
+litedown::reactor(fig.height = 5)
+```
+
 `{r} litedown::pkg_manual(overview = FALSE)`

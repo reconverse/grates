@@ -29,16 +29,10 @@ as_year(x, ...)
 is_year(object)
 }
 \arguments{
-\item{x}{An \R object
-
-Vector representing the years.
-
-\code{double} vectors will be converted via \code{as.integer(floor(x))}.}
+\item{x, object}{\R objects.}
 
 \item{...}{Only used For character input where additional arguments are passed through
 to \code{as.Date()}.}
-
-\item{object}{An \R object.}
 }
 \value{
 A \verb{<grates_year>} object.
@@ -57,9 +51,17 @@ Years are represented by a \verb{<grates_year>} object.
 }
 }
 \examples{
-year(2011:2020)
+
+# date coercion
 as_year(Sys.Date())
+
+# POSIXt coercion
 as_year(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+
+# Character coercion
 as_year("2019-05-03")
+
+# direct construction
+year(2011:2020)
 
 }

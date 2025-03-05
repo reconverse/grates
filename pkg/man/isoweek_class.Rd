@@ -44,7 +44,7 @@ Vector representing the week associated with `year.
 
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.}
 
-\item{x}{An \R object.}
+\item{x, xx}{\R objects.}
 
 \item{...}{Other values passed to as.Date().}
 
@@ -60,8 +60,6 @@ element, and give an error if none works. Otherwise, the processing is via
 \item{tryFormats}{\verb{[character]}
 
 Format strings to try if format is not specified.}
-
-\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_isoweek>} object.
@@ -96,14 +94,31 @@ Monday prior to the Unix Epoch that you wish to represent. \code{double} vectors
 will be converted to integer via \code{as.integer(floor(x))}.
 }
 \examples{
-isoweek(year = 2000, week = 3)
-new_isoweek(1:10)
+
+# date coercion
 as_isoweek(Sys.Date())
+
+# POSIXt coercion
 as_isoweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+
+# character coercion assumes date input by default
 as_isoweek("2019-05-03")
+
+# character coercion can handle YYYY-Www format too
 as_isoweek("2019-W12", format = "yearweek")
+
+# construction
+isoweek(year = 2000, week = 3)
+
+# direct construction
+stopifnot(
+    identical(
+        new_isoweek(0:1),
+        as_isoweek("1969-12-29") + 0:1
+    )
+)
 
 }
 \seealso{
-\code{new_yearweek()} and \code{new_epiweek()}.
+The \link[=yearweek_class]{yearweek} and \link[=epiweek_class]{epiweek} classes.
 }

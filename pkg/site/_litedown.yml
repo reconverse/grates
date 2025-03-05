@@ -7,5 +7,5 @@ output:
     options:
       number_sections: false
       meta:
-            js: ["@toc-highlight"]
+            js: ["@toc-highlight", "@center-img"]
 

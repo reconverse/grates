@@ -34,3 +34,26 @@ A scale for use with ggplot2.
 \description{
 ggplot2 scale for year vector.
 }
+\examples{
+\dontshow{if (requireNamespace("outbreaks") && requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+# use simulated linelist data from the outbreaks package
+linelist <- outbreaks::ebola_sim_clean$linelist
+
+# calculate yearly cases by date of infection
+x <- as_year(linelist$date_of_infection)
+(dat <- aggregate(list(cases = x), by = list(year = x), FUN = length))
+
+# by default labels are centred
+(year_plot <-
+    ggplot2::ggplot(dat, ggplot2::aes(year, cases)) +
+    ggplot2::geom_col(width = 1, colour = "white") +
+    ggplot2::theme_bw() +
+    ggplot2::xlab(""))
+
+# To obtain centred labels you must explicitly set a date format
+# in the scale:
+year_plot + scale_x_grates_year(format = "\%Y-\%m-\%d")
+
+\dontshow{\}) # examplesIf}
+}

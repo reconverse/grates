@@ -43,9 +43,9 @@
 #' will be converted to integer via `as.integer(floor(x))`.
 #'
 # -------------------------------------------------------------------------
-#' @param x
+#' @param x,xx
 #'
-#' An \R object.
+#' \R objects.
 #'
 #' @param year `[integer]`
 #'
@@ -80,11 +80,6 @@
 #'
 #' Other values passed to as.Date().
 #'
-#'
-#' @param xx
-#'
-#' An \R object.
-#'
 # -------------------------------------------------------------------------
 #' @return
 #' A `<grates_yearweek>` object with subclass corresponding to the first day of
@@ -96,12 +91,29 @@
 #'
 # -------------------------------------------------------------------------
 #' @examples
-#' yearweek(year = 2000, week = 3)
-#' new_yearweek(1:10)
+#'
+#' # date coercion
 #' as_yearweek(Sys.Date())
+#'
+#' # POSIXt coercion
 #' as_yearweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+#'
+#' # character coercion with Friday as the first day of the week
 #' as_yearweek("2019-05-03", firstday = 5) # first day is Friday
+#'
+#' # character coercion in yearweek format
 #' as_yearweek("2019-W12", format = "yearweek")
+#'
+#' # construction
+#' yearweek(year = 2000, week = 3)
+#'
+#' # direct construction
+#' stopifnot(
+#'     identical(
+#'         new_yearweek(0:1, firstday = 1),
+#'         as_yearweek("1969-12-29", firstday = 1) + 0:1
+#'     )
+#' )
 #'
 # -------------------------------------------------------------------------
 #' @name yearweek_class

@@ -44,12 +44,10 @@ Vector representing the month associated with \code{year}.
 
 \code{double} vectors will be converted via \code{as.integer(floor(x))}.}
 
-\item{x}{An \R object.}
+\item{x, xx}{\R objects.}
 
 \item{...}{Only used for character input where additional arguments are passed through
 to \code{as.Date()}.}
-
-\item{xx}{An \R object.}
 }
 \value{
 A \verb{<grates_yearmonth>} object.
@@ -78,11 +76,27 @@ since the Unix Epoch, that you wish to represent. \code{double} vectors will aga
 be converted to integer via \code{as.integer(floor(x))}.
 }
 \examples{
-yearmonth(year = 2000, month = 3)
-new_yearmonth(1:10)
+
+# date coercion
 as_yearmonth(Sys.Date())
+
+# POSIXt coercion
 as_yearmonth(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
+
+# character coercion
 as_yearmonth("2019-05-03")
+
+# construction
+yearmonth(year = 2000, month = 3)
+
+# direct construction
+d <- seq.Date(from = as.Date("1970-01-01"), by = "month", length.out = 10)
+stopifnot(
+    identical(
+        as_yearmonth(d),
+        new_yearmonth(0:9)
+    )
+)
 
 }
 \references{

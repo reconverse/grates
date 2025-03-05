@@ -31,14 +31,11 @@ implemented classes are:
 - [grates_yearweek](#yearweek);
 - [grates_epiweek](#yearweek);
 - [grates_isoweek](#yearweek);
-
 - [grates_period](#period);
-
-- [grates_yearmonth](#yearxxx);
-- [grates_yearquarter](#yearxxx);
-- [grates_year](#yearxxx); and
-
 - [grates_month](#month)
+- [grates_yearmonth](#yearxxx);
+- [grates_yearquarter](#yearxxx); and
+- [grates_year](#yearxxx);
 
 The underlying implementation for these objects build upon ideas of Davis
 Vaughan and the unreleased [datea](https://github.com/DavisVaughan/datea/)

@@ -44,3 +44,36 @@ A scale for use with ggplot2.
 \description{
 ggplot2 scale for an \verb{<grates_period>} vector.
 }
+\examples{
+\dontshow{if (requireNamespace("outbreaks") && requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+
+# use simulated linelist data from the outbreaks package
+linelist <- outbreaks::ebola_sim_clean$linelist
+
+# Calculate the total of infections across 14 day periods offset from
+# the first date
+x <- linelist$date_of_infection
+x <- as_period(x, n = 14, offset = min(x, na.rm = TRUE))
+dat <- aggregate(list(cases = x), by = list(period = x), FUN = length)
+head(dat)
+
+(period_plot <- ggplot2::ggplot(dat, ggplot2::aes(period, cases)) +
+    ggplot2::geom_col(width = 1, colour = "white") +
+    ggplot2::theme_bw() +
+    ggplot2::theme(
+        axis.text.x = ggplot2::element_text(
+            angle = 45,
+            hjust = 1
+        )
+    ) +
+    ggplot2::xlab(""))
+
+# To change defaults we must explicitly state the value of n and
+# offset when calling the scale function
+period_plot + scale_x_grates_period(
+    n.breaks = 2,
+    n = 14,
+    offset = min(x, na.rm = TRUE)
+)
+\dontshow{\}) # examplesIf}
+}

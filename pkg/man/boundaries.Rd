@@ -4,41 +4,30 @@
 \alias{boundaries}
 \alias{date_start}
 \alias{date_end}
-\alias{\%during\%}
-\title{Access the start (end) dates of a grates vector}
+\title{Access the bounding dates of a grates object}
 \usage{
 date_start(x)
 
 date_end(x)
-
-date \%during\% x
 }
 \arguments{
 \item{x}{grouped date vector.}
-
-\item{date}{A scalar \verb{<date>} object.}
 }
 \value{
-For \code{date_start} and \code{date_end} The requested start (end) dates for each
-element in the input. For \verb{\%during\%} a logical vector indicating whether the
-date was present within the range of the tested object.
+The requested start and end dates for each element in the input.
 }
 \description{
-Utility functions for accessing the start (end) dates for each element of
-a grates object and also checking whether a date is contained within that
-range
+Utility functions for accessing the boundary dates for each element of
+a grates object.
 }
 \examples{
-dates <- as.Date("2020-01-01") + 1:14
-
+dates <- as.Date("2020-01-01") + 1:9
 week <- as_isoweek(dates)
 date_start(week)
 date_end(week)
-dates[1L] \%during\% week
 
 period <- as_period(dates, n = 3)
 date_start(period)
 date_end(period)
-dates[14L] \%during\% period
 
 }

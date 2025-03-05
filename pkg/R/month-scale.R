@@ -49,6 +49,33 @@ grates_month_env <-  new.env(parent = emptyenv())
 #' A scale for use with ggplot2.
 #'
 # -------------------------------------------------------------------------
+#' @examplesIf requireNamespace("outbreaks") && requireNamespace("ggplot2")
+#'
+#' # use simulated linelist data from the outbreaks package
+#' linelist <- outbreaks::ebola_sim_clean$linelist
+#'
+#' # calculate the bimonthly number of cases
+#' x <- as_month(linelist$date_of_infection, n = 2)
+#' (dat <- aggregate(list(cases = x), by = list(group = x), FUN = length))
+#'
+#' # by default lower date bounds are used for the x axis
+#' (bimonth_plot <-
+#'     ggplot2::ggplot(dat, ggplot2::aes(group, cases)) +
+#'     ggplot2::geom_col(width = 1, colour = "white") +
+#'     ggplot2::theme_bw() +
+#'     ggplot2::theme(
+#'         axis.text.x = ggplot2::element_text(
+#'             angle = 45,
+#'             hjust = 1
+#'         )
+#'     ) +
+#'     ggplot2::xlab(""))
+#'
+#' # To obtain centred labels you must explicitly set the format to NULL
+#' # in the scale:
+#' bimonth_plot + scale_x_grates_month(format = NULL, n = 2)
+#'
+# -------------------------------------------------------------------------
 #' @export
 scale_x_grates_month <- function(
     ...,
