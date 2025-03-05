@@ -1,6 +1,7 @@
 # grates (development version)
 
-* Reworking of manual pages.   
+* Reworking of manual pages.
+* `scale_x_grates_period()` can now handle a `date` value for `offset`.
 
 # grates 1.4.1
 
