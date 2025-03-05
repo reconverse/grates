@@ -33,28 +33,28 @@
 <div id="TOC">
 <ul>
 <li><a href="#sec:man-boundaries">Access the start (end) dates of a grates vector</a></li>
-<li><a href="#sec:man-epiweek">Epiweek class</a></li>
+<li><a href="#sec:man-epiweek_class">Epiweek class</a></li>
 <li><a href="#sec:man-grouped_date_accessors">Accessors for grate objects</a></li>
-<li><a href="#sec:man-int_period">Int Period class (Experimental)</a></li>
-<li><a href="#sec:man-isoweek">Isoweek class</a></li>
-<li><a href="#sec:man-month">Month class</a></li>
-<li><a href="#sec:man-period">Period class</a></li>
+<li><a href="#sec:man-int_period_class">Integer-period class (Experimental)</a></li>
+<li><a href="#sec:man-isoweek_class">Isoweek class</a></li>
+<li><a href="#sec:man-month_class">Month class</a></li>
+<li><a href="#sec:man-period_class">Period class</a></li>
 <li><a href="#sec:man-print.grates_month">Format and print a month object</a></li>
 <li><a href="#sec:man-print.grates_period">Print a period object</a></li>
 <li><a href="#sec:man-print.grates_yearmonth">Format and print a yearmonth object</a></li>
-<li><a href="#sec:man-scale_x_grates_epiweek">epiweek scale</a></li>
-<li><a href="#sec:man-scale_x_grates_int_period">int_period scale (Experimental)</a></li>
-<li><a href="#sec:man-scale_x_grates_isoweek">isoweek scale</a></li>
-<li><a href="#sec:man-scale_x_grates_month">month scale</a></li>
-<li><a href="#sec:man-scale_x_grates_period">period scale</a></li>
-<li><a href="#sec:man-scale_x_grates_year">year scale</a></li>
-<li><a href="#sec:man-scale_x_grates_yearmonth">yearmonth scale</a></li>
-<li><a href="#sec:man-scale_x_grates_yearquarter">yearquarter scale</a></li>
-<li><a href="#sec:man-scale_x_grates_yearweek">yearweek scale</a></li>
-<li><a href="#sec:man-year">Year class.</a></li>
-<li><a href="#sec:man-yearmonth">Yearmonth class</a></li>
-<li><a href="#sec:man-yearquarter">Yearquarter class</a></li>
-<li><a href="#sec:man-yearweek">Yearweek class</a></li>
+<li><a href="#sec:man-scale_x_grates_epiweek">Epiweek scale</a></li>
+<li><a href="#sec:man-scale_x_grates_int_period">Integer-period scale (Experimental)</a></li>
+<li><a href="#sec:man-scale_x_grates_isoweek">Isoweek scale</a></li>
+<li><a href="#sec:man-scale_x_grates_month">Month scale</a></li>
+<li><a href="#sec:man-scale_x_grates_period">Period scale</a></li>
+<li><a href="#sec:man-scale_x_grates_year">Year scale</a></li>
+<li><a href="#sec:man-scale_x_grates_yearmonth">Yearmonth scale</a></li>
+<li><a href="#sec:man-scale_x_grates_yearquarter">Yearquarter scale</a></li>
+<li><a href="#sec:man-scale_x_grates_yearweek">Yearweek scale</a></li>
+<li><a href="#sec:man-year_class">Year class</a></li>
+<li><a href="#sec:man-yearmonth_class">Yearmonth class</a></li>
+<li><a href="#sec:man-yearquarter_class">Yearquarter class</a></li>
+<li><a href="#sec:man-yearweek_class">Yearweek class</a></li>
 </ul>
 </div>
 <style type="text/css">
@@ -65,58 +65,58 @@ h2 {
 </style>
 <p>
 <b>-- <kbd>A</kbd> --</b>
-<a href="#sec:man-epiweek"><code>as_epiweek()</code></a>
-<a href="#sec:man-epiweek"><code>as_epiweek.default()</code></a>
-<a href="#sec:man-epiweek"><code>as_epiweek.Date()</code></a>
-<a href="#sec:man-epiweek"><code>as_epiweek.POSIXt()</code></a>
-<a href="#sec:man-epiweek"><code>as_epiweek.character()</code></a>
-<a href="#sec:man-epiweek"><code>as_epiweek.factor()</code></a>
-<a href="#sec:man-int_period"><code>as_int_period.default()</code></a>
-<a href="#sec:man-int_period"><code>as_int_period.integer()</code></a>
-<a href="#sec:man-int_period"><code>as_int_period.double()</code></a>
-<a href="#sec:man-int_period"><code>as_int_period()</code></a>
-<a href="#sec:man-isoweek"><code>as_isoweek()</code></a>
-<a href="#sec:man-isoweek"><code>as_isoweek.default()</code></a>
-<a href="#sec:man-isoweek"><code>as_isoweek.Date()</code></a>
-<a href="#sec:man-isoweek"><code>as_isoweek.POSIXt()</code></a>
-<a href="#sec:man-isoweek"><code>as_isoweek.character()</code></a>
-<a href="#sec:man-isoweek"><code>as_isoweek.factor()</code></a>
-<a href="#sec:man-month"><code>as_month()</code></a>
-<a href="#sec:man-month"><code>as_month.default()</code></a>
-<a href="#sec:man-month"><code>as_month.Date()</code></a>
-<a href="#sec:man-month"><code>as_month.POSIXt()</code></a>
-<a href="#sec:man-month"><code>as_month.character()</code></a>
-<a href="#sec:man-month"><code>as_month.factor()</code></a>
-<a href="#sec:man-period"><code>as_period()</code></a>
-<a href="#sec:man-period"><code>as_period.default()</code></a>
-<a href="#sec:man-period"><code>as_period.Date()</code></a>
-<a href="#sec:man-period"><code>as_period.POSIXt()</code></a>
-<a href="#sec:man-period"><code>as_period.character()</code></a>
-<a href="#sec:man-period"><code>as_period.factor()</code></a>
-<a href="#sec:man-year"><code>as_year()</code></a>
-<a href="#sec:man-year"><code>as_year.default()</code></a>
-<a href="#sec:man-year"><code>as_year.Date()</code></a>
-<a href="#sec:man-year"><code>as_year.POSIXt()</code></a>
-<a href="#sec:man-year"><code>as_year.character()</code></a>
-<a href="#sec:man-year"><code>as_year.factor()</code></a>
-<a href="#sec:man-yearmonth"><code>as_yearmonth()</code></a>
-<a href="#sec:man-yearmonth"><code>as_yearmonth.default()</code></a>
-<a href="#sec:man-yearmonth"><code>as_yearmonth.Date()</code></a>
-<a href="#sec:man-yearmonth"><code>as_yearmonth.POSIXt()</code></a>
-<a href="#sec:man-yearmonth"><code>as_yearmonth.character()</code></a>
-<a href="#sec:man-yearmonth"><code>as_yearmonth.factor()</code></a>
-<a href="#sec:man-yearquarter"><code>as_yearquarter()</code></a>
-<a href="#sec:man-yearquarter"><code>as_yearquarter.default()</code></a>
-<a href="#sec:man-yearquarter"><code>as_yearquarter.Date()</code></a>
-<a href="#sec:man-yearquarter"><code>as_yearquarter.POSIXt()</code></a>
-<a href="#sec:man-yearquarter"><code>as_yearquarter.character()</code></a>
-<a href="#sec:man-yearquarter"><code>as_yearquarter.factor()</code></a>
-<a href="#sec:man-yearweek"><code>as_yearweek()</code></a>
-<a href="#sec:man-yearweek"><code>as_yearweek.default()</code></a>
-<a href="#sec:man-yearweek"><code>as_yearweek.Date()</code></a>
-<a href="#sec:man-yearweek"><code>as_yearweek.POSIXt()</code></a>
-<a href="#sec:man-yearweek"><code>as_yearweek.character()</code></a>
-<a href="#sec:man-yearweek"><code>as_yearweek.factor()</code></a>
+<a href="#sec:man-epiweek_class"><code>as_epiweek()</code></a>
+<a href="#sec:man-epiweek_class"><code>as_epiweek.default()</code></a>
+<a href="#sec:man-epiweek_class"><code>as_epiweek.Date()</code></a>
+<a href="#sec:man-epiweek_class"><code>as_epiweek.POSIXt()</code></a>
+<a href="#sec:man-epiweek_class"><code>as_epiweek.character()</code></a>
+<a href="#sec:man-epiweek_class"><code>as_epiweek.factor()</code></a>
+<a href="#sec:man-int_period_class"><code>as_int_period.default()</code></a>
+<a href="#sec:man-int_period_class"><code>as_int_period.integer()</code></a>
+<a href="#sec:man-int_period_class"><code>as_int_period.double()</code></a>
+<a href="#sec:man-int_period_class"><code>as_int_period()</code></a>
+<a href="#sec:man-isoweek_class"><code>as_isoweek()</code></a>
+<a href="#sec:man-isoweek_class"><code>as_isoweek.default()</code></a>
+<a href="#sec:man-isoweek_class"><code>as_isoweek.Date()</code></a>
+<a href="#sec:man-isoweek_class"><code>as_isoweek.POSIXt()</code></a>
+<a href="#sec:man-isoweek_class"><code>as_isoweek.character()</code></a>
+<a href="#sec:man-isoweek_class"><code>as_isoweek.factor()</code></a>
+<a href="#sec:man-month_class"><code>as_month()</code></a>
+<a href="#sec:man-month_class"><code>as_month.default()</code></a>
+<a href="#sec:man-month_class"><code>as_month.Date()</code></a>
+<a href="#sec:man-month_class"><code>as_month.POSIXt()</code></a>
+<a href="#sec:man-month_class"><code>as_month.character()</code></a>
+<a href="#sec:man-month_class"><code>as_month.factor()</code></a>
+<a href="#sec:man-period_class"><code>as_period()</code></a>
+<a href="#sec:man-period_class"><code>as_period.default()</code></a>
+<a href="#sec:man-period_class"><code>as_period.Date()</code></a>
+<a href="#sec:man-period_class"><code>as_period.POSIXt()</code></a>
+<a href="#sec:man-period_class"><code>as_period.character()</code></a>
+<a href="#sec:man-period_class"><code>as_period.factor()</code></a>
+<a href="#sec:man-year_class"><code>as_year()</code></a>
+<a href="#sec:man-year_class"><code>as_year.default()</code></a>
+<a href="#sec:man-year_class"><code>as_year.Date()</code></a>
+<a href="#sec:man-year_class"><code>as_year.POSIXt()</code></a>
+<a href="#sec:man-year_class"><code>as_year.character()</code></a>
+<a href="#sec:man-year_class"><code>as_year.factor()</code></a>
+<a href="#sec:man-yearmonth_class"><code>as_yearmonth()</code></a>
+<a href="#sec:man-yearmonth_class"><code>as_yearmonth.default()</code></a>
+<a href="#sec:man-yearmonth_class"><code>as_yearmonth.Date()</code></a>
+<a href="#sec:man-yearmonth_class"><code>as_yearmonth.POSIXt()</code></a>
+<a href="#sec:man-yearmonth_class"><code>as_yearmonth.character()</code></a>
+<a href="#sec:man-yearmonth_class"><code>as_yearmonth.factor()</code></a>
+<a href="#sec:man-yearquarter_class"><code>as_yearquarter()</code></a>
+<a href="#sec:man-yearquarter_class"><code>as_yearquarter.default()</code></a>
+<a href="#sec:man-yearquarter_class"><code>as_yearquarter.Date()</code></a>
+<a href="#sec:man-yearquarter_class"><code>as_yearquarter.POSIXt()</code></a>
+<a href="#sec:man-yearquarter_class"><code>as_yearquarter.character()</code></a>
+<a href="#sec:man-yearquarter_class"><code>as_yearquarter.factor()</code></a>
+<a href="#sec:man-yearweek_class"><code>as_yearweek()</code></a>
+<a href="#sec:man-yearweek_class"><code>as_yearweek.default()</code></a>
+<a href="#sec:man-yearweek_class"><code>as_yearweek.Date()</code></a>
+<a href="#sec:man-yearweek_class"><code>as_yearweek.POSIXt()</code></a>
+<a href="#sec:man-yearweek_class"><code>as_yearweek.character()</code></a>
+<a href="#sec:man-yearweek_class"><code>as_yearweek.factor()</code></a>
 </p>
 <p>
 <b>-- <kbd>B</kbd> --</b>
@@ -129,7 +129,8 @@ h2 {
 </p>
 <p>
 <b>-- <kbd>E</kbd> --</b>
-<a href="#sec:man-epiweek"><code>epiweek()</code></a>
+<a href="#sec:man-epiweek_class"><code>epiweek_class</code></a>
+<a href="#sec:man-epiweek_class"><code>epiweek()</code></a>
 </p>
 <p>
 <b>-- <kbd>F</kbd> --</b>
@@ -173,36 +174,37 @@ h2 {
 </p>
 <p>
 <b>-- <kbd>I</kbd> --</b>
-<a href="#sec:man-epiweek"><code>is_epiweek()</code></a>
-<a href="#sec:man-int_period"><code>int_period</code></a>
-<a href="#sec:man-int_period"><code>is_int_period()</code></a>
-<a href="#sec:man-isoweek"><code>isoweek()</code></a>
-<a href="#sec:man-isoweek"><code>is_isoweek()</code></a>
-<a href="#sec:man-month"><code>is_month()</code></a>
-<a href="#sec:man-period"><code>is_period()</code></a>
-<a href="#sec:man-year"><code>is_year()</code></a>
-<a href="#sec:man-yearmonth"><code>is_yearmonth()</code></a>
-<a href="#sec:man-yearquarter"><code>is_yearquarter()</code></a>
-<a href="#sec:man-yearweek"><code>is_yearweek()</code></a>
+<a href="#sec:man-epiweek_class"><code>is_epiweek()</code></a>
+<a href="#sec:man-int_period_class"><code>int_period_class</code></a>
+<a href="#sec:man-int_period_class"><code>is_int_period()</code></a>
+<a href="#sec:man-isoweek_class"><code>isoweek_class</code></a>
+<a href="#sec:man-isoweek_class"><code>isoweek()</code></a>
+<a href="#sec:man-isoweek_class"><code>is_isoweek()</code></a>
+<a href="#sec:man-month_class"><code>is_month()</code></a>
+<a href="#sec:man-period_class"><code>is_period()</code></a>
+<a href="#sec:man-year_class"><code>is_year()</code></a>
+<a href="#sec:man-yearmonth_class"><code>is_yearmonth()</code></a>
+<a href="#sec:man-yearquarter_class"><code>is_yearquarter()</code></a>
+<a href="#sec:man-yearweek_class"><code>is_yearweek()</code></a>
 </p>
 <p>
 <b>-- <kbd>M</kbd> --</b>
-<a href="#sec:man-month"><code>month</code></a>
+<a href="#sec:man-month_class"><code>month_class</code></a>
 </p>
 <p>
 <b>-- <kbd>N</kbd> --</b>
-<a href="#sec:man-epiweek"><code>new_epiweek()</code></a>
-<a href="#sec:man-int_period"><code>new_int_period()</code></a>
-<a href="#sec:man-isoweek"><code>new_isoweek()</code></a>
-<a href="#sec:man-month"><code>new_month()</code></a>
-<a href="#sec:man-period"><code>new_period()</code></a>
-<a href="#sec:man-yearmonth"><code>new_yearmonth()</code></a>
-<a href="#sec:man-yearquarter"><code>new_yearquarter()</code></a>
-<a href="#sec:man-yearweek"><code>new_yearweek()</code></a>
+<a href="#sec:man-epiweek_class"><code>new_epiweek()</code></a>
+<a href="#sec:man-int_period_class"><code>new_int_period()</code></a>
+<a href="#sec:man-isoweek_class"><code>new_isoweek()</code></a>
+<a href="#sec:man-month_class"><code>new_month()</code></a>
+<a href="#sec:man-period_class"><code>new_period()</code></a>
+<a href="#sec:man-yearmonth_class"><code>new_yearmonth()</code></a>
+<a href="#sec:man-yearquarter_class"><code>new_yearquarter()</code></a>
+<a href="#sec:man-yearweek_class"><code>new_yearweek()</code></a>
 </p>
 <p>
 <b>-- <kbd>P</kbd> --</b>
-<a href="#sec:man-period"><code>period</code></a>
+<a href="#sec:man-period_class"><code>period_class</code></a>
 <a href="#sec:man-print.grates_month"><code>print.grates_month()</code></a>
 <a href="#sec:man-print.grates_period"><code>print.grates_period()</code></a>
 <a href="#sec:man-print.grates_yearmonth"><code>print.grates_yearmonth()</code></a>
@@ -230,10 +232,14 @@ h2 {
 </p>
 <p>
 <b>-- <kbd>Y</kbd> --</b>
-<a href="#sec:man-year"><code>year()</code></a>
-<a href="#sec:man-yearmonth"><code>yearmonth()</code></a>
-<a href="#sec:man-yearquarter"><code>yearquarter()</code></a>
-<a href="#sec:man-yearweek"><code>yearweek()</code></a>
+<a href="#sec:man-year_class"><code>year_class</code></a>
+<a href="#sec:man-year_class"><code>year()</code></a>
+<a href="#sec:man-yearmonth_class"><code>yearmonth_class</code></a>
+<a href="#sec:man-yearmonth_class"><code>yearmonth()</code></a>
+<a href="#sec:man-yearquarter_class"><code>yearquarter_class</code></a>
+<a href="#sec:man-yearquarter_class"><code>yearquarter()</code></a>
+<a href="#sec:man-yearweek_class"><code>yearweek_class</code></a>
+<a href="#sec:man-yearweek_class"><code>yearweek()</code></a>
 </p>
 <p>
 <b>-- <kbd>misc</kbd> --</b>
@@ -306,7 +312,7 @@ date_start(period)
 <pre><code>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 #&gt; [13] FALSE  TRUE
 </code></pre>
-<h2 id="sec:man-epiweek">Epiweek class</h2>
+<h2 id="sec:man-epiweek_class">Epiweek class</h2>
 <h3 id="sec:description_2" class="unnumbered unlisted">Description</h3>
 <p>Epiweeks are defined to start on a Sunday and span a 7 day period.
 Where they span calendar years, they are associated to the year which
@@ -562,7 +568,7 @@ get_week(dat)
 </code></pre>
 <pre><code>#&gt;  [1] 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020 2020
 </code></pre>
-<h2 id="sec:man-int_period">Int Period class (Experimental)</h2>
+<h2 id="sec:man-int_period_class">Integer-period class (Experimental)</h2>
 <h3 id="sec:description_4" class="unnumbered unlisted">Description</h3>
 <p><code>&lt;grates_int_period&gt;</code> objects represent groupings of <code>n</code> consecutive integers
 from <code>0</code>.
@@ -590,7 +596,7 @@ as_int_period(x, n, ...)</code></pre>
 </p>
 <p>For <code>as_int_period()</code> this is the object to be coerced.
 </p>
-<p>For <code>new_int_period()</code> this represents the number of <code>n</code> int-periods from 0.
+<p>For <code>new_int_period()</code> this represents the number of <code>n</code> integer periods from 0.
 </p>
 <p><code>double</code> vectors will be converted via <code>as.integer(floor(x))</code>.</p>
 </td></tr>
@@ -616,8 +622,8 @@ objects. For numeric input it coerces it's input <code>x</code> first via
 <code>x %/% n</code>).
 </p>
 <p><code>new_int_period()</code> is a minimal constructor for <code>&lt;grates_period&gt;</code>
-objects aimed at developers. It takes, as input, the number of int-periods
-and the value of <code>n</code>.
+objects aimed at developers. It takes, as input, the number of integer
+periods and the value of <code>n</code>.
 </p>
 <h3 id="sec:value_4" class="unnumbered unlisted">Value</h3>
 <p>A <code>&lt;grates_int_period&gt;</code> object.
@@ -636,7 +642,7 @@ and the value of <code>n</code>.
 </code></pre>
 <pre><code>#&gt; [1] TRUE
 </code></pre>
-<h2 id="sec:man-isoweek">Isoweek class</h2>
+<h2 id="sec:man-isoweek_class">Isoweek class</h2>
 <h3 id="sec:description_5" class="unnumbered unlisted">Description</h3>
 <p>Isoweeks are defined to start on a Monday and span a 7 day period.
 Where they span calendar years, they are associated to the year which
@@ -778,7 +784,7 @@ will be converted to integer via <code>as.integer(floor(x))</code>.
 <pre><code>#&gt; &lt;grates_isoweek[1]&gt;
 #&gt; [1] &quot;2019-W12&quot;
 </code></pre>
-<h2 id="sec:man-month">Month class</h2>
+<h2 id="sec:man-month_class">Month class</h2>
 <h3 id="sec:description_6" class="unnumbered unlisted">Description</h3>
 <p>Month objects are groupings of 'n consecutive months' stored relative to the
 Unix Epoch. More precisely, <code>grates_month</code> objects are stored as the integer
@@ -877,7 +883,7 @@ comes from the work of Davis Vaughan in the unreleased
 <pre><code>#&gt; &lt;grates_month[1]&gt;
 #&gt; [1] &quot;2019-Mar to 2019-Apr&quot;
 </code></pre>
-<h2 id="sec:man-period">Period class</h2>
+<h2 id="sec:man-period_class">Period class</h2>
 <h3 id="sec:description_7" class="unnumbered unlisted">Description</h3>
 <p><code>&lt;grates_period&gt;</code> objects represent groupings of <code>n</code> consecutive days
 calculated relative to an <code>offset</code>. It is useful for when you wish to group
@@ -1087,7 +1093,7 @@ format(x, format = "%Y-%b", ...)</code></pre>
 <code>print()</code> is called for the side effect of printing to screen and thus
 returns the input <code>&lt;grates_yearmonth&gt;</code> object invisibly.
 </p>
-<h2 id="sec:man-scale_x_grates_epiweek">epiweek scale</h2>
+<h2 id="sec:man-scale_x_grates_epiweek">Epiweek scale</h2>
 <h3 id="sec:description_11" class="unnumbered unlisted">Description</h3>
 <p>ggplot2 scale for an <code>&lt;grates_epiweek&gt;</code> vector.
 </p>
@@ -1132,9 +1138,9 @@ acceptable by that function.</p>
 <h3 id="sec:value_10" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
-<h2 id="sec:man-scale_x_grates_int_period">int_period scale (Experimental)</h2>
+<h2 id="sec:man-scale_x_grates_int_period">Integer-period scale (Experimental)</h2>
 <h3 id="sec:description_12" class="unnumbered unlisted">Description</h3>
-<p>ggplot2 scale for an int_period vector.
+<p>ggplot2 scale for an integer-period vector.
 </p>
 <h3 id="sec:usage_12" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">scale_x_grates_int_period(
@@ -1181,7 +1187,7 @@ acceptable by that function.</p>
 <h3 id="sec:value_11" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
-<h2 id="sec:man-scale_x_grates_isoweek">isoweek scale</h2>
+<h2 id="sec:man-scale_x_grates_isoweek">Isoweek scale</h2>
 <h3 id="sec:description_13" class="unnumbered unlisted">Description</h3>
 <p>ggplot2 scale for an <code>&lt;grates_isoweek&gt;</code> vector.
 </p>
@@ -1226,7 +1232,7 @@ acceptable by that function.</p>
 <h3 id="sec:value_12" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
-<h2 id="sec:man-scale_x_grates_month">month scale</h2>
+<h2 id="sec:man-scale_x_grates_month">Month scale</h2>
 <h3 id="sec:description_14" class="unnumbered unlisted">Description</h3>
 <p>ggplot2 scale for a month vector.
 </p>
@@ -1289,7 +1295,7 @@ acceptable by that function (defaults to &quot;%Y-%m-%d).</p>
 <h3 id="sec:value_13" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
-<h2 id="sec:man-scale_x_grates_period">period scale</h2>
+<h2 id="sec:man-scale_x_grates_period">Period scale</h2>
 <h3 id="sec:description_15" class="unnumbered unlisted">Description</h3>
 <p>ggplot2 scale for an <code>&lt;grates_period&gt;</code> vector.
 </p>
@@ -1344,7 +1350,7 @@ function.</p>
 <h3 id="sec:value_14" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
-<h2 id="sec:man-scale_x_grates_year">year scale</h2>
+<h2 id="sec:man-scale_x_grates_year">Year scale</h2>
 <h3 id="sec:description_16" class="unnumbered unlisted">Description</h3>
 <p>ggplot2 scale for year vector.
 </p>
@@ -1385,7 +1391,7 @@ acceptable by that function.</p>
 <h3 id="sec:value_15" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
-<h2 id="sec:man-scale_x_grates_yearmonth">yearmonth scale</h2>
+<h2 id="sec:man-scale_x_grates_yearmonth">Yearmonth scale</h2>
 <h3 id="sec:description_17" class="unnumbered unlisted">Description</h3>
 <p>ggplot2 scale for a yearmonth vector.
 </p>
@@ -1426,7 +1432,7 @@ acceptable by that function.</p>
 <h3 id="sec:value_16" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
-<h2 id="sec:man-scale_x_grates_yearquarter">yearquarter scale</h2>
+<h2 id="sec:man-scale_x_grates_yearquarter">Yearquarter scale</h2>
 <h3 id="sec:description_18" class="unnumbered unlisted">Description</h3>
 <p>ggplot2 scale for a yearquarter vector.
 </p>
@@ -1467,7 +1473,7 @@ acceptable by that function.</p>
 <h3 id="sec:value_17" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
-<h2 id="sec:man-scale_x_grates_yearweek">yearweek scale</h2>
+<h2 id="sec:man-scale_x_grates_yearweek">Yearweek scale</h2>
 <h3 id="sec:description_19" class="unnumbered unlisted">Description</h3>
 <p>ggplot2 scale for an <code>&lt;grates_yearweek&gt;</code> vector.
 </p>
@@ -1582,7 +1588,7 @@ acceptable by that function.</p>
 <h3 id="sec:value_18" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
-<h2 id="sec:man-year">Year class.</h2>
+<h2 id="sec:man-year_class">Year class</h2>
 <h3 id="sec:description_20" class="unnumbered unlisted">Description</h3>
 <p>Years are represented by a <code>&lt;grates_year&gt;</code> object.
 </p>
@@ -1664,7 +1670,7 @@ to <code>as.Date()</code>.</p>
 <pre><code>#&gt; &lt;grates_year[1]&gt;
 #&gt; [1] 2019
 </code></pre>
-<h2 id="sec:man-yearmonth">Yearmonth class</h2>
+<h2 id="sec:man-yearmonth_class">Yearmonth class</h2>
 <h3 id="sec:description_21" class="unnumbered unlisted">Description</h3>
 <p><code>&lt;grates_yearmonth&gt;</code> objects represent, unsurprisingly, years and associated months.
 Internally they are stored as the number of months (starting at 0) since the
@@ -1784,7 +1790,7 @@ comes from the work of Davis Vaughan in the unreleased
 <pre><code>#&gt; &lt;grates_yearmonth[1]&gt;
 #&gt; [1] &quot;2019-May&quot;
 </code></pre>
-<h2 id="sec:man-yearquarter">Yearquarter class</h2>
+<h2 id="sec:man-yearquarter_class">Yearquarter class</h2>
 <h3 id="sec:description_22" class="unnumbered unlisted">Description</h3>
 <p><code>&lt;grates_yearquarter&gt;</code> objects represent years and associated quarters
 Internally they are stored as the number of quarters (starting at 0) since
@@ -1895,7 +1901,7 @@ objects aimed at developers. It takes, as input, the number of quarters
 <pre><code>#&gt; &lt;grates_yearquarter[1]&gt;
 #&gt; [1] &quot;2019-Q2&quot;
 </code></pre>
-<h2 id="sec:man-yearweek">Yearweek class</h2>
+<h2 id="sec:man-yearweek_class">Yearweek class</h2>
 <h3 id="sec:description_23" class="unnumbered unlisted">Description</h3>
 <p>Yearweeks start on a user defined day of the week and span a 7 day
 period. For yearweek objects the first week of a &quot;year&quot; is considered to be
