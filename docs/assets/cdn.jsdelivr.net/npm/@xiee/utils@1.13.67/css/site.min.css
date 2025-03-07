@@ -1,2 +1,0 @@
-nav>p:last-child{border-bottom:1px dashed #666}footer{border-top:1px dashed #666;margin-top:2em;& .flex-col{gap:2em}}nav a,footer a{text-decoration:none}nav a{background:#fff;margin-right:.5em;padding:.2em .5em;display:inline-block}nav a:hover{filter:invert()}.body,.frontmatter,.body~.appendix{box-shadow:none;margin-top:auto}.frontmatter{background:linear-gradient(#f0f8ff,#fff)}.body~.appendix{background:linear-gradient(#fff,#f5f5f5)}
-/*# sourceMappingURL=site.min.css.map */

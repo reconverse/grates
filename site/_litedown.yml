@@ -5,7 +5,6 @@ output:
     meta:
       include_after: "_footer.md"
     options:
-      offline: true
       number_sections: false
       meta:
             js: ["@toc-highlight"]
