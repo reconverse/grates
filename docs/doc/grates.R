@@ -1,40 +1,30 @@
 litedown::reactor(error = TRUE, message = TRUE, print = NA, fig.height = 5)
 
 library(grates)
-
-# Choose some consecutive dates that begin on a Friday
-first <- as.Date("2021-01-01")
-weekdays(first)
-dates <- first + 0:9
-
-# Below we use a Friday-week grouping
-weeks <- as_yearweek(dates, firstday = 5L)
-(dat <- data.frame(dates, weeks))
-
-# we can also use the constructor function if we already have weeks and years
-yearweek(year = c(2020L, 2021L), week = c(1L, 10L), firstday = 5L)
-
-# epiweeks always start on a Sunday
-(epiwk <- as_epiweek(Sys.Date()))
-
-weekdays(as.Date(epiwk))
-
-# isoweeks always start on a Sunday
-(isowk <- as_isoweek(Sys.Date()))
-
-weekdays(as.Date(isowk))
-
+library(outbreaks)
 library(ggplot2)
 
-# use simulated linelist data from the outbreaks package
-dat <- outbreaks::ebola_sim_clean
-dat <- dat$linelist$date_of_infection
+# Pull out the date of infection
+x <- ebola_sim_clean$linelist$date_of_infection
+
+# Calculate the daily incidence totals (ignoring missing values)
+daily <- aggregate(list(cases = x), by = list(date = x), FUN = length)
+
+# Add explicit zeros for days which aren't present
+range <- seq.Date(min(daily$date), max(daily$date), by  = "day")
+daily <- merge(data.frame(date = range), daily, by = "date", all.x = TRUE)
+daily <- within(daily, cases[is.na(cases)] <- 0)
+
+# plot the resulting output
+ggplot(daily, aes(date, cases)) + geom_col(width = 1) + theme_bw()
 
 # calculate the total number for across each week
-week_dat <- aggregate(
-    list(cases = dat),
-    by = list(week = as_epiweek(dat)),
-    FUN = length
+week_dat <- with(daily,
+    aggregate(
+        list(cases = cases),
+        by = list(week = as_isoweek(date)),
+        FUN = sum
+    )
 )
 
 head(week_dat)
@@ -47,13 +37,12 @@ head(week_dat)
 
 week_plot + scale_x_grates_epiweek(format = "%Y-%m-%d")
 
-# calculate the total number for across 14 day periods with no offset.
-# note - 0L is the default value for the offset but we specify it explicitly
-# here for added clarity
-period_dat <- aggregate(
-    list(cases = dat),
-    by = list(period = as_period(dat, n = 14L, offset = 0L)),
-    FUN = length
+period_dat <- with(daily,
+    aggregate(
+        list(cases = cases),
+        by = list(period = as_period(date, n = 14, offset = min(date))),
+        FUN = sum
+    )
 )
 
 head(period_dat)
@@ -64,14 +53,12 @@ ggplot(period_dat, aes(period, cases)) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     xlab("")
 
-dates <- as.Date("2020-01-03") + 0:9
-offset <- as.Date("2020-01-01")
-data.frame(dates, period = as_period(dates, n = 7L, offset = offset))
-
-(month_dat <- aggregate(
-    list(cases = dat),
-    by = list(month = as_yearmonth(dat)),
-    FUN = length
+(month_dat <- with(daily,
+    aggregate(
+        list(cases = cases),
+        by = list(month = as_yearmonth(date)),
+        FUN = sum
+    )
 ))
 
 (month_plot <-
@@ -83,10 +70,12 @@ data.frame(dates, period = as_period(dates, n = 7L, offset = offset))
 
 month_plot + scale_x_grates_yearmonth(format = "%Y-%m-%d")
 
-(quarter_dat <- aggregate(
-    list(cases = dat),
-    by = list(quarter = as_yearquarter(dat)),
-    FUN = length
+(quarter_dat <- with(daily,
+    aggregate(
+        list(cases = cases),
+        by = list(quarter = as_yearquarter(date)),
+        FUN = sum
+    )
 ))
 
 ggplot(quarter_dat, aes(quarter, cases)) +
@@ -95,10 +84,12 @@ ggplot(quarter_dat, aes(quarter, cases)) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     xlab("")
 
-(year_dat <- aggregate(
-    list(cases = dat),
-    by = list(year = as_year(dat)),
-    length
+(year_dat <- with(daily,
+    aggregate(
+        list(cases = cases),
+        by = list(year = as_year(date)),
+        FUN = sum
+    )
 ))
 
 ggplot(year_dat, aes(year, cases)) +
@@ -107,16 +98,13 @@ ggplot(year_dat, aes(year, cases)) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     xlab("")
 
-# Construction functions can also be used
-yearmonth(2022L, 11L)
-yearquarter(2022L, 4L)
-year(2022L)
-
 # calculate the bimonthly number of cases
-(bimonth_dat <- aggregate(
-    list(cases = dat),
-    by = list(group = as_month(dat, n = 2L)),
-    FUN = length
+(bimonth_dat <- with(daily,
+    aggregate(
+        list(cases = cases),
+        by = list(group = as_month(date, n = 2)),
+        FUN = sum
+    )
 ))
 
 # by default lower date bounds are used for the x axis
@@ -129,19 +117,34 @@ year(2022L)
 
 bimonth_plot + scale_x_grates_month(format = NULL, n = 2L)
 
-weeks <- week_dat$week
+# Choose some dates spread across a few weeks
+first <- as.Date("2024-12-18")
+dates <- seq.Date(from = first, by = "5 days", length.out = 7)
 
-dat <- weeks[1:5]
-data.frame(
-    week = dat,
-    start = date_start(dat),
-    end = date_end(dat),
-    contains.2014.04.14 = as.Date("2014-04-14") %during% dat
-)
+# add the corresponding ISO week (see later)
+dat <- data.frame(date = dates, isoweek = as_isoweek(dates))
 
-identical(as.Date(weeks), date_start(weeks))
+with(dat, {
+    weeks <- unique(isoweek)
+    data.frame(
+        isoweek = weeks,
+        start = date_start(weeks),
+        end = date_end(weeks)
+    )
+})
 
-# min, max and range
+with(dat, identical(as.Date(isoweek), date_start(isoweek)))
+
+with(dat, {
+    data.frame(
+        original_date = date,
+        isoweek,
+        contains.2025.01.10 = as.Date("2025-01-10") %during% isoweek
+    )
+})
+
+weeks <- dat$isoweek
+
 (minw <- min(weeks))
 (maxw <- max(weeks))
 (rangew <- range(weeks))
@@ -152,10 +155,9 @@ seq(from = minw, to = maxw, by = 6L)
 # but will error informatively if `to` is a different class
 seq(from = minw, to = 999, by = 6L)
 
-dat <- head(week_dat)
-(dat <- transform(dat, plus4 = week + 4L, minus4 = week - 4L))
+(dat <- transform(dat, plus4 = isoweek + 4L, minus4 = isoweek - 4L))
 
-transform(dat, willerror = week + week)
+transform(dat, willerror = isoweek + isoweek)
 
 transform(dat, difference = plus4 - minus4)
 

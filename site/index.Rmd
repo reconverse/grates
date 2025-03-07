@@ -8,7 +8,10 @@ output:
 ```{r, order = 0}
 litedown::reactor(echo = FALSE)
 # package description
-pkg_name = litedown:::detect_pkg()
+pkg_name = local({
+    old <- setwd("../pkg")
+    tryCatch(litedown:::detect_pkg(), finally = setwd(old))
+})
 pkg_path = attr(pkg_name, 'path')
 litedown::pkg_desc(pkg_name)
 ```
@@ -35,5 +38,5 @@ if (file.exists(readme <- file.path(pkg_path, 'README.md'))) {
 To cite the package **`{r} pkg_name`** in publications, please use:
 
 ```{r, warning = FALSE}
-litedown::pkg_citation()
+litedown::pkg_citation(pkg_name)
 ```

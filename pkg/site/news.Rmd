@@ -1,9 +1,0 @@
----
-title: News
-output:
-  html:
----
-
-```{r, echo = FALSE}
-litedown::pkg_news(recent = 0, number_sections = FALSE)
-```

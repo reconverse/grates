@@ -38,14 +38,14 @@ README.md: pkg/README.md
 
 
 site: install
-	mkdir -p pkg/sitebuild
-	rm -rf pkg/sitebuild/* docs
-	cp -r pkg/site/* pkg/sitebuild/
-	cd pkg/sitebuild; Rscript -e "litedown::fuse('_footer.Rmd', '.md')"
-	cd pkg/sitebuild; Rscript -e "litedown::fuse_site()"
-	cd pkg/sitebuild; rm -f *.Rmd *.yml _*
-	cp -r pkg/sitebuild docs
-	rm -rf pkg/sitebuild
+	mkdir -p sitebuild
+	rm -rf sitebuild/* docs
+	cp -r site/* sitebuild/
+	cd sitebuild; Rscript -e "litedown::fuse('_footer.Rmd', '.md')"
+	cd sitebuild; Rscript -e "litedown::fuse_site()"
+	cd sitebuild; rm -f *.Rmd *.yml _*
+	cp -r sitebuild docs
+	rm -rf sitebuild
 	xdg-open docs/index.html
 
 clean:

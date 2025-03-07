@@ -1,0 +1,13 @@
+---
+title: News
+output:
+  html:
+---
+
+```{r, echo = FALSE}
+pkg_name = local({
+    old <- setwd("../pkg")
+    tryCatch(litedown:::detect_pkg(), finally = setwd(old))
+})
+litedown::pkg_news(pkg_name, recent = 0, number_sections = FALSE)
+```

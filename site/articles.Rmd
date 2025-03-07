@@ -5,7 +5,10 @@ output:
 ---
 
 ```{r, echo = FALSE, results = 'asis'}
-pkg_name = litedown:::detect_pkg()
+pkg_name = local({
+    old <- setwd("../pkg")
+    tryCatch(litedown:::detect_pkg(), finally = setwd(old))
+})
 res = tools::getVignetteInfo(pkg_name)
 res = if (nrow(res)) {
   file.copy(system.file('doc', package = pkg_name), './', recursive = TRUE)

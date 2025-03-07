@@ -1,0 +1,2 @@
+.copy-button{cursor:pointer;border:1px solid;width:1em;height:1em;display:none;position:absolute;inset:5px 5px auto auto;box-shadow:-3px 3px #999}:is(:focus,:hover)>.copy-button{display:inline-block}.copy-success{box-shadow:none;background:#999;transition:box-shadow .3s ease-out,background .3s ease-out}.copy-fail{border-style:dotted}
+/*# sourceMappingURL=copy-button.min.css.map */

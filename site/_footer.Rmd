@@ -1,0 +1,17 @@
+```{r, include = FALSE}
+get_authors = function() {
+    pkg_name = local({
+        old <- setwd("../pkg")
+        tryCatch(litedown:::detect_pkg(), finally = setwd(old))
+    })
+    d = packageDescription(pkg_name)
+    a = litedown:::pkg_authors(d, 'aut', FALSE)
+    xfun::join_words(a)
+}
+```
+
+::: flex-col
+Developed by `{r} get_authors()`
+
+Site built with [litedown](https://github.com/yihui/litedown) v`{r} packageVersion('litedown')`
+:::

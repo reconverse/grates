@@ -13,6 +13,10 @@ h2 {
 
 ```{r, include = FALSE}
 litedown::reactor(fig.height = 5)
+pkg_name = local({
+    old <- setwd("../pkg")
+    tryCatch(litedown:::detect_pkg(), finally = setwd(old))
+})
 ```
 
-`{r} litedown::pkg_manual(overview = FALSE)`
+`{r} litedown::pkg_manual(pkg_name, overview = FALSE)`
