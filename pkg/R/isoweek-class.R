@@ -1,13 +1,18 @@
 # -------------------------------------------------------------------------
-#' Isoweek class
+#' ISO Week class
 #'
 # -------------------------------------------------------------------------
 #' @description
 #'
-#' Isoweeks are defined to start on a Monday and span a 7 day period.
-#' Where they span calendar years, they are associated to the year which
-#' contains the majority of the week's days (i.e. the first isoweek a year
-#' is the one with at least four days in said year).
+#' `<grates_isoweek>` objects are used to represent ISO week dates as defined in
+#' [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601). To expand further, it is
+#' easiest to quote from the related
+#' [wikipedia entry](https://en.wikipedia.org/w/index.php?title=ISO_week_date&oldid=1269568343):
+#'
+#' *"ISO weeks start with Monday and end on Sunday. Each week's year is the
+#' Gregorian year in which the Thursday falls. The first week of the year, hence,
+#' always contains 4 January. ISO week year numbering therefore usually
+#' deviates by 1 from the Gregorian for some days close to 1 January."*
 #'
 #' Internally, `<grates_isoweek>` objects are stored as the number of weeks
 #' (starting at 0) from the first Monday prior to the Unix Epoch (1970-01-01).
@@ -73,6 +78,12 @@
 # -------------------------------------------------------------------------
 #' @seealso
 #' The [yearweek][yearweek_class] and [epiweek][epiweek_class] classes.
+#'
+# -------------------------------------------------------------------------
+#' @references
+#' Wikipedia contributors. (2025, January 15). ISO week date.
+#' In Wikipedia, The Free Encyclopedia.
+#' Retrieved 09:19, March 6, 2025, from https://en.wikipedia.org/w/index.php?title=ISO_week_date&oldid=1269568343
 #'
 # -------------------------------------------------------------------------
 #' @examples

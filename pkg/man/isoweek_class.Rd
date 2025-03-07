@@ -11,7 +11,7 @@
 \alias{as_isoweek.factor}
 \alias{new_isoweek}
 \alias{is_isoweek}
-\title{Isoweek class}
+\title{ISO Week class}
 \usage{
 isoweek(year = integer(), week = integer())
 
@@ -65,10 +65,15 @@ Format strings to try if format is not specified.}
 A \verb{<grates_isoweek>} object.
 }
 \description{
-Isoweeks are defined to start on a Monday and span a 7 day period.
-Where they span calendar years, they are associated to the year which
-contains the majority of the week's days (i.e. the first isoweek a year
-is the one with at least four days in said year).
+\verb{<grates_isoweek>} objects are used to represent ISO week dates as defined in
+\href{https://en.wikipedia.org/wiki/ISO_8601}{ISO 8601}. To expand further, it is
+easiest to quote from the related
+\href{https://en.wikipedia.org/w/index.php?title=ISO_week_date&oldid=1269568343}{wikipedia entry}:
+
+\emph{"ISO weeks start with Monday and end on Sunday. Each week's year is the
+Gregorian year in which the Thursday falls. The first week of the year, hence,
+always contains 4 January. ISO week year numbering therefore usually
+deviates by 1 from the Gregorian for some days close to 1 January."}
 
 Internally, \verb{<grates_isoweek>} objects are stored as the number of weeks
 (starting at 0) from the first Monday prior to the Unix Epoch (1970-01-01).
@@ -118,6 +123,11 @@ stopifnot(
     )
 )
 
+}
+\references{
+Wikipedia contributors. (2025, January 15). ISO week date.
+In Wikipedia, The Free Encyclopedia.
+Retrieved 09:19, March 6, 2025, from https://en.wikipedia.org/w/index.php?title=ISO_week_date&oldid=1269568343
 }
 \seealso{
 The \link[=yearweek_class]{yearweek} and \link[=epiweek_class]{epiweek} classes.
