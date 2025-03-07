@@ -27,7 +27,7 @@ The goal of grates is to make it easy to group dates across a range of different
 time intervals. It defines a collection of classes and associated methods that,
 together, formalise the concept of grouped dates and are intuitive to use.
 Currently there are classes implemented for [year-week](#yearweek),
-[year-month](#yearxxx), [year-quarter](#yearxxx) and [yealy](#yearxxx) groupings
+[year-month](#yearxxx), [year-quarter](#yearxxx) and [yearly](#yearxxx) groupings
 as well as for more flexible groupings across [days](#period) and
 [months](#month).
 
