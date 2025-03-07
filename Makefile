@@ -12,6 +12,7 @@ install: pkg
 
 check: pkg
 	R CMD check *.tar.gz
+	TZ=NZ R CMD check *.tar.gz
 
 cran: pkg
 	R CMD check --as-cran *.tar.gz
