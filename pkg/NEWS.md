@@ -1,3 +1,8 @@
+# grates (development version)
+
+* Fixes erroneous entries in DESCRIPTION which caused the vignette to render
+  incorrectly on CRAN.
+
 # grates 1.4.2
 
 * Reworking of manual pages and vignette.
