@@ -1,7 +1,6 @@
-# grates (development version)
+# grates 1.4.3
 
-* Fixes erroneous entries in DESCRIPTION which caused the vignette to render
-  incorrectly on CRAN.
+* Fixes vignette build.
 
 # grates 1.4.2
 

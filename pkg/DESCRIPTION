@@ -1,6 +1,6 @@
 Package: grates
 Title: Grouped Date Classes
-Version: 1.4.2.9000
+Version: 1.4.3
 Authors@R:
     c(
       person(
@@ -27,8 +27,7 @@ Suggests:
     rlang,
     litedown,
     outbreaks,
-    testthat (>= 3.0.0),
-    rmarkdown
+    testthat (>= 3.0.0)
 VignetteBuilder: litedown
 Config/testthat/edition: 3
 Imports: 
