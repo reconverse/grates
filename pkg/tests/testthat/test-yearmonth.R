@@ -266,6 +266,7 @@ test_that("yearmonth, miscellaneous work", {
     expect_error(yearmonth(month = character()), "`month` must be integer.")
     expect_error(yearmonth(1L,0L), "Months must be integer and between 1 and 12 (inclusive) or NA. Entry 1 is not (it equals 0).", fixed = TRUE)
     expect_error(yearmonth(1L,13L), "Months must be integer and between 1 and 12 (inclusive) or NA. Entry 1 is not (it equals 13).", fixed = TRUE)
+    expect_false(is.numeric(yearmonth(1, 1)))
 })
 
 test_that("yearmonth boundary functions work", {

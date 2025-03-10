@@ -249,4 +249,5 @@ test_that("int_period, miscellaneous work", {
         "<grates_int_period> objects must have the same integer grouping to perform subtraction.",
         fixed = TRUE
     )
+    expect_false(is.numeric(new_int_period(1)))
 })

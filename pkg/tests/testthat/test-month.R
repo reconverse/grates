@@ -47,6 +47,7 @@ test_that("month, POSIXlt coercion works", {
         "<grates_month> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.",
         fixed = TRUE
     )
+    expect_false(is.numeric(res1))
 })
 
 test_that("month, accessor works", {

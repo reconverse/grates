@@ -258,6 +258,8 @@ test_that("year, miscellaneous work", {
         fixed = TRUE
     )
 
+    expect_false(is.numeric(year(1)))
+
 
 })
 

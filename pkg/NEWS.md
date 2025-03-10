@@ -1,5 +1,11 @@
 # grates (development version)
 
+## breaking change
+
+* `is.numeric()` now returns `FALSE` for all grates objects. This makes the
+  underlying implementation more opaque to end users and feels more consistent
+  with other behaviour (e.g. no/limited support for "Math" methods).
+
 # grates 1.4.3
 
 * Fixes vignette build.

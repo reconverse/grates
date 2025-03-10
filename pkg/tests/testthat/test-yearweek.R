@@ -458,6 +458,7 @@ test_that("yearweek, miscellaneous work", {
     expect_error(yearweek(firstday=""), "`firstday` must be an integer of length 1.", fixed = TRUE)
     expect_error(yearweek(firstday=8L), "`firstday` must be an integer between 1 (Monday) and 7 (Sunday).", fixed = TRUE)
     expect_identical(yearweek(firstday = 1.0), yearweek(firstday = 1L))
+    expect_false(is.numeric(yearweek(1,1)))
 })
 
 test_that("yearweek boundary functions work", {

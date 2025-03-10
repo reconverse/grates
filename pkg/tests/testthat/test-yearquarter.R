@@ -49,6 +49,7 @@ test_that("yearquarter, POSIXlt coercion works", {
         "<grates_yearquarter> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.",
         fixed = TRUE
     )
+    expect_false(is.numeric(res1))
 })
 
 test_that("yearquarter, POSIXct coercion works", {

@@ -302,6 +302,7 @@ test_that("isoweek, miscellaneous work", {
     expect_error(epiweek(1:2,1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
     expect_error(isoweek(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(isoweek(week = character()), "`week` must be integer.", fixed = TRUE)
+    expect_false(is.numeric(isoweek(1,1)))
 })
 
 test_that("isoweek boundary functions work", {

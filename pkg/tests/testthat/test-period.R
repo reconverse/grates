@@ -389,6 +389,8 @@ test_that("period, miscellaneous work", {
         "<grates_period> objects must have the same period grouping and offset to perform subtraction.",
         fixed = TRUE
     )
+
+    expect_false(is.numeric(dat1))
 })
 
 test_that("period boundary functions work", {

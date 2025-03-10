@@ -303,6 +303,7 @@ test_that("epiweek, miscellaneous work", {
     expect_error(epiweek(1:2,1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
     expect_error(epiweek(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(epiweek(week = character()), "`week` must be integer.", fixed = TRUE)
+    expect_false(is.numeric(epiweek(1L,1L)))
 })
 
 test_that("epiweek boundary functions work", {
