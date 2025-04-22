@@ -8,6 +8,7 @@ output:
         options:
             toc: true
             js_highlight:
+                package: prism
                 version: 1.29.0
 
 vignette: >

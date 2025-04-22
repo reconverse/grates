@@ -29,7 +29,12 @@
 <div class="body">
 <div id="TOC">
 <ul>
-<li><a href="#sec:grates-development-version">grates (development version)</a></li>
+<li><a href="#sec:grates-development-version">grates (development version)</a>
+<ul>
+<li><a href="#sec:breaking-change">breaking change</a></li>
+</ul>
+</li>
+<li><a href="#sec:grates-1-4-3">grates 1.4.3</a></li>
 <li><a href="#sec:grates-1-4-2">grates 1.4.2</a></li>
 <li><a href="#sec:grates-1-4-1">grates 1.4.1</a></li>
 <li><a href="#sec:grates-1-4-0">grates 1.4.0</a></li>
@@ -65,9 +70,15 @@
 </ul>
 </div>
 <h2 id="sec:grates-development-version" class="unnumbered">grates (development version)</h2>
+<h3 id="sec:breaking-change" class="unnumbered">breaking change</h3>
 <ul>
-<li>Fixes erroneous entries in DESCRIPTION which caused the vignette to render
-incorrectly on CRAN.</li>
+<li><code>is.numeric()</code> now returns <code>FALSE</code> for all grates objects. This makes the
+underlying implementation more opaque to end users and feels more consistent
+with other behaviour (e.g. no/limited support for “Math” methods).</li>
+</ul>
+<h2 id="sec:grates-1-4-3" class="unnumbered">grates 1.4.3</h2>
+<ul>
+<li>Fixes vignette build.</li>
 </ul>
 <h2 id="sec:grates-1-4-2" class="unnumbered">grates 1.4.2</h2>
 <ul>
