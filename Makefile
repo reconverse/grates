@@ -1,7 +1,7 @@
 .PHONY: doc pkg install check cran test manual revdep site clean readme
 
 doc: pkg/README.md
-	R -s -e "roxygen2::roxygenize('pkg', load_code = roxygen2::load_pkgload)"
+	PKG_BUILD_EXTRA_FLAGS=false R -s -e "roxygen2::roxygenize('pkg', load_code = roxygen2::load_pkgload)"
 
 pkg: doc
 	rm -f *.tar.gz
