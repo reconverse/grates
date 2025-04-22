@@ -691,11 +691,10 @@ is.numeric.grates_yearweek <- function(x) {
         year <- year[!invalid]
         week <- week[!invalid]
         # convert numeric values to date
-        jan4 <- strptime(sprintf("%d-01-04", year), format = "%Y-%m-%d", tz = "UTC")
-        wday <- jan4$wday
-        tmp <- jan4 - ((wday + 7L - firstday) %% 7) * 86400
-        tmp <- tmp + (week - 1) * 7L * 86400
-        res <- as.Date(tmp)
+        jan4 <- fastymd::fymd(year, 1, 4)
+        # shift the date to start at the first week of the year
+        date <- jan4 - (.wday_relative_to_firstday(jan4, firstday = firstday) - 1)
+        res <- date + (week - 1) * 7L
         res <- as_yearweek.Date(res, firstday = firstday)
         out[!invalid] <- res
     }
@@ -705,11 +704,9 @@ is.numeric.grates_yearweek <- function(x) {
 
 # -------------------------------------------------------------------------
 .last_week_in_year <- function(year = integer(), firstday = 1L) {
-    #x <- as.Date(sprintf("%d-12-28", year))
-    x <- .Date(.days_before_year(year) + .days_before_yearmonth(year, 12L) - 719162L + 27L)
-    wday <- strptime(sprintf("%d-12-28", year), format = "%Y-%m-%d", tz = "UTC")$wday
-    wday <- 1L + (wday + (7L - firstday)) %% 7L
-    midweek <- x + (4L - wday)
+    dec28 <- fastymd::fymd(year, 12, 28)
+    wday <- .wday_relative_to_firstday(dec28, firstday = firstday)
+    midweek <- dec28 + (4L - wday)
     .seven_day_week_in_year(date = midweek)
 }
 
@@ -717,7 +714,14 @@ is.numeric.grates_yearweek <- function(x) {
 .seven_day_week_in_year <- function(date) {
     yr <- fastymd::get_year(date)
     jan1 <- fastymd::fymd(yr, 1, 1)
-    res <- 1 + (unclass(date) - unclass(jan1)) %/% 7
-    attributes(res) <- NULL
-    res
+    1 + (unclass(date) - unclass(jan1)) %/% 7
 }
+
+.wday_relative_to_firstday <- function(date, firstday) {
+    # firstday = 1
+    date <- (unclass(date) + 4L) %% 7L
+    1L + (unclass(date) + (7L - firstday)) %% 7L
+}
+
+
+

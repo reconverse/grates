@@ -4,6 +4,7 @@
 
 # ------------------------------------------------------------------------- #
 .month_to_days <- function(month) {
+    # 719162 is the number of days from 01-01-01 to the Unix Epoch (1970-01-01)
     year <- month %/% 12L + 1970L
     month <- month %% 12L + 1L
     .days_before_year(year) + .days_before_yearmonth(year, month) - 719162L
