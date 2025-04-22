@@ -31,4 +31,5 @@ Suggests:
 VignetteBuilder: litedown
 Config/testthat/edition: 3
 Imports: 
-    utils
+    utils,
+    fastymd (>= 0.1.1)

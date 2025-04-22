@@ -67,17 +67,6 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
     as.Date(x, tz = tz)
 }
 
-# ------------------------------------------------------------------------- #
-# The following is based on functions of Davis Vaughan in
-# https://github.com/DavisVaughan/datea/blob/master/R/ymon-as.R.
-# It is quicker than doing as.POSIXlt.Date and will work with
-# all date and grate objects.
-.as_utc_posixlt_from_int <- function(x) {
-    x <- as.double(x)
-    x <- x * 86400 # multiply by seconds in day (24 * 60 * 60)
-    as.POSIXlt(x, tz = "UTC", origin = .POSIXct(xx = 0, tz = "UTC"))
-}
-
 # -------------------------------------------------------------------------
 .recycle <- function(x, y) {
     lx <- length(x)

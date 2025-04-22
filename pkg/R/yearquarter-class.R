@@ -346,7 +346,7 @@ as.POSIXlt.grates_yearquarter <- function(x, tz = "UTC", ...) {
         )
     }
     x <- .month_to_days(unclass(x) * 3L)
-    as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
+    as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
 }
 
 # -------------------------------------------------------------------------

@@ -118,14 +118,13 @@ get_year.default <- function(x, ...) {
 #' @export
 get_year.grates_yearweek <- function(x, ...) {
     week <- get_week.grates_yearweek(x)
-    dat <- .as_utc_posixlt_from_int(as.Date(x))
-    december <- dat$mon == 11L
-    january <- dat$mon == 0L
+    dat <- fastymd::get_ymd(as.Date(x))
+    december <- dat$month == 12L
+    january <- dat$month == 1L
     boundary_adjustment <- integer(length(x)) # h/t Zhian Kamvar for boundary adjustment idea in aweek)
     boundary_adjustment[january  & week >= 52L] <- -1L
     boundary_adjustment[december & week == 1L]  <- 1L
-    yr <- dat$year + 1900L
-    yr + boundary_adjustment
+    dat$year + boundary_adjustment
 }
 
 # -------------------------------------------------------------------------
@@ -142,16 +141,14 @@ get_year.grates_isoweek <- get_year.grates_yearweek
 #' @rdname grouped_date_accessors
 #' @export
 get_year.grates_yearmonth <- function(x, ...) {
-    x <- as.POSIXlt(x)
-    x$year + 1900L
+    unclass(x) %/% 12L + 1970L
 }
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
 get_year.grates_yearquarter <- function(x, ...) {
-    x <- as.POSIXlt(x)
-    x$year + 1900L
+    (unclass(x) * 3L) %/% 12L + 1970L
 }
 
 # -------------------------------------------------------------------------

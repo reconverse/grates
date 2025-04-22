@@ -378,7 +378,7 @@ as.POSIXlt.grates_month <- function(x, tz = "UTC", ...) {
     n <- attr(x, "n")
     x <- as.integer(x)
     x <- .month_to_days(x * n)
-    as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
+    as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
 }
 
 # -------------------------------------------------------------------------

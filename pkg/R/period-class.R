@@ -408,7 +408,7 @@ as.POSIXlt.grates_period <- function(x, tz = "UTC", ...) {
     n <- attr(x, "n")
     offset <- attr(x, "offset")
     days <- as.integer(x) * n + offset
-    as.POSIXlt(days * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
+    as.POSIXlt(.POSIXct(days * 86400, tz = "UTC"), tz = "UTC")
 }
 
 # -------------------------------------------------------------------------

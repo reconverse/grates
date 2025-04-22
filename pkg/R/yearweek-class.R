@@ -469,7 +469,7 @@ as.POSIXlt.grates_yearweek <- function(x, tz = "UTC", ...) {
     }
     firstday <- .firstday_from_class(x)
     x <- as.double(unclass(x)) * 7 + (firstday - 4)
-    as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
+    as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
 }
 
 # -------------------------------------------------------------------------
@@ -715,10 +715,8 @@ is.numeric.grates_yearweek <- function(x) {
 
 # -------------------------------------------------------------------------
 .seven_day_week_in_year <- function(date) {
-    x <- .as_utc_posixlt_from_int(date)
-    yr <- x$year + 1900L
-    jan1 <- sprintf("%d-01-01", yr)
-    jan1 <- as.Date(strptime(jan1, format = "%Y-%m-%d", tz = "UTC"))
+    yr <- fastymd::get_year(date)
+    jan1 <- fastymd::fymd(yr, 1, 1)
     res <- 1 + (unclass(date) - unclass(jan1)) %/% 7
     attributes(res) <- NULL
     res

@@ -367,7 +367,7 @@ as.POSIXlt.grates_isoweek <- function(x, tz = "UTC", ...) {
         )
     }
     x <- as.double(unclass(x)) * 7 - 3
-    as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
+    as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
 }
 
 # -------------------------------------------------------------------------
