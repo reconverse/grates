@@ -70,3 +70,66 @@ test_that("utc posixlt conversion still works", {
     expect_identical(old(dat),new(dat))
 })
 
+
+test_that("Refactoring hasn't broken as_yearmonth for date objects", {
+
+    # The function below was removed during refactoring so we test for
+    # compatible results
+
+    .as_yearmonth_Date <- function(x, ...) {
+
+        # convert to posixlt (this will always be UTC when called on a date)
+        x <- as.POSIXlt(x)
+
+        # calculate the year
+        yr <- x$year + 1900L
+
+        # calculate the month relative to unix epoch
+        mon <- (yr - 1970L) * 12L + x$mon
+
+        # TODO - could mon ever be double here? Maybe call as_yearmonth again?
+        .new_yearmonth(mon)
+    }
+
+
+    dat <- fastymd::fymd(1,1,1) + 0:999999
+    expect_identical(as_yearmonth(dat), .as_yearmonth_Date(dat))
+})
+
+
+test_that("Refactoring hasn't broken as_yearmonth for date objects", {
+
+    # The function below was removed during refactoring so we test for
+    # compatible results
+
+    .as_month_Date <- function(x, n, ...) {
+
+        # trigger warning for missing n at top level
+        n <- n
+
+        if (!.is_scalar_whole(n))
+            stop("`n` must be an integer of length 1.")
+        n <- as.integer(n)
+        if (n == 1L)
+            stop("`n` must be greater than 1. If single month groupings are required please use `as_yearmonth()`.")
+
+        # convert to posixlt (this will always be UTC when called on a date)
+        x <- as.POSIXlt(x)
+
+        # calculate the year
+        yr <- x$year + 1900L
+
+        # calculate the month relative to unix epoch
+        mon <- (yr - 1970L) * 12L + x$mon
+
+        # scale month by n
+        mon <- (mon %/% n)
+
+        # TODO - could mon ever be double here? Is as.integer needed or superfluous?
+        .new_month(x = as.integer(mon), n = n)
+    }
+
+    dat <- fastymd::fymd(1,1,1) + 0:999999
+    expect_identical(as_month(dat, n = 7), .as_month_Date(dat, n = 7))
+    expect_identical(as_month(dat, n = 2), .as_month_Date(dat, n = 2))
+})

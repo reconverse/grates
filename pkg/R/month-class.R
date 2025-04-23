@@ -105,19 +105,16 @@ as_month.Date <- function(x, n, ...) {
     if (n == 1L)
         stop("`n` must be greater than 1. If single month groupings are required please use `as_yearmonth()`.")
 
-    # convert to posixlt (this will always be UTC when called on a date)
-    x <- as.POSIXlt(x)
 
-    # calculate the year
-    yr <- x$year + 1900L
+    # get year, month and day
+    x <- fastymd::get_ymd(x)
 
     # calculate the month relative to unix epoch
-    mon <- (yr - 1970L) * 12L + x$mon
+    mon <- (x$year - 1970L) * 12L + (x$month - 1L)
 
     # scale month by n
     mon <- (mon %/% n)
 
-    # TODO - could mon ever be double here? Is as.integer needed or superfluous?
     .new_month(x = as.integer(mon), n = n)
 }
 

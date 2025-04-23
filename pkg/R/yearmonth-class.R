@@ -149,16 +149,12 @@ as_yearmonth.default <- function(x, ...) {
 #' @export
 as_yearmonth.Date <- function(x, ...) {
 
-    # convert to posixlt (this will always be UTC when called on a date)
-    x <- as.POSIXlt(x)
-
-    # calculate the year
-    yr <- x$year + 1900L
+    # get year, month and day
+    x <- fastymd::get_ymd(x)
 
     # calculate the month relative to unix epoch
-    mon <- (yr - 1970L) * 12L + x$mon
+    mon <- (x$year - 1970L) * 12L + (x$month - 1L)
 
-    # TODO - could mon ever be double here? Maybe call as_yearmonth again?
     .new_yearmonth(mon)
 }
 
