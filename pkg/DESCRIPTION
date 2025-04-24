@@ -29,6 +29,7 @@ Suggests:
     outbreaks,
     testthat (>= 3.0.0)
 VignetteBuilder: litedown
+Config/testthat/load-all: list(export_all = FALSE, helpers = FALSE)
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/testthat/start-first: plots, refactoring
