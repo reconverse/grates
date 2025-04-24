@@ -178,10 +178,10 @@ as_isoweek.POSIXt <- function(x, ...) {
 #' @rdname isoweek_class
 #' @export
 as_isoweek.character <- function(
-        x,
-        format,
-        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-        ...
+    x,
+    format,
+    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+    ...
 ) {
     if (!missing(format)) {
         if (length(format) > 1L)
@@ -204,10 +204,10 @@ as_isoweek.character <- function(
 #' @rdname isoweek_class
 #' @export
 as_isoweek.factor <- function(
-        x,
-        format,
-        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-        ...
+    x,
+    format,
+    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+    ...
 ) {
     x <- as.character(x)
     as_isoweek.character(x, format = format, tryFormats = tryFormats, ...)

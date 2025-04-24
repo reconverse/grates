@@ -167,10 +167,10 @@ as_epiweek.POSIXt <- function(x, ...) {
 #' @rdname epiweek_class
 #' @export
 as_epiweek.character <- function(
-        x,
-        format,
-        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-        ...
+    x,
+    format,
+    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+    ...
 ) {
     if (!missing(format)) {
         if (length(format) > 1L)
@@ -194,10 +194,10 @@ as_epiweek.character <- function(
 #' @rdname epiweek_class
 #' @export
 as_epiweek.factor <- function(
-        x,
-        format,
-        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-        ...
+    x,
+    format,
+    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+    ...
 ) {
     x <- as.character(x)
     as_epiweek.character(x, format = format, tryFormats = tryFormats, ...)

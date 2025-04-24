@@ -212,11 +212,11 @@ as_yearweek.POSIXt <- function(x, firstday = 1L, ...) {
 #' @rdname yearweek_class
 #' @export
 as_yearweek.character <- function(
-        x,
-        firstday = 1L,
-        format,
-        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-        ...
+    x,
+    firstday = 1L,
+    format,
+    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+    ...
 ) {
     if (!missing(format)) {
         if (length(format) > 1L)
@@ -239,11 +239,11 @@ as_yearweek.character <- function(
 #' @rdname yearweek_class
 #' @export
 as_yearweek.factor <- function(
-        x,
-        firstday = 1L,
-        format,
-        tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
-        ...
+    x,
+    firstday = 1L,
+    format,
+    tryFormats = c("%Y-%m-%d", "%Y/%m/%d"),
+    ...
 ) {
     x <- as.character(x)
     as_yearweek.character(x, firstday = firstday, format = format, ...)
