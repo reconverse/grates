@@ -35,4 +35,4 @@ Config/testthat/parallel: true
 Config/testthat/start-first: plots, refactoring
 Imports: 
     utils,
-    fastymd (>= 0.1.1)
+    fastymd
