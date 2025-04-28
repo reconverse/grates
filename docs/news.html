@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="generator" content="litedown 0.6">
+<meta name="generator" content="litedown 0.6.2">
 <title>News</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/default.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/article.min.css">
@@ -29,9 +29,10 @@
 <div class="body">
 <div id="TOC">
 <ul>
-<li><a href="#sec:grates-development-version">grates (development version)</a>
+<li><a href="#sec:grates-1-5-0">grates 1.5.0</a>
 <ul>
 <li><a href="#sec:breaking-change">breaking change</a></li>
+<li><a href="#sec:internal-changes">Internal changes</a></li>
 </ul>
 </li>
 <li><a href="#sec:grates-1-4-3">grates 1.4.3</a></li>
@@ -69,12 +70,18 @@
 <li><a href="#sec:grates-0-1-1">grates 0.1.1</a></li>
 </ul>
 </div>
-<h2 id="sec:grates-development-version" class="unnumbered">grates (development version)</h2>
+<h2 id="sec:grates-1-5-0" class="unnumbered">grates 1.5.0</h2>
 <h3 id="sec:breaking-change" class="unnumbered">breaking change</h3>
 <ul>
 <li><code>is.numeric()</code> now returns <code>FALSE</code> for all grates objects. This makes the
 underlying implementation more opaque to end users and feels more consistent
 with other behaviour (e.g. no/limited support for “Math” methods).</li>
+</ul>
+<h3 id="sec:internal-changes" class="unnumbered">Internal changes</h3>
+<ul>
+<li>We now use <a href="https://cran.r-project.org/package=fastymd">fastymd</a> internally
+which can give a small performance improvement for larger workloads when
+working with <code>yearweek</code> and <code>yearmonth</code> objects.</li>
 </ul>
 <h2 id="sec:grates-1-4-3" class="unnumbered">grates 1.4.3</h2>
 <ul>
@@ -261,7 +268,7 @@ R’s date and date-time types.</p>
 </div>
 <footer><div class="flex-col">
 <p>Developed by Tim Taylor</p>
-<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.6</p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.6.2</p>
 </div></footer>
 </body>
 </html>
