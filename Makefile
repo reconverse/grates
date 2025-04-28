@@ -1,3 +1,5 @@
+RDEVEL := Rdevel
+
 .PHONY: doc pkg install check cran test manual revdep site clean readme
 
 doc: pkg/README.md
@@ -15,7 +17,8 @@ check: pkg
 	TZ=NZ R CMD check *.tar.gz
 
 cran: pkg
-	R CMD check --as-cran *.tar.gz
+	${RDEVEL} CMD check --as-cran *.tar.gz
+	TZ=NZ ${RDEVEL} CMD check *.tar.gz
 
 test: doc
 	R -s -e "testthat::test_local('pkg')"
