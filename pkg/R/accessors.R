@@ -101,24 +101,18 @@ get_week.grates_isoweek <- get_week.grates_yearweek
 
 # -------------------------------------------------------------------------
 #' @name grouped_date_accessors
+#' @importFrom fastymd get_year
 #' @export
-get_year <- function(x, ...) {
-    UseMethod("get_year")
-}
+fastymd::get_year
+
 
 # -------------------------------------------------------------------------
-#' @rdname grouped_date_accessors
-#' @export
-get_year.default <- function(x, ...) {
-    stopf("Not implemented for class [%s].", toString(class(x)))
-}
-
-# -------------------------------------------------------------------------
+#' @importFrom fastymd get_ymd
 #' @rdname grouped_date_accessors
 #' @export
 get_year.grates_yearweek <- function(x, ...) {
     week <- get_week.grates_yearweek(x)
-    dat <- fastymd::get_ymd(as.Date(x))
+    dat <- get_ymd(as.Date(x))
     december <- dat$month == 12L
     january <- dat$month == 1L
     boundary_adjustment <- integer(length(x)) # h/t Zhian Kamvar for boundary adjustment idea in aweek)

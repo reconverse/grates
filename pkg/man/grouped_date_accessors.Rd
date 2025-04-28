@@ -17,7 +17,6 @@
 \alias{get_week.grates_epiweek}
 \alias{get_week.grates_isoweek}
 \alias{get_year}
-\alias{get_year.default}
 \alias{get_year.grates_yearweek}
 \alias{get_year.grates_epiweek}
 \alias{get_year.grates_isoweek}
@@ -63,8 +62,6 @@ get_week(x, ...)
 \method{get_week}{grates_isoweek}(x, ...)
 
 get_year(x, ...)
-
-\method{get_year}{default}(x, ...)
 
 \method{get_year}{grates_yearweek}(x, ...)
 

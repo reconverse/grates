@@ -17,7 +17,8 @@
 }
 
 # ------------------------------------------------------------------------- #
+#' @importFrom fastymd is_leap_year
 .days_before_yearmonth <- function(year, month) {
     DAYS_BEFORE_yearmonth <- c(0L, 31L, 59L, 90L, 120L, 151L, 181L, 212L, 243L, 273L, 304L, 334L)
-    DAYS_BEFORE_yearmonth[month] + ((month > 2) & fastymd::is_leap_year(year))
+    DAYS_BEFORE_yearmonth[month] + ((month > 2) & is_leap_year(year))
 }

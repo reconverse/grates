@@ -5,6 +5,12 @@
 * `is.numeric()` now returns `FALSE` for all grates objects. This makes the
   underlying implementation more opaque to end users and feels more consistent
   with other behaviour (e.g. no/limited support for "Math" methods).
+  
+## Internal changes
+
+* We now use [fastymd](https://cran.r-project.org/package=fastymd) internally
+  which can give a small performance improvement for larger workloads when
+  working with `yearweek` and `yearmonth` objects.
 
 # grates 1.4.3
 
