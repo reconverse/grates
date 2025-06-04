@@ -3,8 +3,8 @@ title: "Grouped dates"
 output:
     html:
         meta:
-            css: ["@default@1.13.67", "@copy-button@1.13.67", "@callout@1.13.67", "@article@1.13.67"]
-            js: ["@sidenotes@1.13.67", "@center-img@1.13.67", "@copy-button@1.13.67", "@callout@1.13.67", "@toc-highlight@1.13.67"]
+            css: ["@default@1.14.14", "@copy-button@1.14.14", "@callout@1.14.14", "@article@1.14.14"]
+            js: ["@sidenotes@1.14.14", "@center-img@1.14.14", "@copy-button@1.14.14", "@callout@1.14.14", "@toc-highlight@1.14.14"]
         options:
             toc: true
             js_highlight:

@@ -392,14 +392,14 @@ be converted to integer via <code>as.integer(floor(x))</code>.
 <p>A <code>&lt;grates_epiweek&gt;</code> object.
 </p>
 <h3 id="sec:see-also_1" class="unnumbered unlisted">See Also</h3>
-<p>The <a href="../..//help/yearweek_class.html">yearweek</a> and <a href="../..//help/isoweek_class.html">isoweek</a> classes.
+<p>The <a href="#sec:man-yearweek-class">yearweek</a> and <a href="#sec:man-isoweek-class">isoweek</a> classes.
 </p>
 <h3 id="sec:examples_2" class="unnumbered unlisted">Examples</h3>
 <pre><code class="language-r"># date coercion
 as_epiweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_epiweek[1]&gt;
-#&gt; [1] &quot;2025-W18&quot;
+#&gt; [1] &quot;2025-W23&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_epiweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -764,14 +764,14 @@ In Wikipedia, The Free Encyclopedia.
 Retrieved 09:19, March 6, 2025, from https://en.wikipedia.org/w/index.php?title=ISO_week_date&amp;oldid=1269568343
 </p>
 <h3 id="sec:see-also_2" class="unnumbered unlisted">See Also</h3>
-<p>The <a href="../..//help/yearweek_class.html">yearweek</a> and <a href="../..//help/epiweek_class.html">epiweek</a> classes.
+<p>The <a href="#sec:man-yearweek-class">yearweek</a> and <a href="#sec:man-epiweek-class">epiweek</a> classes.
 </p>
 <h3 id="sec:examples_6" class="unnumbered unlisted">Examples</h3>
 <pre><code class="language-r"># date coercion
 as_isoweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_isoweek[1]&gt;
-#&gt; [1] &quot;2025-W18&quot;
+#&gt; [1] &quot;2025-W23&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_isoweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -879,14 +879,14 @@ comes from the work of Davis Vaughan in the unreleased
 <a href="https://github.com/DavisVaughan/datea/">datea</a> package.
 </p>
 <h3 id="sec:see-also_3" class="unnumbered unlisted">See Also</h3>
-<p>The <a href="../..//help/yearmonth_class.html">yearmonth</a> class.
+<p>The <a href="#sec:man-yearmonth-class">yearmonth</a> class.
 </p>
 <h3 id="sec:examples_7" class="unnumbered unlisted">Examples</h3>
 <pre><code class="language-r"># date coercion
 as_month(Sys.Date(), n = 2)
 </code></pre>
 <pre><code>#&gt; &lt;grates_month[1]&gt;
-#&gt; [1] &quot;2025-Mar to 2025-Apr&quot;
+#&gt; [1] &quot;2025-May to 2025-Jun&quot;
 </code></pre>
 <pre><code class="language-r"># character coercion
 as_month(&quot;2019-05-03&quot;, n = 4)
@@ -1984,7 +1984,7 @@ comes from the work of Davis Vaughan in the unreleased
 as_yearmonth(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_yearmonth[1]&gt;
-#&gt; [1] &quot;2025-Apr&quot;
+#&gt; [1] &quot;2025-Jun&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_yearmonth(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -2267,7 +2267,7 @@ the week they represent (e.g. <code>&lt;grates_yearweek_monday&gt;</code>).
 as_yearweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_yearweek_monday[1]&gt;
-#&gt; [1] &quot;2025-W18&quot;
+#&gt; [1] &quot;2025-W23&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_yearweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
