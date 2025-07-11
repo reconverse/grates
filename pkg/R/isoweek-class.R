@@ -273,7 +273,6 @@ vec_ptype_full.grates_isoweek <- function(x, ...) {"isoweek"}
 # -------------------------------------------------------------------------
 #' @export
 `[<-.grates_isoweek` <- function(x, ..., value) {
-    old_class <- class(x)
     if (!inherits(value, "grates_isoweek"))
         stop("Can only assign a <grates_isoweek> object into a <grates_isoweek> object.")
     out <- NextMethod()
