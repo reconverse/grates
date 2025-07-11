@@ -261,7 +261,7 @@ vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
 #' @export
 `[<-.grates_epiweek` <- function(x, ..., value) {
     if (!inherits(value, "grates_epiweek"))
-        stop("Can only assign <grates_epiweek> objects in to an <grates_epiweek> object.")
+        stop("Can only assign a <grates_epiweek> object into a <grates_epiweek> object.")
     out <- NextMethod()
     class(out) <- class(x)
     out

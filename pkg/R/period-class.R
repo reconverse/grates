@@ -18,7 +18,7 @@
 #' (i.e. `offset <- offset %% n`) and values of `x` stored relative to this
 #' scaled offset.
 #'
-#' `as_period()` is a generic for coercing input in to `<grates_period>` objects.
+#' `as_period()` is a generic for coercing input into `<grates_period>` objects.
 #' It is the recommended way for constructing period objects as it allows the
 #' `offset` to be specified as a `date` (rather than an integer value relative to
 #' the Unix Epoch).
@@ -283,7 +283,7 @@ vec_ptype_full.grates_period <- function(x, ...) {"grates_period"}
 #' @export
 `[<-.grates_period` <- function(x, ..., value) {
     if (!inherits(value, "grates_period"))
-        stop("Can only assign <grates_period> objects in to an <grates_period> object.")
+        stop("Can only assign a <grates_period> object into a <grates_period> object.")
 
     nx <- attr(x, "n")
     nv <- attr(value, "n")

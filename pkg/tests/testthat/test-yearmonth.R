@@ -123,7 +123,7 @@ test_that("yearmonth, subsetting works", {
     expect_identical(dat[[2]], dat[[1]])
     expect_error(
         dat[1] <- "bob",
-        "Can only assign <grates_yearmonth> objects in to an <grates_yearmonth> object.",
+        "Can only assign a <grates_yearmonth> object into a <grates_yearmonth> object.",
         fixed = TRUE
     )
 })

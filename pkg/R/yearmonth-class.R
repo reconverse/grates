@@ -17,7 +17,7 @@
 #' be recycled to the length of the other input and `double` vectors will
 #' be converted to integer via `as.integer(floor(x))`.
 #'
-#' `as_yearmonth()` is a generic for coercing input in to `<grates_yearmonth>`.
+#' `as_yearmonth()` is a generic for coercing input into `<grates_yearmonth>`.
 #' - Character input is first parsed using `as.Date()`.
 #' - POSIXct and POSIXlt are converted with their timezone respected.
 #'
@@ -279,7 +279,7 @@ vec_ptype_full.grates_yearmonth <- function(x, ...) {"grates_yearmonth"}
 #' @export
 `[<-.grates_yearmonth` <- function(x, ..., value) {
     if (!inherits(value, "grates_yearmonth"))
-        stop("Can only assign <grates_yearmonth> objects in to an <grates_yearmonth> object.")
+        stop("Can only assign a <grates_yearmonth> object into a <grates_yearmonth> object.")
     out <- NextMethod()
     class(out) <- class(x)
     out

@@ -156,12 +156,12 @@ test_that("isoweek, subsetting works", {
     expect_identical(dat[[2]], dat[[1]])
     expect_error(
         dat[1] <- "bob",
-        "Can only assign <grates_isoweek> objects in to an <grates_isoweek> object.",
+        "Can only assign a <grates_isoweek> object into a <grates_isoweek> object.",
         fixed = TRUE
     )
     expect_error(
         dat[1] <- as_yearweek(x, 7),
-        "Can only assign <grates_isoweek> objects in to an <grates_isoweek> object.",
+        "Can only assign a <grates_isoweek> object into a <grates_isoweek> object.",
         fixed = TRUE
     )
 })

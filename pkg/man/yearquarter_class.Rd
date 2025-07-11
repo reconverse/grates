@@ -63,7 +63,7 @@ a vector of year and a vector of quarter values as inputs. Length 1 inputs
 will be recycled to the length of the other input and \code{double} vectors will
 be converted to integer via \code{as.integer(floor(x))}.
 
-\code{as_yearquarter()} is a generic for coercing input in to \verb{<grates_yearquarter>}.
+\code{as_yearquarter()} is a generic for coercing input into \verb{<grates_yearquarter>}.
 \itemize{
 \item Character input is first parsed using \code{as.Date()}.
 \item POSIXct and POSIXlt are converted with their timezone respected.

@@ -69,7 +69,7 @@ calculation purposes, \code{offset} is scaled relative to \code{n}
 (i.e. \code{offset <- offset \%\% n}) and values of \code{x} stored relative to this
 scaled offset.
 
-\code{as_period()} is a generic for coercing input in to \verb{<grates_period>} objects.
+\code{as_period()} is a generic for coercing input into \verb{<grates_period>} objects.
 It is the recommended way for constructing period objects as it allows the
 \code{offset} to be specified as a \code{date} (rather than an integer value relative to
 the Unix Epoch).

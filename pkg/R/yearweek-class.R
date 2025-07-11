@@ -357,7 +357,7 @@ vec_ptype_full.grates_yearweek_sunday <- function(x, ...) {"yearweek-sun"}
 #' @export
 `[<-.grates_yearweek` <- function(x, ..., value) {
     if (!inherits(value, "grates_yearweek"))
-        stop("Can only assign <grates_yearweek> objects in to an <grates_yearweek> object.")
+        stop("Can only assign a <grates_yearweek> object into a <grates_yearweek> object.")
     fdx <- .firstday_from_class(x)
     fdv <- .firstday_from_class(value)
     if (isTRUE(fdx != fdv))

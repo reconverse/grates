@@ -10,7 +10,7 @@
 # -------------------------------------------------------------------------
 #' @details
 #'
-#' `as_int_period()` is a generic for coercing input in to `<grates_int_period>`
+#' `as_int_period()` is a generic for coercing input into `<grates_int_period>`
 #' objects. For numeric input it coerces it's input `x` first via
 #' `x <- as.integer(floor(x))` and then via integer division by `n` (i.e.
 #' `x %/% n`).
@@ -204,7 +204,7 @@ as_int_period <- function(x, n, ...) {
 #' @export
 `[<-.grates_int_period` <- function(x, ..., value) {
     if (!inherits(value, "grates_int_period"))
-        stop("Can only assign <grates_int_period> objects in to a <grates_int_period> object.")
+        stop("Can only assign a <grates_int_period> object into a <grates_int_period> object.")
     nx <- attr(x, "n")
     nv <- attr(value, "n")
     if (isTRUE(nx != nv))

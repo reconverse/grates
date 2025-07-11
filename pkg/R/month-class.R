@@ -270,7 +270,7 @@ vec_ptype_full.grates_month <- function(x, ...) {"grates_month"}
 #' @export
 `[<-.grates_month` <- function(x, ..., value) {
     if (!inherits(value, "grates_month"))
-        stop("Can only assign <grates_month> objects in to an <grates_month> object.")
+        stop("Can only assign a <grates_month> object into a <grates_month> object.")
     nx <- attr(x, "n")
     nv <- attr(value, "n")
     if (isTRUE(nx != nv))

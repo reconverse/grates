@@ -155,12 +155,12 @@ test_that("epiweek, subsetting works", {
     expect_identical(dat[[2]], dat[[1]])
     expect_error(
         dat[1] <- "bob",
-        "Can only assign <grates_epiweek> objects in to an <grates_epiweek> object.",
+        "Can only assign a <grates_epiweek> object into a <grates_epiweek> object.",
         fixed = TRUE
     )
     expect_error(
         dat[1] <- as_yearweek(x, 7),
-        "Can only assign <grates_epiweek> objects in to an <grates_epiweek> object.",
+        "Can only assign a <grates_epiweek> object into a <grates_epiweek> object.",
         fixed = TRUE
     )
 })

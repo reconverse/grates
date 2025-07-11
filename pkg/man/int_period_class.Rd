@@ -45,7 +45,7 @@ A \verb{<grates_int_period>} object.
 from \code{0}.
 }
 \details{
-\code{as_int_period()} is a generic for coercing input in to \verb{<grates_int_period>}
+\code{as_int_period()} is a generic for coercing input into \verb{<grates_int_period>}
 objects. For numeric input it coerces it's input \code{x} first via
 \code{x <- as.integer(floor(x))} and then via integer division by \code{n} (i.e.
 \code{x \%/\% n}).

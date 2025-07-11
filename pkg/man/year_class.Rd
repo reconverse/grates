@@ -44,7 +44,7 @@ Years are represented by a \verb{<grates_year>} object.
 \code{year()} takes as input a vector representing, unsurprisingly, the years.
 \code{double} vectors are coerced via \code{as.integer(floor(x))}.
 
-\code{as_yearquarter()} is a generic for coercing input in to \verb{<grates_year>}.
+\code{as_yearquarter()} is a generic for coercing input into \verb{<grates_year>}.
 \itemize{
 \item Character input is first parsed using \code{as.Date()}.
 \item POSIXct and POSIXlt are converted with their timezone respected.

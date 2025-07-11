@@ -135,7 +135,7 @@ test_that("month, subsetting works", {
     expect_identical(dat[[2]], dat[[1]])
     expect_error(
         dat[1] <- "bob",
-        "Can only assign <grates_month> objects in to an <grates_month> object.",
+        "Can only assign a <grates_month> object into a <grates_month> object.",
         fixed = TRUE
     )
 })
