@@ -23,7 +23,7 @@
 #'
 #' `isoweek()` is a constructor for `<grates_isoweek>` objects. It takes a
 #' vector of year and vector of week values as inputs. Length 1 inputs will be
-#' recycled to the length of the other input and `double` vectors will again be
+#' recycled to the length of the other input and `double` vectors will be
 #' converted to integer via `as.integer(floor(x))`.
 #'
 #' `as_isoweek()` is a generic for conversion to `<grates_isoweek>`.

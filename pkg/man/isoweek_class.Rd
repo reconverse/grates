@@ -82,7 +82,7 @@ That is, the number of seven day periods from 1969-12-29.
 \details{
 \code{isoweek()} is a constructor for \verb{<grates_isoweek>} objects. It takes a
 vector of year and vector of week values as inputs. Length 1 inputs will be
-recycled to the length of the other input and \code{double} vectors will again be
+recycled to the length of the other input and \code{double} vectors will be
 converted to integer via \code{as.integer(floor(x))}.
 
 \code{as_isoweek()} is a generic for conversion to \verb{<grates_isoweek>}.
