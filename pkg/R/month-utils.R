@@ -1,6 +1,6 @@
 # The algorithm (encapsulated in the functions below) to convert between dates
 # and months relative to the UNIX Epoch comes from the work of Davis Vaughan in
-# the unreleased [datea](https://github.com/DavisVaughan/datea/) package.
+# the [datea](https://github.com/DavisVaughan/datea/) package.
 
 # ------------------------------------------------------------------------- #
 .month_to_days <- function(month) {

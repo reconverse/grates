@@ -40,7 +40,7 @@
 # -------------------------------------------------------------------------
 #' @references
 #' The algorithm to convert between dates and months relative to the UNIX Epoch
-#' comes from the work of Davis Vaughan in the unreleased
+#' comes from the work of Davis Vaughan in the
 #' [datea](https://github.com/DavisVaughan/datea/) package.
 #'
 # -------------------------------------------------------------------------

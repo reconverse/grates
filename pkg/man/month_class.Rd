@@ -84,7 +84,7 @@ stopifnot(
 }
 \references{
 The algorithm to convert between dates and months relative to the UNIX Epoch
-comes from the work of Davis Vaughan in the unreleased
+comes from the work of Davis Vaughan in the
 \href{https://github.com/DavisVaughan/datea/}{datea} package.
 }
 \seealso{
