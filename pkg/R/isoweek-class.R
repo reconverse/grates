@@ -97,7 +97,7 @@
 #' # character coercion assumes date input by default
 #' as_isoweek("2019-05-03")
 #'
-#' # character coercion can handle YYYY-Www format too
+#' # character coercion can handle YYYY-Wxx format too
 #' as_isoweek("2019-W12", format = "yearweek")
 #'
 #' # construction

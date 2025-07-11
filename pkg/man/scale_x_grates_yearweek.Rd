@@ -102,7 +102,7 @@ Integer value of the first weekday: 1 (Monday) to 7 (Sunday).}
 
 \item{format}{Format to use if "Date" scales are required.
 
-If NULL (default) then labels are in the standard yearweek format (YYYY-Www).
+If NULL (default) then labels are in the standard yearweek format (YYYY-Wxx).
 
 If "week" then the labels are of the form Www (e.g. W37).
 

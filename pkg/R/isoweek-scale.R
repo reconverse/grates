@@ -19,7 +19,7 @@
 #'
 #' Format to use if "Date" scales are required.
 #'
-#' If NULL (default) then labels are in the standard isoweek format (YYYY-Www).
+#' If NULL (default) then labels are in the standard isoweek format (YYYY-Wxx).
 #'
 #' If "week" then the labels are of the form Www (e.g. W37).
 #'

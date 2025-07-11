@@ -104,7 +104,7 @@ as_epiweek(as.POSIXct("2019-03-04 01:01:01", tz = "America/New_York"))
 # character coercion assumes date input by default
 as_epiweek("2019-05-03")
 
-# character coercion can handle YYYY-Www format too
+# character coercion can handle YYYY-Wxx format too
 as_epiweek("2019-W12", format = "yearweek")
 
 # construction
