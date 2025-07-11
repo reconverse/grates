@@ -218,6 +218,11 @@ is_period <- function(xx) {
 #' @param ...
 #' Not currently used.
 #'
+#' @return
+#' For `format()`, a character vector representing the formatted input.
+#' `print()` is called for the side effect of printing to screen and thus
+#' returns the input `<grates_period>` object invisibly.
+#'
 # -------------------------------------------------------------------------
 #' @export
 print.grates_period <- function(x, format = "%Y-%m-%d", sep = "to", ...) {

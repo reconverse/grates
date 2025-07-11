@@ -23,6 +23,11 @@ upper and lower bounds when printing.}
 
 \item{...}{Not currently used.}
 }
+\value{
+For \code{format()}, a character vector representing the formatted input.
+\code{print()} is called for the side effect of printing to screen and thus
+returns the input \verb{<grates_period>} object invisibly.
+}
 \description{
 Print a period object
 }
