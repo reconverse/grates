@@ -116,7 +116,7 @@ yearmonth <- function(year = integer(), month = integer()) {
     if (any(idx, na.rm = TRUE)) {
         first <- which.max(idx)
         stopf(
-            "Months must be integer and between 1 and 12 (inclusive) or NA. Entry %d is not (it equals %d).",
+            "Months must be integer and between 1 and 12 (inclusive) or NA. Entry %d is not (it equals %d).", # nolint: line_length_linter.
             first, month[first]
         )
     }
@@ -475,7 +475,7 @@ Ops.grates_yearmonth <- function(e1, e2) {
             } else if (inherits(e1, "grates_yearmonth") && .is_whole(e2)) {
                 return(.new_yearmonth(unclass(e1) - as.integer(e2)))
             }
-            stop("Can only subtract whole numbers and other <grates_yearmonth> objects from <grates_yearmonth> objects.")
+            stop("Can only subtract whole numbers and other <grates_yearmonth> objects from <grates_yearmonth> objects.") # nolint: line_length_linter.
         },
         stopf("%s is not compatible with <grates_yearmonth> objects.", op)
     )

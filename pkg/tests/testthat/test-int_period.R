@@ -24,10 +24,10 @@ test_that("int_int_period constructor and coercion to integer works", {
 })
 
 test_that("int_period, negative values work", {
-    dates <- seq.int(from = -7*30, length.out = 4, by = 7)
-    dates2 <- seq.int(from = -7*30 - 28, length.out = 4, by = 7)
-    expect_identical(as.integer(as_int_period(dates, n=7)), dates)
-    expect_identical(as.integer(as_int_period(dates, n=7) - 4), dates2)
+    dates <- seq.int(from = -7 * 30, length.out = 4, by = 7)
+    dates2 <- seq.int(from = -7 * 30 - 28, length.out = 4, by = 7)
+    expect_identical(as.integer(as_int_period(dates, n = 7)), dates)
+    expect_identical(as.integer(as_int_period(dates, n = 7) - 4), dates2)
 })
 
 test_that("as_int_period, misc errors and warnings", {
@@ -36,7 +36,7 @@ test_that("as_int_period, misc errors and warnings", {
 })
 
 test_that("int_period, as.list works", {
-    dat <- as_int_period(c(0,3), n = 2)
+    dat <- as_int_period(c(0, 3), n = 2)
     res <- list(as_int_period(0, n = 2), as_int_period(3, n = 2))
     expect_identical(res, as.list(dat))
 })
@@ -80,16 +80,15 @@ test_that("period operators and math work", {
     # comparison operators ----------------------------------------------------
     x <- as.integer(Sys.Date())
     dat <- as_int_period(x, n = 2L)
-    expect_true(dat == dat)
+    expect_true(dat == dat) # nolint: expect_comparison_linter. False-positive
     expect_false(dat != dat)
-    expect_true(dat == dat)
-    expect_true(dat <= dat + 1)
-    expect_true(dat >= dat - 1)
-    expect_true(dat < dat + 1)
-    expect_true(dat > dat - 1)
+    expect_lte(dat, dat + 1)
+    expect_gte(dat, dat - 1)
+    expect_lt(dat, dat + 1)
+    expect_gt(dat, dat - 1)
     expect_true(dat != dat + 1)
     expect_error(
-        dat == TRUE,
+        dat == TRUE, # nolint: redundant_equals_linter. False-positive
         "Can only compare <grates_int_period> objects with <grates_int_period> objects.",
         fixed = TRUE
     )
@@ -209,7 +208,7 @@ test_that("int_period, miscellaneous work", {
         "`by` must be an integer of length 1.",
         fixed = TRUE
     )
-    dat2 <- as_int_period(as.integer(dat+11), n = 3)
+    dat2 <- as_int_period(as.integer(dat + 11), n = 3)
     expect_error(
         seq(dat, dat2, by = 2),
         "`to` must have the same integer grouping as `from`",
@@ -223,16 +222,19 @@ test_that("int_period, miscellaneous work", {
     )
     expect_identical(as.integer(new_int_period(100L)), 100L)
     expect_identical(as.double(new_int_period(100L)), 100)
-    expect_identical(min(c(dat, dat+11)), dat)
-    expect_identical(max(c(dat, dat+11)), dat+11)
-    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
+    expect_identical(min(c(dat, dat + 11)), dat)
+    expect_identical(max(c(dat, dat + 11)), dat + 11)
+    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat + 12))
     expect_error(
         any(dat),
         "`any()` is not supported for <grates_int_period> objects.",
         fixed = TRUE
     )
     expect_error(
-        c(as_int_period(as.integer(Sys.Date()), n = 2L), as_int_period(as.integer(Sys.Date()), n = 3L)),
+        c(
+            as_int_period(as.integer(Sys.Date()), n = 2L),
+            as_int_period(as.integer(Sys.Date()), n = 3L)
+        ),
         "Unable to combine <grates_int_period> objects with different groupings.",
         fixed = TRUE
     )

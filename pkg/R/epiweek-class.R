@@ -458,7 +458,7 @@ Ops.grates_epiweek <- function(e1, e2) {
             } else if (inherits(e1, "grates_epiweek") && .is_whole(e2)) {
                 return(.new_epiweek(unclass(e1) - as.integer(e2)))
             }
-            stop("Can only subtract whole numbers and other <grates_epiweek> objects from <grates_epiweek> objects.")
+            stop("Can only subtract whole numbers and other <grates_epiweek> objects from <grates_epiweek> objects.") # nolint: line_length_linter.
         },
         stopf("%s is not compatible with <grates_epiweek> objects.", op)
     )

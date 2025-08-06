@@ -31,7 +31,7 @@ NULL
 #' @export
 date_start <- function(x) {
     .assert_grate(x)
-    return(as.Date(x))
+    as.Date(x)
 }
 
 #' @rdname boundaries
@@ -40,4 +40,3 @@ date_end <- function(x) {
     .assert_grate(x)
     as.Date(x + 1L) - 1L
 }
-

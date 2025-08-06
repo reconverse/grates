@@ -417,7 +417,7 @@ Ops.grates_int_period <- function(e1, e2) {
                     if (isTRUE(all.equal(n1, n2))) {
                         return(c(unclass(e1) - unclass(e2)))
                     }
-                    stop("<grates_int_period> objects must have the same integer grouping to perform subtraction.")
+                    stop("<grates_int_period> objects must have the same integer grouping to perform subtraction.") # nolint: line_length_linter.
                 }
                 stop("Can only subtract from a <grates_int_period> object, not vice-versa.")
             } else if (inherits(e1, "grates_int_period") && .is_whole(e2)) {
@@ -425,7 +425,7 @@ Ops.grates_int_period <- function(e1, e2) {
                 n <- attr(e1, "n")
                 return(.new_int_period(unclass(e1) - e2, n = n))
             }
-            stop("Can only subtract whole numbers and other <grates_int_period> objects from <grates_int_period> objects.")
+            stop("Can only subtract whole numbers and other <grates_int_period> objects from <grates_int_period> objects.") # nolint: line_length_linter.
         },
         stopf("%s is not compatible with <grates_int_period> objects.", op)
     )

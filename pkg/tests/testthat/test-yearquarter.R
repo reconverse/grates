@@ -117,10 +117,10 @@ test_that("yearquarter, subsetting works", {
     x <- as.Date("2020-03-01")
     dat <- as_yearquarter(x) + 0:1
     dat <- setNames(dat, c("a", "b"))
-    expect_identical(dat[1], c(a=as_yearquarter(x)))
+    expect_identical(dat[1], c(a = as_yearquarter(x)))
     expect_identical(dat[[2]], as_yearquarter(x + 33))
-    dat[1] <- as_yearquarter(x+33)
-    expect_identical(dat[1], c(a=as_yearquarter(x + 33)))
+    dat[1] <- as_yearquarter(x + 33)
+    expect_identical(dat[1], c(a = as_yearquarter(x + 33)))
     dat[[2]] <- dat[[1]]
     expect_identical(dat[[2]], dat[[1]])
     expect_error(
@@ -146,16 +146,16 @@ test_that("yearquarter operators and math work", {
     x <- Sys.Date()
     dat1 <- as_yearquarter(x)
     dat2 <- as_yearquarter(x)
-    expect_true(dat1 == dat2)
+    expect_true(dat1 == dat2) # nolint: expect_comparison_linter. False-positive
     expect_false(dat1 != dat2)
-    expect_true(dat1 == dat1)
-    expect_true(dat1 <= dat1 + 1)
-    expect_true(dat1 >= dat1 - 1)
-    expect_true(dat1 < dat1 + 1)
-    expect_true(dat1 > dat1 - 1)
+    expect_true(dat1 == dat1) # nolint: expect_comparison_linter. False-positive
+    expect_lte(dat1, dat1 + 1)
+    expect_gte(dat1, dat1 - 1)
+    expect_lt(dat1, dat1 + 1)
+    expect_gt(dat1, dat1 - 1)
     expect_true(dat1 != dat1 + 1)
     expect_error(
-        dat1 == TRUE,
+        dat1 == TRUE, # nolint: redundant_equals_linter. False-positive.
         "Can only compare <grates_yearquarter> objects with <grates_yearquarter> objects.",
         fixed = TRUE
     )
@@ -254,22 +254,22 @@ test_that("yearquarter, miscellaneous work", {
     )
     expect_identical(as.integer(new_yearquarter(100L)), 100L)
     expect_identical(as.double(new_yearquarter(100L)), 100)
-    expect_identical(min(c(dat, dat+11)), dat)
-    expect_identical(max(c(dat, dat+11)), dat+11)
-    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
+    expect_identical(min(c(dat, dat + 11)), dat)
+    expect_identical(max(c(dat, dat + 11)), dat + 11)
+    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat + 12))
     expect_error(
         any(dat),
         "`any()` is not supported for <grates_yearquarter> objects.",
         fixed = TRUE
     )
 
-    expect_identical(yearquarter(1L,1L),yearquarter(1.5,1.5))
+    expect_identical(yearquarter(1L, 1L), yearquarter(1.5, 1.5))
     expect_error(yearquarter(1L), "Cannot recycle a vector of length 0:", fixed = TRUE)
-    expect_error(yearquarter(1:2,1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
+    expect_error(yearquarter(1:2, 1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
     expect_error(yearquarter(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(yearquarter(quarter = character()), "`quarter` must be integer.")
-    expect_error(yearquarter(1L,0L), "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry 1 is not (it equals 0).", fixed = TRUE)
-    expect_error(yearquarter(1L,5L), "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry 1 is not (it equals 5).", fixed = TRUE)
+    expect_error(yearquarter(1L, 0L), "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry 1 is not (it equals 0).", fixed = TRUE)
+    expect_error(yearquarter(1L, 5L), "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry 1 is not (it equals 5).", fixed = TRUE)
 })
 
 test_that("yearquarter boundary functions work", {
@@ -281,4 +281,3 @@ test_that("yearquarter boundary functions work", {
     expect_identical(date_start(quarters), starts)
     expect_identical(date_end(quarters), ends)
 })
-

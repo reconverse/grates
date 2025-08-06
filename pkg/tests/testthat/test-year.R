@@ -109,14 +109,14 @@ test_that("year, is_year works", {
 
 test_that("year, subsetting works", {
     x <- Sys.Date()
-    x2 <- seq.Date(x, by="year", length.out=2)[2]
+    x2 <- seq.Date(x, by = "year", length.out = 2)[2]
     storage.mode(x2) <- "double" # needed for R <= 4.1.3
     dat <- as_year(x) + 0:1
     dat <- setNames(dat, c("a", "b"))
-    expect_identical(dat[1], c(a=as_year(x)))
+    expect_identical(dat[1], c(a = as_year(x)))
     expect_identical(dat[[2]], as_year(x2))
     dat[1] <- as_year(x2)
-    expect_identical(dat[1], c(a=as_year(x2)))
+    expect_identical(dat[1], c(a = as_year(x2)))
     dat[[2]] <- dat[[1]]
     expect_identical(dat[[2]], dat[[1]])
     expect_error(
@@ -142,16 +142,16 @@ test_that("year operators and math work", {
     x <- Sys.Date()
     dat1 <- as_year(x)
     dat2 <- as_year(x)
-    expect_true(dat1 == dat2)
+    expect_true(dat1 == dat2) # nolint: expect_comparison_linter. False-positive
     expect_false(dat1 != dat2)
-    expect_true(dat1 == dat1)
-    expect_true(dat1 <= dat1 + 1)
-    expect_true(dat1 >= dat1 - 1)
-    expect_true(dat1 < dat1 + 1)
-    expect_true(dat1 > dat1 - 1)
+    expect_true(dat1 == dat1) # nolint: expect_comparison_linter. False-positive
+    expect_lte(dat1, dat1 + 1)
+    expect_gte(dat1, dat1 - 1)
+    expect_lt(dat1, dat1 + 1)
+    expect_gt(dat1, dat1 - 1)
     expect_true(dat1 != dat1 + 1)
     expect_error(
-        dat1 == TRUE,
+        dat1 == TRUE, # nolint: redundant_equals_linter. False-positive.
         "Can only compare <grates_year> objects with <grates_year> objects.",
         fixed = TRUE
     )
@@ -249,9 +249,9 @@ test_that("year, miscellaneous work", {
     )
     expect_identical(as.integer(year(100L)), 100L)
     expect_identical(as.double(year(100L)), 100)
-    expect_identical(min(c(dat, dat+11)), dat)
-    expect_identical(max(c(dat, dat+11)), dat+11)
-    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
+    expect_identical(min(c(dat, dat + 11)), dat)
+    expect_identical(max(c(dat, dat + 11)), dat + 11)
+    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat + 12))
     expect_error(
         any(dat),
         "`any()` is not supported for <grates_year> objects.",
@@ -264,7 +264,7 @@ test_that("year, miscellaneous work", {
 })
 
 test_that("year boundary functions work", {
-    dates <- as.Date("2020-01-01") + seq.int(50,5000,50)
+    dates <- as.Date("2020-01-01") + seq.int(50, 5000, 50)
     years <- as_year(dates)
     starts <- as.Date(years)
     ends <- lapply(starts, function(x) seq(x, by = "1 year", length.out = 2L)[2L])
@@ -272,4 +272,3 @@ test_that("year boundary functions work", {
     expect_identical(date_start(years), starts)
     expect_identical(date_end(years), ends)
 })
-

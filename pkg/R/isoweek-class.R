@@ -83,7 +83,8 @@
 #' @references
 #' Wikipedia contributors. (2025, January 15). ISO week date.
 #' In Wikipedia, The Free Encyclopedia.
-#' Retrieved 09:19, March 6, 2025, from https://en.wikipedia.org/w/index.php?title=ISO_week_date&oldid=1269568343
+#' Retrieved 09:19, March 6, 2025, from
+#' https://en.wikipedia.org/w/index.php?title=ISO_week_date&oldid=1269568343
 #'
 # -------------------------------------------------------------------------
 #' @examples
@@ -470,7 +471,7 @@ Ops.grates_isoweek <- function(e1, e2) {
             } else if (inherits(e1, "grates_isoweek") && .is_whole(e2)) {
                 return(.new_isoweek(unclass(e1) - as.integer(e2)))
             }
-            stop("Can only subtract whole numbers and other <grates_isoweek> objects from <grates_isoweek> objects.")
+            stop("Can only subtract whole numbers and other <grates_isoweek> objects from <grates_isoweek> objects.") # nolint: line_length_linter.
         },
         stopf("%s is not compatible with <grates_isoweek> objects.", op)
     )

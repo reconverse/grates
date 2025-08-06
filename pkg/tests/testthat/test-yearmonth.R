@@ -115,10 +115,10 @@ test_that("yearmonth, subsetting works", {
     x <- as.Date("2023-02-15")
     dat <- as_yearmonth(x) + 0:1
     dat <- setNames(dat, c("a", "b"))
-    expect_identical(dat[1], c(a=as_yearmonth(x)))
+    expect_identical(dat[1], c(a = as_yearmonth(x)))
     expect_identical(dat[[2]], as_yearmonth(x + 33))
-    dat[1] <- as_yearmonth(x+33)
-    expect_identical(dat[1], c(a=as_yearmonth(x + 33)))
+    dat[1] <- as_yearmonth(x + 33)
+    expect_identical(dat[1], c(a = as_yearmonth(x + 33)))
     dat[[2]] <- dat[[1]]
     expect_identical(dat[[2]], dat[[1]])
     expect_error(
@@ -143,16 +143,15 @@ test_that("yearmonth operators and math work", {
     # comparison operators ----------------------------------------------------
     x <- Sys.Date()
     dat <- as_yearmonth(x)
-    expect_true(dat == dat)
+    expect_true(dat == dat) # nolint: expect_comparison_linter. False-positive
     expect_false(dat != dat)
-    expect_true(dat == dat)
-    expect_true(dat <= dat + 1)
-    expect_true(dat >= dat - 1)
-    expect_true(dat < dat + 1)
-    expect_true(dat > dat - 1)
+    expect_lte(dat, dat + 1)
+    expect_gte(dat, dat - 1)
+    expect_lt(dat, dat + 1)
+    expect_gt(dat, dat - 1)
     expect_true(dat != dat + 1)
     expect_error(
-        dat == TRUE,
+        dat == TRUE, # nolint: redundant_equals_linter. False-positive.
         "Can only compare <grates_yearmonth> objects with <grates_yearmonth> objects.",
         fixed = TRUE
     )
@@ -250,22 +249,22 @@ test_that("yearmonth, miscellaneous work", {
     )
     expect_identical(as.integer(new_yearmonth(100L)), 100L)
     expect_identical(as.double(new_yearmonth(100L)), 100)
-    expect_identical(min(c(dat, dat+11)), dat)
-    expect_identical(max(c(dat, dat+11)), dat+11)
-    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
+    expect_identical(min(c(dat, dat + 11)), dat)
+    expect_identical(max(c(dat, dat + 11)), dat + 11)
+    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat + 12))
     expect_error(
         any(dat),
         "`any()` is not supported for <grates_yearmonth> objects.",
         fixed = TRUE
     )
 
-    expect_identical(yearmonth(1L,1L),yearmonth(1.5,1.5))
+    expect_identical(yearmonth(1L, 1L), yearmonth(1.5, 1.5))
     expect_error(yearmonth(1L), "Cannot recycle a vector of length 0:", fixed = TRUE)
-    expect_error(yearmonth(1:2,1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
+    expect_error(yearmonth(1:2, 1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
     expect_error(yearmonth(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(yearmonth(month = character()), "`month` must be integer.")
-    expect_error(yearmonth(1L,0L), "Months must be integer and between 1 and 12 (inclusive) or NA. Entry 1 is not (it equals 0).", fixed = TRUE)
-    expect_error(yearmonth(1L,13L), "Months must be integer and between 1 and 12 (inclusive) or NA. Entry 1 is not (it equals 13).", fixed = TRUE)
+    expect_error(yearmonth(1L, 0L), "Months must be integer and between 1 and 12 (inclusive) or NA. Entry 1 is not (it equals 0).", fixed = TRUE)
+    expect_error(yearmonth(1L, 13L), "Months must be integer and between 1 and 12 (inclusive) or NA. Entry 1 is not (it equals 13).", fixed = TRUE)
     expect_false(is.numeric(yearmonth(1, 1)))
 })
 

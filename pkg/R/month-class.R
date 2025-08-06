@@ -104,7 +104,10 @@ as_month.Date <- function(x, n, ...) {
         stop("`n` must be an integer of length 1.")
     n <- as.integer(n)
     if (n == 1L)
-        stop("`n` must be greater than 1. If single month groupings are required please use `as_yearmonth()`.")
+        stop(
+            "`n` must be greater than 1. ",
+            "If single month groupings are required please use `as_yearmonth()`."
+        )
 
 
     # get year, month and day
@@ -181,8 +184,13 @@ new_month <- function(x = integer(), n) {
     if (!.is_scalar_whole(n))
         stop("`n` must be an integer of length 1.")
     n <- as.integer(n)
-    if (n <= 1L)
-        stop("`n` must be greater than 1. If single month groupings are required please use `yearmonth()`.")
+    if (n <= 1L) {
+        stop(
+            "`n` must be greater than 1. ",
+            "If single month groupings are required please use `yearmonth()`."
+        )
+    }
+
 
     .new_month(x = x, n = n)
 }
@@ -496,14 +504,14 @@ Ops.grates_month <- function(e1, e2) {
                     if (isTRUE(all.equal(n1, n2))) {
                         return((as.integer(e1) - as.integer(e2)))
                     }
-                    stop("<grates_month> objects must have the same month grouping to perform subtraction.")
+                    stop("<grates_month> objects must have the same month grouping to perform subtraction.") # nolint: line_length_linter.
                 }
                 stop("Can only subtract from a <grates_month> object, not vice-versa.")
             } else if (inherits(e1, "grates_month") && .is_whole(e2)) {
                 n <- attr(e1, "n")
                 return(.new_month(as.integer(e1) - e2, n = n))
             }
-            stop("Can only subtract whole numbers and other <grates_month> objects from <grates_month> objects.")
+            stop("Can only subtract whole numbers and other <grates_month> objects from <grates_month> objects.") # nolint: line_length_linter.
         },
         stopf("%s is not compatible with <grates_month> objects.", op)
     )

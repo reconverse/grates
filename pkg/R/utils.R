@@ -27,11 +27,13 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
 .assert_grate <- function(x, arg = deparse(substitute(x)), call = sys.call(-1L)) {
     .assert_not_missing(x = x, arg = arg, call = call)
 
+    # nolint start: commas_linter. Aesthetics
     grates_classes <- c(
         "grates_yearweek" , "grates_isoweek", "grates_epiweek",
         "grates_yearmonth", "grates_month"  , "grates_yearquarter",
         "grates_year"     , "grates_period"
     )
+    # nolint end
 
     if (!inherits(x, grates_classes))
         stopf("`%s` must be a <grates> object.", arg, .call = call)

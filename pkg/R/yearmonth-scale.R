@@ -5,8 +5,13 @@ scale_type.grates_yearmonth <- function(x) {
     # -------------------------------------------------------------------------
     # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
     #        gets resolved
-    if (!"grates" %in% .packages())
-        stop("<grates_yearmonth> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    if (!"grates" %in% .packages()) {
+        stop(
+            "<grates_yearmonth> object found, but grates package is not attached.\n",
+            "  Please attach via `library(grates)`."
+        )
+    }
+
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
 
@@ -49,7 +54,12 @@ scale_type.grates_yearmonth <- function(x) {
 #'
 # -------------------------------------------------------------------------
 #' @export
-scale_x_grates_yearmonth <- function(..., breaks = ggplot2::waiver(), n.breaks = 6L, format = NULL) {
+scale_x_grates_yearmonth <- function(
+    ...,
+    breaks = ggplot2::waiver(),
+    n.breaks = 6L,
+    format = NULL
+) {
 
     .check_suggests("ggplot2")
     .check_suggests("scales") # precautionary but overkill as currently a dependency of ggplot2
@@ -58,7 +68,7 @@ scale_x_grates_yearmonth <- function(..., breaks = ggplot2::waiver(), n.breaks =
     # We could just force a minimum ggplot2 version and avoid this branching
     # but it's relatively low effort so leaving for now.
     # TODO - revisit.
-    if (utils::packageVersion("ggplot2") < '3.5.0') {
+    if (utils::packageVersion("ggplot2") < "3.5.0") {
         ggplot2::scale_x_continuous(
             trans = .grates_yearmonth_trans(
                 breaks = breaks,

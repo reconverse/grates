@@ -580,7 +580,7 @@ Ops.grates_yearweek <- function(e1, e2) {
                         weekdiff <- (unclass(e1) - unclass(e2))
                         return(as.difftime(weekdiff, units = "weeks"))
                     }
-                    stop("<grates_yearweek> objects must have the same first day of the week to perform subtraction.")
+                    stop("<grates_yearweek> objects must have the same first day of the week to perform subtraction.") # nolint: line_length_linter.
                 }
                 stop("Can only subtract from a <grates_yearweek> object, not vice-versa.")
             } else if (inherits(e1, "grates_yearweek") && is.integer(e2)) {
@@ -590,7 +590,7 @@ Ops.grates_yearweek <- function(e1, e2) {
                 fd <- .firstday_from_class(e1)
                 return(.new_yearweek(unclass(e1) - as.integer(e2), firstday = fd))
             }
-            stop("Can only subtract whole numbers and other <grates_yearweek> objects from <grates_yearweek> objects.")
+            stop("Can only subtract whole numbers and other <grates_yearweek> objects from <grates_yearweek> objects.") # nolint: line_length_linter.
         },
         stopf("%s is not compatible with <grates_yearweek> objects.", op)
     )
@@ -681,10 +681,17 @@ is.numeric.grates_yearweek <- function(x) {
 .yearweek <- function(year, week, firstday) {
     na_values <- is.na(year) | is.na(week)
     invalid <- !logical(length(na_values))
-    if(!all(na_values))
-        invalid[!na_values] <- week[!na_values] > .last_week_in_year(year = year[!na_values], firstday = firstday)
-    if (any(invalid))
-        warning("Some entries invalid for given `year` and `week` values. Returning these as NA.", call. = FALSE)
+    if (!all(na_values)) {
+        invalid[!na_values] <- week[!na_values] > .last_week_in_year(year = year[!na_values], firstday = firstday) # nolint: line_length_linter.
+    }
+
+    if (any(invalid)) {
+        warning(
+            "Some entries invalid for given `year` and `week` values. ",
+            "Returning these as NA.", call. = FALSE # nolint: condition_call_linter.
+        )
+    }
+
 
     out <- rep.int(NA_integer_, length(year))
 
@@ -725,6 +732,3 @@ is.numeric.grates_yearweek <- function(x) {
     date <- (unclass(date) + 4L) %% 7L
     1L + (unclass(date) + (7L - firstday)) %% 7L
 }
-
-
-

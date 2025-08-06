@@ -237,10 +237,10 @@ test_that("yearweek, subsetting works", {
     x <- Sys.Date()
     dat <- as_yearweek(x) + 0:1
     dat <- setNames(dat, c("a", "b"))
-    expect_identical(dat[1], c(a=as_yearweek(x)))
+    expect_identical(dat[1], c(a = as_yearweek(x)))
     expect_identical(dat[[2]], as_yearweek(x + 7))
-    dat[1] <- as_yearweek(x+14)
-    expect_identical(dat[1], c(a=as_yearweek(x + 14)))
+    dat[1] <- as_yearweek(x + 14)
+    expect_identical(dat[1], c(a = as_yearweek(x + 14)))
     dat[[2]] <- dat[[1]]
     expect_identical(dat[[2]], dat[[1]])
     expect_error(
@@ -279,11 +279,11 @@ test_that("yearweek operators and math work", {
     dat2 <- as_yearweek(x, 2)
     expect_false(dat1 == dat2)
     expect_true(dat1 != dat2)
-    expect_true(dat1 == dat1)
-    expect_true(dat1 <= dat1 + 1)
-    expect_true(dat1 >= dat1 - 1)
-    expect_true(dat1 < dat1 + 1)
-    expect_true(dat1 > dat1 - 1)
+    expect_true(dat1 == dat1) # nolint: expect_comparison_linter. False-positive
+    expect_lte(dat1, dat1 + 1)
+    expect_gte(dat1, dat1 - 1)
+    expect_lt(dat1, dat1 + 1)
+    expect_gt(dat1, dat1 - 1)
     expect_true(dat1 != dat1 + 1)
     expect_error(
         dat1 < dat2,
@@ -306,7 +306,7 @@ test_that("yearweek operators and math work", {
         fixed = TRUE
     )
     expect_error(
-        dat1 == TRUE,
+        dat1 == TRUE, # nolint: redundant_equals_linter. False-positive.
         "Can only compare <grates_yearweek> objects with <grates_yearweek> objects.",
         fixed = TRUE
     )
@@ -426,7 +426,7 @@ test_that("yearweek, miscellaneous work", {
         "`by` must be an integer of length 1.",
         fixed = TRUE
     )
-    dat2 <- as_yearweek(as.Date(dat+11), firstday = 3)
+    dat2 <- as_yearweek(as.Date(dat + 11), firstday = 3)
     expect_error(
         seq(dat, dat2, by = 2),
         "`to` must have the same first day of the week as `from`",
@@ -440,25 +440,25 @@ test_that("yearweek, miscellaneous work", {
     )
     expect_identical(as.integer(new_yearweek(100L)), 100L)
     expect_identical(as.double(new_yearweek(100L)), 100)
-    expect_identical(min(c(dat, dat+11)), dat)
-    expect_identical(max(c(dat, dat+11)), dat+11)
-    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
+    expect_identical(min(c(dat, dat + 11)), dat)
+    expect_identical(max(c(dat, dat + 11)), dat + 11)
+    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat + 12))
     expect_error(
         any(dat),
         "`any()` is not supported for <grates_yearweek> objects.",
         fixed = TRUE
     )
 
-    expect_identical(yearweek(1L,1L),yearweek(1.5,1.5))
+    expect_identical(yearweek(1L, 1L), yearweek(1.5, 1.5))
     expect_error(yearweek(1L), "Cannot recycle a vector of length 0:", fixed = TRUE)
-    expect_error(yearweek(1:2,1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
+    expect_error(yearweek(1:2, 1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
     expect_error(yearweek(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(yearweek(week = character()), "`week` must be integer.")
-    expect_error(yearweek(firstday=1:2), "`firstday` must be an integer of length 1.", fixed = TRUE)
-    expect_error(yearweek(firstday=""), "`firstday` must be an integer of length 1.", fixed = TRUE)
-    expect_error(yearweek(firstday=8L), "`firstday` must be an integer between 1 (Monday) and 7 (Sunday).", fixed = TRUE)
+    expect_error(yearweek(firstday = 1:2), "`firstday` must be an integer of length 1.", fixed = TRUE)
+    expect_error(yearweek(firstday = ""), "`firstday` must be an integer of length 1.", fixed = TRUE)
+    expect_error(yearweek(firstday = 8L), "`firstday` must be an integer between 1 (Monday) and 7 (Sunday).", fixed = TRUE)
     expect_identical(yearweek(firstday = 1.0), yearweek(firstday = 1L))
-    expect_false(is.numeric(yearweek(1,1)))
+    expect_false(is.numeric(yearweek(1, 1)))
 })
 
 test_that("yearweek boundary functions work", {

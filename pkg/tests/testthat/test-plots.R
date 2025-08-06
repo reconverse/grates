@@ -55,7 +55,7 @@ test_that("yearweek plotting works", {
         ggplot2::xlab("")
 
     yearweek_thursday_breaks <- yearweek_thursday +
-        scale_x_grates_yearweek_thursday(breaks = yearweek(2014, c(25,35,45), 4))
+        scale_x_grates_yearweek_thursday(breaks = yearweek(2014, c(25, 35, 45), 4))
 
     yearweek_thursday_weeks_only <- yearweek_thursday +
         scale_x_grates_yearweek_thursday(format = "week")
@@ -75,7 +75,7 @@ test_that("isoweek plotting works", {
 
     isoweek <-
         as_isoweek(dat$date_of_infection) |>
-        count_no_na()|>
+        count_no_na() |>
         ggplot2::ggplot(ggplot2::aes(date, cases)) +
             ggplot2::geom_col(width = 1, colour = "white") +
             ggplot2::theme_bw() +
@@ -250,7 +250,7 @@ test_that("month plotting works", {
         ggplot2::xlab("")
 
     month_breaks <- month +
-        scale_x_grates_month(breaks = as_month("2014-05-01", n = 2) + 0:5 , n = 2) +
+        scale_x_grates_month(breaks = as_month("2014-05-01", n = 2) + 0:5, n = 2) +
         ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
 
     month2 <-
@@ -298,9 +298,9 @@ test_that("period plotting works", {
         scale_x_grates_period(n.breaks = 7L, n = 28, offset = 0L) +
         ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
 
-    br <- as_period("2014-06-19", n = 28) + c(0,2,4)
+    br <- as_period("2014-06-19", n = 28) + c(0, 2, 4)
     twentyeight_days_breaks <- twentyeight_days +
-        scale_x_grates_period(breaks = br, n=28, offset = 0) +
+        scale_x_grates_period(breaks = br, n = 28, offset = 0) +
         ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
 
     expect_snapshot_plot("twentyeight_days", twentyeight_days)
@@ -335,14 +335,14 @@ test_that("int_period plotting works", {
     p_breaks <-
         p_two +
         scale_x_grates_int_period(
-            breaks = as_int_period(seq(0,12,by=2), n = 2),
+            breaks = as_int_period(seq(0, 12, by = 2), n = 2),
             n = 2
         )
 
     p_breaks_centred <-
         p_two +
         scale_x_grates_int_period(
-            breaks = as_int_period(seq(0,12,by=2), n = 2),
+            breaks = as_int_period(seq(0, 12, by = 2), n = 2),
             n = 2,
             centre = TRUE
         )

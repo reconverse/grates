@@ -127,7 +127,8 @@ stopifnot(
 \references{
 Wikipedia contributors. (2025, January 15). ISO week date.
 In Wikipedia, The Free Encyclopedia.
-Retrieved 09:19, March 6, 2025, from https://en.wikipedia.org/w/index.php?title=ISO_week_date&oldid=1269568343
+Retrieved 09:19, March 6, 2025, from
+https://en.wikipedia.org/w/index.php?title=ISO_week_date&oldid=1269568343
 }
 \seealso{
 The \link[=yearweek_class]{yearweek} and \link[=epiweek_class]{epiweek} classes.

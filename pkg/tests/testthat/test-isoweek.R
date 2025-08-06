@@ -148,10 +148,10 @@ test_that("isoweek, subsetting works", {
     x <- Sys.Date()
     dat <- as_isoweek(x) + 0:1
     dat <- setNames(dat, c("a", "b"))
-    expect_identical(dat[1], c(a=as_isoweek(x)))
+    expect_identical(dat[1], c(a = as_isoweek(x)))
     expect_identical(dat[[2]], as_isoweek(x + 7))
-    dat[1] <- as_isoweek(x+14)
-    expect_identical(dat[1], c(a=as_isoweek(x + 14)))
+    dat[1] <- as_isoweek(x + 14)
+    expect_identical(dat[1], c(a = as_isoweek(x + 14)))
     dat[[2]] <- dat[[1]]
     expect_identical(dat[[2]], dat[[1]])
     expect_error(
@@ -187,12 +187,12 @@ test_that("isoweek operators and math work", {
     # comparison operators ----------------------------------------------------
     x <- Sys.Date()
     dat <- as_isoweek(x)
-    expect_true(dat == dat)
+    expect_true(dat == dat) # nolint: expect_comparison_linter. False-positive
     expect_false(dat != dat)
-    expect_true(dat <= dat + 1)
-    expect_true(dat >= dat - 1)
-    expect_true(dat < dat + 1)
-    expect_true(dat > dat - 1)
+    expect_lte(dat, dat + 1)
+    expect_gte(dat, dat - 1)
+    expect_lt(dat, dat + 1)
+    expect_gt(dat, dat - 1)
     expect_true(dat != dat + 1)
     expect_error(
         dat == 1,
@@ -289,20 +289,20 @@ test_that("isoweek, miscellaneous work", {
     )
     expect_identical(as.integer(new_isoweek(100L)), 100L)
     expect_identical(as.double(new_isoweek(100L)), 100)
-    expect_identical(min(c(dat, dat+11)), dat)
-    expect_identical(max(c(dat, dat+11)), dat+11)
-    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
+    expect_identical(min(c(dat, dat + 11)), dat)
+    expect_identical(max(c(dat, dat + 11)), dat + 11)
+    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat + 12))
     expect_error(
         any(dat),
         "`any()` is not supported for <grates_isoweek> objects.",
         fixed = TRUE
     )
-    expect_identical(isoweek(1L,1L),isoweek(1.5,1.5))
+    expect_identical(isoweek(1L, 1L), isoweek(1.5, 1.5))
     expect_error(epiweek(1L), "Cannot recycle a vector of length 0:", fixed = TRUE)
-    expect_error(epiweek(1:2,1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
+    expect_error(epiweek(1:2, 1:3), "Can only recycle vectors of length 1:", fixed = TRUE)
     expect_error(isoweek(year = character()), "`year` must be integer.", fixed = TRUE)
     expect_error(isoweek(week = character()), "`week` must be integer.", fixed = TRUE)
-    expect_false(is.numeric(isoweek(1,1)))
+    expect_false(is.numeric(isoweek(1, 1)))
 })
 
 test_that("isoweek boundary functions work", {

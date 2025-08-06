@@ -21,7 +21,7 @@ test_that("Refactoring hasn't broke get_year for yearweek objects", {
         yr + boundary_adjustment
     }
 
-    dat <- fastymd::fymd(1,1,1) + 0:999999
+    dat <- fastymd::fymd(1, 1, 1) + 0:999999
     dat <- as_yearweek(dat)
     expect_identical(get_year(dat), .get_year_grates_yearweek(dat))
 })
@@ -37,7 +37,7 @@ test_that("Refactoring hasn't broke get_year for yearmonth objects", {
         x$year + 1900L
     }
 
-    dat <- fastymd::fymd(1,1,1) + 0:999999
+    dat <- fastymd::fymd(1, 1, 1) + 0:999999
     dat <- as_yearmonth(dat)
     expect_identical(get_year(dat), .get_year_grates_yearmonth(dat))
 })
@@ -53,7 +53,7 @@ test_that("Refactoring hasn't broke get_year for yearquarter objects", {
         x$year + 1900L
     }
 
-    dat <- fastymd::fymd(1,1,1) + 0:999999
+    dat <- fastymd::fymd(1, 1, 1) + 0:999999
     dat <- as_yearquarter(dat)
     expect_identical(get_year(dat), .get_year_grates_yearquarter(dat))
 })
@@ -67,7 +67,7 @@ test_that("utc posixlt conversion still works", {
     old <- function(x) as.POSIXlt(x * 86400, tz = "UTC", origin = .POSIXct(0, tz = "UTC"))
     new <- function(x) as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
     dat <- (-99999):99999
-    expect_identical(old(dat),new(dat))
+    expect_identical(old(dat), new(dat))
 })
 
 
@@ -92,7 +92,7 @@ test_that("Refactoring hasn't broken as_yearmonth for date objects", {
     }
 
 
-    dat <- fastymd::fymd(1,1,1) + 0:999999
+    dat <- fastymd::fymd(1, 1, 1) + 0:999999
     expect_identical(as_yearmonth(dat), .as_yearmonth_Date(dat))
 })
 
@@ -129,7 +129,7 @@ test_that("Refactoring hasn't broken as_yearmonth for date objects", {
         .new_month(x = as.integer(mon), n = n)
     }
 
-    dat <- fastymd::fymd(1,1,1) + 0:999999
+    dat <- fastymd::fymd(1, 1, 1) + 0:999999
     expect_identical(as_month(dat, n = 7), .as_month_Date(dat, n = 7))
     expect_identical(as_month(dat, n = 2), .as_month_Date(dat, n = 2))
 })

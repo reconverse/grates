@@ -251,8 +251,12 @@ as.Date.grates_year <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.POSIXct.grates_year <- function(x, tz = "UTC", ...) {
-    if (tz != "UTC")
-        stop("<grates_year> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    if (tz != "UTC") {
+        stop(
+            "<grates_year> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
+    }
     x <- .month_to_days((unclass(x) - 1970L) * 12L)
     .POSIXct(x * 86400, tz = "UTC")
 }
@@ -260,8 +264,13 @@ as.POSIXct.grates_year <- function(x, tz = "UTC", ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.POSIXlt.grates_year <- function(x, tz = "UTC", ...) {
-    if (tz != "UTC")
-        stop("<grates_year> objects can only be converted to UTC. If other timezones are required, first convert to <Date> and then proceed as desired.")
+    if (tz != "UTC") {
+        stop(
+            "<grates_year> objects can only be converted to UTC. ",
+            "If other timezones are required, first convert to <Date> and then proceed as desired."
+        )
+    }
+
     x <- .month_to_days((unclass(x) - 1970L) * 12L)
     as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
 }
@@ -363,7 +372,7 @@ Ops.grates_year <- function(e1, e2) {
             } else if (inherits(e1, "grates_year") && .is_whole(e2)) {
                 return(.new_year(unclass(e1) - as.integer(e2)))
             }
-            stop("Can only subtract whole numbers and other <grates_year> objects from <grates_year> objects.")
+            stop("Can only subtract whole numbers and other <grates_year> objects from <grates_year> objects.") # nolint: line_length_linter.
         },
         stopf("%s is not compatible with <grates_year> objects.", op)
     )

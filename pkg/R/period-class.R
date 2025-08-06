@@ -508,7 +508,7 @@ Ops.grates_period <- function(e1, e2) {
             } else if (op == "!=") {
                 return(TRUE)
             }
-            stop("Can only compare <grates_period> objects with the same period grouping and offset.")
+            stop("Can only compare <grates_period> objects with the same period grouping and offset.") # nolint: line_length_linter
         }
         stop("Can only compare <grates_period> objects with <grates_period> objects.")
     }
@@ -543,7 +543,7 @@ Ops.grates_period <- function(e1, e2) {
                     if (isTRUE(all.equal(n1, n2)) && isTRUE(all.equal(offset1, offset2))) {
                         return((as.integer(e1) - as.integer(e2)))
                     }
-                    stop("<grates_period> objects must have the same period grouping and offset to perform subtraction.")
+                    stop("<grates_period> objects must have the same period grouping and offset to perform subtraction.") # nolint: line_length_linter.
                 }
                 stop("Can only subtract from a <grates_period> object, not vice-versa.")
             } else if (inherits(e1, "grates_period") && .is_whole(e2)) {
@@ -551,7 +551,7 @@ Ops.grates_period <- function(e1, e2) {
                 offset <- attr(e1, "offset")
                 return(.new_period(as.integer(e1) - e2, n = n, offset = offset))
             }
-            stop("Can only subtract whole numbers and other <grates_period> objects from <grates_period> objects.")
+            stop("Can only subtract whole numbers and other <grates_period> objects from <grates_period> objects.") # nolint: line_length_linter.
         },
         stopf("%s is not compatible with <grates_period> objects.", op)
     )

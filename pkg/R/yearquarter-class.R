@@ -105,7 +105,7 @@ yearquarter <- function(year = integer(), quarter = integer()) {
     if (any(idx, na.rm = TRUE)) {
         first <- which.max(idx)
         stopf(
-            "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry %d is not (it equals %d).",
+            "quarters must be integer and between 1 and 4 (inclusive) or NA. Entry %d is not (it equals %d).", # nolint: line_length_linter.
             first, quarter[first]
         )
     }
@@ -447,7 +447,7 @@ Ops.grates_yearquarter <- function(e1, e2) {
             } else if (inherits(e1, "grates_yearquarter") && .is_whole(e2)) {
                 return(.new_yearquarter(unclass(e1) - as.integer(e2)))
             }
-            stop("Can only subtract whole numbers and other <grates_yearquarter> objects from <grates_yearquarter> objects.")
+            stop("Can only subtract whole numbers and other <grates_yearquarter> objects from <grates_yearquarter> objects.") # nolint: line_length_linter.
         },
         stopf("%s is not compatible with <grates_yearquarter> objects.", op)
     )

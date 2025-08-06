@@ -1,10 +1,10 @@
 test_that("month constructor and coercion to date works", {
     dates <- seq.Date(from = as.Date("1970-01-01"), length.out = 6L, by = "2 months")
     storage.mode(dates) <- "double" # needed for R <= 4.1.3
-    dat <- new_month(0:5, n=2L)
+    dat <- new_month(0:5, n = 2L)
     dates5 <- seq.Date(from = as.Date("1970-01-01"), length.out = 6L, by = "5 months")
     storage.mode(dates5) <- "double" # needed for R <= 4.1.3
-    dat5 <- new_month(0:5, n=5L)
+    dat5 <- new_month(0:5, n = 5L)
 
     expect_identical(as.Date(dat), dates)
     expect_identical(as.Date(dat5), dates5)
@@ -15,9 +15,9 @@ test_that("month constructor and coercion to date works", {
     dates2 <- dates2[-1L]
     expect_identical(
         format(dat),
-        sprintf("%s to %s", format(dates, "%Y-%b"), format(dates2-1, "%Y-%b"))
+        sprintf("%s to %s", format(dates, "%Y-%b"), format(dates2 - 1, "%Y-%b"))
     )
-    expect_identical(format(new_month(n=2L)), character())
+    expect_identical(format(new_month(n = 2L)), character())
 })
 
 test_that("month, pre-epoch dates work", {
@@ -89,7 +89,7 @@ test_that("month, character coercion works", {
     res <- as.character(dat)
     expect_identical(
         res,
-        sprintf("%s to %s", format(as.Date(x)-30L, "%Y-%b"), format(as.Date(x), "%Y-%b"))
+        sprintf("%s to %s", format(as.Date(x) - 30L, "%Y-%b"), format(as.Date(x), "%Y-%b"))
     )
 })
 
@@ -127,10 +127,10 @@ test_that("month, subsetting works", {
     dat <- as_month(x, n = 5L) + 0:1
     dat <- setNames(dat, c("a", "b"))
     dat2 <- as.Date(dat)
-    expect_identical(dat[1], c(a=as_month(x, n = 5L)))
+    expect_identical(dat[1], c(a = as_month(x, n = 5L)))
     expect_identical(dat[[2]], as_month(dat2[[2]], n = 5L))
-    dat[1] <- as_month(x+33, n = 5L)
-    expect_identical(dat[1], c(a=as_month(x + 33, n = 5L)))
+    dat[1] <- as_month(x + 33, n = 5L)
+    expect_identical(dat[1], c(a = as_month(x + 33, n = 5L)))
     dat[[2]] <- dat[[1]]
     expect_identical(dat[[2]], dat[[1]])
     expect_error(
@@ -155,16 +155,15 @@ test_that("month operators and math work", {
     # comparison operators ----------------------------------------------------
     x <- Sys.Date()
     dat <- as_month(x, n = 7L)
-    expect_true(dat == dat)
+    expect_true(dat == dat) # nolint: expect_comparison_linter. False-positive
     expect_false(dat != dat)
-    expect_true(dat == dat)
-    expect_true(dat <= dat + 1)
-    expect_true(dat >= dat - 1)
-    expect_true(dat < dat + 1)
-    expect_true(dat > dat - 1)
+    expect_lte(dat, dat + 1)
+    expect_gte(dat, dat - 1)
+    expect_lt(dat, dat + 1)
+    expect_gt(dat, dat - 1)
     expect_true(dat != dat + 1)
     expect_error(
-        dat == TRUE,
+        dat == TRUE, # nolint: redundant_equals_linter. False-positive.
         "Can only compare <grates_month> objects with <grates_month> objects.",
         fixed = TRUE
     )
@@ -264,9 +263,9 @@ test_that("month, miscellaneous work", {
     )
     expect_identical(as.integer(new_month(100L, n = 5L)), 100L)
     expect_identical(as.double(new_month(100L, n = 2L)), 100)
-    expect_identical(min(c(dat, dat+11)), dat)
-    expect_identical(max(c(dat, dat+11)), dat+11)
-    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat+12))
+    expect_identical(min(c(dat, dat + 11)), dat)
+    expect_identical(max(c(dat, dat + 11)), dat + 11)
+    expect_identical(range(seq(dat, dat + 12, by = 2L)), c(dat, dat + 12))
     expect_error(
         any(dat),
         "`any()` is not supported for <grates_month> objects.",
@@ -320,4 +319,3 @@ test_that("month boundary functions work", {
     expect_identical(date_start(months), starts)
     expect_identical(date_end(months), ends)
 })
-

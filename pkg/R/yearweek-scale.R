@@ -91,7 +91,7 @@ scale_x_grates_yearweek <- function(
     # We could just force a minimum ggplot2 version and avoid this branching
     # but it's relatively low effort so leaving for now.
     # TODO - revisit.
-    if (utils::packageVersion("ggplot2") < '3.5.0') {
+    if (utils::packageVersion("ggplot2") < "3.5.0") {
         ggplot2::scale_x_continuous(
             trans = .grates_yearweek_trans(
                 breaks = breaks,
@@ -112,6 +112,7 @@ scale_x_grates_yearweek <- function(
     }
 }
 
+# nolint start: line_length_linter.
 # -------------------------------------------------------------------------
 #' @export
 #' @rdname scale_x_grates_yearweek
@@ -174,6 +175,7 @@ scale_x_grates_yearweek_sunday <- function(..., breaks = ggplot2::waiver(), n.br
 scale_x_grates_yearweek_epiweek <- function(..., breaks = ggplot2::waiver(), n.breaks = 6, format = NULL) {
     scale_x_grates_yearweek(..., breaks = breaks, n.breaks = n.breaks, firstday = 7L, format = format)
 }
+# nolint end
 
 # -------------------------------------------------------------------------
 # When adding a geom, ggplot2 will look for a relevant method to the generic
@@ -187,8 +189,13 @@ scale_type.grates_yearweek <- function(x) {
     # -------------------------------------------------------------------------
     # TODO - remove this if https://github.com/tidyverse/ggplot2/issues/4705
     #        gets resolved
-    if (!"grates" %in% .packages())
-        stop("<grates_yearweek> object found, but grates package is not attached.\n  Please attach via `library(grates)`.")
+    if (!"grates" %in% .packages()) {
+        stop(
+            "<grates_yearweek> object found, but grates package is not attached.\n",
+            "  Please attach via `library(grates)`."
+        )
+    }
+
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
 
