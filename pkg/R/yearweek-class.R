@@ -686,9 +686,9 @@ is.numeric.grates_yearweek <- function(x) {
     }
 
     if (any(invalid)) {
-        warning(
+        warning( # nolint: condition_call_linter.
             "Some entries invalid for given `year` and `week` values. ",
-            "Returning these as NA.", call. = FALSE # nolint: condition_call_linter.
+            "Returning these as NA.", call. = FALSE
         )
     }
 
