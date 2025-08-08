@@ -16,22 +16,14 @@ pkg_path = attr(pkg_name, 'path')
 litedown::pkg_desc(pkg_name)
 ```
 
-```{r, results = 'asis'}
-# readme, if exists
-if (file.exists(readme <- file.path(pkg_path, 'README.md'))) {
-  x = xfun::read_utf8(readme)
-  i = which(x == '<!-- badges: start -->')
-  # remove lines before badges since they usually contain duplicated info (e.g., title)
-  if (length(i)) x = x[-seq_len(i[1] - 1)]
-  # if man/figures exists and used, copy it to current dir
-  fig = file.path(pkg_path, fig_man <- 'man/figures')
-  if (any(grepl(fig_man, x)) && dir.exists(figures)) {
-    xfun::dir_create('man')
-    file.copy(figures, 'man', recursive = TRUE)
-  }
-  xfun::raw_string(x)
-}
+## Installing the package
+
+You can install the latest release of grates from [CRAN](https://cran.r-project.org/) with:
+
+```{r, echo = TRUE, eval = FALSE}
+install.packages("grates")
 ```
+
 
 ## Vignettes
 A detailed introduction to grates can be found in the included vignette

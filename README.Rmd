@@ -9,7 +9,7 @@ grouped dates and are intuitive to use.
 
 You can install the latest release of grates from [CRAN](https://cran.r-project.org/) with:
 
-``` {.r}
+```{r, eval = FALSE}
 install.packages("grates")
 ```
 

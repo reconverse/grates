@@ -1,7 +1,0 @@
-## Installing the package
-
-You can install the latest release of grates from [CRAN](https://cran.r-project.org/) with:
-
-```{r, eval = FALSE}
-install.packages("grates")
-```

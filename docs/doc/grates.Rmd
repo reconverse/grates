@@ -41,7 +41,7 @@ To start, let us first look at the daily data.
 ```{r}
 #| fig.alt: >
 #|   Bar chart of daily incidence (by date of infection) covering 2014-03-19
-#|   to 2015-04-27 inclusive. The graph peaks somewhere between September and 
+#|   to 2015-04-27 inclusive. The graph peaks somewhere between September and
 #|   November 2014. The "descent" from the peak tapers off slower than the
 #|   initial "ascent".
 library(grates)
@@ -297,7 +297,7 @@ As does year
 ```{r}
 #| fig.alt: >
 #|   Bar chart of yearly incidence (by date of infection) for 2014 and 2015.
-#|   There were lots more cases in 2014 compared to 2015 (Roughly speaking 
+#|   There were lots more cases in 2014 compared to 2015 (Roughly speaking
 #|   3000 v 700).
 (year_dat <- with(daily,
     aggregate(

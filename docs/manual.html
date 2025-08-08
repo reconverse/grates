@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="generator" content="litedown 0.6.2">
+<meta name="generator" content="litedown 0.7">
 <title>Help pages</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/default.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/article.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/copy-button.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/heading-anchor.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/pages.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/site.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/prism-xcode.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/sidenotes.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/appendix.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/toc-highlight.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/copy-button.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/heading-anchor.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/js/pages.min.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/article.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/copy-button.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/heading-anchor.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/pages.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/site.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/prism-xcode.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/sidenotes.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/appendix.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/toc-highlight.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/copy-button.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/heading-anchor.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/js/pages.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
 </head>
@@ -255,7 +255,7 @@ a grates object.
 
 date_end(x)</code></pre>
 <h3 id="sec:arguments_1" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p>grouped date vector.</p>
@@ -323,7 +323,7 @@ new_epiweek(x = integer())
 
 is_epiweek(xx)</code></pre>
 <h3 id="sec:arguments_2" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>year</code></td>
 <td>
 <p><code>[integer]</code>
@@ -399,7 +399,7 @@ be converted to integer via <code>as.integer(floor(x))</code>.
 as_epiweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_epiweek[1]&gt;
-#&gt; [1] &quot;2025-W23&quot;
+#&gt; [1] &quot;2025-W32&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_epiweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -413,7 +413,7 @@ as_epiweek(&quot;2019-05-03&quot;)
 <pre><code>#&gt; &lt;grates_epiweek[1]&gt;
 #&gt; [1] &quot;2019-W18&quot;
 </code></pre>
-<pre><code class="language-r"># character coercion can handle YYYY-Www format too
+<pre><code class="language-r"># character coercion can handle YYYY-Wxx format too
 as_epiweek(&quot;2019-W12&quot;, format = &quot;yearweek&quot;)
 </code></pre>
 <pre><code>#&gt; &lt;grates_epiweek[1]&gt;
@@ -441,7 +441,7 @@ by each element of a grates object.
 <h3 id="sec:usage_3" class="unnumbered unlisted">Usage</h3>
 <pre><code class="language-r">date %during% x</code></pre>
 <h3 id="sec:arguments_3" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>date</code></td>
 <td>
 <p>A scalar <code>&lt;date&gt;</code> object.</p>
@@ -554,7 +554,7 @@ get_offset(x, ...)
 ## S3 method for class 'grates_period'
 get_offset(x, ...)</code></pre>
 <h3 id="sec:arguments_4" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p><span class="rlang"><b>R</b></span> object</p>
@@ -599,7 +599,7 @@ is_int_period(xx)
 
 as_int_period(x, n, ...)</code></pre>
 <h3 id="sec:arguments_5" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code>, <code>xx</code></td>
 <td>
 <p><span class="rlang"><b>R</b></span> objects.
@@ -622,7 +622,7 @@ as_int_period(x, n, ...)</code></pre>
 </td></tr>
 </table>
 <h3 id="sec:details_2" class="unnumbered unlisted">Details</h3>
-<p><code>as_int_period()</code> is a generic for coercing input in to <code>&lt;grates_int_period&gt;</code>
+<p><code>as_int_period()</code> is a generic for coercing input into <code>&lt;grates_int_period&gt;</code>
 objects. For numeric input it coerces it's input <code>x</code> first via
 <code>x &lt;- as.integer(floor(x))</code> and then via integer division by <code>n</code> (i.e.
 <code>x %/% n</code>).
@@ -690,7 +690,7 @@ new_isoweek(x = integer())
 
 is_isoweek(xx)</code></pre>
 <h3 id="sec:arguments_6" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>year</code></td>
 <td>
 <p><code>[integer]</code>
@@ -736,7 +736,7 @@ element, and give an error if none works. Otherwise, the processing is via
 <h3 id="sec:details_3" class="unnumbered unlisted">Details</h3>
 <p><code>isoweek()</code> is a constructor for <code>&lt;grates_isoweek&gt;</code> objects. It takes a
 vector of year and vector of week values as inputs. Length 1 inputs will be
-recycled to the length of the other input and <code>double</code> vectors will again be
+recycled to the length of the other input and <code>double</code> vectors will be
 converted to integer via <code>as.integer(floor(x))</code>.
 </p>
 <p><code>as_isoweek()</code> is a generic for conversion to <code>&lt;grates_isoweek&gt;</code>.
@@ -761,7 +761,8 @@ will be converted to integer via <code>as.integer(floor(x))</code>.
 <h3 id="sec:references_1" class="unnumbered unlisted">References</h3>
 <p>Wikipedia contributors. (2025, January 15). ISO week date.
 In Wikipedia, The Free Encyclopedia.
-Retrieved 09:19, March 6, 2025, from https://en.wikipedia.org/w/index.php?title=ISO_week_date&amp;oldid=1269568343
+Retrieved 09:19, March 6, 2025, from
+https://en.wikipedia.org/w/index.php?title=ISO_week_date&amp;oldid=1269568343
 </p>
 <h3 id="sec:see-also_2" class="unnumbered unlisted">See Also</h3>
 <p>The <a href="#sec:man-yearweek-class">yearweek</a> and <a href="#sec:man-epiweek-class">epiweek</a> classes.
@@ -771,7 +772,7 @@ Retrieved 09:19, March 6, 2025, from https://en.wikipedia.org/w/index.php?title=
 as_isoweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_isoweek[1]&gt;
-#&gt; [1] &quot;2025-W23&quot;
+#&gt; [1] &quot;2025-W32&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_isoweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -785,7 +786,7 @@ as_isoweek(&quot;2019-05-03&quot;)
 <pre><code>#&gt; &lt;grates_isoweek[1]&gt;
 #&gt; [1] &quot;2019-W18&quot;
 </code></pre>
-<pre><code class="language-r"># character coercion can handle YYYY-Www format too
+<pre><code class="language-r"># character coercion can handle YYYY-Wxx format too
 as_isoweek(&quot;2019-W12&quot;, format = &quot;yearweek&quot;)
 </code></pre>
 <pre><code>#&gt; &lt;grates_isoweek[1]&gt;
@@ -833,7 +834,7 @@ new_month(x = integer(), n)
 
 is_month(xx)</code></pre>
 <h3 id="sec:arguments_7" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code>, <code>xx</code></td>
 <td>
 <p><span class="rlang"><b>R</b></span> objects.</p>
@@ -875,7 +876,7 @@ the Unix Epoch (1970-01-01) and the related value of <code>n</code>.
 </p>
 <h3 id="sec:references_2" class="unnumbered unlisted">References</h3>
 <p>The algorithm to convert between dates and months relative to the UNIX Epoch
-comes from the work of Davis Vaughan in the unreleased
+comes from the work of Davis Vaughan in the
 <a href="https://github.com/DavisVaughan/datea/">datea</a> package.
 </p>
 <h3 id="sec:see-also_3" class="unnumbered unlisted">See Also</h3>
@@ -886,7 +887,7 @@ comes from the work of Davis Vaughan in the unreleased
 as_month(Sys.Date(), n = 2)
 </code></pre>
 <pre><code>#&gt; &lt;grates_month[1]&gt;
-#&gt; [1] &quot;2025-May to 2025-Jun&quot;
+#&gt; [1] &quot;2025-Jul to 2025-Aug&quot;
 </code></pre>
 <pre><code class="language-r"># character coercion
 as_month(&quot;2019-05-03&quot;, n = 4)
@@ -937,7 +938,7 @@ new_period(x = integer(), n = 1L, offset = 0L)
 
 is_period(xx)</code></pre>
 <h3 id="sec:arguments_8" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code>, <code>xx</code></td>
 <td>
 <p><span class="rlang"><b>R</b></span> objects.
@@ -983,7 +984,7 @@ calculation purposes, <code>offset</code> is scaled relative to <code>n</code>
 (i.e. <code>offset &lt;- offset %% n</code>) and values of <code>x</code> stored relative to this
 scaled offset.
 </p>
-<p><code>as_period()</code> is a generic for coercing input in to <code>&lt;grates_period&gt;</code> objects.
+<p><code>as_period()</code> is a generic for coercing input into <code>&lt;grates_period&gt;</code> objects.
 It is the recommended way for constructing period objects as it allows the
 <code>offset</code> to be specified as a <code>date</code> (rather than an integer value relative to
 the Unix Epoch).
@@ -1030,7 +1031,7 @@ print(x, format = "%Y-%b", sep = "to", ...)
 ## S3 method for class 'grates_month'
 format(x, format = "%Y-%b", sep = "to", ...)</code></pre>
 <h3 id="sec:arguments_9" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p>A <code>&lt;grates_month&gt;</code> object.</p>
@@ -1069,7 +1070,7 @@ print(x, format = "%Y-%m-%d", sep = "to", ...)
 ## S3 method for class 'grates_period'
 format(x, format = "%Y-%m-%d", sep = "to", ...)</code></pre>
 <h3 id="sec:arguments_10" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p>A <code>&lt;grates_period&gt;</code> object.</p>
@@ -1092,6 +1093,11 @@ upper and lower bounds when printing.</p>
 <p>Not currently used.</p>
 </td></tr>
 </table>
+<h3 id="sec:value_10" class="unnumbered unlisted">Value</h3>
+<p>For <code>format()</code>, a character vector representing the formatted input.
+<code>print()</code> is called for the side effect of printing to screen and thus
+returns the input <code>&lt;grates_period&gt;</code> object invisibly.
+</p>
 <h2 id="sec:man-print.grates_yearmonth">Format and print a yearmonth object</h2>
 <h3 id="sec:description_11" class="unnumbered unlisted">Description</h3>
 <p>Format and print a yearmonth object
@@ -1103,7 +1109,7 @@ print(x, format = "%Y-%b", ...)
 ## S3 method for class 'grates_yearmonth'
 format(x, format = "%Y-%b", ...)</code></pre>
 <h3 id="sec:arguments_11" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code></td>
 <td>
 <p>A <code>&lt;grates_yearmonth&gt;</code> object.</p>
@@ -1119,7 +1125,7 @@ format(x, format = "%Y-%b", ...)</code></pre>
 <p>Not currently used.</p>
 </td></tr>
 </table>
-<h3 id="sec:value_10" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_11" class="unnumbered unlisted">Value</h3>
 <p>For <code>format()</code>, a character vector representing the formatted input.
 <code>print()</code> is called for the side effect of printing to screen and thus
 returns the input <code>&lt;grates_yearmonth&gt;</code> object invisibly.
@@ -1136,7 +1142,7 @@ returns the input <code>&lt;grates_yearmonth&gt;</code> object invisibly.
   format = NULL
 )</code></pre>
 <h3 id="sec:arguments_12" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>...</code></td>
 <td>
 <p>Not currently used.</p>
@@ -1158,7 +1164,7 @@ returns the input <code>&lt;grates_yearmonth&gt;</code> object invisibly.
 <td>
 <p>Format to use if &quot;Date&quot; scales are required.
 </p>
-<p>If NULL (default) then labels are in the standard epiweek format (YYYY-Www).
+<p>If NULL (default) then labels are in the standard epiweek format (YYYY-Wxx).
 </p>
 <p>If &quot;week&quot; then the labels are of the form Www (e.g. W37).
 </p>
@@ -1166,7 +1172,7 @@ returns the input <code>&lt;grates_yearmonth&gt;</code> object invisibly.
 acceptable by that function.</p>
 </td></tr>
 </table>
-<h3 id="sec:value_11" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_12" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
 <h3 id="sec:examples_9" class="unnumbered unlisted">Examples</h3>
@@ -1201,7 +1207,7 @@ week_plot + scale_x_grates_epiweek(format = &quot;%Y-%m-%d&quot;)
   n
 )</code></pre>
 <h3 id="sec:arguments_13" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>...</code></td>
 <td>
 <p>Not currently used.</p>
@@ -1234,7 +1240,7 @@ week_plot + scale_x_grates_epiweek(format = &quot;%Y-%m-%d&quot;)
 <p>Number used for the original grouping.</p>
 </td></tr>
 </table>
-<h3 id="sec:value_12" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_13" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
 <h2 id="sec:man-scale_x_grates_isoweek">Isoweek scale</h2>
@@ -1249,7 +1255,7 @@ week_plot + scale_x_grates_epiweek(format = &quot;%Y-%m-%d&quot;)
   format = NULL
 )</code></pre>
 <h3 id="sec:arguments_14" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>...</code></td>
 <td>
 <p>Not currently used.</p>
@@ -1271,7 +1277,7 @@ week_plot + scale_x_grates_epiweek(format = &quot;%Y-%m-%d&quot;)
 <td>
 <p>Format to use if &quot;Date&quot; scales are required.
 </p>
-<p>If NULL (default) then labels are in the standard isoweek format (YYYY-Www).
+<p>If NULL (default) then labels are in the standard isoweek format (YYYY-Wxx).
 </p>
 <p>If &quot;week&quot; then the labels are of the form Www (e.g. W37).
 </p>
@@ -1279,7 +1285,7 @@ week_plot + scale_x_grates_epiweek(format = &quot;%Y-%m-%d&quot;)
 acceptable by that function.</p>
 </td></tr>
 </table>
-<h3 id="sec:value_13" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_14" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
 <h3 id="sec:examples_10" class="unnumbered unlisted">Examples</h3>
@@ -1316,7 +1322,7 @@ week_plot + scale_x_grates_isoweek(format = &quot;%Y-%m-%d&quot;)
   n
 )</code></pre>
 <h3 id="sec:arguments_15" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>...</code></td>
 <td>
 <p>Not currently used.</p>
@@ -1361,7 +1367,7 @@ acceptable by that function (defaults to &quot;%Y-%m-%d).</p>
 <p>Number of months used for the original grouping.</p>
 </td></tr>
 </table>
-<h3 id="sec:value_14" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_15" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
 <h3 id="sec:examples_11" class="unnumbered unlisted">Examples</h3>
@@ -1414,7 +1420,7 @@ bimonth_plot + scale_x_grates_month(format = NULL, n = 2)
   offset
 )</code></pre>
 <h3 id="sec:arguments_16" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>...</code></td>
 <td>
 <p>Not currently used.</p>
@@ -1452,7 +1458,7 @@ function.</p>
 <p>Number of days used in original grouping for the offset from the Unix Epoch.</p>
 </td></tr>
 </table>
-<h3 id="sec:value_15" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_16" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
 <h3 id="sec:examples_12" class="unnumbered unlisted">Examples</h3>
@@ -1507,7 +1513,7 @@ period_plot + scale_x_grates_period(
   format = NULL
 )</code></pre>
 <h3 id="sec:arguments_17" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>...</code></td>
 <td>
 <p>Not currently used.</p>
@@ -1533,7 +1539,7 @@ period_plot + scale_x_grates_period(
 acceptable by that function.</p>
 </td></tr>
 </table>
-<h3 id="sec:value_16" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_17" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
 <h3 id="sec:examples_13" class="unnumbered unlisted">Examples</h3>
@@ -1573,7 +1579,7 @@ year_plot + scale_x_grates_year(format = &quot;%Y-%m-%d&quot;)
   format = NULL
 )</code></pre>
 <h3 id="sec:arguments_18" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>...</code></td>
 <td>
 <p>Not currently used.</p>
@@ -1599,7 +1605,7 @@ year_plot + scale_x_grates_year(format = &quot;%Y-%m-%d&quot;)
 acceptable by that function.</p>
 </td></tr>
 </table>
-<h3 id="sec:value_17" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_18" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
 <h2 id="sec:man-scale_x_grates_yearquarter">Yearquarter scale</h2>
@@ -1614,7 +1620,7 @@ acceptable by that function.</p>
   format = NULL
 )</code></pre>
 <h3 id="sec:arguments_19" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>...</code></td>
 <td>
 <p>Not currently used.</p>
@@ -1640,7 +1646,7 @@ acceptable by that function.</p>
 acceptable by that function.</p>
 </td></tr>
 </table>
-<h3 id="sec:value_18" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_19" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
 <h3 id="sec:examples_14" class="unnumbered unlisted">Examples</h3>
@@ -1754,7 +1760,7 @@ scale_x_grates_yearweek_epiweek(
   format = NULL
 )</code></pre>
 <h3 id="sec:arguments_20" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>...</code></td>
 <td>
 <p>Not currently used.</p>
@@ -1782,7 +1788,7 @@ scale_x_grates_yearweek_epiweek(
 <td>
 <p>Format to use if &quot;Date&quot; scales are required.
 </p>
-<p>If NULL (default) then labels are in the standard yearweek format (YYYY-Www).
+<p>If NULL (default) then labels are in the standard yearweek format (YYYY-Wxx).
 </p>
 <p>If &quot;week&quot; then the labels are of the form Www (e.g. W37).
 </p>
@@ -1790,7 +1796,7 @@ scale_x_grates_yearweek_epiweek(
 acceptable by that function.</p>
 </td></tr>
 </table>
-<h3 id="sec:value_19" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_20" class="unnumbered unlisted">Value</h3>
 <p>A scale for use with ggplot2.
 </p>
 <h3 id="sec:examples_15" class="unnumbered unlisted">Examples</h3>
@@ -1838,7 +1844,7 @@ as_year(x, ...)
 
 is_year(object)</code></pre>
 <h3 id="sec:arguments_21" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>x</code>, <code>object</code></td>
 <td>
 <p><span class="rlang"><b>R</b></span> objects.</p>
@@ -1853,7 +1859,7 @@ to <code>as.Date()</code>.</p>
 <p><code>year()</code> takes as input a vector representing, unsurprisingly, the years.
 <code>double</code> vectors are coerced via <code>as.integer(floor(x))</code>.
 </p>
-<p><code>as_yearquarter()</code> is a generic for coercing input in to <code>&lt;grates_year&gt;</code>.
+<p><code>as_yearquarter()</code> is a generic for coercing input into <code>&lt;grates_year&gt;</code>.
 </p>
 <ul>
 <li><p> Character input is first parsed using <code>as.Date()</code>.
@@ -1862,7 +1868,7 @@ to <code>as.Date()</code>.</p>
 <li><p> POSIXct and POSIXlt are converted with their timezone respected.
 </p>
 </li></ul>
-<h3 id="sec:value_20" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_21" class="unnumbered unlisted">Value</h3>
 <p>A <code>&lt;grates_year&gt;</code> object.
 </p>
 <h3 id="sec:examples_16" class="unnumbered unlisted">Examples</h3>
@@ -1921,7 +1927,7 @@ new_yearmonth(x = integer())
 
 is_yearmonth(xx)</code></pre>
 <h3 id="sec:arguments_22" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>year</code></td>
 <td>
 <p><code>[integer]</code>
@@ -1954,7 +1960,7 @@ vector of year and a vector of month values as inputs. Length 1 inputs will
 be recycled to the length of the other input and <code>double</code> vectors will
 be converted to integer via <code>as.integer(floor(x))</code>.
 </p>
-<p><code>as_yearmonth()</code> is a generic for coercing input in to <code>&lt;grates_yearmonth&gt;</code>.
+<p><code>as_yearmonth()</code> is a generic for coercing input into <code>&lt;grates_yearmonth&gt;</code>.
 </p>
 <ul>
 <li><p> Character input is first parsed using <code>as.Date()</code>.
@@ -1968,7 +1974,7 @@ aimed at developers. It takes, as input, the number of months (starting at 0)
 since the Unix Epoch, that you wish to represent. <code>double</code> vectors will again
 be converted to integer via <code>as.integer(floor(x))</code>.
 </p>
-<h3 id="sec:value_21" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_22" class="unnumbered unlisted">Value</h3>
 <p>A <code>&lt;grates_yearmonth&gt;</code> object.
 </p>
 <h3 id="sec:references_3" class="unnumbered unlisted">References</h3>
@@ -1984,7 +1990,7 @@ comes from the work of Davis Vaughan in the unreleased
 as_yearmonth(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_yearmonth[1]&gt;
-#&gt; [1] &quot;2025-Jun&quot;
+#&gt; [1] &quot;2025-Aug&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_yearmonth(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -2043,7 +2049,7 @@ new_yearquarter(x = integer())
 
 is_yearquarter(xx)</code></pre>
 <h3 id="sec:arguments_23" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>year</code></td>
 <td>
 <p><code>[integer]</code>
@@ -2076,7 +2082,7 @@ a vector of year and a vector of quarter values as inputs. Length 1 inputs
 will be recycled to the length of the other input and <code>double</code> vectors will
 be converted to integer via <code>as.integer(floor(x))</code>.
 </p>
-<p><code>as_yearquarter()</code> is a generic for coercing input in to <code>&lt;grates_yearquarter&gt;</code>.
+<p><code>as_yearquarter()</code> is a generic for coercing input into <code>&lt;grates_yearquarter&gt;</code>.
 </p>
 <ul>
 <li><p> Character input is first parsed using <code>as.Date()</code>.
@@ -2090,7 +2096,7 @@ objects aimed at developers. It takes, as input, the number of quarters
 (starting at 0) since the Unix Epoch, that you wish to represent.
 <code>double</code> vectors will again be converted to integer via <code>as.integer(floor(x))</code>.
 </p>
-<h3 id="sec:value_22" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_23" class="unnumbered unlisted">Value</h3>
 <p>A <code>&lt;grates_yearquarter&gt;</code> object.
 </p>
 <h3 id="sec:examples_18" class="unnumbered unlisted">Examples</h3>
@@ -2098,7 +2104,7 @@ objects aimed at developers. It takes, as input, the number of quarters
 as_yearquarter(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_yearquarter[1]&gt;
-#&gt; [1] &quot;2025-Q2&quot;
+#&gt; [1] &quot;2025-Q3&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_yearquarter(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -2183,7 +2189,7 @@ new_yearweek(x = integer(), firstday = 1L)
 
 is_yearweek(xx)</code></pre>
 <h3 id="sec:arguments_24" class="unnumbered unlisted">Arguments</h3>
-<table class="table-full">
+<table role = "presentation">
 <tr><td><code>year</code></td>
 <td>
 <p><code>[integer]</code>
@@ -2255,7 +2261,7 @@ aimed at developers. It takes, as input, the number of weeks since the
 user-specified <code>firstday</code> nearest the Unix Epoch. <code>double</code> vectors
 will be converted to integer via <code>as.integer(floor(x))</code>.
 </p>
-<h3 id="sec:value_23" class="unnumbered unlisted">Value</h3>
+<h3 id="sec:value_24" class="unnumbered unlisted">Value</h3>
 <p>A <code>&lt;grates_yearweek&gt;</code> object with subclass corresponding to the first day of
 the week they represent (e.g. <code>&lt;grates_yearweek_monday&gt;</code>).
 </p>
@@ -2267,7 +2273,7 @@ the week they represent (e.g. <code>&lt;grates_yearweek_monday&gt;</code>).
 as_yearweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_yearweek_monday[1]&gt;
-#&gt; [1] &quot;2025-W23&quot;
+#&gt; [1] &quot;2025-W32&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_yearweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -2301,11 +2307,11 @@ stopifnot(
     )
 )
 </code></pre>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.13.67/css/manual.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.14/css/manual.min.css">
 </div>
 <footer><div class="flex-col">
 <p>Developed by Tim Taylor</p>
-<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.6.2</p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.7</p>
 </div></footer>
 </body>
 </html>
