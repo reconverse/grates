@@ -53,12 +53,7 @@ NULL
 #' @rdname year_class
 #' @export
 year <- function(x = integer()) {
-    if (is.vector(x, "double")) {
-        x <- as.integer(floor(x))
-    } else if (!is.integer(x)) {
-        stop("`x` must be integer.")
-    }
-
+    x <- .make_floored_integer(x)
     .new_year(x = x)
 }
 

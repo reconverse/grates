@@ -100,3 +100,19 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
 
     list(x, y)
 }
+
+
+# -------------------------------------------------------------------------
+.make_floored_integer <- function(x, .call = sys.call(-1L)) {
+
+    if (is.vector(x, "double"))
+        return(as.integer(floor(x)))
+
+    if (is.integer(x))
+        return(x)
+
+    # otherwise error
+    msg <- gettextf("`%s` must be integer.", deparse(substitute(x)))
+    cond <- errorCondition(msg, call = .call[1L])
+    stop(cond)
+}

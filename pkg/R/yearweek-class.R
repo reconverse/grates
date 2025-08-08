@@ -129,19 +129,8 @@ yearweek <- function(year = integer(), week = integer(), firstday = 1L) {
     #        in the error message. Need to document this when I remember
     #        reasoning.
 
-    # check year is integerish
-    if (is.vector(year, "double")) {
-        year <- as.integer(floor(year))
-    } else if (!is.integer(year)) {
-        stop("`year` must be integer.")
-    }
-
-    # check week is integerish
-    if (is.vector(week, "double")) {
-        week <- as.integer(floor(week))
-    } else if (!is.integer(week)) {
-        stop("`week` must be integer.")
-    }
+    year <- .make_floored_integer(year)
+    week <- .make_floored_integer(week)
 
     # check firstday
     if (length(firstday) != 1L)

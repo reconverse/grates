@@ -86,19 +86,8 @@ NULL
 #' @export
 yearquarter <- function(year = integer(), quarter = integer()) {
 
-    # check year is integerish
-    if (is.vector(year, "double")) {
-        year <- as.integer(floor(year))
-    } else if (!is.integer(year)) {
-        stop("`year` must be integer.")
-    }
-
-    # check quarter is integerish
-    if (is.vector(quarter, "double")) {
-        quarter <- as.integer(floor(quarter))
-    } else if (!is.integer(quarter)) {
-        stop("`quarter` must be integer.")
-    }
+    year <- .make_floored_integer(year)
+    quarter <- .make_floored_integer(quarter)
 
     # check quarter bounded above and below
     idx <- quarter < 1L | quarter > 4L
@@ -182,12 +171,7 @@ as_yearquarter.factor <- function(x, ...) {
 #' @rdname yearquarter_class
 #' @export
 new_yearquarter <- function(x = integer()) {
-    if (is.vector(x, "double")) {
-        x <- as.integer(floor(x))
-    } else if (!is.integer(x)) {
-        stop("`x` must be integer.")
-    }
-
+    x <- .make_floored_integer(x)
     .new_yearquarter(x = x)
 }
 

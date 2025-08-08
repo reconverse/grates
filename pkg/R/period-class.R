@@ -172,11 +172,7 @@ as_period.factor <- function(x, n = 1L, offset = 0L, ...) {
 #' @rdname period_class
 #' @export
 new_period <- function(x = integer(), n = 1L, offset = 0L) {
-    if (is.vector(x, "double")) {
-        x <- as.integer(floor(x))
-    } else if (!is.integer(x)) {
-        stop("`x` must be integer.")
-    }
+    x <- .make_floored_integer(x)
 
     if (!.is_scalar_whole(n))
         stop("`n` must be an integer of length 1.")

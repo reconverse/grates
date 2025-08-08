@@ -97,19 +97,8 @@ NULL
 #' @export
 yearmonth <- function(year = integer(), month = integer()) {
 
-    # check year is integerish
-    if (is.vector(year, "double")) {
-        year <- as.integer(floor(year))
-    } else if (!is.integer(year)) {
-        stop("`year` must be integer.")
-    }
-
-    # check month is integerish
-    if (is.vector(month, "double")) {
-        month <- as.integer(floor(month))
-    } else if (!is.integer(month)) {
-        stop("`month` must be integer.")
-    }
+    year <- .make_floored_integer(year)
+    month <- .make_floored_integer(month)
 
     # check month bounded above and below
     idx <- month < 1L | month > 12L
@@ -190,11 +179,7 @@ as_yearmonth.factor <- function(x, ...) {
 #' @rdname yearmonth_class
 #' @export
 new_yearmonth <- function(x = integer()) {
-    if (is.vector(x, "double")) {
-        x <- as.integer(floor(x))
-    } else if (!is.integer(x)) {
-        stop("`x` must be integer.")
-    }
+    x <- .make_floored_integer(x)
     .new_yearmonth(x = x)
 }
 

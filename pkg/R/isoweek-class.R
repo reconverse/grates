@@ -121,19 +121,8 @@ NULL
 #' @export
 isoweek <- function(year = integer(), week = integer()) {
 
-    # check year is integerish
-    if (is.vector(year, "double")) {
-        year <- as.integer(floor(year))
-    } else if (!is.integer(year)) {
-        stop("`year` must be integer.")
-    }
-
-    # check week is integerish
-    if (is.vector(week, "double")) {
-        week <- as.integer(floor(week))
-    } else if (!is.integer(week)) {
-        stop("`week` must be integer.")
-    }
+    year <- .make_floored_integer(year)
+    week <- .make_floored_integer(week)
 
     # check compatible lengths
     tmp <- .recycle(year, week)
@@ -218,11 +207,7 @@ as_isoweek.factor <- function(
 #' @rdname isoweek_class
 #' @export
 new_isoweek <- function(x = integer()) {
-    if (is.vector(x, "double")) {
-        x <- as.integer(floor(x))
-    } else if (!is.integer(x)) {
-        stop("`x` must be integer.")
-    }
+    x <- .make_floored_integer(x)
     .new_isoweek(x)
 }
 

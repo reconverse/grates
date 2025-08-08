@@ -173,11 +173,7 @@ as_month.factor <- function(x, n, ...) {
 #' @rdname month_class
 #' @export
 new_month <- function(x = integer(), n) {
-    if (is.vector(x, "double")) {
-        x <- as.integer(floor(x))
-    } else if (!is.integer(x)) {
-        stop("`x` must be integer.")
-    }
+    x <- .make_floored_integer(x)
 
     # trigger warning for missing n at top level
     n <- n
