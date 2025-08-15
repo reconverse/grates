@@ -230,16 +230,14 @@ vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
 #' @export
 `[.grates_epiweek` <- function(x, ..., drop = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 `[[.grates_epiweek` <- function(x, ..., drop = TRUE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -248,8 +246,7 @@ vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
     if (!inherits(value, "grates_epiweek"))
         stop("Can only assign a <grates_epiweek> object into a <grates_epiweek> object.")
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -260,16 +257,14 @@ vec_ptype_full.grates_epiweek <- function(x, ...) {"epiweek"}
 #' @export
 rep.grates_epiweek <- function(x, ...) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 unique.grates_epiweek <- function(x, incomparables = FALSE, ...) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -363,24 +358,21 @@ as.data.frame.grates_epiweek <- as.data.frame.vector
 #' @export
 min.grates_epiweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 max.grates_epiweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 range.grates_epiweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -462,13 +454,9 @@ is.numeric.grates_epiweek <- function(x) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-.new_epiweek <- function(x) {
-    class(x) <- "grates_epiweek"
-    x
-}
+.new_epiweek <- function(x) `class<-`(x, "grates_epiweek")
 
 .epiweek <- function(year, week) {
     out <- .yearweek(year = year, week = week, firstday = 7L)
-    class(out) <- "grates_epiweek"
-    out
+    `class<-`(out, "grates_epiweek")
 }

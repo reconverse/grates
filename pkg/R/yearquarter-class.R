@@ -217,16 +217,14 @@ vec_ptype_full.grates_yearquarter <- function(x, ...) {"yearquarter"}
 #' @export
 `[.grates_yearquarter` <- function(x, ..., drop = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 `[[.grates_yearquarter` <- function(x, ..., drop = TRUE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -235,8 +233,7 @@ vec_ptype_full.grates_yearquarter <- function(x, ...) {"yearquarter"}
     if (!inherits(value, "grates_yearquarter"))
         stop("Can only assign a <grates_yearquarter> object into a <grates_yearquarter> object.")
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -247,16 +244,14 @@ vec_ptype_full.grates_yearquarter <- function(x, ...) {"yearquarter"}
 #' @export
 rep.grates_yearquarter <- function(x, ...) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 unique.grates_yearquarter <- function(x, incomparables = FALSE, ...) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -353,24 +348,21 @@ as.data.frame.grates_yearquarter <- as.data.frame.vector
 #' @export
 min.grates_yearquarter <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 max.grates_yearquarter <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 range.grates_yearquarter <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -449,9 +441,7 @@ is.numeric.grates_yearquarter <- function(x) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-.new_yearquarter <- function(x = integer()) {
-    structure(x, class = "grates_yearquarter")
-}
+.new_yearquarter <- function(x = integer()) {`class<-`(x, "grates_yearquarter")}
 
 .yearquarter <- function(year, quarter) {
     month <- (quarter * 3L) - 2L

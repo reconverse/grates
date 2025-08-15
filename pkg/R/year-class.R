@@ -153,16 +153,14 @@ vec_ptype_full.grates_year <- function(x, ...) {"grates_year"}
 #' @export
 `[.grates_year` <- function(x, ..., drop = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 `[[.grates_year` <- function(x, ..., drop = TRUE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -171,8 +169,7 @@ vec_ptype_full.grates_year <- function(x, ...) {"grates_year"}
     if (!inherits(value, "grates_year"))
         stop("Can only assign a <grates_year> object into a <grates_year> object.")
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -183,16 +180,14 @@ vec_ptype_full.grates_year <- function(x, ...) {"grates_year"}
 #' @export
 rep.grates_year <- function(x, ...) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 unique.grates_year <- function(x, incomparables = FALSE, ...) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -290,24 +285,21 @@ as.data.frame.grates_year <- as.data.frame.vector
 #' @export
 min.grates_year <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 max.grates_year <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 range.grates_year <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -385,7 +377,4 @@ is.numeric.grates_year <- function(x) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-.new_year <- function(x = integer()) {
-    class(x) <- "grates_year"
-    x
-}
+.new_year <- function(x = integer()) {`class<-`(x, "grates_year")}

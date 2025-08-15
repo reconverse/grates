@@ -330,16 +330,14 @@ vec_ptype_full.grates_yearweek_sunday <- function(x, ...) {"yearweek-sun"}
 #' @export
 `[.grates_yearweek` <- function(x, ..., drop = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 `[[.grates_yearweek` <- function(x, ..., drop = TRUE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -364,16 +362,14 @@ vec_ptype_full.grates_yearweek_sunday <- function(x, ...) {"yearweek-sun"}
 #' @export
 rep.grates_yearweek <- function(x, ...) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 unique.grates_yearweek <- function(x, incomparables = FALSE, ...) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -481,24 +477,21 @@ as.data.frame.grates_yearweek <- as.data.frame.vector
 #' @export
 min.grates_yearweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 max.grates_yearweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 range.grates_yearweek <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -612,37 +605,37 @@ is.numeric.grates_yearweek <- function(x) {
 
 # -------------------------------------------------------------------------
 .new_yearweek_monday <- function(x) {
-    structure(x, class = c("grates_yearweek_monday", "grates_yearweek"))
+    `class<-`(x, c("grates_yearweek_monday", "grates_yearweek"))
 }
 
 # -------------------------------------------------------------------------
 .new_yearweek_tuesday <- function(x) {
-    structure(x, class = c("grates_yearweek_tuesday", "grates_yearweek"))
+    `class<-`(x, c("grates_yearweek_tuesday", "grates_yearweek"))
 }
 
 # -------------------------------------------------------------------------
 .new_yearweek_wednesday <- function(x) {
-    structure(x, class = c("grates_yearweek_wednesday", "grates_yearweek"))
+    `class<-`(x, c("grates_yearweek_wednesday", "grates_yearweek"))
 }
 
 # -------------------------------------------------------------------------
 .new_yearweek_thursday <- function(x) {
-    structure(x, class = c("grates_yearweek_thursday", "grates_yearweek"))
+    `class<-`(x, c("grates_yearweek_thursday", "grates_yearweek"))
 }
 
 # -------------------------------------------------------------------------
 .new_yearweek_friday <- function(x) {
-    structure(x, class = c("grates_yearweek_friday", "grates_yearweek"))
+    `class<-`(x, c("grates_yearweek_friday", "grates_yearweek"))
 }
 
 # -------------------------------------------------------------------------
 .new_yearweek_saturday <- function(x) {
-    structure(x, class = c("grates_yearweek_saturday", "grates_yearweek"))
+    `class<-`(x, c("grates_yearweek_saturday", "grates_yearweek"))
 }
 
 # -------------------------------------------------------------------------
 .new_yearweek_sunday <- function(x) {
-    structure(x, class = c("grates_yearweek_sunday", "grates_yearweek"))
+    `class<-`(x, c("grates_yearweek_sunday", "grates_yearweek"))
 }
 
 # -------------------------------------------------------------------------

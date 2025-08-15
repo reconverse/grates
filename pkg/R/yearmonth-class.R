@@ -248,16 +248,14 @@ vec_ptype_full.grates_yearmonth <- function(x, ...) {"grates_yearmonth"}
 #' @export
 `[.grates_yearmonth` <- function(x, ..., drop = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 `[[.grates_yearmonth` <- function(x, ..., drop = TRUE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -266,8 +264,7 @@ vec_ptype_full.grates_yearmonth <- function(x, ...) {"grates_yearmonth"}
     if (!inherits(value, "grates_yearmonth"))
         stop("Can only assign a <grates_yearmonth> object into a <grates_yearmonth> object.")
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -278,16 +275,14 @@ vec_ptype_full.grates_yearmonth <- function(x, ...) {"grates_yearmonth"}
 #' @export
 rep.grates_yearmonth <- function(x, ...) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 unique.grates_yearmonth <- function(x, incomparables = FALSE, ...) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -382,24 +377,21 @@ as.data.frame.grates_yearmonth <- as.data.frame.vector
 #' @export
 min.grates_yearmonth <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 max.grates_yearmonth <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
 #' @export
 range.grates_yearmonth <- function(x, ..., na.rm = FALSE) {
     out <- NextMethod()
-    class(out) <- class(x)
-    out
+    `class<-`(out, class(x))
 }
 
 # -------------------------------------------------------------------------
@@ -478,10 +470,7 @@ is.numeric.grates_yearmonth <- function(x) {
 # ------------------------------------------------------------------------- #
 # ------------------------------------------------------------------------- #
 
-.new_yearmonth <- function(x = integer()) {
-    class(x) <- "grates_yearmonth"
-    x
-}
+.new_yearmonth <- function(x = integer()) {`class<-`(x, "grates_yearmonth")}
 
 .yearmonth <- function(year, month) {
     out <- (year - 1970L) * 12L + (month - 1L)
