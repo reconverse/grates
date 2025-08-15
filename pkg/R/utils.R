@@ -51,7 +51,7 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
 .is_scalar_whole <- function(x, tol = .Machine$double.eps^0.5) {
     if (is.integer(x) && length(x) == 1L)
         return(TRUE)
-    if (is.double(x) && length(x) == 1L && (abs(x - round(x)) < tol))
+    if (is.double(x) && length(x) == 1L && is.finite(x) && (abs(x - round(x)) < tol))
         return(TRUE)
     FALSE
 }

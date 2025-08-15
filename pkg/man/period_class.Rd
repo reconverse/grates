@@ -14,15 +14,15 @@
 \usage{
 as_period(x, n, ...)
 
-\method{as_period}{default}(x, n = 1L, offset = 0L, ...)
+\method{as_period}{default}(x, n = 1L, offset, ...)
 
-\method{as_period}{Date}(x, n = 1L, offset = 0L, ...)
+\method{as_period}{Date}(x, n = 1L, offset = min(x, na.rm = TRUE), ...)
 
-\method{as_period}{POSIXt}(x, n = 1L, offset = 0L, ...)
+\method{as_period}{POSIXt}(x, n = 1L, offset = min(x, na.rm = TRUE), ...)
 
-\method{as_period}{character}(x, n = 1L, offset = 0L, ...)
+\method{as_period}{character}(x, n = 1L, offset, ...)
 
-\method{as_period}{factor}(x, n = 1L, offset = 0L, ...)
+\method{as_period}{factor}(x, n = 1L, offset, ...)
 
 new_period(x = integer(), n = 1L, offset = 0L)
 

@@ -91,14 +91,14 @@ as_period <- function(x, n, ...) {
 # -------------------------------------------------------------------------
 #' @rdname period_class
 #' @export
-as_period.default <- function(x, n = 1L, offset = 0L, ...) {
+as_period.default <- function(x, n = 1L, offset, ...) {
     stopf("Not implemented for class [%s].", toString(class(x)))
 }
 
 # -------------------------------------------------------------------------
 #' @rdname period_class
 #' @export
-as_period.Date <- function(x, n = 1L, offset = 0L, ...) {
+as_period.Date <- function(x, n = 1L, offset = min(x, na.rm = TRUE), ...) {
 
     if (...length()) {
         dot_names <- names(list(...))
@@ -125,7 +125,7 @@ as_period.Date <- function(x, n = 1L, offset = 0L, ...) {
 # -------------------------------------------------------------------------
 #' @rdname period_class
 #' @export
-as_period.POSIXt <- function(x, n = 1L, offset = 0L, ...) {
+as_period.POSIXt <- function(x, n = 1L,  offset = min(x, na.rm = TRUE), ...) {
 
     if (...length()) {
         dot_names <- names(list(...))
@@ -140,7 +140,7 @@ as_period.POSIXt <- function(x, n = 1L, offset = 0L, ...) {
 # -------------------------------------------------------------------------
 #' @rdname period_class
 #' @export
-as_period.character <- function(x, n = 1L, offset = 0L, ...) {
+as_period.character <- function(x, n = 1L, offset, ...) {
 
     if (...length()) {
         dot_names <- names(list(...))
@@ -157,7 +157,7 @@ as_period.character <- function(x, n = 1L, offset = 0L, ...) {
 # -------------------------------------------------------------------------
 #' @rdname period_class
 #' @export
-as_period.factor <- function(x, n = 1L, offset = 0L, ...) {
+as_period.factor <- function(x, n = 1L, offset, ...) {
     if (...length()) {
         dot_names <- names(list(...))
         if (any(dot_names == "origin"))

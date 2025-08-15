@@ -280,13 +280,13 @@ date_start(week)
 <pre><code class="language-r">period &lt;- as_period(dates, n = 3)
 date_start(period)
 </code></pre>
-<pre><code>#&gt; [1] &quot;2019-12-31&quot; &quot;2020-01-03&quot; &quot;2020-01-03&quot; &quot;2020-01-03&quot; &quot;2020-01-06&quot;
-#&gt; [6] &quot;2020-01-06&quot; &quot;2020-01-06&quot; &quot;2020-01-09&quot; &quot;2020-01-09&quot;
+<pre><code>#&gt; [1] &quot;2020-01-02&quot; &quot;2020-01-02&quot; &quot;2020-01-02&quot; &quot;2020-01-05&quot; &quot;2020-01-05&quot;
+#&gt; [6] &quot;2020-01-05&quot; &quot;2020-01-08&quot; &quot;2020-01-08&quot; &quot;2020-01-08&quot;
 </code></pre>
 <pre><code class="language-r">date_end(period)
 </code></pre>
-<pre><code>#&gt; [1] &quot;2020-01-02&quot; &quot;2020-01-05&quot; &quot;2020-01-05&quot; &quot;2020-01-05&quot; &quot;2020-01-08&quot;
-#&gt; [6] &quot;2020-01-08&quot; &quot;2020-01-08&quot; &quot;2020-01-11&quot; &quot;2020-01-11&quot;
+<pre><code>#&gt; [1] &quot;2020-01-04&quot; &quot;2020-01-04&quot; &quot;2020-01-04&quot; &quot;2020-01-07&quot; &quot;2020-01-07&quot;
+#&gt; [6] &quot;2020-01-07&quot; &quot;2020-01-10&quot; &quot;2020-01-10&quot; &quot;2020-01-10&quot;
 </code></pre>
 <h2 id="sec:man-epiweek_class">Epiweek class</h2>
 <h3 id="sec:description_2" class="unnumbered unlisted">Description</h3>
@@ -399,7 +399,7 @@ be converted to integer via <code>as.integer(floor(x))</code>.
 as_epiweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_epiweek[1]&gt;
-#&gt; [1] &quot;2025-W32&quot;
+#&gt; [1] &quot;2025-W33&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_epiweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -465,7 +465,7 @@ dates[1] %during% week
 <pre><code class="language-r">period &lt;- as_period(dates, n = 3)
 dates[10] %during% period
 </code></pre>
-<pre><code>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+<pre><code>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
 </code></pre>
 <h2 id="sec:man-grouped_date_accessors">Accessors for grate objects</h2>
 <h3 id="sec:description_4" class="unnumbered unlisted">Description</h3>
@@ -772,7 +772,7 @@ https://en.wikipedia.org/w/index.php?title=ISO_week_date&amp;oldid=1269568343
 as_isoweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_isoweek[1]&gt;
-#&gt; [1] &quot;2025-W32&quot;
+#&gt; [1] &quot;2025-W33&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_isoweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -920,19 +920,19 @@ an arbitrary number of dates together (e.g. 10 days).
 <pre><code class="language-r">as_period(x, n, ...)
 
 ## Default S3 method:
-as_period(x, n = 1L, offset = 0L, ...)
+as_period(x, n = 1L, offset, ...)
 
 ## S3 method for class 'Date'
-as_period(x, n = 1L, offset = 0L, ...)
+as_period(x, n = 1L, offset = min(x, na.rm = TRUE), ...)
 
 ## S3 method for class 'POSIXt'
-as_period(x, n = 1L, offset = 0L, ...)
+as_period(x, n = 1L, offset = min(x, na.rm = TRUE), ...)
 
 ## S3 method for class 'character'
-as_period(x, n = 1L, offset = 0L, ...)
+as_period(x, n = 1L, offset, ...)
 
 ## S3 method for class 'factor'
-as_period(x, n = 1L, offset = 0L, ...)
+as_period(x, n = 1L, offset, ...)
 
 new_period(x = integer(), n = 1L, offset = 0L)
 
@@ -2273,7 +2273,7 @@ the week they represent (e.g. <code>&lt;grates_yearweek_monday&gt;</code>).
 as_yearweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_yearweek_monday[1]&gt;
-#&gt; [1] &quot;2025-W32&quot;
+#&gt; [1] &quot;2025-W33&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_yearweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
