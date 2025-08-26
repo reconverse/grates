@@ -43,15 +43,14 @@ Number of days that are being grouped.}
 \item{...}{Only used for character/factor input where additional arguments are passed
 through to \code{as.Date()}.}
 
-\item{offset}{\verb{[integer]} or, for \code{as_period()}, a \verb{[date]} or \verb{[character]} \
-\verb{[factor]} to be coerced to Date.
-
-Value you wish to start counting periods from relative to the Unix Epoch:
+\item{offset}{Value you wish to start counting periods from relative to the Unix Epoch:
 \itemize{
 \item For integer values this is stored scaled by \code{n}
 (\code{offset <- as.integer(offset) \%\% n}).
 \item For date values this is first converted to an integer offset
 (\code{offset <- floor(as.numeric(offset))}) and then scaled via \code{n} as above.
+\item Character / factor inputs are first coerced to Dates and then handled
+accordingly.
 }}
 }
 \value{

@@ -50,14 +50,15 @@
 #'
 #' Number of days that are being grouped.
 #'
-#' @param offset `[integer]` or, for `as_period()`, a `[date]` or `[character]` \
-#' `[factor]` to be coerced to Date.
+#' @param offset
 #'
 #' Value you wish to start counting periods from relative to the Unix Epoch:
 #' - For integer values this is stored scaled by `n`
 #'   (`offset <- as.integer(offset) %% n`).
 #' - For date values this is first converted to an integer offset
 #'   (`offset <- floor(as.numeric(offset))`) and then scaled via `n` as above.
+#' - Character / factor inputs are first coerced to Dates and then handled
+#'   accordingly.
 #'
 #' @param ...
 #'
