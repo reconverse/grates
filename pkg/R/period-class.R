@@ -50,7 +50,8 @@
 #'
 #' Number of days that are being grouped.
 #'
-#' @param offset `[integer]` or, for `as_period()`, a `[date]`.
+#' @param offset `[integer]` or, for `as_period()`, a `[date]` or `[character]` \
+#' `[factor]` to be coerced to Date.
 #'
 #' Value you wish to start counting periods from relative to the Unix Epoch:
 #' - For integer values this is stored scaled by `n`
@@ -60,8 +61,8 @@
 #'
 #' @param ...
 #'
-#' Only used for character input where additional arguments are passed through
-#' to `as.Date()`.
+#' Only used for character/factor input where additional arguments are passed
+#' through to `as.Date()`.
 #'
 # -------------------------------------------------------------------------
 #' @return
@@ -106,10 +107,18 @@ as_period.Date <- function(x, n = 1L, offset = min(x, na.rm = TRUE), ...) {
             stop("The `origin` argument is now defunct. Please use `offset`.")
     }
 
-    x <- as.integer(floor(unclass(x)))
     if (!.is_scalar_whole(n))
         stop("`n` must be an integer of length 1.")
+
+    if (length(offset) != 1L)
+        stop("`offset` must be of length 1.")
+
+    x <- as.integer(floor(unclass(x)))
+
     n <- as.integer(n)
+
+    if(is.character(offset) || is.factor(offset))
+        offset <- as.Date(offset, ...)
 
     if (inherits(offset, "Date"))
         offset <- floor(as.numeric(offset))
@@ -140,7 +149,7 @@ as_period.POSIXt <- function(x, n = 1L,  offset = min(x, na.rm = TRUE), ...) {
 # -------------------------------------------------------------------------
 #' @rdname period_class
 #' @export
-as_period.character <- function(x, n = 1L, offset, ...) {
+as_period.character <- function(x, n = 1L, offset = 0, ...) {
 
     if (...length()) {
         dot_names <- names(list(...))
@@ -151,13 +160,14 @@ as_period.character <- function(x, n = 1L, offset, ...) {
     out <- as.Date(x, ...)
     if (all(is.na(out)))
         stop("Unable to parse any entries of `x` as Dates.")
+
     as_period.Date(x = out, n = n, offset = offset)
 }
 
 # -------------------------------------------------------------------------
 #' @rdname period_class
 #' @export
-as_period.factor <- function(x, n = 1L, offset, ...) {
+as_period.factor <- function(x, n = 1L, offset = 0, ...) {
     if (...length()) {
         dot_names <- names(list(...))
         if (any(dot_names == "origin"))

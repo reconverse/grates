@@ -281,7 +281,7 @@ test_that("period plotting works", {
         ggplot2::theme_bw() +
         ggplot2::xlab("")
 
-    br <- as_period(c("2014-08-28", "2015-01-15"), n = 14, offset = 0)
+    br <- as_period(c("2014-08-28", "2015-01-15"), n = 14)
     two_weeks_breaks <- two_weeks +
         scale_x_grates_period(breaks = br, n = 14, offset = 0)
 
@@ -298,7 +298,7 @@ test_that("period plotting works", {
         scale_x_grates_period(n.breaks = 7L, n = 28, offset = 0L) +
         ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))
 
-    br <- as_period("2014-06-19", n = 28, offset = 0) + c(0, 2, 4)
+    br <- as_period("2014-06-19", n = 28) + c(0, 2, 4)
     twentyeight_days_breaks <- twentyeight_days +
         scale_x_grates_period(breaks = br, n = 28, offset = 0) +
         ggplot2::theme(axis.text.x = ggplot2::element_text(hjust = 1, angle = 45))

@@ -3,10 +3,13 @@
 ## breaking change
 
 * The default `offset` argument for the Date and POSIXt methods of the
-  `as_period()` generic is now set as the minimum of the input argument. For
-  character and factor methods, the default has been dropped and must now be
-  specified explicitly. Old behaviour for each method can be obtained by
-  setting `offset = 0`. Motivated by discussion with @joshwlambert.
+  `as_period()` generic is now set as the minimum of the input argument.
+  Motivated by discussion with @joshwlambert.
+  
+* For `as_period()` methods, `offset` can now be passed as a character or
+  factor value that is coercible to a Date. Again motivated by discussion with
+  @joshwlambert.
+  
 
 # grates 1.5.0
 

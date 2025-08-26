@@ -20,9 +20,9 @@ as_period(x, n, ...)
 
 \method{as_period}{POSIXt}(x, n = 1L, offset = min(x, na.rm = TRUE), ...)
 
-\method{as_period}{character}(x, n = 1L, offset, ...)
+\method{as_period}{character}(x, n = 1L, offset = 0, ...)
 
-\method{as_period}{factor}(x, n = 1L, offset, ...)
+\method{as_period}{factor}(x, n = 1L, offset = 0, ...)
 
 new_period(x = integer(), n = 1L, offset = 0L)
 
@@ -40,10 +40,11 @@ Epoch (1970-01-01) and a specified offset.}
 
 Number of days that are being grouped.}
 
-\item{...}{Only used for character input where additional arguments are passed through
-to \code{as.Date()}.}
+\item{...}{Only used for character/factor input where additional arguments are passed
+through to \code{as.Date()}.}
 
-\item{offset}{\verb{[integer]} or, for \code{as_period()}, a \verb{[date]}.
+\item{offset}{\verb{[integer]} or, for \code{as_period()}, a \verb{[date]} or \verb{[character]} \
+\verb{[factor]} to be coerced to Date.
 
 Value you wish to start counting periods from relative to the Unix Epoch:
 \itemize{

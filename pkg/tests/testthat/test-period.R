@@ -81,7 +81,7 @@ test_that("period, character coercion works", {
     expect_identical(as.Date(res), expected)
 
     dat <- "2020-12-28"
-    res <- as.character(as_period(dat, n = 3, offset = 0))
+    res <- as.character(as_period(dat, n = 3))
     expect_identical(res, "2020-12-28 to 2020-12-30")
 })
 
@@ -94,9 +94,9 @@ test_that("as_period, misc errors and warnings", {
 })
 
 test_that("period, as.list works", {
-    dat <- as_period(c("2020-12-28", "2021-01-04"), n = 2, offset = 0)
+    dat <- as_period(c("2020-12-28", "2021-01-04"), n = 2)
     res <- list(
-        as_period("2020-12-28", n = 2, offset = 0),
+        as_period("2020-12-28", n = 2),
         as_period("2021-01-04", offset = as.integer(as.Date("2020-12-28")), n = 2))
     expect_identical(res, as.list(dat))
 })
@@ -290,7 +290,7 @@ test_that("period, miscellaneous work", {
 
     expect_error(
         as_period(Sys.Date(), offset = 1:2),
-        "`offset` must be an integer or date of length 1.",
+        "`offset` must be of length 1.",
         fixed = TRUE
     )
 
@@ -397,10 +397,6 @@ test_that("period, miscellaneous work", {
 
     expect_false(is.numeric(dat1))
 
-    # `offset` missing as no default value
-    expect_error(as_period("2020-01-01", n = 2))
-    expect_error(as_period(as.factor("2020-01-01"), n = 2))
-
 })
 
 test_that("period boundary functions work", {
@@ -421,3 +417,15 @@ test_that("period, offset default works", {
     dat <- as_period(dates, n = 2, offset = as.integer(as.Date("2020-01-02")))
     expect_identical(as_period(dates, n = 2), expected = dat)
 })
+
+test_that("period, character offset works", {
+    dates <- as.Date("2020-01-01") + (0:61)
+    dat <- as_period(dates, n = 2, offset = "2020-01-01")
+    expect_identical(as_period(dates, n = 2), expected = dat)
+
+    dates <- as.Date("2020-01-01") + (1:61)
+    dat <- as_period(dates, n = 2, offset = "2020-01-02")
+    expect_identical(as_period(dates, n = 2), expected = dat)
+})
+
+
