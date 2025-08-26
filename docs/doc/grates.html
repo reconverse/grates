@@ -156,11 +156,12 @@ calculation purposes, <code>offset</code> is scaled relative to <code>n</code>, 
 <code>offset &lt;- offset %% n</code> and values of stored relative to this scaled offset.</p>
 </div>
 <p>Like yearweek objects, a period object is easily created with the <code>as_period()</code>
-coercion function. <code>as_period()</code> takes 3 arguments; <code>x</code>, the vector (normally a
-Date or POSIXt) you wish to group, <code>n</code>, the integer number of days you wish to
-group, and <code>offset</code>, the value you wish to start counting groups from relative
-to the Unix Epoch. For convenience, <code>offset</code> can be given as a date you want
-periods to be relative to (internally this date is converted to integer).</p>
+coercion function. <code>as_period()</code> takes 3 arguments; <code>x</code>, the vector you wish to
+group, <code>n</code>, the integer number of days you wish to group, and <code>offset</code>, the
+value you wish to start counting groups from relative to the Unix Epoch. For
+convenience, <code>offset</code> can be given as a date you want periods to be relative to
+(internally this date is converted to integer). For both Date and POSIXt objects
+<code>offset</code> defaults to the minimum value of the input <code>x</code>.</p>
 <p>In the example below we aggregate by 14 day periods offset from the earliest
 case:</p>
 <pre><code class="language-r">period_dat &lt;- with(daily,
@@ -401,7 +402,7 @@ seq(from = minw, to = maxw, by = 6L)
 <pre><code class="language-r"># but will error informatively if `to` is a different class
 seq(from = minw, to = 999, by = 6L)
 </code></pre>
-<pre><code class="language-plain error">#&gt; `to` must be a &lt;grates_isoweek&gt; object of length 1.
+<pre><code class="language-plain error">#&gt; Error in seq.grates_isoweek(from = minw, to = 999, by = 6L): `to` must be a &lt;grates_isoweek&gt; object of length 1.
 </code></pre>
 <p>Addition (subtraction) of whole numbers will add (subtract) the corresponding
 number of weeks to (from) the object</p>
@@ -419,7 +420,7 @@ number of weeks to (from) the object</p>
 <p>Addition of two yearweek objects will error as the intention is unclear.</p>
 <pre><code class="language-r">transform(dat, willerror = isoweek + isoweek)
 </code></pre>
-<pre><code class="language-plain error">#&gt; Cannot add &lt;grates_isoweek&gt; objects to each other.
+<pre><code class="language-plain error">#&gt; Error in Ops.grates_isoweek(isoweek, isoweek): Cannot add &lt;grates_isoweek&gt; objects to each other.
 </code></pre>
 <p>Subtraction of two yearweek objects gives the difference in weeks between them</p>
 <pre><code class="language-r">transform(dat, difference = plus4 - minus4)
@@ -446,7 +447,7 @@ number of weeks to (from) the object</p>
 </code></pre>
 <pre><code class="language-r">c(minw, 1L)
 </code></pre>
-<pre><code class="language-plain error">#&gt; Unable to combine &lt;grates_isoweek&gt; objects with other classes.
+<pre><code class="language-plain error">#&gt; Error in c.grates_isoweek(minw, 1L): Unable to combine &lt;grates_isoweek&gt; objects with other classes.
 </code></pre>
 <h2 id="sec:acknowledgements">Acknowledgements</h2>
 <p>The underlying implementation for these objects build upon ideas of Davis

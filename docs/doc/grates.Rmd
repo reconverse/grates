@@ -183,11 +183,12 @@ calculation purposes, `offset` is scaled relative to `n`, that is
 :::
 
 Like yearweek objects, a period object is easily created with the `as_period()`
-coercion function. `as_period()` takes 3 arguments; `x`, the vector (normally a
-Date or POSIXt) you wish to group, `n`, the integer number of days you wish to
-group, and `offset`, the value you wish to start counting groups from relative
-to the Unix Epoch. For convenience, `offset` can be given as a date you want
-periods to be relative to (internally this date is converted to integer).
+coercion function. `as_period()` takes 3 arguments; `x`, the vector you wish to
+group, `n`, the integer number of days you wish to group, and `offset`, the
+value you wish to start counting groups from relative to the Unix Epoch. For
+convenience, `offset` can be given as a date you want periods to be relative to
+(internally this date is converted to integer). For both Date and POSIXt objects
+`offset` defaults to the minimum value of the input `x`.
 
 In the example below we aggregate by 14 day periods offset from the earliest
 case:

@@ -29,7 +29,7 @@
 <div class="body">
 <div id="TOC">
 <ul>
-<li><a href="#sec:grates-development-version">grates (development version)</a>
+<li><a href="#sec:grates-1-6-0">grates 1.6.0</a>
 <ul>
 <li><a href="#sec:breaking-change_1">breaking change</a></li>
 </ul>
@@ -75,14 +75,19 @@
 <li><a href="#sec:grates-0-1-1">grates 0.1.1</a></li>
 </ul>
 </div>
-<h2 id="sec:grates-development-version" class="unnumbered">grates (development version)</h2>
+<h2 id="sec:grates-1-6-0" class="unnumbered">grates 1.6.0</h2>
 <h3 id="sec:breaking-change_1" class="unnumbered">breaking change</h3>
 <ul>
-<li>The default <code>offset</code> argument for the Date and POSIXt methods of the
-<code>as_period()</code> generic is now set as the minimum of the input argument. For
-character and factor methods, the default has been dropped and must now be
-specified explicitly. Old behaviour for each method can be obtained by
-setting <code>offset = 0</code>. Motivated by discussion with <a href="https://github.com/joshwlambert">@joshwlambert</a>.</li>
+<li>
+<p>The default <code>offset</code> argument for the Date and POSIXt methods of the
+<code>as_period()</code> generic is now set as the minimum of the input argument.
+Motivated by discussion with <a href="https://github.com/joshwlambert">@joshwlambert</a>.</p>
+</li>
+<li>
+<p>For <code>as_period()</code> methods, <code>offset</code> can now be passed as a character or
+factor value that is coercible to a Date. Again motivated by discussion with
+<a href="https://github.com/joshwlambert">@joshwlambert</a>.</p>
+</li>
 </ul>
 <h2 id="sec:grates-1-5-0" class="unnumbered">grates 1.5.0</h2>
 <h3 id="sec:breaking-change_2" class="unnumbered">breaking change</h3>

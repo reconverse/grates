@@ -1,4 +1,4 @@
-# grates (development version)
+# grates 1.6.0
 
 ## breaking change
 
@@ -9,7 +9,6 @@
 * For `as_period()` methods, `offset` can now be passed as a character or
   factor value that is coercible to a Date. Again motivated by discussion with
   @joshwlambert.
-  
 
 # grates 1.5.0
 

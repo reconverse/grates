@@ -399,7 +399,7 @@ be converted to integer via <code>as.integer(floor(x))</code>.
 as_epiweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_epiweek[1]&gt;
-#&gt; [1] &quot;2025-W33&quot;
+#&gt; [1] &quot;2025-W35&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_epiweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -772,7 +772,7 @@ https://en.wikipedia.org/w/index.php?title=ISO_week_date&amp;oldid=1269568343
 as_isoweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_isoweek[1]&gt;
-#&gt; [1] &quot;2025-W33&quot;
+#&gt; [1] &quot;2025-W35&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_isoweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -929,10 +929,10 @@ as_period(x, n = 1L, offset = min(x, na.rm = TRUE), ...)
 as_period(x, n = 1L, offset = min(x, na.rm = TRUE), ...)
 
 ## S3 method for class 'character'
-as_period(x, n = 1L, offset, ...)
+as_period(x, n = 1L, offset = 0, ...)
 
 ## S3 method for class 'factor'
-as_period(x, n = 1L, offset, ...)
+as_period(x, n = 1L, offset = 0, ...)
 
 new_period(x = integer(), n = 1L, offset = 0L)
 
@@ -956,13 +956,11 @@ Epoch (1970-01-01) and a specified offset.</p>
 </td></tr>
 <tr><td><code>...</code></td>
 <td>
-<p>Only used for character input where additional arguments are passed through
-to <code>as.Date()</code>.</p>
+<p>Only used for character/factor input where additional arguments are passed
+through to <code>as.Date()</code>.</p>
 </td></tr>
 <tr><td><code>offset</code></td>
 <td>
-<p><code>[integer]</code> or, for <code>as_period()</code>, a <code>[date]</code>.
-</p>
 <p>Value you wish to start counting periods from relative to the Unix Epoch:
 </p>
 <ul>
@@ -972,6 +970,10 @@ to <code>as.Date()</code>.</p>
 </li>
 <li><p> For date values this is first converted to an integer offset
 (<code>offset &lt;- floor(as.numeric(offset))</code>) and then scaled via <code>n</code> as above.
+</p>
+</li>
+<li><p> Character / factor inputs are first coerced to Dates and then handled
+accordingly.
 </p>
 </li></ul>
 </td></tr>
@@ -2273,7 +2275,7 @@ the week they represent (e.g. <code>&lt;grates_yearweek_monday&gt;</code>).
 as_yearweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_yearweek_monday[1]&gt;
-#&gt; [1] &quot;2025-W33&quot;
+#&gt; [1] &quot;2025-W35&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_yearweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
