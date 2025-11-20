@@ -228,7 +228,7 @@ scale_type.grates_yearweek <- function(x) {
 # ------------------------------------------------------------------------- #
 .grates_yearweek_trans <- function(breaks, n.breaks, firstday, format) {
 
-    shift <- if (is.null(format) || format == "week") 0 else 0.5
+    shift <- if (is.null(format) || format == "week" || format == "year") 0 else 0.5
 
     # breaks function
     brks <- function(x) {
