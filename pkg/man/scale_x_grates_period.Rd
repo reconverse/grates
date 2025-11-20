@@ -45,7 +45,7 @@ A scale for use with ggplot2.
 ggplot2 scale for an \verb{<grates_period>} vector.
 }
 \examples{
-\dontshow{if (requireNamespace("outbreaks") && requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("outbreaks") && requireNamespace("ggplot2")) withAutoprint(\{ # examplesIf}
 
 # use simulated linelist data from the outbreaks package
 linelist <- outbreaks::ebola_sim_clean$linelist

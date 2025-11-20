@@ -100,14 +100,19 @@ Will only have an effect if \code{breaks = waiver()}.}
 
 Integer value of the first weekday: 1 (Monday) to 7 (Sunday).}
 
-\item{format}{Format to use if "Date" scales are required.
+\item{format}{Format to use if "Date" or year/week scales are required.
 
 If NULL (default) then labels are in the standard yearweek format (YYYY-Wxx).
 
 If "week" then the labels are of the form Www (e.g. W37).
 
+If "year" then labels are of the form YYYY (e.g. 2020).
+
 Otherwise the value is used by \code{format.Date()} and can be any input
-acceptable by that function.}
+acceptable by that function.
+
+Note that when date scales are requested the grate labels are first coerced
+via \code{as.Date()}.}
 }
 \value{
 A scale for use with ggplot2.
@@ -116,7 +121,7 @@ A scale for use with ggplot2.
 ggplot2 scale for an \verb{<grates_yearweek>} vector.
 }
 \examples{
-\dontshow{if (requireNamespace("outbreaks") && requireNamespace("ggplot2")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("outbreaks") && requireNamespace("ggplot2")) withAutoprint(\{ # examplesIf}
 
 # use simulated linelist data from the outbreaks package
 linelist <- outbreaks::ebola_sim_clean$linelist

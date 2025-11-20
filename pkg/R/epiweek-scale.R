@@ -18,14 +18,19 @@
 #'
 #' @param format
 #'
-#' Format to use if "Date" scales are required.
+#' Format to use if "Date" or year/week scales are required.
 #'
 #' If NULL (default) then labels are in the standard epiweek format (YYYY-Wxx).
 #'
 #' If "week" then the labels are of the form Www (e.g. W37).
 #'
+#' If "year" then labels are of the form YYYY (e.g. 2020).
+#'
 #' Otherwise the value is used by `format.Date()` and can be any input
 #' acceptable by that function.
+#'
+#' Note that when date scales are requested the grate labels are first coerced
+#' via `as.Date()`.
 #'
 #' @param ...
 #'
@@ -131,8 +136,10 @@ scale_type.grates_epiweek <- function(x) {
         if (is.null(format)) {
             format.grates_epiweek(x)
         } else if (format == "week") {
-            x <- format.grates_yearweek(x)
+            x <- format.grates_epiweek(x)
             sub(pattern = ".*-", replacement = "", x = x, perl = TRUE)
+        } else if (format == "year") {
+            format(get_year.grates_epiweek(x))
         } else {
             x <- as.Date.grates_epiweek(x)
             format(x, format)
