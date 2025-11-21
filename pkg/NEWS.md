@@ -1,3 +1,5 @@
+# grates (development version)
+
 # grates 1.7.0
 
 * For isoweek/epiweek/yearweek scales users can now use labels in the form
