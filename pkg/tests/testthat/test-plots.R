@@ -352,3 +352,63 @@ test_that("int_period plotting works", {
     expect_snapshot_plot("p_breaks", p_breaks)
     expect_snapshot_plot("p_breaks_centred", p_breaks_centred)
 })
+
+test_that("isoweek year plotting works", {
+
+    skip_if_not_installed("ggplot2", "2.0.0")
+    date <- as.Date("2025-01-01")
+
+    # this is more like an assertion
+    dat <- data.frame(isoweek = as_isoweek(date))
+
+    y2025 <-
+        dat |>
+        ggplot2::ggplot(ggplot2::aes(isoweek)) +
+        ggplot2::geom_bar() +
+        scale_x_grates_isoweek(format = "year") +
+        ggplot2::theme_bw() +
+        ggplot2::xlab("Should be 2025")
+
+
+    expect_snapshot_plot("isoweek2025", y2025)
+})
+
+test_that("epiweek year plotting works", {
+
+    skip_if_not_installed("ggplot2", "2.0.0")
+    date <- as.Date("2025-01-01")
+
+    # this is more like an assertion
+    dat <- data.frame(epiweek = as_epiweek(date))
+
+    y2025 <-
+        dat |>
+        ggplot2::ggplot(ggplot2::aes(epiweek)) +
+        ggplot2::geom_bar() +
+        scale_x_grates_epiweek(format = "year") +
+        ggplot2::theme_bw() +
+        ggplot2::xlab("Should be 2025")
+
+
+    expect_snapshot_plot("epiweek2025", y2025)
+})
+
+test_that("yearweek year plotting works", {
+
+    skip_if_not_installed("ggplot2", "2.0.0")
+    date <- as.Date("2023-01-01")
+
+    # this is more like an assertion
+    dat <- data.frame(yearweek = as_yearweek(date, 4))
+
+    y2023 <-
+        dat |>
+        ggplot2::ggplot(ggplot2::aes(yearweek)) +
+        ggplot2::geom_bar() +
+        scale_x_grates_yearweek(format = "year", firstday = 4) +
+        ggplot2::theme_bw() +
+        ggplot2::xlab("Should be 2023")
+
+
+    expect_snapshot_plot("yearweek2023", y2023)
+})
