@@ -1,9 +1,13 @@
-# grates (development version)
+# grates 1.7.0
 
-* For yearweek/isoweek/epiweek scales users can now use labels in the form
-  "YYYY" (e.g. 2020) without them needing to be the corresponding gregorian
-  calendar representation. This can be achieved with the argument
-  `format = "year"`.
+* For isoweek/epiweek/yearweek scales users can now use labels in the form
+  "YYYY" (e.g. 2020) without them first being converted to the corresponding
+  gregorian calendar representation. This can be achieved with the argument
+  `format = "year"`, i.e.
+  
+  ```
+  `+ scale_x_grates_isoweek(format = "year")`
+  ```
 
 # grates 1.6.0
 
