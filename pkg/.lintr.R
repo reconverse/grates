@@ -29,7 +29,8 @@ linters <- all_linters(
     # put it in the `except` argument ... :(
     implicit_assignment_linter(
         except = c("expect_error", "expect_snapshot_error", "within"),
-        allow_scoped = TRUE
+        allow_scoped = TRUE,
+        allow_paren_print = TRUE
     ),
 
     # Seems to give false positives. Will revisit.
