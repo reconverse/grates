@@ -427,5 +427,3 @@ test_that("period, character offset works", {
     dat <- as_period(dates, n = 2, offset = "2020-01-02")
     expect_identical(as_period(dates, n = 2), expected = dat)
 })
-
-

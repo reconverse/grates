@@ -118,7 +118,7 @@ as_period.Date <- function(x, n = 1L, offset = min(x, na.rm = TRUE), ...) {
 
     n <- as.integer(n)
 
-    if(is.character(offset) || is.factor(offset))
+    if (is.character(offset) || is.factor(offset))
         offset <- as.Date(offset, ...)
 
     if (inherits(offset, "Date"))

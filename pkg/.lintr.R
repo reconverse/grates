@@ -23,10 +23,10 @@ linters <- all_linters(
     # decimal where it feels like unwanted noise.
     implicit_integer_linter = NULL,
 
-    # Currently we cannot assign within an `if` statement even when
-    # allow_scoped = TRUE. See: https://github.com/r-lib/lintr/issues/2913
-    # Relying on https://github.com/r-lib/lintr/pull/2914 for the moment and
-    # hopefully this wall land in a future release,
+    # NOTE: Currently we can only assign within an `if` statement when both
+    # allow_scoped = TRUE *AND* the object is ONLY used in the following branch
+    # (unless reassigned). lintr does not treat `if` as a function so we cannot
+    # put it in the `except` argument ... :(
     implicit_assignment_linter(
         except = c("expect_error", "expect_snapshot_error", "within"),
         allow_scoped = TRUE
