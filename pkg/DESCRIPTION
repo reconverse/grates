@@ -1,6 +1,6 @@
 Package: grates
 Title: Grouped Date Classes
-Version: 1.7.0.9000
+Version: 1.7.1
 Authors@R:
     c(
       person(
@@ -32,7 +32,6 @@ Suggests:
 VignetteBuilder: litedown
 Config/testthat/load-all: list(export_all = FALSE, helpers = FALSE)
 Config/testthat/edition: 3
-Config/testthat/parallel: true
 Config/testthat/start-first: plots, refactoring
 Imports: 
     utils,

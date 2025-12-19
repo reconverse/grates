@@ -1,4 +1,7 @@
-# grates (development version)
+# grates 1.7.1
+
+* Patch release due to parallel test failure related to
+  [testthat](https://github.com/r-lib/testthat/issues/2284).
 
 # grates 1.7.0
 
