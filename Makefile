@@ -30,7 +30,7 @@ revdep: pkg
 	rm -rf revdep
 	mkdir revdep
 	mv *.tar.gz revdep
-	R -s -e "out <- tools::check_packages_in_dir('revdep',reverse=list(which='most')); print(summary(out)); saveRDS(out, file='revdep/output.RDS')"
+	Rdevel -s -e "out <- tools::check_packages_in_dir('revdep',reverse=list(which='most')); print(summary(out)); saveRDS(out, file='revdep/output.RDS')"
 
 readme: README.md
 
