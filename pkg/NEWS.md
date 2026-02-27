@@ -1,5 +1,7 @@
 # grates (development version)
 
+* Small updates to the vignette's css and js.
+
 # grates 1.7.1
 
 * Patch release due to parallel test failure related to

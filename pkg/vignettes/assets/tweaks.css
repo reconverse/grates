@@ -1,0 +1,22 @@
+.callout {
+  legend::after {
+    content: attr(data-legend);
+    text-transform: initial;
+  }
+}
+body, blockquote, .side { background: white; }
+a { color: initial; }
+
+#TOC {
+  ul { padding: 12px 12px; }
+  li { min-height: 24px; min-width: 24px;}
+}
+
+@media (min-width: 1264.02px) {
+    #TOC.side {
+        & .active {
+            color: #bb1122;
+        }
+    }
+}
+

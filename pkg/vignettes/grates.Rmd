@@ -3,8 +3,9 @@ title: "Grouped dates"
 output:
     html:
         meta:
-            css: ["@default@1.14.14", "@copy-button@1.14.14", "@callout@1.14.14", "@article@1.14.14"]
-            js: ["@sidenotes@1.14.14", "@center-img@1.14.14", "@copy-button@1.14.14", "@callout@1.14.14", "@toc-highlight@1.14.14"]
+            css: ["@default@1.14.24", "@copy-button@1.14.24", "@callout@1.14.24", "@article@1.14.24", "assets/tweaks.css"]
+            js: ["@sidenotes@1.14.24", "@center-img@1.14.24", "@copy-button@1.14.24", "@callout@1.14.24", "@toc-highlight@1.14.24"]
+            lang: en
         options:
             toc: true
             js_highlight:
