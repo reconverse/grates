@@ -4,7 +4,11 @@ output:
   html:
     meta:
       include_after: "_footer.md"
+      css: ["@default@1.14.24", "@copy-button@1.14.24", "assets/tweaks.css"]
+      js: ["@copy-button@1.14.24", "@toc-highlight@1.14.24"]
+      lang: en
     options:
       number_sections: false
-      meta:
-            js: ["@toc-highlight"]
+      js_highlight:
+        package: prism
+        version: 1.29.0

@@ -1,6 +1,5 @@
 ---
-title: "`{r} pkg_name`: `{r} packageDescription(pkg_name, fields = 'Title')`"
-date: "`{r} Sys.Date()`"
+title: "`{r} pkg_name`"
 output:
   html:
 ---
@@ -16,36 +15,14 @@ pkg_path = attr(pkg_name, 'path')
 litedown::pkg_desc(pkg_name)
 ```
 
-## Installing the package
-
 You can install the latest release of grates from [CRAN](https://cran.r-project.org/) with:
 
 ```{r, echo = TRUE, eval = FALSE}
 install.packages("grates")
 ```
 
+A brief overview of grates is available [online](https://www.reconverse.org/grates/vignette.html) and in the vignette distributed with the package:
 
-## Vignettes
-A detailed introduction to grates can be found in the included vignette
-
-```{r, echo = FALSE, results = 'asis'}
-pkg_name = local({
-    old <- setwd("../pkg")
-    tryCatch(litedown:::detect_pkg(), finally = setwd(old))
-})
-res = tools::getVignetteInfo(pkg_name)
-res = if (nrow(res)) {
-  file.copy(system.file('doc', package = pkg_name), './', recursive = TRUE)
-  vigs = res[, 'PDF']
-  # redirect doc/index.html to article.html
-  if (!'index.html' %in% vigs) writeLines(
-    "<script>location.href = location.href.replace(/\\/[^\\/]*$/, '') + '/../articles.html';</script>", 'doc/index.html'
-  )
-  # clean up .R files
-  file.remove(file.path('doc', setdiff(res[, 'R'], '')))
-  src = res[, 'File']
-  # TODO: show excerpts of vignettes if possible
-  sprintf('- [%s](doc/%s) (source: [%s](doc/%s))\n', res[, 'Title'], vigs, src, src)
-} else 'This package has no vignettes.'
-xfun::raw_string(res)
+```{r, eval = FALSE}
+vignette("grates")
 ```
