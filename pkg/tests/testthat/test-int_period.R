@@ -28,6 +28,8 @@ test_that("int_period, negative values work", {
     dates2 <- seq.int(from = -7 * 30 - 28, length.out = 4, by = 7)
     expect_identical(as.integer(as_int_period(dates, n = 7)), dates)
     expect_identical(as.integer(as_int_period(dates, n = 7) - 4), dates2)
+    expect_identical(as.double(as_int_period(dates, n = 7)), as.double(dates))
+    expect_identical(as.double(as_int_period(dates, n = 7) - 4), as.double(dates2))
 })
 
 test_that("as_int_period, misc errors and warnings", {

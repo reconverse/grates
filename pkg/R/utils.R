@@ -31,7 +31,7 @@ stopf <- function(fmt, ..., .use_call = TRUE, .call = sys.call(-1L)) {
     grates_classes <- c(
         "grates_yearweek" , "grates_isoweek", "grates_epiweek",
         "grates_yearmonth", "grates_month"  , "grates_yearquarter",
-        "grates_year"     , "grates_period"
+        "grates_year"     , "grates_period" , "grates_int_period"
     )
     # nolint end
 

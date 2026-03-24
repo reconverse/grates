@@ -129,11 +129,11 @@ scale_type.grates_int_period <- function(x) {
     # breaks function
     brks <- function(x) {
         if (inherits(breaks, "waiver")) {
-            dat <- scales::breaks_pretty(n.breaks)(as.numeric(x))
+            dat <- scales::breaks_pretty(n.breaks)(as.numeric(unclass(x)))
             dat <- as.integer(floor(dat))
-            dat <- as.numeric(new_int_period(dat, n = n))
+            dat <- as.numeric(unclass(new_int_period(dat, n = n)))
         } else {
-            dat <- as.numeric(breaks)
+            dat <- as.numeric(unclass(breaks))
         }
         dat - shift
     }
@@ -151,8 +151,8 @@ scale_type.grates_int_period <- function(x) {
 
     scales::trans_new(
         "grates_int_period",
-        transform = as.numeric,
-        inverse = as.numeric,
+        transform = function(x) as.numeric(unclass(x)),
+        inverse = function(x) as.numeric(unclass(x)),
         breaks = brks,
         format = fmt
     )

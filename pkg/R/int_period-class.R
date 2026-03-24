@@ -284,6 +284,14 @@ as.integer.grates_int_period <- function(x, ...) {
 
 # -------------------------------------------------------------------------
 #' @export
+as.double.grates_int_period <- function(x, ...) {
+    n <- attr(x, "n")
+    x <- unclass(x)
+    as.double(x * n)
+}
+
+# -------------------------------------------------------------------------
+#' @export
 as.Date.grates_int_period <- function(x, ...) {
     stopf("`%s()` is not supported for <grates_int_period> objects.", .Generic)
 }

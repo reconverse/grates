@@ -1,5 +1,12 @@
 # grates (development version)
 
+## breaking change
+
+* `as.double()` for `<grates_int_period>` objects now returns the same result
+  (subject to type) as `as.integer()`. Both return the lower bound of related
+  interval. Note that `<grates_int_period>` objects should still be treated 
+  as experimental for the time being.
+
 # grates 1.7.2
 
 * Small updates to the vignette's css and js.
