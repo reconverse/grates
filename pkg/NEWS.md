@@ -1,4 +1,4 @@
-# grates (development version)
+# grates 1.8.0
 
 * New function `get_interval_duration()` which returns the number of days
   covered by an element of a grates object, e.g. the following is TRUE
