@@ -314,3 +314,14 @@ test_that("epiweek boundary functions work", {
     expect_identical(date_start(weeks), starts)
     expect_identical(date_end(weeks), ends)
 })
+
+test_that("epiweek get_interval_duration works", {
+    dates <- as.Date("2020-01-01") + 0:14
+    weeks <- as_epiweek(dates)
+    expect_identical(
+        get_interval_duration(weeks),
+        expected = rep(7, length(dates))
+    )
+})
+
+

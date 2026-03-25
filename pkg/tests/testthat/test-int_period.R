@@ -255,3 +255,11 @@ test_that("int_period, miscellaneous work", {
     )
     expect_false(is.numeric(new_int_period(1)))
 })
+
+test_that("int_period get_interval_duration works", {
+    dates <- as_int_period(0:14, 3)
+    expect_identical(
+        get_interval_duration(dates),
+        expected = rep(3, length(dates))
+    )
+})
