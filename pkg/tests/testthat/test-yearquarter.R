@@ -281,3 +281,10 @@ test_that("yearquarter boundary functions work", {
     expect_identical(date_start(quarters), starts)
     expect_identical(date_end(quarters), ends)
 })
+
+test_that("yearquarter get_interval_duration works", {
+    yearquarters <- c(yearquarter(2020, 1:4), yearquarter(2021, 1:4))
+    leap   <- c(31 + 29 + 31, 30 + 31 + 30, 31 + 31 + 30, 31 + 30 + 31)
+    normal <- c(31 + 28 + 31, 30 + 31 + 30, 31 + 31 + 30, 31 + 30 + 31)
+    expect_identical(get_interval_duration(yearquarters), c(leap,normal))
+})

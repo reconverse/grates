@@ -427,3 +427,12 @@ test_that("period, character offset works", {
     dat <- as_period(dates, n = 2, offset = "2020-01-02")
     expect_identical(as_period(dates, n = 2), expected = dat)
 })
+
+test_that("period get_interval_duration works", {
+    dates <- as.Date("2020-01-01") + (0:61)
+    dat <- as_period(dates, n = 2, offset = "2020-01-01")
+    expect_identical(
+        get_interval_duration(dat),
+        expected = rep(2L, length(dates))
+    )
+})

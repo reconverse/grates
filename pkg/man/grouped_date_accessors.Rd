@@ -31,6 +31,17 @@
 \alias{get_offset}
 \alias{get_offset.default}
 \alias{get_offset.grates_period}
+\alias{get_interval_duration}
+\alias{get_interval_duration.default}
+\alias{get_interval_duration.grates_yearweek}
+\alias{get_interval_duration.grates_int_period}
+\alias{get_interval_duration.grates_isoweek}
+\alias{get_interval_duration.grates_epiweek}
+\alias{get_interval_duration.grates_yearmonth}
+\alias{get_interval_duration.grates_month}
+\alias{get_interval_duration.grates_yearquarter}
+\alias{get_interval_duration.grates_year}
+\alias{get_interval_duration.grates_period}
 \title{Accessors for grate objects}
 \usage{
 get_firstday(x, ...)
@@ -90,6 +101,28 @@ get_offset(x, ...)
 \method{get_offset}{default}(x, ...)
 
 \method{get_offset}{grates_period}(x, ...)
+
+get_interval_duration(x, ...)
+
+\method{get_interval_duration}{default}(x, ...)
+
+\method{get_interval_duration}{grates_yearweek}(x, ...)
+
+\method{get_interval_duration}{grates_int_period}(x, ...)
+
+\method{get_interval_duration}{grates_isoweek}(x, ...)
+
+\method{get_interval_duration}{grates_epiweek}(x, ...)
+
+\method{get_interval_duration}{grates_yearmonth}(x, ...)
+
+\method{get_interval_duration}{grates_month}(x, ...)
+
+\method{get_interval_duration}{grates_yearquarter}(x, ...)
+
+\method{get_interval_duration}{grates_year}(x, ...)
+
+\method{get_interval_duration}{grates_period}(x, ...)
 }
 \arguments{
 \item{x}{\R object}

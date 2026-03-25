@@ -272,3 +272,10 @@ test_that("year boundary functions work", {
     expect_identical(date_start(years), starts)
     expect_identical(date_end(years), ends)
 })
+
+test_that("year get_interval_duration works", {
+    years <- grates::year(2020:2021)
+    leap   <- c(31 + 29 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31)
+    normal <- c(31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31)
+    expect_identical(get_interval_duration(years), c(leap, normal))
+})

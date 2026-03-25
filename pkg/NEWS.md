@@ -1,5 +1,16 @@
 # grates (development version)
 
+* New function `get_interval_duration()` which returns the number of days
+  covered by an element of a grates object, e.g. the following is TRUE
+  
+  ```
+  identical(
+      get_interval_duration(yearmonth(2020, 1:3)),
+      c(31, 29, 31)
+  )
+  ```
+    
+
 ## breaking change
 
 * `as.double()` for `<grates_int_period>` objects now returns the same result

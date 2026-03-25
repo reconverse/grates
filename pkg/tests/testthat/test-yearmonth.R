@@ -277,3 +277,10 @@ test_that("yearmonth boundary functions work", {
     expect_identical(date_start(months), starts)
     expect_identical(date_end(months), ends)
 })
+
+test_that("yearmonth get_interval_duration works", {
+    yearmonths <- c(yearmonth(2020, 1:12), yearmonth(2021, 1:12))
+    leap   <- c(31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+    normal <- c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+    expect_identical(get_interval_duration(yearmonths), c(leap,normal))
+})

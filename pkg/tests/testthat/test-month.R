@@ -319,3 +319,11 @@ test_that("month boundary functions work", {
     expect_identical(date_start(months), starts)
     expect_identical(date_end(months), ends)
 })
+
+test_that("month get_interval_duration works", {
+    dates <- c(fastymd::fymd(2020,seq(1,12,2),1), fastymd::fymd(2021,seq(1,12,2),1))
+    months <- as_month(dates, n = 2)
+    leap   <- c(31 + 29, 31 + 30, 31 + 30, 31 + 31, 30 + 31, 30 + 31)
+    normal <- c(31 + 28, 31 + 30, 31 + 30, 31 + 31, 30 + 31, 30 + 31)
+    expect_identical(get_interval_duration(months), c(leap,normal))
+})
