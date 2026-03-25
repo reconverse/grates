@@ -1,3 +1,5 @@
+# grates (development version)
+
 # grates 1.8.0
 
 * New function `get_interval_duration()` which returns the number of days
