@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<meta name="generator" content="litedown 0.9.2.1">
+<meta name="generator" content="litedown 0.9.3">
 <title>Help pages</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/css/default.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/css/article.min.css">
@@ -164,6 +164,17 @@ h2 {
 <a href="#sec:man-grouped_date_accessors"><code>get_offset()</code></a>
 <a href="#sec:man-grouped_date_accessors"><code>get_offset.default()</code></a>
 <a href="#sec:man-grouped_date_accessors"><code>get_offset.grates_period()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration.default()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration.grates_yearweek()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration.grates_int_period()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration.grates_isoweek()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration.grates_epiweek()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration.grates_yearmonth()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration.grates_month()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration.grates_yearquarter()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration.grates_year()</code></a>
+<a href="#sec:man-grouped_date_accessors"><code>get_interval_duration.grates_period()</code></a>
 </p>
 <p>
 <b>-- <kbd>I</kbd> --</b>
@@ -392,7 +403,7 @@ be converted to integer via <code>as.integer(floor(x))</code>.
 as_epiweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_epiweek[1]&gt;
-#&gt; [1] &quot;2026-W08&quot;
+#&gt; [1] &quot;2026-W12&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_epiweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -545,7 +556,39 @@ get_offset(x, ...)
 get_offset(x, ...)
 
 ## S3 method for class 'grates_period'
-get_offset(x, ...)</code></pre>
+get_offset(x, ...)
+
+get_interval_duration(x, ...)
+
+## Default S3 method:
+get_interval_duration(x, ...)
+
+## S3 method for class 'grates_yearweek'
+get_interval_duration(x, ...)
+
+## S3 method for class 'grates_int_period'
+get_interval_duration(x, ...)
+
+## S3 method for class 'grates_isoweek'
+get_interval_duration(x, ...)
+
+## S3 method for class 'grates_epiweek'
+get_interval_duration(x, ...)
+
+## S3 method for class 'grates_yearmonth'
+get_interval_duration(x, ...)
+
+## S3 method for class 'grates_month'
+get_interval_duration(x, ...)
+
+## S3 method for class 'grates_yearquarter'
+get_interval_duration(x, ...)
+
+## S3 method for class 'grates_year'
+get_interval_duration(x, ...)
+
+## S3 method for class 'grates_period'
+get_interval_duration(x, ...)</code></pre>
 <h3 id="sec:arguments_4" class="unnumbered unlisted">Arguments</h3>
 <table role = "presentation">
 <tr><td><code>x</code></td>
@@ -765,7 +808,7 @@ https://en.wikipedia.org/w/index.php?title=ISO_week_date&amp;oldid=1269568343
 as_isoweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_isoweek[1]&gt;
-#&gt; [1] &quot;2026-W09&quot;
+#&gt; [1] &quot;2026-W13&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_isoweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -880,7 +923,7 @@ comes from the work of Davis Vaughan in the
 as_month(Sys.Date(), n = 2)
 </code></pre>
 <pre><code>#&gt; &lt;grates_month[1]&gt;
-#&gt; [1] &quot;2026-Jan to 2026-Feb&quot;
+#&gt; [1] &quot;2026-Mar to 2026-Apr&quot;
 </code></pre>
 <pre><code class="language-r"># character coercion
 as_month(&quot;2019-05-03&quot;, n = 4)
@@ -2000,7 +2043,7 @@ comes from the work of Davis Vaughan in the unreleased
 as_yearmonth(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_yearmonth[1]&gt;
-#&gt; [1] &quot;2026-Feb&quot;
+#&gt; [1] &quot;2026-Mar&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_yearmonth(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -2283,7 +2326,7 @@ the week they represent (e.g. <code>&lt;grates_yearweek_monday&gt;</code>).
 as_yearweek(Sys.Date())
 </code></pre>
 <pre><code>#&gt; &lt;grates_yearweek_monday[1]&gt;
-#&gt; [1] &quot;2026-W09&quot;
+#&gt; [1] &quot;2026-W13&quot;
 </code></pre>
 <pre><code class="language-r"># POSIXt coercion
 as_yearweek(as.POSIXct(&quot;2019-03-04 01:01:01&quot;, tz = &quot;America/New_York&quot;))
@@ -2321,7 +2364,7 @@ stopifnot(
 </div>
 <footer><div class="flex-col">
 <p>Developed by Tim Taylor</p>
-<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.9.2.1</p>
+<p>Site built with <a href="https://github.com/yihui/litedown">litedown</a> v0.9.3</p>
 </div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/js/sidenotes.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@xiee/utils@1.14.24/js/appendix.min.js" defer></script>
