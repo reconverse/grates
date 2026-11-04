@@ -187,6 +187,7 @@ as_isoweek.character <- function(
         }
     }
     out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
+    storage.mode(out) <- "integer"
     as_isoweek.Date(out)
 }
 
@@ -321,7 +322,7 @@ as.double.grates_isoweek <- function(x, ...) as.double(unclass(x))
 # -------------------------------------------------------------------------
 #' @export
 as.Date.grates_isoweek <- function(x, ...) {
-    .Date(as.double(unclass(x)) * 7L - 3L)
+    .Date((unclass(x)) * 7L - 3L)
 }
 
 # -------------------------------------------------------------------------

@@ -1,9 +1,7 @@
 test_that("month constructor and coercion to date works", {
     dates <- seq.Date(from = as.Date("1970-01-01"), length.out = 6L, by = "2 months")
-    storage.mode(dates) <- "double" # needed for R <= 4.1.3
     dat <- new_month(0:5, n = 2L)
     dates5 <- seq.Date(from = as.Date("1970-01-01"), length.out = 6L, by = "5 months")
-    storage.mode(dates5) <- "double" # needed for R <= 4.1.3
     dat5 <- new_month(0:5, n = 5L)
 
     expect_identical(as.Date(dat), dates)
@@ -11,7 +9,6 @@ test_that("month constructor and coercion to date works", {
 
     # formatting --------------------------------------------------------------
     dates2 <- seq.Date(from = as.Date("1970-01-01"), length.out = 7L, by = "2 months")
-    storage.mode(dates2) <- "double" # needed for R <= 4.1.3
     dates2 <- dates2[-1L]
     expect_identical(
         format(dat),
@@ -22,7 +19,6 @@ test_that("month constructor and coercion to date works", {
 
 test_that("month, pre-epoch dates work", {
     dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 3L, by = "2 months")
-    storage.mode(dates) <- "double" # needed for R <= 4.1.3
     expect_identical(as.Date(as_month(dates, n = 2L)), dates)
 })
 

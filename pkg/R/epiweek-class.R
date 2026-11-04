@@ -176,6 +176,7 @@ as_epiweek.character <- function(
     }
 
     out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
+    storage.mode(out) <- "integer"
     as_epiweek.Date(out)
 }
 
@@ -311,7 +312,7 @@ as.double.grates_yearweek <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.Date.grates_epiweek <- function(x, ...) {
-    .Date(as.double(unclass(x)) * 7 + 3)
+    .Date((unclass(x)) * 7L + 3L)
 }
 
 # -------------------------------------------------------------------------

@@ -1,6 +1,5 @@
 test_that("yearweek constructor and coercion to date works", {
     dates <- seq.Date(from = as.Date("1970-01-01"), length.out = 4, by = "week")
-    storage.mode(dates) <- "double" # needed for R <= 4.1.3
     yw4 <- new_yearweek(0:3, firstday = 4L)
 
     expect_identical(as.Date(yw4), dates)
@@ -18,9 +17,7 @@ test_that("yearweek constructor and coercion to date works", {
 
 test_that("yearweek, pre-epoch dates work", {
     dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 4, by = "week")
-    storage.mode(dates) <- "double" # needed for R <= 4.1.3
     dates2 <- seq.Date(from = as.Date("1900-01-01") - 28, length.out = 4, by = "week")
-    storage.mode(dates2) <- "double" # needed for R <= 4.1.3
     expect_identical(as.Date(as_yearweek(dates)), dates)
     expect_identical(as.Date(as_yearweek(dates) - 4), dates2)
 })
@@ -83,13 +80,13 @@ test_that("yearweek, POSIXlt coercion works", {
     res6 <- as_yearweek(pos, 6)
     res7 <- as_yearweek(pos, 7)
 
-    expect_identical(as.Date(res1), as.Date(dat))
-    expect_identical(as.Date(res2), as.Date("2020-12-29"))
-    expect_identical(as.Date(res3), as.Date("2020-12-30"))
-    expect_identical(as.Date(res4), as.Date("2020-12-31"))
-    expect_identical(as.Date(res5), as.Date("2021-01-01"))
-    expect_identical(as.Date(res6), as.Date("2021-01-02"))
-    expect_identical(as.Date(res7), as.Date("2021-01-03"))
+    expect_true(as.Date(res1) == as.Date(dat))
+    expect_true(as.Date(res2) == as.Date("2020-12-29"))
+    expect_true(as.Date(res3) == as.Date("2020-12-30"))
+    expect_true(as.Date(res4) == as.Date("2020-12-31"))
+    expect_true(as.Date(res5) == as.Date("2021-01-01"))
+    expect_true(as.Date(res6) == as.Date("2021-01-02"))
+    expect_true(as.Date(res7) == as.Date("2021-01-03"))
 
     dat <- "2021-01-04"
     res <- as.POSIXlt(as_yearweek(dat, 1))
@@ -111,19 +108,19 @@ test_that("yearweek, POSIXct coercion works", {
     dat <- "2021-01-04"
     pos <- as.POSIXct(as.POSIXlt("2021-01-04", tz = "UTC"))
     res1 <- as_yearweek(pos, 1)
-    expect_identical(as.Date(res1), as.Date(dat))
+    expect_true(as.Date(res1) == as.Date(dat))
     res2 <- as_yearweek(pos, 2)
-    expect_identical(as.Date(res2), as.Date("2020-12-29"))
+    expect_true(as.Date(res2) == as.Date("2020-12-29"))
     res3 <- as_yearweek(pos, 3)
-    expect_identical(as.Date(res3), as.Date("2020-12-30"))
+    expect_true(as.Date(res3) == as.Date("2020-12-30"))
     res4 <- as_yearweek(pos, 4)
-    expect_identical(as.Date(res4), as.Date("2020-12-31"))
+    expect_true(as.Date(res4) == as.Date("2020-12-31"))
     res5 <- as_yearweek(pos, 5)
-    expect_identical(as.Date(res5), as.Date("2021-01-01"))
+    expect_true(as.Date(res5) == as.Date("2021-01-01"))
     res6 <- as_yearweek(pos, 6)
-    expect_identical(as.Date(res6), as.Date("2021-01-02"))
+    expect_true(as.Date(res6) == as.Date("2021-01-02"))
     res7 <- as_yearweek(pos, 7)
-    expect_identical(as.Date(res7), as.Date("2021-01-03"))
+    expect_true(as.Date(res7) == as.Date("2021-01-03"))
 
     dat <- "2021-01-04"
     res <- as.POSIXct(as_yearweek(dat, 1))
@@ -138,11 +135,11 @@ test_that("yearweek, POSIXct coercion works", {
 test_that("yearweek, character coercion works", {
     dat <- "2021-01-04"
     res <- as_yearweek(dat, 1)
-    expect_identical(as.Date(res), as.Date(dat))
+    expect_true(as.Date(res) == as.Date(dat))
 
     dat <- as.factor("2021-01-04")
     res <- as_yearweek(dat, 1)
-    expect_identical(as.Date(res), as.Date(dat))
+    expect_true(as.Date(res) == as.Date(dat))
 
     dat <- "2020-12-28"
     res <- as.character(as_yearweek(dat, 1))
@@ -190,7 +187,7 @@ test_that("yearweek, as.list works", {
 test_that("yearweek, accessors", {
     dat <- as_yearweek(as.Date("2020-12-28"))
     expect_identical(get_year(dat), 2020L)
-    expect_identical(get_week(dat), 53)
+    expect_identical(get_week(dat), 53L)
     expect_identical(get_firstday(dat), 1L)
     expect_error(get_year("bob"))
     expect_error(get_week("bob"))
@@ -316,7 +313,7 @@ test_that("yearweek operators and math work", {
     y <- as.Date("2021-01-04")
     dat1 <- as_yearweek(x)
     dat2 <- dat1 + 0:1
-    expect_identical(as.Date(dat2), c(y, y + 7))
+    expect_equal(as.Date(dat2), c(y, y + 7))
     expect_identical(dat2, 0:1 + dat1)
     expect_identical(+dat1, dat1)
     expect_error(
@@ -335,7 +332,7 @@ test_that("yearweek operators and math work", {
     y <- as.Date("2021-01-04")
     dat1 <- as_yearweek(x)
     dat2 <- dat1 - 0:1
-    expect_identical(as.Date(dat2), c(y, y - 7))
+    expect_equal(as.Date(dat2), c(y, y - 7))
     expect_identical(as.integer(dat2 - dat1), c(0L, -1L))
     expect_error(
         1 - dat1,
@@ -469,9 +466,9 @@ test_that("yearweek boundary functions work", {
     starts <- as.Date("2019-12-26") + integer(15L)
     starts[2:8] <- starts[2:8] + 7L
     starts[9:15] <- starts[9:15] + 14L
-    ends <- starts + 7 - 1L
-    expect_identical(date_start(weeks), starts)
-    expect_identical(date_end(weeks), ends)
+    ends <- starts + 7L - 1L
+    expect_equal(date_start(weeks), starts)
+    expect_equal(date_end(weeks), ends)
 
     d1 <- as.Date("2019-12-31")
     expected <- logical(15L)

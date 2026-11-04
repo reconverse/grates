@@ -1,9 +1,8 @@
 test_that("period constructor and coercion to date works", {
     dat <- 0:3
     datesw <- seq.Date(from = as.Date("1970-01-01"), length.out = 4, by = 7)
-    storage.mode(datesw) <- "double" # needed for R <= 4.1.3
 
-    expect_identical(as.Date(new_period(dat, n = 7)), datesw)
+    expect_equal(as.Date(new_period(dat, n = 7)), datesw)
     expect_error(new_period(dat, n = -1L))
 
     # formatting --------------------------------------------------------------
@@ -24,10 +23,8 @@ test_that("period constructor and coercion to date works", {
 test_that("period, pre-epoch dates work", {
     dates <- seq.Date(from = as.Date("1900-01-01"), length.out = 4, by = 7)
     dates2 <- seq.Date(from = as.Date("1900-01-01") - 28, length.out = 4, by = 7)
-    storage.mode(dates) <- "double" # needed for R <= 4.1.3
-    storage.mode(dates2) <- "double" # needed for R <= 4.1.3
-    expect_identical(as.Date(as_period(dates, n = 7, offset = as.integer(as.Date("1900-01-01")))), dates)
-    expect_identical(as.Date(as_period(dates, n = 7, offset = as.integer(as.Date("1900-01-01"))) - 4), dates2)
+    expect_equal(as.Date(as_period(dates, n = 7, offset = as.integer(as.Date("1900-01-01")))), dates)
+    expect_equal(as.Date(as_period(dates, n = 7, offset = as.integer(as.Date("1900-01-01"))) - 4), dates2)
 })
 
 test_that("period, january 1 dates", {

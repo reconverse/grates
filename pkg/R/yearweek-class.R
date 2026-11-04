@@ -221,6 +221,7 @@ as_yearweek.character <- function(
         }
     }
     out <- as.Date(x, format = format, tryFormats = tryFormats, ...)
+    storage.mode(out) <- "integer"
     as_yearweek.Date(out, firstday = firstday)
 }
 
@@ -425,7 +426,7 @@ as.double.grates_yearweek <- function(x, ...) {
 #' @export
 as.Date.grates_yearweek <- function(x, ...) {
     firstday <- .firstday_from_class(x)
-    .Date(as.double(unclass(x)) * 7 + (firstday - 4))
+    .Date((unclass(x)) * 7L + (firstday - 4L))
 }
 
 # -------------------------------------------------------------------------
@@ -704,9 +705,8 @@ is.numeric.grates_yearweek <- function(x) {
 # -------------------------------------------------------------------------
 #' @importFrom fastymd fymd get_year
 .seven_day_week_in_year <- function(date) {
-    yr <- get_year(date)
-    jan1 <- fymd(yr, 1, 1)
-    1 + (unclass(date) - unclass(jan1)) %/% 7
+    jan1 <- fastymd::get_first_date_of_year(date)
+    .Call(C_seven_day_week_in_year, date, jan1)
 }
 
 .wday_relative_to_firstday <- function(date, firstday) {
