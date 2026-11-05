@@ -319,7 +319,7 @@ as.double.grates_isoweek <- function(x, ...) as.double(unclass(x))
 # -------------------------------------------------------------------------
 #' @export
 as.Date.grates_isoweek <- function(x, ...) {
-    .Date((unclass(x)) * 7L - 3L)
+    .Call(C_as_date_from_isoweek, x)
 }
 
 # -------------------------------------------------------------------------

@@ -309,7 +309,8 @@ as.double.grates_yearweek <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.Date.grates_epiweek <- function(x, ...) {
-    .Date((unclass(x)) * 7L + 3L)
+    .Call(C_as_date_from_epiweek, x)
+
 }
 
 # -------------------------------------------------------------------------
