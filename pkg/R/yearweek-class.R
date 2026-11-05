@@ -425,7 +425,6 @@ as.double.grates_yearweek <- function(x, ...) {
 as.Date.grates_yearweek <- function(x, ...) {
     firstday <- .firstday_from_class(x)
     .Call(C_as_date_from_yearweek,x, firstday)
-    #.Date((unclass(x)) * 7L + (firstday - 4L))
 }
 
 # -------------------------------------------------------------------------
@@ -437,10 +436,8 @@ as.POSIXct.grates_yearweek <- function(x, tz = "UTC", ...) {
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
     }
-
-    firstday <- .firstday_from_class(x)
-    x <- as.double(unclass(x)) * 7 + (firstday - 4)
-    .POSIXct(x * 86400, tz = "UTC")
+    date <- as.Date.grates_yearweek(x)
+    .POSIXct(unclass(date) * 86400, tz = "UTC")
 }
 
 # -------------------------------------------------------------------------
@@ -452,9 +449,8 @@ as.POSIXlt.grates_yearweek <- function(x, tz = "UTC", ...) {
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
     }
-    firstday <- .firstday_from_class(x)
-    x <- as.double(unclass(x)) * 7 + (firstday - 4)
-    as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
+    date <- as.Date.grates_yearweek(x)
+    as.POSIXlt(.POSIXct(unclass(date) * 86400, tz = "UTC"), tz = "UTC")
 }
 
 # -------------------------------------------------------------------------

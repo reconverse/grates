@@ -5,6 +5,7 @@
 #include <Rinternals.h>
 
 static SEXP make_yearweek_class(int firstday);
+static SEXP _as_date_from_yearweek(SEXP x, const int first);
 
 // both inputs known integer and same length
 SEXP seven_day_week_in_year(SEXP date, SEXP jan1)
@@ -92,51 +93,22 @@ SEXP as_grouped_week_from_date(SEXP date, SEXP class, SEXP firstday)
     return out;
 }
 
-SEXP as_date_from_isoweek(SEXP x)
+SEXP as_date_from_yearweek(SEXP x, SEXP firstday)
 {
-    R_xlen_t size = XLENGTH(x);
-    SEXP out = PROTECT(Rf_allocVector(INTSXP, size));
-    int* p_out = INTEGER(out);
-    const int* p_x = INTEGER_RO(x);
-    for (R_xlen_t i = 0; i < size; i++)
-        p_out[i] = p_x[i] == NA_INTEGER ? NA_INTEGER : p_x[i] * 7 - 3;
-
-    /* set class to "Date" before returning */
-    Rf_classgets(out, Rf_mkString("Date"));
-    UNPROTECT(1);
-    return out;
+    int first = INTEGER_RO(firstday)[0];
+    return _as_date_from_yearweek(x, first);
 }
 
 SEXP as_date_from_epiweek(SEXP x)
 {
-    R_xlen_t size = XLENGTH(x);
-    SEXP out = PROTECT(Rf_allocVector(INTSXP, size));
-    int* p_out = INTEGER(out);
-    const int* p_x = INTEGER_RO(x);
-    for (R_xlen_t i = 0; i < size; i++)
-        p_out[i] = p_x[i] == NA_INTEGER ? NA_INTEGER : p_x[i] * 7 + 3;
-
-    /* set class to "Date" before returning */
-    Rf_classgets(out, Rf_mkString("Date"));
-    UNPROTECT(1);
-    return out;
+    return _as_date_from_yearweek(x, 7);
 }
 
-SEXP as_date_from_yearweek(SEXP x, SEXP firstday)
+SEXP as_date_from_isoweek(SEXP x)
 {
-    R_xlen_t size = XLENGTH(x);
-    SEXP out = PROTECT(Rf_allocVector(INTSXP, size));
-    int* p_out = INTEGER(out);
-    const int* p_x = INTEGER_RO(x);
-    int first = INTEGER_RO(firstday)[0];
-    for (R_xlen_t i = 0; i < size; i++)
-        p_out[i] = p_x[i] == NA_INTEGER ? NA_INTEGER : p_x[i] * 7 + (first - 4);
-
-    /* set class to "Date" before returning */
-    Rf_classgets(out, Rf_mkString("Date"));
-    UNPROTECT(1);
-    return out;
+    return _as_date_from_yearweek(x, 1);
 }
+
 
 /* ----------------------------------------------------------------------
  * Internals
@@ -181,4 +153,19 @@ static SEXP make_yearweek_class(int firstday)
     }
     UNPROTECT(1);
     return class;
+}
+
+static SEXP _as_date_from_yearweek(SEXP x, const int first)
+{
+    R_xlen_t size = XLENGTH(x);
+    SEXP out = PROTECT(Rf_allocVector(INTSXP, size));
+    int* p_out = INTEGER(out);
+    const int* p_x = INTEGER_RO(x);
+    for (R_xlen_t i = 0; i < size; i++)
+        p_out[i] = p_x[i] == NA_INTEGER ? NA_INTEGER : p_x[i] * 7 + (first - 4);
+
+    /* set class to "Date" before returning */
+    Rf_classgets(out, Rf_mkString("Date"));
+    UNPROTECT(1);
+    return out;
 }
