@@ -20,7 +20,8 @@ cran: pkg
 	${RDEVEL} CMD check --as-cran *.tar.gz
 	TZ=NZ ${RDEVEL} CMD check *.tar.gz
 
-test: doc
+test:
+	R CMD INSTALL --no-docs pkg
 	R -s -e "testthat::test_local('pkg')"
 
 manual: doc
