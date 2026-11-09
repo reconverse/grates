@@ -437,9 +437,7 @@ as.POSIXct.grates_yearweek <- function(x, tz = "UTC", ...) {
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
     }
-
-    firstday <- .firstday_from_class(x)
-    x <- as.double(unclass(x)) * 7 + (firstday - 4)
+    x <- unclass(as.Date.grates_yearweek(x))
     .POSIXct(x * 86400, tz = "UTC")
 }
 
@@ -452,8 +450,7 @@ as.POSIXlt.grates_yearweek <- function(x, tz = "UTC", ...) {
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
     }
-    firstday <- .firstday_from_class(x)
-    x <- as.double(unclass(x)) * 7 + (firstday - 4)
+    x <- unclass(as.Date.grates_yearweek(x))
     as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
 }
 
@@ -653,7 +650,7 @@ is.numeric.grates_yearweek <- function(x) {
         return(5L)
     if (inherits(x, "grates_yearweek_saturday"))
         return(6L)
-    if (inherits(x, "grates_yearweek_sunday"))
+    if (inherits(x, "grates_yearweek_sunday") || inherits(x, "grates_epiweek"))
         return(7L)
     stop("Invalid <grates_yearweek> object - class corrupted.")
 }
@@ -710,7 +707,6 @@ is.numeric.grates_yearweek <- function(x) {
 }
 
 .wday_relative_to_firstday <- function(date, firstday) {
-    # firstday = 1
     date <- (unclass(date) + 4L) %% 7L
     1L + (unclass(date) + (7L - firstday)) %% 7L
 }

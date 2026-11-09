@@ -321,7 +321,7 @@ as.double.grates_isoweek <- function(x, ...) as.double(unclass(x))
 # -------------------------------------------------------------------------
 #' @export
 as.Date.grates_isoweek <- function(x, ...) {
-    .Date(as.double(unclass(x)) * 7L - 3L)
+    as.Date.grates_yearweek(x)
 }
 
 # -------------------------------------------------------------------------
@@ -333,7 +333,7 @@ as.POSIXct.grates_isoweek <- function(x, tz = "UTC", ...) {
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
     }
-    x <- as.double(unclass(x)) * 7 - 3
+    x <- unclass(as.Date.grates_yearweek(x))
     .POSIXct(x * 86400, tz = "UTC")
 }
 
@@ -346,7 +346,7 @@ as.POSIXlt.grates_isoweek <- function(x, tz = "UTC", ...) {
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
     }
-    x <- as.double(unclass(x)) * 7 - 3
+    x <- unclass(as.Date.grates_yearweek(x))
     as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
 }
 
