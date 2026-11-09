@@ -134,13 +134,12 @@ as_yearmonth.default <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
-#' @importFrom fastymd get_ymd
 #' @rdname yearmonth_class
 #' @export
 as_yearmonth.Date <- function(x, ...) {
 
     # get year, month and day
-    x <- get_ymd(x)
+    x <- fastymd::get_ymd(x)
 
     # calculate the month relative to unix epoch
     mon <- (x$year - 1970L) * 12L + (x$month - 1L)

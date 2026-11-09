@@ -124,7 +124,6 @@ fastymd::get_year
 
 
 # -------------------------------------------------------------------------
-#' @importFrom fastymd get_ymd
 #' @rdname grouped_date_accessors
 #' @export
 get_year.grates_yearweek <- function(x, ...) {

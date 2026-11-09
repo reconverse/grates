@@ -400,12 +400,7 @@ export(year)
 export(yearmonth)
 export(yearquarter)
 export(yearweek)
-importFrom(fastymd,
-  fymd,
-  get_year,
-  get_ymd,
-  is_leap_year
-)
+importFrom(fastymd,get_year)
 importFrom(stats,
   quantile,
   setNames
