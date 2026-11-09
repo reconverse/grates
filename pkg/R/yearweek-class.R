@@ -668,7 +668,6 @@ is.numeric.grates_yearweek <- function(x) {
         )
     }
 
-
     out <- rep.int(NA_integer_, length(year))
 
     if (!all(invalid)) {
@@ -677,9 +676,8 @@ is.numeric.grates_yearweek <- function(x) {
         # convert numeric values to date
         jan4 <- fymd(year, 1, 4)
         # shift the date to start at the first week of the year
-        date <- jan4 - (.wday_relative_to_firstday(jan4, firstday = firstday) - 1)
-        res <- date + (week - 1) * 7L
-        res <- as_yearweek.Date(res, firstday = firstday)
+        year_start <- as.Date.grates_yearweek(as_yearweek.Date(jan4, firstday))
+        res <- as_yearweek.Date(year_start + (week - 1L) * 7L)
         out[!invalid] <- res
     }
 
@@ -690,20 +688,5 @@ is.numeric.grates_yearweek <- function(x) {
 #' @importFrom fastymd fymd
 .last_week_in_year <- function(year = integer(), firstday = 1L) {
     dec28 <- fymd(year, 12, 28)
-    wday <- .wday_relative_to_firstday(dec28, firstday = firstday)
-    midweek <- dec28 + (4L - wday)
-    .seven_day_week_in_year(date = midweek)
-}
-
-# -------------------------------------------------------------------------
-#' @importFrom fastymd fymd get_year
-.seven_day_week_in_year <- function(date) {
-    yr <- get_year(date)
-    jan1 <- fymd(yr, 1, 1)
-    1 + (unclass(date) - unclass(jan1)) %/% 7
-}
-
-.wday_relative_to_firstday <- function(date, firstday) {
-    date <- (unclass(date) + 4L) %% 7L
-    1L + (unclass(date) + (7L - firstday)) %% 7L
+    fastymd::get_yearweekday_week(dec28, firstday = firstday)
 }
