@@ -91,12 +91,18 @@ get_week.grates_yearweek <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_week.grates_epiweek <- get_week.grates_yearweek
+get_week.grates_epiweek <- function(x, ...) {
+    date <- as.Date.grates_epiweek(x)
+    fastymd::get_epiweek(date)
+}
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_week.grates_isoweek <- get_week.grates_yearweek
+get_week.grates_isoweek <- function(x, ...) {
+    date <- as.Date.grates_isoweek(x)
+    fastymd::get_isoweek(date)
+}
 
 
 # -------------------------------------------------------------------------
@@ -124,12 +130,18 @@ get_year.grates_yearweek <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_year.grates_epiweek <- get_year.grates_yearweek
+get_year.grates_epiweek <- function(x, ...) {
+    date <- as.Date(x)
+    fastymd::get_epiyear(date)
+}
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
 #' @export
-get_year.grates_isoweek <- get_year.grates_yearweek
+get_year.grates_isoweek <- function(x, ...) {
+    date <- as.Date(x)
+    fastymd::get_isoyear(date)
+}
 
 # -------------------------------------------------------------------------
 #' @rdname grouped_date_accessors
