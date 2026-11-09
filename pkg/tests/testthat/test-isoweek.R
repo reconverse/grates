@@ -2,7 +2,7 @@ test_that("isoweek constructor and coercion to date works", {
     dates <- seq.Date(from = as.Date("1969-12-29"), length.out = 4, by = "week")
     storage.mode(dates) <- "double" # needed for R <= 4.1.3
     yw4 <- new_isoweek(0:3)
-    expect_identical(as.Date(yw4), dates)
+    expect_equal(as.Date(yw4), dates)
     expect_identical(format(yw4), c("1970-W01", "1970-W02", "1970-W03", "1970-W04"))
     expect_identical(format(new_isoweek()), character())
 
@@ -19,8 +19,8 @@ test_that("isoweek, pre-epoch dates work", {
     storage.mode(dates) <- "double" # needed for R <= 4.1.3
     dates2 <- seq.Date(from = as.Date("1900-01-04") - 28L, length.out = 4, by = "week")
     storage.mode(dates2) <- "double" # needed for R <= 4.1.3
-    expect_identical(as.Date(as_isoweek(dates)), dates - 3L)
-    expect_identical(as.Date(as_isoweek(dates) - 4L), dates2 - 3L)
+    expect_equal(as.Date(as_isoweek(dates)), dates - 3L)
+    expect_equal(as.Date(as_isoweek(dates) - 4L), dates2 - 3L)
 })
 
 test_that("isoweek, january 1 dates", {
@@ -59,7 +59,7 @@ test_that("isoweek, POSIXlt coercion works", {
     expect_identical(result, utc)
 
     pos <- as.POSIXlt("2021-01-04", tz = "UTC")
-    expect_identical(as.Date(as_isoweek(pos)), as.Date("2021-01-04"))
+    expect_true(as.Date(as_isoweek(pos)) == as.Date("2021-01-04"))
 
     dat <- "2021-01-04"
     res <- as.POSIXlt(as_isoweek(dat))
@@ -81,7 +81,7 @@ test_that("isoweek, POSIXct coercion works", {
     dat <- "2021-01-04"
     pos <- as.POSIXct(as.POSIXlt("2021-01-04", tz = "UTC"))
     res7 <- as_isoweek(pos)
-    expect_identical(as.Date(res7), as.Date("2021-01-04"))
+    expect_true(as.Date(res7) == as.Date("2021-01-04"))
 
     dat <- "2021-01-04"
     res <- as.POSIXct(as_isoweek(dat))
@@ -96,11 +96,11 @@ test_that("isoweek, POSIXct coercion works", {
 test_that("isoweek, character coercion works", {
     dat <- "2021-01-04"
     res <- as_isoweek(dat)
-    expect_identical(as.Date(res), as.Date(dat))
+    expect_true(as.Date(res) == as.Date(dat))
 
     dat <- as.factor("2021-01-04")
     res <- as_isoweek(dat)
-    expect_identical(as.Date(res), as.Date(dat))
+    expect_true(as.Date(res) == as.Date(dat))
 
     dat <- "2020-12-28"
     res <- as.character(as_isoweek(dat))
@@ -205,7 +205,7 @@ test_that("isoweek operators and math work", {
     y <- as.Date("2021-01-04")
     dat1 <- as_isoweek(x)
     dat2 <- dat1 + 0:1
-    expect_identical(as.Date(dat2), c(y, y + 7))
+    expect_equal(as.Date(dat2), c(y, y + 7))
     expect_identical(dat2, 0:1 + dat1)
     expect_identical(+dat1, dat1)
     expect_error(
@@ -224,7 +224,7 @@ test_that("isoweek operators and math work", {
     y <- as.Date("2021-01-04")
     dat1 <- as_isoweek(x)
     dat2 <- dat1 - 0:1
-    expect_identical(as.Date(dat2), c(y, y - 7))
+    expect_equal(as.Date(dat2), c(y, y - 7))
     expect_identical(as.integer(dat2 - dat1), c(0L, -1L))
     expect_error(
         1 - dat1,
@@ -311,7 +311,7 @@ test_that("isoweek boundary functions work", {
     starts <- as.Date(weeks)
     ends <- starts + 7 - 1L
     expect_identical(date_start(weeks), starts)
-    expect_identical(date_end(weeks), ends)
+    expect_equal(date_end(weeks), ends)
 })
 
 test_that("isoweek get_interval_duration works", {

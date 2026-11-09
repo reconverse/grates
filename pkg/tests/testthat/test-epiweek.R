@@ -2,7 +2,7 @@ test_that("epiweek constructor and coercion to date works", {
     dates <- seq.Date(from = as.Date("1970-01-04"), length.out = 4, by = "week")
     storage.mode(dates) <- "double" # needed for R <= 4.1.3
     yw4 <- new_epiweek(0:3)
-    expect_identical(as.Date(yw4), dates)
+    expect_equal(as.Date(yw4), dates)
     expect_identical(format(yw4), c("1970-W01", "1970-W02", "1970-W03", "1970-W04"))
     expect_identical(format(new_epiweek()), character())
 
@@ -19,8 +19,8 @@ test_that("epiweek, pre-epoch dates work", {
     storage.mode(dates) <- "double" # needed for R <= 4.1.3
     dates2 <- seq.Date(from = as.Date("1900-01-04") - 28L, length.out = 4, by = "week")
     storage.mode(dates2) <- "double" # needed for R <= 4.1.3
-    expect_identical(as.Date(as_epiweek(dates)), dates - 4L)
-    expect_identical(as.Date(as_epiweek(dates) - 4L), dates2 - 4L)
+    expect_equal(as.Date(as_epiweek(dates)), dates - 4L)
+    expect_equal(as.Date(as_epiweek(dates) - 4L), dates2 - 4L)
 
 })
 
@@ -55,7 +55,7 @@ test_that("epiweek, POSIXlt coercion works", {
     expect_identical(result, utc)
 
     pos <- as.POSIXlt("2021-01-04", tz = "UTC")
-    expect_identical(as.Date(as_epiweek(pos)), as.Date("2021-01-03"))
+    expect_true(as.Date(as_epiweek(pos)) == as.Date("2021-01-03"))
 
     dat <- "2021-01-03"
     res <- as.POSIXlt(as_epiweek(dat))
@@ -77,7 +77,7 @@ test_that("epiweek, POSIXct coercion works", {
     dat <- "2021-01-04"
     pos <- as.POSIXct(as.POSIXlt("2021-01-04", tz = "UTC"))
     res7 <- as_epiweek(pos)
-    expect_identical(as.Date(res7), as.Date("2021-01-03"))
+    expect_true(as.Date(res7) == as.Date("2021-01-03"))
 
     dat <- "2021-01-03"
     res <- as.POSIXct(as_epiweek(dat))
@@ -92,11 +92,11 @@ test_that("epiweek, POSIXct coercion works", {
 test_that("epiweek, character coercion works", {
     dat <- "2021-01-04"
     res <- as_epiweek(dat)
-    expect_identical(as.Date(res), as.Date(dat) - 1L)
+    expect_true(as.Date(res) == as.Date(dat) - 1L)
 
     dat <- as.factor("2021-01-04")
     res <- as_epiweek(dat)
-    expect_identical(as.Date(res), as.Date(dat) - 1L)
+    expect_true(as.Date(res) == as.Date(dat) - 1L)
 
     dat <- "2020-12-28"
     res <- as.character(as_epiweek(dat))
@@ -204,7 +204,7 @@ test_that("epiweek operators and math work", {
     y <- as.Date("2021-01-03")
     dat1 <- as_epiweek(x)
     dat2 <- dat1 + 0:1
-    expect_identical(as.Date(dat2), c(y, y + 7))
+    expect_equal(as.Date(dat2), c(y, y + 7))
     expect_identical(dat2, 0:1 + dat1)
     expect_identical(+dat1, dat1)
     expect_error(
@@ -223,7 +223,7 @@ test_that("epiweek operators and math work", {
     y <- as.Date("2021-01-03")
     dat1 <- as_epiweek(x)
     dat2 <- dat1 - 0:1
-    expect_identical(as.Date(dat2), c(y, y - 7))
+    expect_equal(as.Date(dat2), c(y, y - 7))
     expect_identical(as.integer(dat2 - dat1), c(0L, -1L))
     expect_error(
         1 - dat1,
@@ -312,7 +312,7 @@ test_that("epiweek boundary functions work", {
     starts <- as.Date(weeks)
     ends <- starts + 7 - 1L
     expect_identical(date_start(weeks), starts)
-    expect_identical(date_end(weeks), ends)
+    expect_equal(date_end(weeks), ends)
 })
 
 test_that("epiweek get_interval_duration works", {

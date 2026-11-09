@@ -308,7 +308,7 @@ as.double.grates_yearweek <- function(x, ...) {
 # -------------------------------------------------------------------------
 #' @export
 as.Date.grates_epiweek <- function(x, ...) {
-    as.Date.grates_yearweek(x)
+    .Call(C_as_date_from_epiweek, x)
 }
 
 # -------------------------------------------------------------------------

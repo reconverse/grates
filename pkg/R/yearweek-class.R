@@ -423,8 +423,7 @@ as.double.grates_yearweek <- function(x, ...) {
 #' @export
 as.Date.grates_yearweek <- function(x, ...) {
     firstday <- .firstday_from_class(x)
-    .Date(as.double(unclass(x)) * 7 + (firstday - 4))
-}
+    .Call(C_as_date_from_yearweek, x, firstday)}
 
 # -------------------------------------------------------------------------
 #' @export
