@@ -184,9 +184,7 @@ as_yearweek.Date <- function(x, firstday = 1L, ...) {
     if (firstday < 1L || firstday > 7L || is.na(firstday))
         stop("`firstday` must be an integer between 1 (Monday) and 7 (Sunday).")
 
-    x <- as.integer(floor(unclass(x)))
-    x <- (x + 4L - firstday) %/% 7L
-    .new_yearweek(x = x, firstday = firstday)
+    .Call(C_as_grouped_week_from_date, x, "grates_yearweek", firstday)
 }
 
 # -------------------------------------------------------------------------

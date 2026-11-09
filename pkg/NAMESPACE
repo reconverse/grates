@@ -408,3 +408,4 @@ importFrom(stats,
   quantile,
   setNames
 )
+useDynLib(grates, .registration = TRUE, .fixes = "C_")
