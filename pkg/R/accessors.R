@@ -67,6 +67,16 @@ get_firstday.grates_yearweek_saturday <- function(x, ...) {6L}
 get_firstday.grates_yearweek_sunday <- function(x, ...) {7L}
 
 # -------------------------------------------------------------------------
+#' @rdname grouped_date_accessors
+#' @export
+get_firstday.grates_isoweek <- function(x, ...) {1L}
+
+# -------------------------------------------------------------------------
+#' @rdname grouped_date_accessors
+#' @export
+get_firstday.grates_epiweek <- function(x, ...) {7L}
+
+# -------------------------------------------------------------------------
 #' @name grouped_date_accessors
 #' @export
 get_week <- function(x, ...) {
@@ -84,8 +94,9 @@ get_week.default <- function(x, ...) {
 #' @rdname grouped_date_accessors
 #' @export
 get_week.grates_yearweek <- function(x, ...) {
-    midweek <- as.Date(x) + 3L
-    .seven_day_week_in_year(date = midweek)
+    firstday <- get_firstday(x)
+    date <- as.Date(x)
+    fastymd::get_yearweekday_week(date, firstday)
 }
 
 # -------------------------------------------------------------------------
@@ -117,14 +128,9 @@ fastymd::get_year
 #' @rdname grouped_date_accessors
 #' @export
 get_year.grates_yearweek <- function(x, ...) {
-    week <- get_week.grates_yearweek(x)
-    dat <- get_ymd(as.Date(x))
-    december <- dat$month == 12L
-    january <- dat$month == 1L
-    boundary_adjustment <- integer(length(x)) # h/t Zhian Kamvar for boundary adjustment idea in aweek) # nolint: line_length_linter.
-    boundary_adjustment[january  & week >= 52L] <- -1L
-    boundary_adjustment[december & week == 1L]  <- 1L
-    dat$year + boundary_adjustment
+    firstday <- get_firstday(x)
+    date <- as.Date(x)
+    fastymd::get_yearweekday_year(date, firstday)
 }
 
 # -------------------------------------------------------------------------

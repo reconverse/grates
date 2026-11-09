@@ -11,6 +11,8 @@
 \alias{get_firstday.grates_yearweek_friday}
 \alias{get_firstday.grates_yearweek_saturday}
 \alias{get_firstday.grates_yearweek_sunday}
+\alias{get_firstday.grates_isoweek}
+\alias{get_firstday.grates_epiweek}
 \alias{get_week}
 \alias{get_week.default}
 \alias{get_week.grates_yearweek}
@@ -50,6 +52,10 @@ get_firstday(x, ...)
 \method{get_firstday}{grates_yearweek_saturday}(x, ...)
 
 \method{get_firstday}{grates_yearweek_sunday}(x, ...)
+
+\method{get_firstday}{grates_isoweek}(x, ...)
+
+\method{get_firstday}{grates_epiweek}(x, ...)
 
 get_week(x, ...)
 
