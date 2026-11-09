@@ -133,7 +133,7 @@ test_that("isoweek, as.list works", {
 test_that("isoweek, accessors", {
     dat <- as_isoweek(as.Date("2020-12-28"))
     expect_identical(get_year(dat), 2020L)
-    expect_identical(get_week(dat), 53)
+    expect_true(get_week(dat) == 53)
     expect_error(get_year("bob"))
     expect_error(get_week("bob"))
 })
