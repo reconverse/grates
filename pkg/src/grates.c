@@ -34,7 +34,7 @@ SEXP as_grouped_week_from_date(SEXP date, SEXP class, SEXP firstday)
     {
         const double* p_date = REAL_RO(date);
         for (R_xlen_t i = 0; i < size; i++)
-            p_out[i] = p_date[i] == NA_REAL ? NA_INTEGER : INTDIV(p_date[i] + 4 - first, 7);
+            p_out[i] = ISNAN(p_date[i]) ? NA_INTEGER : INTDIV(p_date[i] + 4 - first, 7);
     }
         break;
 
