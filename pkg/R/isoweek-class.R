@@ -330,7 +330,7 @@ as.POSIXct.grates_isoweek <- function(x, tz = "UTC", ...) {
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
     }
-    x <- unclass(as.Date.grates_yearweek(x))
+    x <- unclass(as.Date.grates_isoweek(x))
     .POSIXct(x * 86400, tz = "UTC")
 }
 
@@ -343,7 +343,7 @@ as.POSIXlt.grates_isoweek <- function(x, tz = "UTC", ...) {
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
     }
-    x <- unclass(as.Date.grates_yearweek(x))
+    x <- unclass(as.Date.grates_isoweek(x))
     as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
 }
 

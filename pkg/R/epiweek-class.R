@@ -319,7 +319,7 @@ as.POSIXct.grates_epiweek <- function(x, tz = "UTC", ...) {
             "<grates_epiweek> objects can only be converted to UTC. ",
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
-    x <- unclass(as.Date.grates_yearweek(x))
+    x <- unclass(as.Date.grates_epiweek(x))
     .POSIXct(x * 86400, tz = "UTC")
 }
 
@@ -331,7 +331,7 @@ as.POSIXlt.grates_epiweek <- function(x, tz = "UTC", ...) {
             "<grates_epiweek> objects can only be converted to UTC. ",
             "If other timezones are required, first convert to <Date> and then proceed as desired."
         )
-    x <- unclass(as.Date.grates_yearweek(x))
+    x <- unclass(as.Date.grates_epiweek(x))
     as.POSIXlt(.POSIXct(x * 86400, tz = "UTC"), tz = "UTC")
 }
 
