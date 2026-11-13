@@ -1,3 +1,7 @@
+# grates (development version)
+
+* Internal changes only.
+
 # grates 1.8.2
 
 * Fix bug introduced in 1.8.1 (in regards to the handling of NA_real_ dates).
